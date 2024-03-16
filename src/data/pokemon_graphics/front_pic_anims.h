@@ -3560,6 +3560,16 @@ static const union AnimCmd sAnim_Linoone_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_Gogogoon_1[] =
+{
+    ANIMCMD_FRAME(0, 12),
+    ANIMCMD_FRAME(1, 12),
+    ANIMCMD_FRAME(0, 12),
+    ANIMCMD_FRAME(1, 12),
+    ANIMCMD_FRAME(0, 12),
+    ANIMCMD_END,
+};
+
 #if P_GALARIAN_FORMS
 PLACEHOLDER_ANIM_SINGLE_FRAME(ZigzagoonGalarian);
 PLACEHOLDER_ANIM_SINGLE_FRAME(LinooneGalarian);
@@ -9801,9 +9811,36 @@ PLACEHOLDER_ANIM_SINGLE_FRAME(EnamorusTherian);
 #endif //P_FAMILY_ENAMORUS
 
 #if P_FAMILY_SPRIGATITO
-PLACEHOLDER_ANIM_SINGLE_FRAME(Sprigatito);
-PLACEHOLDER_ANIM_SINGLE_FRAME(Floragato);
-PLACEHOLDER_ANIM_SINGLE_FRAME(Meowscarada);
+static const union AnimCmd sAnim_Sprigatito_1[] =
+{
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 10),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_END,
+};
+static const union AnimCmd sAnim_Floragato_1[] =
+{
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 15),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_END,
+};
+static const union AnimCmd sAnim_Meowscarada_1[] =
+{
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_END,
+};
 #endif //P_FAMILY_SPRIGATITO
 
 #if P_FAMILY_FUECOCO
@@ -10039,7 +10076,15 @@ PLACEHOLDER_ANIM_SINGLE_FRAME(Baxcalibur);
 #endif //P_FAMILY_FRIGIBAX
 
 #if P_FAMILY_GIMMIGHOUL
-PLACEHOLDER_ANIM_SINGLE_FRAME(Gimmighoul);
+static const union AnimCmd sAnim_Gimmighoul_1[] =
+{
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_FRAME(1, 10),
+    ANIMCMD_FRAME(0, 15),
+    ANIMCMD_END,
+};
 PLACEHOLDER_ANIM_SINGLE_FRAME(Gholdengo);
 #endif //P_FAMILY_GIMMIGHOUL
 
@@ -11005,6 +11050,7 @@ SINGLE_ANIMATION(Mightyena);
 #if P_FAMILY_ZIGZAGOON
 SINGLE_ANIMATION(Zigzagoon);
 SINGLE_ANIMATION(Linoone);
+SINGLE_ANIMATION(Gogogoon);
 #if P_GALARIAN_FORMS
 SINGLE_ANIMATION(ZigzagoonGalarian);
 SINGLE_ANIMATION(LinooneGalarian);

@@ -3938,7 +3938,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         ICON(Meowth, 1),
         LEARNSETS(Meowth),
         .formChangeTable = sMeowthFormChangeTable,
-        .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_PERSIAN}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_PERSIAN},
+                                {EVO_ITEM_COINS, ITEM_FIRE_STONE, SPECIES_ZOROARK}),
     },
 
     [SPECIES_PERSIAN] =

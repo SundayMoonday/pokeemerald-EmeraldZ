@@ -4756,6 +4756,8 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
         ICON(Meltan, 2),
         .footprint = gMonFootprint_Meltan,
         LEARNSETS(Meltan),
+		.evolutions = EVOLUTION({EVO_MAPSEC, MAPSEC_NEW_MAUVILLE, SPECIES_MELMETAL},
+                                {EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_MELMETAL}),
     },
 
 #define MELMETAL_MISC_INFO                                                              \

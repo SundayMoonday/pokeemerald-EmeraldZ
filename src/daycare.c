@@ -647,7 +647,7 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
     // Determine which parent each of the selected IVs should inherit from.
     for (i = start; i < howManyIVs; i++)
     {
-        whichParents[i] = Random() % DAYCARE_MON_COUNT;
+        whichParents[i] = 0;
     }
 
     // Set each of inherited IVs on the egg mon.
@@ -656,27 +656,51 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
         switch (selectedIvs[i])
         {
             case 0:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_HP_IV);
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HP_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HP_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HP_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HP_IV);
+				}
                 SetMonData(egg, MON_DATA_HP_IV, &iv);
                 break;
             case 1:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_ATK_IV);
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_ATK_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_ATK_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_ATK_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_ATK_IV);
+				}
                 SetMonData(egg, MON_DATA_ATK_IV, &iv);
                 break;
             case 2:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_DEF_IV);
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_DEF_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_DEF_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_DEF_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_DEF_IV);
+				}
                 SetMonData(egg, MON_DATA_DEF_IV, &iv);
                 break;
             case 3:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPEED_IV);
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPEED_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPEED_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPEED_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPEED_IV);
+				}
                 SetMonData(egg, MON_DATA_SPEED_IV, &iv);
                 break;
             case 4:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPATK_IV);
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPATK_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPATK_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPATK_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPATK_IV);
+				}
                 SetMonData(egg, MON_DATA_SPATK_IV, &iv);
                 break;
             case 5:
-                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPDEF_IV);
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPDEF_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPDEF_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPDEF_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPDEF_IV);
+				}
                 SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
                 break;
         }

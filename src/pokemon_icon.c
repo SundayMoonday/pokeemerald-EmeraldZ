@@ -295,6 +295,7 @@ const u8 *const gMonIconTable[NUM_SPECIES + 1] =
     [SPECIES_MIGHTYENA] = gMonIcon_Mightyena,
     [SPECIES_ZIGZAGOON] = gMonIcon_Zigzagoon,
     [SPECIES_LINOONE] = gMonIcon_Linoone,
+	[SPECIES_GOGOGOON] = gMonIcon_Gogogoon,
     [SPECIES_WURMPLE] = gMonIcon_Wurmple,
     [SPECIES_SILCOON] = gMonIcon_Silcoon,
     [SPECIES_BEAUTIFLY] = gMonIcon_Beautifly,

@@ -2171,6 +2171,7 @@ extern const u8 gText_Store[];
 extern const u8 gText_Register[];
 extern const u8 gText_Trade4[];
 extern const u8 gText_Summary5[];
+extern const u8 gText_Moves[];
 extern const u8 gText_Switch2[];
 extern const u8 gText_Item[];
 extern const u8 gText_NotPkmnOtherTrainerWants[];
@@ -2986,6 +2987,7 @@ extern const u8 gText_Cancel6[];
 extern const u8 gText_CheckMapOfHoenn[];
 extern const u8 gText_CheckPokemonInDetail[];
 extern const u8 gText_CallRegisteredTrainer[];
+extern const u8 gText_Pokenav_Access_PC[];
 extern const u8 gText_CheckObtainedRibbons[];
 extern const u8 gText_PutAwayPokenav[];
 extern const u8 gText_CheckPartyPokemonInDetail[];
@@ -2997,6 +2999,7 @@ extern const u8 gText_FindCutePokemon[];
 extern const u8 gText_FindSmartPokemon[];
 extern const u8 gText_FindToughPokemon[];
 extern const u8 gText_ReturnToConditionMenu[];
+extern const u8 gText_Pokenav_Cannot_Access_PC[];
 extern const u8 gText_NoRibbonWinners[];
 
 // Pokenav

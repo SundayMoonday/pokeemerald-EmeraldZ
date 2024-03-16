@@ -5,7 +5,6 @@
 #include "battle_anim.h"
 #include "battle_ai_util.h"
 #include "battle_ai_main.h"
-#include "battle_controllers.h"
 #include "battle_factory.h"
 #include "battle_setup.h"
 #include "battle_z_move.h"
@@ -415,21 +414,11 @@ void SetAiLogicDataForTurn(struct AiLogicData *aiData)
     }
 }
 
-static bool32 AI_SwitchMonIfSuitable(u32 battler, bool32 doubleBattle)
+static bool32 AI_SwitchMonIfSuitable(u32 battler)
 {
-    u32 monToSwitchId = AI_DATA->mostSuitableMonId[battler];
-    if (monToSwitchId != PARTY_SIZE && IsValidForBattle(&GetBattlerParty(battler)[monToSwitchId]))
+    u32 monToSwitchId = AI_DATA->mostSuitableMonId;
+    if (monToSwitchId != PARTY_SIZE)
     {
-        gBattleMoveDamage = monToSwitchId;
-        // Edge case: See if partner already chose to switch into the same mon
-        if (doubleBattle)
-        {
-            u32 partner = BATTLE_PARTNER(battler);
-            if (AI_DATA->shouldSwitchMon & gBitTable[partner] && AI_DATA->monToSwitchId[partner] == monToSwitchId)
-            {
-                return FALSE;
-            }
-        }
         AI_DATA->shouldSwitchMon |= gBitTable[battler];
         AI_DATA->monToSwitchId[battler] = monToSwitchId;
         return TRUE;
@@ -466,7 +455,7 @@ static bool32 AI_ShouldSwitchIfBadMoves(u32 battler, bool32 doubleBattle)
                             break;
                     }
                 }
-                if (i == MAX_BATTLERS_COUNT && AI_SwitchMonIfSuitable(battler, doubleBattle))
+                if (i == MAX_BATTLERS_COUNT && AI_SwitchMonIfSuitable(battler))
                     return TRUE;
             }
             else
@@ -477,7 +466,7 @@ static bool32 AI_ShouldSwitchIfBadMoves(u32 battler, bool32 doubleBattle)
                         break;
                 }
 
-                if (i == MAX_MON_MOVES && AI_SwitchMonIfSuitable(battler, doubleBattle))
+                if (i == MAX_MON_MOVES && AI_SwitchMonIfSuitable(battler))
                     return TRUE;
             }
 
@@ -489,7 +478,7 @@ static bool32 AI_ShouldSwitchIfBadMoves(u32 battler, bool32 doubleBattle)
             && IsTruantMonVulnerable(battler, gBattlerTarget)
             && gDisableStructs[battler].truantCounter
             && gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 2
-            && AI_SwitchMonIfSuitable(battler, doubleBattle))
+            && AI_SwitchMonIfSuitable(battler))
         {
             return TRUE;
         }
@@ -1893,6 +1882,19 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 break;
             }
             break;
+        case EFFECT_TEETER_DANCE:
+            if (((gBattleMons[battlerDef].status2 & STATUS2_CONFUSION)
+              || (!DoesBattlerIgnoreAbilityChecks(aiData->abilities[battlerAtk], move) && aiData->abilities[battlerDef] == ABILITY_OWN_TEMPO)
+              || (IsBattlerGrounded(battlerDef) && AI_IsTerrainAffected(battlerDef, STATUS_FIELD_MISTY_TERRAIN))
+              || (DoesSubstituteBlockMove(battlerAtk, battlerDef, move)))
+             && ((gBattleMons[BATTLE_PARTNER(battlerDef)].status2 & STATUS2_CONFUSION)
+              || (!DoesBattlerIgnoreAbilityChecks(aiData->abilities[battlerAtk], move) && aiData->abilities[BATTLE_PARTNER(battlerDef)] == ABILITY_OWN_TEMPO)
+              || (IsBattlerGrounded(BATTLE_PARTNER(battlerDef)) && AI_IsTerrainAffected(BATTLE_PARTNER(battlerDef), STATUS_FIELD_MISTY_TERRAIN))
+              || (DoesSubstituteBlockMove(battlerAtk, BATTLE_PARTNER(battlerDef), move))))
+            {
+               ADJUST_SCORE(-10);
+            }
+            break;
         case EFFECT_TRANSFORM:
             if (gBattleMons[battlerAtk].status2 & STATUS2_TRANSFORMED
               || (gBattleMons[battlerDef].status2 & (STATUS2_TRANSFORMED | STATUS2_SUBSTITUTE))) //Leave out Illusion b/c AI is supposed to be fooled
@@ -2932,7 +2934,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_SWAGGER:
                 if (gBattleMons[battlerAtkPartner].statStages[STAT_ATK] < MAX_STAT_STAGE
                  && HasMoveWithSplit(battlerAtkPartner, SPLIT_PHYSICAL)
-                 && (!AI_CanBeConfused(battlerAtk, battlerAtkPartner, move, TRUE)
+                 && (!AI_CanBeConfused(battlerAtkPartner, TRUE)
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_CONFUSION
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_STATUS))
                 {
@@ -2942,7 +2944,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_FLATTER:
                 if (gBattleMons[battlerAtkPartner].statStages[STAT_SPATK] < MAX_STAT_STAGE
                  && HasMoveWithSplit(battlerAtkPartner, SPLIT_SPECIAL)
-                 && (!AI_CanBeConfused(battlerAtk, battlerAtkPartner, move, TRUE)
+                 && (!AI_CanBeConfused(battlerAtkPartner, TRUE)
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_CONFUSION
                   || atkPartnerHoldEffect == HOLD_EFFECT_CURE_STATUS))
                 {
@@ -4946,6 +4948,7 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
     case EFFECT_WILL_O_WISP:
     case EFFECT_INGRAIN:
     case EFFECT_IMPRISON:
+    case EFFECT_TEETER_DANCE:
     case EFFECT_TICKLE:
     case EFFECT_COSMIC_POWER:
     case EFFECT_BULK_UP:
@@ -5015,6 +5018,7 @@ static s32 AI_Risky(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     case EFFECT_MIRROR_COAT:
     case EFFECT_FOCUS_PUNCH:
     case EFFECT_REVENGE:
+    case EFFECT_TEETER_DANCE:
         if (Random() & 1)
             ADJUST_SCORE(2);
         break;

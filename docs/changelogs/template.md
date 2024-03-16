@@ -3,7 +3,7 @@
 ```md
 ## How to update
 - If you haven't set up a remote, run the command `git remote add RHH https://github.com/rh-hideout/pokeemerald-expansion`.
-- Once you have your remote set up, run the command `git pull RHH expansion/1.Y.Z`.
+- Once you have your remote set up, run the command `git pull RHH expansion/1.7.2`.
 ```
 
 ## 🌋 *IMPORTANT CHANGES* 🌋
@@ -88,6 +88,6 @@
 ## New Contributors
 * Tony
 
-**Full Changelog**: https://github.com/rh-hideout/pokeemerald-expansion/compare/expansion/1.Y.Z...expansion/1.Y.Z
+**Full Changelog**: https://github.com/rh-hideout/pokeemerald-expansion/compare/expansion/1.7.1...expansion/1.7.2
 
-<!--Last PR: ____-->
+<!--Last PR: 3697-->

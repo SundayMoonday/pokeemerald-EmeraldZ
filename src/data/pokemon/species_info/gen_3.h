@@ -665,7 +665,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ZIGZAGOON
 #define ZIGZAGOON_MISC_INFO                                                     \
         .baseHP        = 38,                                                    \
-        .baseAttack    = 30,                                                    \
+        .baseAttack    = 40,                                                    \
         .baseDefense   = 41,                                                    \
         .baseSpeed     = 60,                                                    \
         .baseSpAttack  = 30,                                                    \
@@ -768,6 +768,54 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         PALETTES(Linoone),
         ICON(Linoone, 2),
         LEARNSETS(Linoone),
+		.evolutions = EVOLUTION({EVO_LEVEL_DAY, 35, SPECIES_GOGOGOON}),
+    },
+	
+	[SPECIES_GOGOGOON] =
+    {
+        .baseHP        = 90,
+        .baseAttack    = 95,
+        .baseDefense   = 82,
+        .baseSpeed     = 101,
+        .baseSpAttack  = 82,
+        .baseSpDefense = 70,
+        .types = { TYPE_NORMAL, TYPE_FIGHTING },
+        .catchRate = 45,
+        .expYield = 260,
+        .evYield_Defense = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 15,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_FIELD },
+        .abilities = { ABILITY_PICKUP, ABILITY_FIELD_EXPERT, ABILITY_QUICK_FEET },
+        .bodyColor = BODY_COLOR_BROWN,
+        .speciesName = _("Gogogoon"),
+        .cryId = CRY_GOGOGOON,
+        .natDexNum = NATIONAL_DEX_GOGOGOON,
+        .categoryName = _("Cardinal"),
+        .height = 16,
+        .weight = 460,
+        .description = COMPOUND_STRING(
+            "This Pokémon endlessly walks through\n"
+            "the outdoors. No obstacle will stop\n"
+            "its wonderlust, trainers rely on its\n"
+            "ability to travel rough terrain."),
+        .pokemonScale = 259,
+        .pokemonOffset = 1,
+        .trainerScale = 296,
+        .trainerOffset = 1,
+        FRONT_PIC(Gogogoon, 64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_Gogogoon,
+        .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
+        BACK_PIC(Gogogoon, 64, 56),
+        .backPicYOffset = 1,
+        .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
+        PALETTES(Gogogoon),
+        ICON(Gogogoon, 2),
+        .footprint = gMonFootprint_Gogogoon,
+        LEARNSETS(Gogogoon),
     },
 
 #if P_GALARIAN_FORMS
@@ -2757,7 +2805,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 45,
         .baseDefense   = 45,
         .baseSpeed     = 50,
-        .baseSpAttack  = 35,
+        .baseSpAttack  = 45,
         .baseSpDefense = 35,
         .types = { TYPE_NORMAL, TYPE_NORMAL },
         .catchRate = 255,
@@ -2805,8 +2853,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 65,
         .baseDefense   = 65,
         .baseSpeed     = P_UPDATED_STATS >= GEN_7 ? 90 : 70,
-        .baseSpAttack  = 55,
-        .baseSpDefense = 55,
+        .baseSpAttack  = 75,
+        .baseSpDefense = 65,
         .types = { TYPE_NORMAL, TYPE_NORMAL },
         .catchRate = 60,
         .expYield = 140,
@@ -2873,10 +2921,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         SABLEYE_MISC_INFO,
         .baseHP        = 50,
-        .baseAttack    = 75,
+        .baseAttack    = 85,
         .baseDefense   = 75,
         .baseSpeed     = 50,
-        .baseSpAttack  = 65,
+        .baseSpAttack  = 75,
         .baseSpDefense = 65,
         .expYield = 133,
         .itemRare = ITEM_WIDE_LENS,
@@ -2908,10 +2956,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         SABLEYE_MISC_INFO,
         .baseHP        = 50,
-        .baseAttack    = 85,
+        .baseAttack    = 95,
         .baseDefense   = 125,
         .baseSpeed     = 20,
-        .baseSpAttack  = 85,
+        .baseSpAttack  = 95,
         .baseSpDefense = 115,
         .expYield = 168,
         .abilities = { ABILITY_MAGIC_BOUNCE, ABILITY_MAGIC_BOUNCE, ABILITY_MAGIC_BOUNCE },

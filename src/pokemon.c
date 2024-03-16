@@ -19,6 +19,7 @@
 #include "item.h"
 #include "link.h"
 #include "main.h"
+#include "coins.h"
 #include "overworld.h"
 #include "m4a.h"
 #include "party_menu.h"
@@ -123,6 +124,7 @@ static const u16 sHoennToNationalOrder[HOENN_DEX_COUNT - 1] =
     HOENN_TO_NATIONAL(MIGHTYENA),
     HOENN_TO_NATIONAL(ZIGZAGOON),
     HOENN_TO_NATIONAL(LINOONE),
+	HOENN_TO_NATIONAL(GOGOGOON),
 #if P_NEW_EVOS_IN_REGIONAL_DEX && P_GALARIAN_FORMS
     HOENN_TO_NATIONAL(OBSTAGOON),
 #endif
@@ -783,11 +785,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         else
 #endif
         {
-            u32 totalRerolls = 0;
+            u64 totalRerolls = 0;
             if (CheckBagHasItem(ITEM_SHINY_CHARM, 1))
                 totalRerolls += I_SHINY_CHARM_ADDITIONAL_ROLLS;
             if (LURE_STEP_COUNT != 0)
-                totalRerolls += 1;
+                totalRerolls += 60;
 
             while (GET_SHINY_VALUE(value, personality) >= SHINY_ODDS && totalRerolls > 0)
             {
@@ -3766,7 +3768,7 @@ u8 GetNatureFromPersonality(u32 personality)
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, struct Pokemon *tradePartner)
 {
     int i, j;
-    u16 targetSpecies = SPECIES_NONE;
+    u16 targetSpecies = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
     u16 heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
@@ -3971,12 +3973,6 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                  && (j == WEATHER_RAIN || j == WEATHER_RAIN_THUNDERSTORM || j == WEATHER_DOWNPOUR))
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
-            case EVO_LEVEL_FOG:
-                j = GetCurrentWeather();
-                if (evolutions[i].param <= level
-                 && (j == WEATHER_FOG_HORIZONTAL || j == WEATHER_FOG_DIAGONAL))
-                    targetSpecies = evolutions[i].targetSpecies;
-                break;
             case EVO_MAPSEC:
                 if (gMapHeader.regionMapSectionId == evolutions[i].param)
                     targetSpecies = evolutions[i].targetSpecies;
@@ -4099,6 +4095,11 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                 if (GetTimeOfDay() != TIME_NIGHT && evolutions[i].param == evolutionItem)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
+			case EVO_ITEM_COINS:
+                if (GetCoins() >= 999 && evolutions[i].param == evolutionItem){
+                    targetSpecies = evolutions[i].targetSpecies;
+				}
+                break;
             }
         }
         break;
@@ -4217,7 +4218,6 @@ u16 NationalToHoennOrder(u16 nationalNum)
 
 u16 SpeciesToNationalPokedexNum(u16 species)
 {
-    species = SanitizeSpeciesId(species);
     if (!species)
         return NATIONAL_DEX_NONE;
 

@@ -3028,7 +3028,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .frontAnimFrames = sAnims_Basculegion,                                              \
         .frontPicYOffset = 0,                                                               \
         .enemyMonElevation = 5,                                                             \
-        .backPicYOffset = 8,                                                                \
+        .backPicYOffset = 0,                                                                \
         LEARNSETS(Basculegion),                                                             \
         .formSpeciesIdTable = sBasculegionFormSpeciesIdTable
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
@@ -4359,7 +4359,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .baseAttack    = 105,
         .baseDefense   = 60,
         .baseSpeed     = 105,
-        .baseSpAttack  = 120,
+        .baseSpAttack  = 125,
         .baseSpDefense = 60,
         .types = { TYPE_DARK, TYPE_DARK },
         .categoryName = _("Illusion Fox"),
@@ -4372,7 +4372,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         FRONT_PIC(Zoroark, 64, 64),
         .frontPicYOffset = 2,
         .frontAnimFrames = sAnims_Zoroark,
-        .frontAnimId = ANIM_FLICKER_INCREASING,
+        .frontAnimId = ANIM_GLOW_BLACK,
         BACK_PIC(Zoroark, 64, 56),
         .backPicYOffset = 10,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,

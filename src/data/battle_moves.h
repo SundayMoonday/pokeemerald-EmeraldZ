@@ -262,6 +262,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
         .slicingMove = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_GUST] =
@@ -342,6 +343,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .sleepTalkBanned = TRUE,
         .instructBanned = TRUE,
         .assistBanned = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_BIND] =
@@ -522,6 +524,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
         .sheerForceBoost = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_HORN_ATTACK] =
@@ -1013,6 +1016,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .damagesUnderwater = TRUE,
         .skyBattleBanned = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_ICE_BEAM] =
@@ -1237,6 +1241,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .split = SPLIT_PHYSICAL,
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_ABSORB] =
@@ -1621,6 +1626,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .instructBanned = TRUE,
         .assistBanned = TRUE,
         .skyBattleBanned = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_TOXIC] =
@@ -2255,6 +2261,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
         .sheerForceBoost = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_CLAMP] =
@@ -4476,6 +4483,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
         .sheerForceBoost = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_WHIRLPOOL] =
@@ -4496,6 +4504,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .split = SPLIT_SPECIAL,
         .zMoveEffect = Z_EFFECT_NONE,
         .damagesUnderwater = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_BEAT_UP] =
@@ -5212,6 +5221,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .split = SPLIT_PHYSICAL,
         .zMoveEffect = Z_EFFECT_NONE,
         .sheerForceBoost = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_DIVE] =
@@ -5236,6 +5246,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .instructBanned = TRUE,
         .assistBanned = TRUE,
         .skyBattleBanned = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_ARM_THRUST] =
@@ -5340,7 +5351,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
 
     [MOVE_TEETER_DANCE] =
     {
-        .effect = EFFECT_CONFUSE,
+        .effect = EFFECT_TEETER_DANCE,
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 100,
@@ -7644,6 +7655,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_DYNAMAX] =
         .zMoveEffect = Z_EFFECT_NONE,
         .makesContact = TRUE,
         .sheerForceBoost = TRUE,
+		.fieldMove = TRUE,
     },
 
     [MOVE_DEFOG] =

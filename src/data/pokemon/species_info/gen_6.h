@@ -448,8 +448,8 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .genderRatio = MON_MALE,
         .eggGroups = { EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED },
         .abilities = { ABILITY_BATTLE_BOND, ABILITY_NONE, ABILITY_NONE },
-        .frontAnimId = ANIM_V_STRETCH,
-        .backAnimId = BACK_ANIM_JOLT_RIGHT,
+        .frontAnimId = ANIM_FLICKER_INCREASING,
+        .backAnimId = BACK_ANIM_V_STRETCH,
         .formChangeTable = sGreninjaBattleBondFormChangeTable,
     },
 
@@ -478,7 +478,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .backPicYOffset = 11,
         PALETTES(GreninjaAsh),
         ICON(GreninjaAsh, 0),
-        .frontAnimId = ANIM_V_STRETCH,
+        .frontAnimId = ANIM_FLICKER_INCREASING,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .formChangeTable = sGreninjaBattleBondFormChangeTable,
     },
@@ -3221,8 +3221,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         PALETTES(Sliggoo),
         ICON(Sliggoo, 5),
         LEARNSETS(Sliggoo),
-        .evolutions = EVOLUTION({EVO_LEVEL_RAIN, 50, SPECIES_GOODRA},
-                                {EVO_LEVEL_FOG, 50, SPECIES_GOODRA}),
+        .evolutions = EVOLUTION({EVO_LEVEL_RAIN, 50, SPECIES_GOODRA}),
     },
 
 #define GOODRA_MISC_INFO                                        \
@@ -3311,8 +3310,7 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         ICON(SliggooHisuian, 2),
         LEARNSETS(SliggooHisuian),
         .isHisuianForm = TRUE,
-        .evolutions = EVOLUTION({EVO_LEVEL_RAIN, 50, SPECIES_GOODRA_HISUIAN},
-                                {EVO_LEVEL_FOG, 50, SPECIES_GOODRA_HISUIAN}),
+        .evolutions = EVOLUTION({EVO_LEVEL_RAIN, 50, SPECIES_GOODRA_HISUIAN}),
     },
 
     [SPECIES_GOODRA_HISUIAN] =

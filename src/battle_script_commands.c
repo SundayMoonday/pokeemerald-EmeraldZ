@@ -1062,35 +1062,35 @@ static const u16 sNaturePowerMoves[BATTLE_TERRAIN_COUNT] =
 static const struct PickupItem sPickupTable[] =
 {//   Item                      1+  11+  21+  31+  41+  51+  61+  71+  81+  91+   Levels
     { ITEM_POTION,          {  35,   _,   _,   _,   _,   _,   _,   _,   _,   _, } },
-    { ITEM_TINY_MUSHROOM,   {  25,  10,   _,   _,   _,   _,   _,   _,   _,   _, } },
+    { ITEM_EXP_CANDY_XS,    {  25,  10,   _,   _,   _,   _,   _,   _,   _,   _, } },
     { ITEM_REPEL,           {   8,  30,   _,   _,   _,   _,   _,   _,   _,   _, } },
-    { ITEM_SUPER_POTION,    {   8,  10,  30,   _,   _,   _,   _,   _,   _,   _, } },
-    { ITEM_POKE_DOLL,       {   8,  10,   9,  30,   _,   _,   _,   _,   _,   _, } },
-    { ITEM_BIG_MUSHROOM,    {   3,  10,   9,   _,   _,   _,   _,   _,   _,   _, } },
-    { ITEM_SUPER_REPEL,     {   3,  10,   9,   9,  30,   _,   _,   _,   _,   _, } },
-    { ITEM_FULL_HEAL,       {   3,   3,   9,   8,   9,  30,   _,   _,   _,   _, } },
-    { ITEM_REVIVE,          {   3,   3,   3,   8,   8,   9,  30,   _,   _,   _, } },
-    { ITEM_HYPER_POTION,    {   3,   3,   3,   4,   8,   9,   8,  30,   _,   _, } },
-    { ITEM_ETHER,           {   1,   1,   3,   4,   4,   _,   _,   _,   _,   _, } },
-    { ITEM_MAX_REPEL,       {   _,   3,   3,   4,   4,   9,   8,   8,  30,   _, } },
-    { ITEM_MOON_STONE,      {   _,   3,   3,   4,   4,   4,   4,   5,   9,  10, } },
-    { ITEM_SUN_STONE,       {   _,   3,   3,   4,   4,   4,   4,   5,   9,  10, } },
-    { ITEM_RARE_CANDY,      {   _,   1,   1,   1,   1,   4,   4,   5,   4,   5, } },
-    { ITEM_NUGGET,          {   _,   _,   3,   4,   4,   4,   4,   5,   4,   5, } },
-    { ITEM_MAX_POTION,      {   _,   _,   3,   4,   4,   4,   8,   8,   9,  30, } },
-    { ITEM_MAX_ETHER,       {   _,   _,   1,   1,   4,   4,   4,   _,   _,   _, } },
+    { ITEM_SITRUS_BERRY,    {   8,  10,  20,   _,   _,   _,   _,   _,   _,   _, } },
+    { ITEM_REVIVE,          {   8,  10,   9,  20,   _,   _,   _,   _,   _,   _, } },
+    { ITEM_EXP_CANDY_S,     {   3,  10,  10,  10,  20,   _,   _,   _,   _,   _, } },
+    { ITEM_SUPER_REPEL,     {   3,  10,   9,   9,  10,   _,   _,   _,   _,   _, } },
+    { ITEM_LUM_BERRY,       {   3,   3,   9,   8,   9,  25,   _,   _,   _,   _, } },
+    { ITEM_SHINY_STONE,     {   3,   3,   3,   8,   8,   9,  25,   _,   _,   _, } },
+    { ITEM_DAWN_STONE,      {   3,   3,   3,   4,   6,   6,   8,  25,   _,   _, } },
+    { ITEM_DUSK_STONE,      {   1,   1,   3,   4,   4,   5,   5,   5,  25,   _, } },
+    { ITEM_EXP_CANDY_M,     {   _,   3,   8,   4,   4,   9,   8,   8,   _,   _, } },
+    { ITEM_MOON_STONE,      {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
+    { ITEM_SUN_STONE,       {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
+    { ITEM_RARE_CANDY,      {   _,   1,   3,   3,   3,   4,   4,   5,   9,  25, } },
+    { ITEM_NUGGET,          {   _,   _,   4,   4,   4,   4,   4,   5,   4,   5, } },
+    { ITEM_SOOTHE_BELL,     {   _,   _,   4,   4,   4,   4,   6,   8,   9,  10, } },
+    { ITEM_EXP_CANDY_L,     {   _,   _,   1,   1,   4,   4,   4,   _,   _,   _, } },
     { ITEM_PP_UP,           {   _,   _,   1,   1,   1,   4,   4,   5,   4,   5, } },
     { ITEM_BIG_NUGGET,      {   _,   _,   1,   1,   1,   1,   4,   5,   4,   5, } },
-    { ITEM_DESTINY_KNOT,    {   _,   _,   1,   1,   1,   1,   1,   1,   1,   1, } },
-    { ITEM_LEFTOVERS,       {   _,   _,   1,   1,   1,   1,   1,   1,   1,   1, } },
-    { ITEM_MENTAL_HERB,     {   _,   _,   1,   1,   1,   1,   1,   1,   1,   1, } },
-    { ITEM_POWER_HERB,      {   _,   _,   1,   1,   1,   1,   1,   1,   1,   1, } },
-    { ITEM_WHITE_HERB,      {   _,   _,   1,   1,   1,   1,   1,   1,   1,   1, } },
-    { ITEM_BALM_MUSHROOM,   {   _,   _,   1,   4,   4,   4,   4,   5,   4,   5, } },
-    { ITEM_MAX_REVIVE,      {   _,   _,   _,   4,   4,   4,   4,   7,   9,   9, } },
-    { ITEM_ELIXIR,          {   _,   _,   _,   _,   1,   1,   4,   5,   4,   5, } },
-    { ITEM_MAX_ELIXIR,      {   _,   _,   _,   _,   _,   _,   1,   1,   4,   5, } },
-    { ITEM_BOTTLE_CAP,      {   _,   _,   _,   _,   _,   _,   _,   1,   1,   1, } },
+    { ITEM_DESTINY_KNOT,    {   _,   _,   1,   1,   1,   1,   1,   1,   1,   3, } },
+    { ITEM_LEFTOVERS,       {   _,   _,   1,   1,   1,   1,   1,   1,   1,   3, } },
+    { ITEM_MENTAL_HERB,     {   _,   _,   1,   1,   1,   1,   1,   1,   1,   3, } },
+    { ITEM_POWER_HERB,      {   _,   _,   1,   1,   1,   1,   1,   1,   1,   3, } },
+    { ITEM_WHITE_HERB,      {   _,   _,   1,   1,   1,   1,   1,   1,   1,   3, } },
+    { ITEM_EXP_CANDY_XL,    {   _,   _,   _,   2,   2,   4,   4,   5,   4,   5, } },
+    { ITEM_MAX_REVIVE,      {   _,   _,   _,   4,   4,   4,   4,   5,   9,   9, } },
+    { ITEM_ABILITY_CAPSULE, {   _,   _,   1,   1,   2,   3,   5,   5,   4,   5, } },
+    { ITEM_ABILITY_PATCH,   {   _,   _,   _,   1,   1,   1,   3,   3,   4,   5, } },
+    { ITEM_BOTTLE_CAP,      {   _,   _,   _,   _,   _,   _,   _,   1,   1,  11, } },
 };
 
 #undef _
@@ -1213,7 +1213,6 @@ static bool32 NoTargetPresent(u8 battler, u32 move)
     return FALSE;
 }
 
-// TODO: Convert this to a proper FORM_CHANGE type.
 static bool32 TryAegiFormChange(void)
 {
     // Only Aegislash with Stance Change can transform, transformed mons cannot.
@@ -2316,10 +2315,6 @@ static void Cmd_datahpupdate(void)
         }
         else if (DoesDisguiseBlockMove(gBattlerAttacker, battler, gCurrentMove))
         {
-            // TODO: Convert this to a proper FORM_CHANGE type.
-            u32 side = GetBattlerSide(battler);
-            if (gBattleStruct->changedSpecies[side][gBattlerPartyIndexes[battler]] == SPECIES_NONE)
-                gBattleStruct->changedSpecies[side][gBattlerPartyIndexes[battler]] = gBattleMons[battler].species;
             gBattleMons[battler].species = SPECIES_MIMIKYU_BUSTED;
             BattleScriptPush(cmd->nextInstr);
             gBattlescriptCurrInstr = BattleScript_TargetFormChange;
@@ -2496,7 +2491,6 @@ static void Cmd_resultmessage(void)
     if (gBattleControllerExecFlags)
         return;
 
-    // TODO: Convert this to a proper FORM_CHANGE type.
     // Do Ice Face form change which was set up in Cmd_adjustdamage.
     if (gBattleResources->flags->flags[gBattlerTarget] & RESOURCE_FLAG_ICE_FACE)
     {
@@ -2848,7 +2842,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
         {
         case STATUS1_SLEEP:
             // check active uproar
-            if (battlerAbility != ABILITY_SOUNDPROOF || B_UPROAR_IGNORE_SOUNDPROOF >= GEN_5)
+            if (battlerAbility != ABILITY_SOUNDPROOF)
             {
                 for (i = 0; i < gBattlersCount && !(gBattleMons[i].status2 & STATUS2_UPROAR); i++)
                     ;
@@ -4131,14 +4125,14 @@ static void Cmd_getexp(void)
             if (orderId < PARTY_SIZE)
                 gBattleStruct->expGettersOrder[orderId] = PARTY_SIZE;
 
-            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level;
+            calculatedExp = (gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level * 150) / 100;
             if (B_SCALED_EXP >= GEN_5 && B_SCALED_EXP != GEN_6)
                 calculatedExp /= 5;
             else
                 calculatedExp /= 7;
 
             if (B_TRAINER_EXP_MULTIPLIER <= GEN_7 && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
-                calculatedExp = (calculatedExp * 150) / 100;
+                calculatedExp = (calculatedExp * 125) / 100;
 
             if (B_SPLIT_EXP < GEN_6)
             {
@@ -6783,13 +6777,34 @@ static void SetDmgHazardsBattlescript(u8 battler, u8 multistringId)
         gBattlescriptCurrInstr = BattleScript_DmgHazardsOnFaintedBattler;
 }
 
-bool32 DoSwitchInAbilities(u32 battler)
+bool32 DoSwitchInAbilitiesItems(u32 battler)
 {
     return (TryPrimalReversion(battler)
-         || AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, battler, 0, 0, 0)
-         || (gBattleWeather & B_WEATHER_ANY && WEATHER_HAS_EFFECT && AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, battler, 0, 0, 0))
-         || (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY && AbilityBattleEffects(ABILITYEFFECT_ON_TERRAIN, battler, 0, 0, 0))
-         || AbilityBattleEffects(ABILITYEFFECT_TRACE2, 0, 0, 0, 0));
+             || AbilityBattleEffects(ABILITYEFFECT_ON_SWITCHIN, battler, 0, 0, 0)
+             || (gBattleWeather & B_WEATHER_ANY && WEATHER_HAS_EFFECT && AbilityBattleEffects(ABILITYEFFECT_ON_WEATHER, battler, 0, 0, 0))
+             || (gFieldStatuses & STATUS_FIELD_TERRAIN_ANY && AbilityBattleEffects(ABILITYEFFECT_ON_TERRAIN, battler, 0, 0, 0))
+             || ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler, FALSE)
+             || AbilityBattleEffects(ABILITYEFFECT_TRACE2, 0, 0, 0, 0));
+}
+
+bool32 ShouldPostponeSwitchInAbilities(u32 battler)
+{
+    bool32 aliveOpposing1 = IsBattlerAlive(BATTLE_OPPOSITE(battler));
+    bool32 aliveOpposing2 = IsBattlerAlive(BATTLE_PARTNER(BATTLE_OPPOSITE(battler)));
+    // No pokemon on opposing side - postpone.
+    if (!aliveOpposing1 && !aliveOpposing2)
+        return TRUE;
+
+    // Checks for double battle, so abilities like Intimidate wait until all battlers are switched-in before activating.
+    if (IsDoubleBattle())
+    {
+        if (aliveOpposing1 && !aliveOpposing2 && !HasNoMonsToSwitch(BATTLE_PARTNER(BATTLE_OPPOSITE(battler)), PARTY_SIZE, PARTY_SIZE))
+            return TRUE;
+        if (!aliveOpposing1 && aliveOpposing2 && !HasNoMonsToSwitch(BATTLE_OPPOSITE(battler), PARTY_SIZE, PARTY_SIZE))
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 static void Cmd_switchineffects(void)
@@ -6928,10 +6943,9 @@ static void Cmd_switchineffects(void)
     }
     else
     {
-        u32 battlerAbility = GetBattlerAbility(battler);
         // There is a hack here to ensure the truant counter will be 0 when the battler's next turn starts.
         // The truant counter is not updated in the case where a mon switches in after a lost judgment in the battle arena.
-        if (battlerAbility == ABILITY_TRUANT
+        if (GetBattlerAbility(battler) == ABILITY_TRUANT
             && gCurrentActionFuncId != B_ACTION_USE_MOVE
             && !gDisableStructs[battler].truantSwitchInHack)
             gDisableStructs[battler].truantCounter = 1;
@@ -6940,16 +6954,13 @@ static void Cmd_switchineffects(void)
 
         // Don't activate switch-in abilities if the opposing field is empty.
         // This could happen when a mon uses explosion and causes everyone to faint.
-        if ((battlerAbility == ABILITY_INTIMIDATE || battlerAbility == ABILITY_DOWNLOAD)
-         && !IsBattlerAlive(BATTLE_OPPOSITE(battler))
-         && !IsBattlerAlive(BATTLE_PARTNER(BATTLE_OPPOSITE(battler))))
+        if (ShouldPostponeSwitchInAbilities(battler) || gBattleStruct->switchInAbilityPostponed)
         {
-            if (ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler, FALSE))
-                return;
+            gBattleStruct->switchInAbilityPostponed |= gBitTable[battler];
         }
         else
         {
-            if (DoSwitchInAbilities(battler) || ItemBattleEffects(ITEMEFFECT_ON_SWITCH_IN, battler, FALSE))
+            if (DoSwitchInAbilitiesItems(battler))
                 return;
             else if (AbilityBattleEffects(ABILITYEFFECT_OPPORTUNIST, battler, 0, 0, 0))
                 return;
@@ -10119,7 +10130,6 @@ static void Cmd_various(void)
         }
         return;
     }
-    // TODO: Convert this to a proper FORM_CHANGE type.
     case VARIOUS_TRY_ACTIVATE_BATTLE_BOND:
     {
         VARIOUS_ARGS();
@@ -11004,7 +11014,7 @@ bool8 UproarWakeUpCheck(u8 battler)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if (!(gBattleMons[i].status2 & STATUS2_UPROAR) || (GetBattlerAbility(battler) == ABILITY_SOUNDPROOF && B_UPROAR_IGNORE_SOUNDPROOF < GEN_5))
+        if (!(gBattleMons[i].status2 & STATUS2_UPROAR) || GetBattlerAbility(battler) == ABILITY_SOUNDPROOF)
             continue;
 
         gBattleScripting.battler = i;
@@ -14410,7 +14420,7 @@ static void Cmd_pickup(void)
                 && species != SPECIES_NONE
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
+                && (Random() % 4) == 0)
             {
                 if (isInPyramid)
                 {
@@ -15783,7 +15793,7 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
 
 void BS_ItemRestoreHP(void)
 {
-    NATIVE_ARGS(const u8 *alreadyMaxHpInstr);
+    NATIVE_ARGS();
     u16 healAmount;
     u32 battler = MAX_BATTLERS_COUNT;
     u32 healParam = GetItemEffect(gLastUsedItem)[6];
@@ -15793,113 +15803,90 @@ void BS_ItemRestoreHP(void)
     u16 maxHP = GetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_MAX_HP);
     gBattleCommunication[MULTIUSE_STATE] = 0;
 
-    if (hp == maxHP)
+    // Track the number of Revives used in a battle.
+    if (hp == 0 && side == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 255)
+        gBattleResults.numRevivesUsed++;
+
+    // Check if the recipient is an active battler.
+    if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[gBattlerAttacker])
+        battler = gBattlerAttacker;
+    else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
+                && gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
+        battler = BATTLE_PARTNER(gBattlerAttacker);
+
+    // Get amount to heal.
+    switch (healParam)
     {
-        gBattlescriptCurrInstr = cmd->alreadyMaxHpInstr;
+        case ITEM6_HEAL_HP_FULL:
+            healAmount = maxHP;
+            break;
+        case ITEM6_HEAL_HP_HALF:
+            healAmount = maxHP / 2;
+            break;
+        case ITEM6_HEAL_HP_QUARTER:
+            healAmount = maxHP / 4;
+            break;
+        default:
+            healAmount = healParam;
+            break;
+    }
+    if (hp + healAmount > maxHP)
+        healAmount = maxHP - hp;
+
+    gBattleScripting.battler = battler;
+    PREPARE_SPECIES_BUFFER(gBattleTextBuff1, GetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_SPECIES));
+
+    // Heal is applied as move damage if battler is active.
+    if (battler != MAX_BATTLERS_COUNT && hp != 0)
+    {
+        gBattleMoveDamage = -healAmount;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
     else
     {
-        // Track the number of Revives used in a battle.
-        if (hp == 0 && side == B_SIDE_PLAYER && gBattleResults.numRevivesUsed < 255)
-            gBattleResults.numRevivesUsed++;
+        hp += healAmount;
+        SetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_HP, &hp);
 
-        // Check if the recipient is an active battler.
-        if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[gBattlerAttacker])
-            battler = gBattlerAttacker;
-        else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
-                    && gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
-            battler = BATTLE_PARTNER(gBattlerAttacker);
-
-        // Get amount to heal.
-        switch (healParam)
+        // Revived battlers on the field need to be brought back.
+        if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && battler != MAX_BATTLERS_COUNT)
         {
-            case ITEM6_HEAL_HP_FULL:
-                healAmount = maxHP;
-                break;
-            case ITEM6_HEAL_HP_HALF:
-                healAmount = maxHP / 2;
-                break;
-            case ITEM6_HEAL_HP_QUARTER:
-                healAmount = maxHP / 4;
-                break;
-            default:
-                healAmount = healParam;
-                break;
+            gAbsentBattlerFlags &= ~gBitTable[battler];
+            gBattleCommunication[MULTIUSE_STATE] = TRUE;
         }
-        if (hp + healAmount > maxHP)
-            healAmount = maxHP - hp;
-
-        gBattleScripting.battler = battler;
-        PREPARE_SPECIES_BUFFER(gBattleTextBuff1, GetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_SPECIES));
-
-        // Heal is applied as move damage if battler is active.
-        if (battler != MAX_BATTLERS_COUNT && hp != 0)
-        {
-            gBattleMoveDamage = -healAmount;
-            gBattlescriptCurrInstr = cmd->nextInstr;
-        }
-        else
-        {
-            hp += healAmount;
-            SetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_HP, &hp);
-
-            // Revived battlers on the field need to be brought back.
-            if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE && battler != MAX_BATTLERS_COUNT)
-            {
-                gAbsentBattlerFlags &= ~gBitTable[battler];
-                gBattleCommunication[MULTIUSE_STATE] = TRUE;
-            }
-            gBattlescriptCurrInstr = BattleScript_ItemRestoreHP_Party;
-        }
+        gBattlescriptCurrInstr = BattleScript_ItemRestoreHP_Party;
     }
 }
 
 void BS_ItemCureStatus(void)
 {
-    NATIVE_ARGS(const u8 *noStatusInstr);
+    NATIVE_ARGS();
     u32 battler = gBattlerAttacker;
     u32 side = GetBattlerSide(gBattlerAttacker);
-    u32 previousStatus2 = 0;
-    bool32 statusChanged = FALSE;
     struct Pokemon *party = GetSideParty(side);
 
     // Heal Status2 conditions if battler is active.
     if (gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[gBattlerAttacker])
     {
-        previousStatus2 = gBattleMons[battler].status2;
         gBattleMons[gBattlerAttacker].status2 &= ~GetItemStatus2Mask(gLastUsedItem);
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
                 && gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
     {
+        gBattleMons[gBattlerAttacker].status2 &= ~GetItemStatus2Mask(gLastUsedItem);
         battler = BATTLE_PARTNER(gBattlerAttacker);
-        previousStatus2 = gBattleMons[battler].status2;
-        gBattleMons[battler].status2 &= ~GetItemStatus2Mask(gLastUsedItem);
     }
-
-    if (previousStatus2 != gBattleMons[battler].status2)
-        statusChanged = TRUE;
 
     // Heal Status1 conditions.
-    if (!HealStatusConditions(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], GetItemStatus1Mask(gLastUsedItem), battler))
-    {
-        statusChanged = TRUE;
-        if (GetItemStatus1Mask(gLastUsedItem) & STATUS1_SLEEP)
-            gBattleMons[battler].status2 &= ~STATUS2_NIGHTMARE;
-        if (GetItemStatus2Mask(gLastUsedItem) & STATUS2_CONFUSION)
-            gStatuses4[battler] &= ~STATUS4_INFINITE_CONFUSION;
-    }
+    HealStatusConditions(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], GetItemStatus1Mask(gLastUsedItem), battler);
 
-    if (statusChanged)
-    {
-        gBattleScripting.battler = battler;
-        PREPARE_SPECIES_BUFFER(gBattleTextBuff1, GetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_SPECIES));
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-    else
-    {
-        gBattlescriptCurrInstr = cmd->noStatusInstr;
-    }
+    if (GetItemStatus1Mask(gLastUsedItem) & STATUS1_SLEEP)
+        gBattleMons[battler].status2 &= ~STATUS2_NIGHTMARE;
+    if (GetItemStatus2Mask(gLastUsedItem) & STATUS2_CONFUSION)
+        gStatuses4[battler] &= ~STATUS4_INFINITE_CONFUSION;
+
+    gBattleScripting.battler = battler;
+    PREPARE_SPECIES_BUFFER(gBattleTextBuff1, GetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_SPECIES));
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
 void BS_ItemIncreaseStat(void)
@@ -16238,7 +16225,6 @@ void BS_SetGlaiveRush(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-// TODO: Convert this to a proper FORM_CHANGE type.
 void BS_TryRelicSong(void)
 {
     NATIVE_ARGS();

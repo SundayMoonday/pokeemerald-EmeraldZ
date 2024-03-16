@@ -89,7 +89,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FRONT_PIC(Floragato, 64, 64),
         .frontPicYOffset = 3,
         .frontAnimFrames = sAnims_Floragato,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimId = ANIM_H_SLIDE_SLOW,
         BACK_PIC(Floragato, 64, 64),
         .backPicYOffset = 6,
         //.backAnimId = BACK_ANIM_NONE,
@@ -137,10 +137,10 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FRONT_PIC(Meowscarada, 64, 64),
         .frontPicYOffset = 0,
         .frontAnimFrames = sAnims_Meowscarada,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimId = ANIM_H_JUMPS_V_STRETCH,
         BACK_PIC(Meowscarada, 64, 64),
         .backPicYOffset = 0,
-        //.backAnimId = BACK_ANIM_NONE,
+        .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         PALETTES(Meowscarada),
         ICON(Meowscarada, 1),
         //.footprint = gMonFootprint_Meowscarada,
@@ -1517,6 +1517,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .baseSpAttack  = 50,
         .baseSpDefense = 40,
         .types = { TYPE_FIRE, TYPE_FIRE },
+		.itemCommon = ITEM_AUSPICIOUS_ARMOR,
+        .itemRare = ITEM_MALICIOUS_ARMOR,
         .catchRate = 90,
         .expYield = 51,
         .evYield_SpAttack = 1,
@@ -4480,8 +4482,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .frontAnimFrames = sAnims_Gimmighoul,                                           \
         LEARNSETS(Gimmighoul),                                                          \
         .formSpeciesIdTable = sGimmighoulFormSpeciesIdTable,                            \
-        .evolutions = EVOLUTION({EVO_NONE, 0, SPECIES_GHOLDENGO})
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .evolutions = EVOLUTION({EVO_ITEM_COINS, ITEM_COIN_CASE, SPECIES_GHOLDENGO})
         //.backAnimId = BACK_ANIM_NONE,
         //.footprint = gMonFootprint_Gimmighoul,
 
@@ -4510,6 +4511,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .trainerOffset = 0,
         FRONT_PIC(GimmighoulChest, 64, 64),
         .frontPicYOffset = 2,
+		.frontAnimId = ANIM_SWING_CONCAVE_FAST,
         BACK_PIC(GimmighoulChest, 64, 64),
         .backPicYOffset = 0,
         PALETTES(GimmighoulChest),
@@ -4541,6 +4543,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .trainerOffset = 0,
         FRONT_PIC(GimmighoulRoaming, 64, 64),
         .frontPicYOffset = 11,
+		.frontAnimId = ANIM_CIRCLE_INTO_BG,
         BACK_PIC(GimmighoulRoaming, 64, 64),
         .backPicYOffset = 3,
         PALETTES(GimmighoulRoaming),
@@ -5367,7 +5370,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #endif //P_FAMILY_FEZANDIPITI
 
 #if P_FAMILY_OGERPON
-#define OGERPON_SPECIES_INFO(Form, type, ability, color)                                \
+#define OGERPON_SPECIES_INFO(Form, type, ability, color, tera)                          \
     {                                                                                   \
         .baseHP        = 80,                                                            \
         .baseAttack    = 120,                                                           \
@@ -5400,29 +5403,30 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         FRONT_PIC(Ogerpon##Form, 64, 64),                                               \
         .frontPicYOffset = 0,                                                           \
         .frontAnimFrames = sAnims_Ogerpon,                                              \
-        /*.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,*/                                    \
         BACK_PIC(Ogerpon##Form, 64, 64),                                                \
         .backPicYOffset = 16,                                                           \
-        /*.backAnimId = BACK_ANIM_NONE,*/                                               \
         .palette = gMonPalette_Ogerpon##Form,                                           \
-        .shinyPalette = gMonShinyPalette_Ogerpon##Form,                                 \
-        ICON(OgerponTealMask, 1), /* Each form should have its own icon */              \
-        /*.footprint = gMonFootprint_Ogerpon,*/                                         \
+        ICON(OgerponTealMask, 1),                                                       \
         LEARNSETS(Ogerpon),                                                             \
         .formSpeciesIdTable = sOgerponFormSpeciesIdTable,                               \
         .formChangeTable = sOgerponFormChangeTable,                                     \
         .isLegendary = TRUE,                                                            \
     }
+        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        //.backAnimId = BACK_ANIM_NONE,
+        //.shinyPalette = gMonShinyPalette_OgerponTealMask,
+        //ICON(Ogerpon##Form##, 1),
+        //.footprint = gMonFootprint_Ogerpon,
 
-    [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_DEFIANT,                   BODY_COLOR_GREEN),
-    [SPECIES_OGERPON_WELLSPRING_MASK]       = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_WATER_ABSORB,              BODY_COLOR_BLUE),
-    [SPECIES_OGERPON_HEARTHFLAME_MASK]      = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_MOLD_BREAKER,              BODY_COLOR_RED),
-    [SPECIES_OGERPON_CORNERSTONE_MASK]      = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_STURDY,                    BODY_COLOR_GRAY),
+    [SPECIES_OGERPON_TEAL_MASK]             = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_DEFIANT,                   BODY_COLOR_GREEN, FALSE),
+    [SPECIES_OGERPON_WELLSPRING_MASK]       = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_WATER_ABSORB,              BODY_COLOR_BLUE, FALSE),
+    [SPECIES_OGERPON_HEARTHFLAME_MASK]      = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_MOLD_BREAKER,              BODY_COLOR_RED, FALSE),
+    [SPECIES_OGERPON_CORNERSTONE_MASK]      = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_STURDY,                    BODY_COLOR_GRAY, FALSE),
 #if P_TERA_FORMS
-    [SPECIES_OGERPON_TEAL_MASK_TERA]        = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_EMBODY_ASPECT_TEAL,        BODY_COLOR_GREEN),
-    [SPECIES_OGERPON_WELLSPRING_MASK_TERA]  = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_EMBODY_ASPECT_WELLSPRING,  BODY_COLOR_BLUE),
-    [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_EMBODY_ASPECT_HEARTHFLAME, BODY_COLOR_RED),
-    [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE, BODY_COLOR_GRAY),
+    [SPECIES_OGERPON_TEAL_MASK_TERA]        = OGERPON_SPECIES_INFO(TealMask,        TYPE_GRASS, ABILITY_EMBODY_ASPECT_TEAL,        BODY_COLOR_GREEN, TRUE),
+    [SPECIES_OGERPON_WELLSPRING_MASK_TERA]  = OGERPON_SPECIES_INFO(WellspringMask,  TYPE_WATER, ABILITY_EMBODY_ASPECT_WELLSPRING,  BODY_COLOR_BLUE, TRUE),
+    [SPECIES_OGERPON_HEARTHFLAME_MASK_TERA] = OGERPON_SPECIES_INFO(HearthflameMask, TYPE_FIRE,  ABILITY_EMBODY_ASPECT_HEARTHFLAME, BODY_COLOR_RED, TRUE),
+    [SPECIES_OGERPON_CORNERSTONE_MASK_TERA] = OGERPON_SPECIES_INFO(CornerstoneMask, TYPE_ROCK,  ABILITY_EMBODY_ASPECT_CORNERSTONE, BODY_COLOR_GRAY, TRUE),
 #endif //P_TERA_FORMS
 
 #endif //P_FAMILY_OGERPON

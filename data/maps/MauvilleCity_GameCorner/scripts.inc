@@ -12,6 +12,89 @@ MauvilleCity_GameCorner_MapScripts::
 	.set COINS_PRICE_50,  1000
 	.set COINS_PRICE_500, 10000
 
+MauvilleCity_GameCorner_OnTransition:
+	call_if_unset FLAG_DEFEATED_COIN_BOI, MauvilleCity_GameCorner_ShowCoinBoi
+	end
+
+MauvilleCity_GameCorner_ShowCoinBoi::
+	clearflag FLAG_HIDE_COIN_BOI
+	return
+
+MauvilleCity_GameCorner_EventScript_Check_CoinBoi::
+	checkcoins VAR_TEMP_1
+	goto_if_lt VAR_TEMP_1, 1, MauvilleCity_GameCorner_EventScript_No_CoinBoi
+	goto_if_lt VAR_TEMP_1, 333, MauvilleCity_GameCorner_EventScript_333_CoinBoi
+	goto_if_lt VAR_TEMP_1, 666, MauvilleCity_GameCorner_EventScript_666_CoinBoi
+	goto_if_lt VAR_TEMP_1, 999, MauvilleCity_GameCorner_EventScript_999_CoinBoi
+	lock
+	faceplayer
+	goto MauvilleCity_GameCorner_EventScript_CoinBoi
+	end
+
+MauvilleCity_GameCorner_EventScript_No_CoinBoi::
+	msgbox MauvilleCity_GameCorner_Text_No_CoinBoi, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_GameCorner_Text_No_CoinBoi:
+	.string "The chest is locked.$"
+	
+MauvilleCity_GameCorner_EventScript_333_CoinBoi::
+	msgbox MauvilleCity_GameCorner_Text_333_CoinBoi, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_GameCorner_Text_333_CoinBoi:
+	.string "The chest opened slightly?$"
+	
+MauvilleCity_GameCorner_EventScript_666_CoinBoi::
+    waitse
+	playmoncry SPECIES_GIMMIGHOUL_CHEST, CRY_MODE_NORMAL
+	msgbox MauvilleCity_GameCorner_Text_666_CoinBoi, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+MauvilleCity_GameCorner_Text_666_CoinBoi:
+	.string "Something rattled in the chest?$"
+	
+MauvilleCity_GameCorner_EventScript_999_CoinBoi::
+    waitse
+	playmoncry SPECIES_GIMMIGHOUL_CHEST, CRY_MODE_NORMAL
+	msgbox MauvilleCity_GameCorner_Text_999_CoinBoi, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+MauvilleCity_GameCorner_Text_999_CoinBoi:
+	.string "The chest jumped a little!$"
+
+MauvilleCity_GameCorner_EventScript_CoinBoi::
+	setwildbattle SPECIES_GIMMIGHOUL_CHEST, 15
+	waitse
+	playmoncry SPECIES_GIMMIGHOUL_CHEST, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, MauvilleCity_GameCorner_EventScript_Defeated_CoinBoi
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, MauvilleCity_GameCorner_EventScript_Fled_CoinBoi
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, MauvilleCity_GameCorner_EventScript_Fled_CoinBoi
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, MauvilleCity_GameCorner_EventScript_Fled_CoinBoi
+	setflag FLAG_DEFEATED_COIN_BOI
+	release
+	end
+
+MauvilleCity_GameCorner_EventScript_Defeated_CoinBoi::
+	setflag FLAG_DEFEATED_COIN_BOI
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+	
+MauvilleCity_GameCorner_EventScript_Fled_CoinBoi::
+	setvar VAR_0x8004, SPECIES_GIMMIGHOUL_CHEST
+	goto MauvilleCity_GameCorner_EventScript_No_CoinBoi
+	end
+
 MauvilleCity_GameCorner_EventScript_CoinsClerk::
 	lock
 	faceplayer

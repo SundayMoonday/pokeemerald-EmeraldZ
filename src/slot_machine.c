@@ -112,9 +112,9 @@ enum
 #define GFXTAG_SYMBOLS_START (GFXTAG_7_RED)
 #define GFXTAG_NUMBERS_START (GFXTAG_NUM_0)
 
-#define REEL_NORMAL_SPEED  8
-#define REEL_HALF_SPEED    4
-#define REEL_QUARTER_SPEED 2
+#define REEL_NORMAL_SPEED  4
+#define REEL_HALF_SPEED    2
+#define REEL_QUARTER_SPEED 1
 
 enum {
     PALTAG_REEL,
@@ -5495,15 +5495,15 @@ static const u16 sSlotMatchFlags[] = {
 };
 
 static const u16 sSlotPayouts[] = {
-    [MATCH_CHERRY]        = 2,
-    [MATCH_TOPBOT_CHERRY] = 4,
+    [MATCH_CHERRY]        = 3,
+    [MATCH_TOPBOT_CHERRY] = 6,
     [MATCH_REPLAY]        = 0,
-    [MATCH_LOTAD]         = 6,
-    [MATCH_AZURILL]       = 12,
-    [MATCH_POWER]         = 3,
-    [MATCH_MIXED_7]       = 90,
-    [MATCH_RED_7]         = 300,
-    [MATCH_BLUE_7]        = 300
+    [MATCH_LOTAD]         = 12,
+    [MATCH_AZURILL]       = 24,
+    [MATCH_POWER]         = 30,
+    [MATCH_MIXED_7]       = 300,
+    [MATCH_RED_7]         = 500,
+    [MATCH_BLUE_7]        = 500
 };
 
 static const s16 sDigitalDisplay_SpriteCoords[][2] = {
