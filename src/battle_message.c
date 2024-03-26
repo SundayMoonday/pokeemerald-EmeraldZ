@@ -3219,7 +3219,11 @@ static const u8 *BattleStringGetOpponentClassByTrainerId(u16 trainerId)
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
         toCpy = gTrainerClassNames[GetTrainerHillOpponentClass(trainerId)];
     else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
+		#ifndef FREE_BATTLE_TOWER_E_READER
         toCpy = gTrainerClassNames[GetEreaderTrainerClassId()];
+		#else
+		toCpy = 0;
+		#endif
     else
         toCpy = gTrainerClassNames[gTrainers[trainerId].trainerClass];
 

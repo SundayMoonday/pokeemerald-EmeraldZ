@@ -4252,7 +4252,7 @@ static void ShowOrHideHeldItemSprite(u16 item, struct PartyMenuBox *menuBox)
 
 void LoadHeldItemIcons(void)
 {
-    LoadSpriteSheet(&sSpriteSheet_HeldItem);
+    LoadSpriteSheet(&gSpriteSheet_HeldItem);
     LoadSpritePalette(&sSpritePalette_HeldItem);
 }
 
@@ -6491,9 +6491,11 @@ void TryItemHoldFormChange(struct Pokemon *mon)
 
 const u8* GetItemEffect(u16 item)
 {
+	#ifndef FREE_ENIGMA_BERRY
     if (item == ITEM_ENIGMA_BERRY_E_READER)
         return gSaveBlock1Ptr->enigmaBerry.itemEffect;
     else
+	#endif
         return gItemEffectTable[item];
 }
 

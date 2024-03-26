@@ -35,6 +35,15 @@ u16 Random2(void)
     return gRng2Value >> 16;
 }
 
+u16 RandRange(u16 min, u16 max)
+{    
+    if (min == max)
+        return min;
+
+    max++;   // make inclusive
+    return (Random() % (max - min)) + min;
+}
+
 #define SHUFFLE_IMPL \
     u32 tmp; \
     --n; \

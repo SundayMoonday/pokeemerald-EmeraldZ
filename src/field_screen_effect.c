@@ -288,8 +288,10 @@ void FieldCB_WarpExitFadeFromWhite(void)
 
 void FieldCB_WarpExitFadeFromBlack(void)
 {
+	#ifndef FREE_TRAINER_HILL
     if (!OnTrainerHillEReaderChallengeFloor()) // always false
         Overworld_PlaySpecialMapMusic();
+	#endif
     FadeInFromBlack();
     SetUpWarpExitTask();
     LockPlayerFieldControls();

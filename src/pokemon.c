@@ -10,6 +10,7 @@
 #include "battle_setup.h"
 #include "battle_tower.h"
 #include "battle_z_move.h"
+#include "dexnav.h"
 #include "data.h"
 #include "event_data.h"
 #include "evolution_scene.h"
@@ -777,8 +778,14 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     #endif
         if (FlagGet(P_FLAG_FORCE_SHINY))
         {
-            while (GET_SHINY_VALUE(value, personality) >= SHINY_ODDS)
+            u8 nature = personality % NUM_NATURES;  // keep current nature
+            do {
                 personality = Random32();
+                personality = ((((Random() % SHINY_ODDS) ^ (HIHALF(value) ^ LOHALF(value))) ^ LOHALF(personality)) << 16) | LOHALF(personality);
+            } while (nature != GetNatureFromPersonality(personality));
+
+            // clear the flag after use
+            FlagClear(P_FLAG_FORCE_SHINY);
         }
 #endif
 #if P_FLAG_FORCE_SHINY != 0 || P_FLAG_FORCE_NO_SHINY != 0
@@ -3148,7 +3155,11 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     // Get item hold effect
     heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
     if (heldItem == ITEM_ENIGMA_BERRY_E_READER)
-        holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+        #ifndef FREE_ENIGMA_BERRY
+            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            #else
+            holdEffect = 0;
+            #endif
     else
         holdEffect = ItemId_GetHoldEffect(heldItem);
 
@@ -3707,9 +3718,13 @@ u8 *UseStatIncreaseItem(u16 itemId)
     if (itemId == ITEM_ENIGMA_BERRY_E_READER)
     {
         if (gMain.inBattle)
-            itemEffect = gEnigmaBerries[gBattlerInMenuId].itemEffect;
+            #ifndef FREE_ENIGMA_BERRY
+            itemEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            #else
+            itemEffect = 0;
+            #endif
         else
-            itemEffect = gSaveBlock1Ptr->enigmaBerry.itemEffect;
+            itemEffect = 0;
     }
     else
     {
@@ -3788,7 +3803,11 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
         partnerHeldItem = GetMonData(tradePartner, MON_DATA_HELD_ITEM, 0);
 
         if (partnerHeldItem == ITEM_ENIGMA_BERRY_E_READER)
+            #ifndef FREE_ENIGMA_BERRY
             partnerHoldEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            #else
+            partnerHoldEffect = 0;
+            #endif
         else
             partnerHoldEffect = ItemId_GetHoldEffect(partnerHeldItem);
     }
@@ -3800,7 +3819,11 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
     }
 
     if (heldItem == ITEM_ENIGMA_BERRY_E_READER)
+        #ifndef FREE_ENIGMA_BERRY
         holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+        #else
+        holdEffect = 0;
+        #endif
     else
         holdEffect = ItemId_GetHoldEffect(heldItem);
 
@@ -4392,8 +4415,10 @@ u8 GetTrainerEncounterMusicId(u16 trainerOpponentId)
 {
     if (InBattlePyramid())
         return GetTrainerEncounterMusicIdInBattlePyramid(trainerOpponentId);
+	#ifndef FREE_TRAINER_HILL
     else if (InTrainerHillChallenge())
         return GetTrainerEncounterMusicIdInTrainerHill(trainerOpponentId);
+	#endif
     else
         return TRAINER_ENCOUNTER_MUSIC(trainerOpponentId);
 }
@@ -4456,7 +4481,11 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
         if (gMain.inBattle)
             holdEffect = gEnigmaBerries[0].holdEffect;
         else
-            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            #ifndef FREE_ENIGMA_BERRY
+        holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+        #else
+        holdEffect = 0;
+        #endif
     }
     else
     {
@@ -4513,7 +4542,11 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
         if (gMain.inBattle)
             holdEffect = gEnigmaBerries[0].holdEffect;
         else
-            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            #ifndef FREE_ENIGMA_BERRY
+        holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+        #else
+        holdEffect = 0;
+        #endif
     }
     else
     {
@@ -5217,7 +5250,8 @@ static inline bool32 CanFirstMonBoostHeldItemRarity(void)
 
 void SetWildMonHeldItem(void)
 {
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_TRAINER | BATTLE_TYPE_PYRAMID | BATTLE_TYPE_PIKE)))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_TRAINER | BATTLE_TYPE_PYRAMID | BATTLE_TYPE_PIKE))
+      && !gDexnavBattle)
     {
         u16 rnd;
         u16 species;
@@ -5515,6 +5549,8 @@ void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality)
         if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_SPINDA)
             gSaveBlock2Ptr->pokedex.spindaPersonality = personality;
     }
+	if (caseId == FLAG_SET_SEEN)
+        TryIncrementSpeciesSearchLevel(nationalNum);    // encountering pokemon increments its search level
 }
 
 const u8 *GetTrainerClassNameFromId(u16 trainerId)

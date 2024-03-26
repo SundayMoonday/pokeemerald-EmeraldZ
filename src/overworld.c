@@ -6,6 +6,7 @@
 #include "bg.h"
 #include "cable_club.h"
 #include "clock.h"
+#include "dexnav.h"
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
@@ -818,6 +819,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     LoadObjEventTemplatesFromHeader();
     TrySetMapSaveWarpStatus();
     ClearTempFieldEventData();
+	ResetDexNavSearch();
     ResetCyclingRoadChallengeData();
     RestartWildEncounterImmunitySteps();
     TryUpdateRandomTrainerRematches(mapGroup, mapNum);
@@ -860,8 +862,10 @@ static void LoadMapFromWarp(bool32 a1)
     {
         if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
             LoadBattlePyramidObjectEventTemplates();
+		#ifndef FREE_TRAINER_HILL
         else if (InTrainerHill())
             LoadTrainerHillObjectEventTemplates();
+		#endif
         else
             LoadObjEventTemplatesFromHeader();
     }
@@ -872,6 +876,7 @@ static void LoadMapFromWarp(bool32 a1)
     CheckLeftFriendsSecretBase();
     TrySetMapSaveWarpStatus();
     ClearTempFieldEventData();
+	ResetDexNavSearch();
     ResetCyclingRoadChallengeData();
     RestartWildEncounterImmunitySteps();
     TryUpdateRandomTrainerRematches(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
@@ -892,8 +897,10 @@ if (I_VS_SEEKER_CHARGING != 0)
     RoamerMoveToOtherLocationSet();
     if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
         InitBattlePyramidMap(FALSE);
+	#ifndef FREE_TRAINER_HILL
     else if (InTrainerHill())
         InitTrainerHillMap();
+	#endif
     else
         InitMap();
 
@@ -1734,8 +1741,9 @@ static void FieldCB_FadeTryShowMapPopup(void)
 
 void CB2_ContinueSavedGame(void)
 {
+	#ifndef FREE_TRAINER_HILL
     u8 trainerHillMapId;
-
+#endif
     FieldClearVBlankHBlankCallbacks();
     StopMapMusic();
     ResetSafariZoneFlag_();
@@ -1744,11 +1752,15 @@ void CB2_ContinueSavedGame(void)
 
     LoadSaveblockMapHeader();
     ClearDiveAndHoleWarps();
+	#ifndef FREE_TRAINER_HILL
     trainerHillMapId = GetCurrentTrainerHillMapId();
+	#endif
     if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
         LoadBattlePyramidFloorObjectEventScripts();
+	#ifndef FREE_TRAINER_HILL
     else if (trainerHillMapId != 0 && trainerHillMapId != TRAINER_HILL_ENTRANCE)
         LoadTrainerHillFloorObjectEventScripts();
+	#endif
     else
         LoadSaveblockObjEventScripts();
 
@@ -1757,8 +1769,10 @@ void CB2_ContinueSavedGame(void)
     UpdateMiscOverworldStates();
     if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
         InitBattlePyramidMap(TRUE);
+	#ifndef FREE_TRAINER_HILL
     else if (trainerHillMapId != 0)
         InitTrainerHillMap();
+	#endif
     else
         InitMapFromSavedGame();
 
@@ -2002,7 +2016,9 @@ static bool32 ReturnToFieldLocal(u8 *state)
         break;
     case 1:
         InitViewGraphics();
+		#ifndef FREE_TRAINER_HILL
         TryLoadTrainerHillEReaderPalette();
+		#endif
         (*state)++;
         break;
     case 2:

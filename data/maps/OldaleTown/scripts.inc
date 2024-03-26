@@ -30,6 +30,7 @@ OldaleTown_EventScript_MoveMartEmployee::
 	return
 
 OldaleTown_EventScript_TownSign::
+    setflag FLAG_SYS_DEXNAV_GET
 	msgbox OldaleTown_Text_TownSign, MSGBOX_SIGN
 	end
 

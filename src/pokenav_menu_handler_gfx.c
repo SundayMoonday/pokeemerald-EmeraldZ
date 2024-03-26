@@ -371,8 +371,10 @@ static const struct ScanlineEffectParams sPokenavMainMenuScanlineEffectParams =
 
 static bool32 AreAnyTrainerRematchesNearby(void)
 {
+	#ifndef FREE_MATCH_CALL
     s32 i;
 
+    
     for (i = 0; i < REMATCH_TABLE_ENTRIES; i++)
     {
         if (GetMatchTableMapSectionId(i) == gMapHeader.regionMapSectionId
@@ -380,6 +382,7 @@ static bool32 AreAnyTrainerRematchesNearby(void)
             && gSaveBlock1Ptr->trainerRematches[i])
             return TRUE;
     }
+    #endif
 
     return FALSE;
 }

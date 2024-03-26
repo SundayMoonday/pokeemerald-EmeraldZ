@@ -90,7 +90,9 @@ void InitBattlePyramidMap(bool8 setPlayerPosition)
 void InitTrainerHillMap(void)
 {
     CpuFastFill16(MAPGRID_UNDEFINED, sBackupMapData, sizeof(sBackupMapData));
+	#ifndef FREE_TRAINER_HILL
     GenerateTrainerHillFloorLayout(sBackupMapData);
+	#endif
 }
 
 static void InitMapLayoutData(struct MapHeader *mapHeader)

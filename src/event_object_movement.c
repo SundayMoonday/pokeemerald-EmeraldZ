@@ -164,7 +164,6 @@ static u8 DoJumpSpecialSpriteMovement(struct Sprite *);
 static void CreateLevitateMovementTask(struct ObjectEvent *);
 static void DestroyLevitateMovementTask(u8);
 static bool8 NpcTakeStep(struct Sprite *);
-static bool8 IsElevationMismatchAt(u8, s16, s16);
 static bool8 AreElevationsCompatible(u8, u8);
 
 static const struct SpriteFrameImage sPicTable_PechaBerryTree[];
@@ -1328,8 +1327,10 @@ u8 Unref_TryInitLocalObjectEvent(u8 localId)
     {
         if (InBattlePyramid())
             objectEventCount = GetNumBattlePyramidObjectEvents();
+		#ifndef FREE_TRAINER_HILL
         else if (InTrainerHill())
             objectEventCount = HILL_TRAINERS_PER_FLOOR;
+		#endif
         else
             objectEventCount = gMapHeader.events->objectEventCount;
 
@@ -1644,8 +1645,10 @@ void TrySpawnObjectEvents(s16 cameraX, s16 cameraY)
 
         if (InBattlePyramid())
             objectCount = GetNumBattlePyramidObjectEvents();
+		#ifndef FREE_TRAINER_HILL
         else if (InTrainerHill())
             objectCount = HILL_TRAINERS_PER_FLOOR;
+		#endif
         else
             objectCount = gMapHeader.events->objectEventCount;
 
@@ -7704,7 +7707,7 @@ static void SetObjectEventSpriteOamTableForLongGrass(struct ObjectEvent *objEven
         sprite->subspriteTableNum = 5;
 }
 
-static bool8 IsElevationMismatchAt(u8 elevation, s16 x, s16 y)
+bool8 IsElevationMismatchAt(u8 elevation, s16 x, s16 y)
 {
     u8 mapElevation;
 

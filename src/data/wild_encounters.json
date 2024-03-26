@@ -73,6 +73,14 @@
               9
             ]
           }
+        },
+        {
+          "type": "hidden_mons",
+          "encounter_rates": [
+            34,
+            33,
+            33
+          ]
         }
       ],
       "encounters": [
@@ -130,17 +138,37 @@
               {
                 "min_level": 3,
                 "max_level": 4,
+                "species": "SPECIES_SENTRET"
+              },
+              {
+                "min_level": 3,
+                "max_level": 4,
+                "species": "SPECIES_CATERPIE"
+              },
+              {
+                "min_level": 3,
+                "max_level": 4,
+                "species": "SPECIES_WEEDLE"
+              }
+            ]
+          },
+          "hidden_mons": {
+            "encounter_rate": 1,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_TREECKO"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_TORCHIC"
               },
               {
-                "min_level": 3,
-                "max_level": 4,
+                "min_level": 5,
+                "max_level": 5,
                 "species": "SPECIES_MUDKIP"
-              },
-              {
-                "min_level": 3,
-                "max_level": 4,
-                "species": "SPECIES_TREECKO"
               }
             ]
           }

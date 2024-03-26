@@ -279,9 +279,11 @@ static u8 CheckTrainer(u8 objectEventId)
     u8 numTrainers = 1;
     u8 approachDistance;
 
+#ifndef FREE_TRAINER_HILL
     if (InTrainerHill() == TRUE)
         scriptPtr = GetTrainerHillTrainerScript();
     else
+#endif
         scriptPtr = GetObjectEventScriptPointerByObjectEventId(objectEventId);
 
     if (InBattlePyramid())
@@ -289,11 +291,13 @@ static u8 CheckTrainer(u8 objectEventId)
         if (GetBattlePyramidTrainerFlag(objectEventId))
             return 0;
     }
+	#ifndef FREE_TRAINER_HILL
     else if (InTrainerHill() == TRUE)
     {
         if (GetHillTrainerFlag(objectEventId))
             return 0;
     }
+	#endif
     else
     {
         if (GetTrainerFlagFromScriptPointer(scriptPtr))
