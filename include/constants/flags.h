@@ -1398,7 +1398,7 @@
 #define FLAG_SYS_SAFARI_MODE                        (SYSTEM_FLAGS + 0x2C)
 #define FLAG_SYS_CRUISE_MODE                        (SYSTEM_FLAGS + 0x2D)
 
-#define FLAG_UNUSED_0x887                           (SYSTEM_FLAGS + 0x2E)
+#define FLAG_UNUSED_X                               (SYSTEM_FLAGS + 0x2E)
 #define FLAG_SYS_DEXNAV_GET                         (SYSTEM_FLAGS + 0x2F)
 
 #define FLAG_SYS_TV_HOME                            (SYSTEM_FLAGS + 0x30)

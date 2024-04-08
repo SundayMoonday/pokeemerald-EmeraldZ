@@ -1890,6 +1890,26 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_setwildbattlewithcustommoves(struct ScriptContext *ctx)
+{
+    u16 species = ScriptReadHalfword(ctx);
+    u8 level = ScriptReadByte(ctx);
+    u16 item = ScriptReadHalfword(ctx);
+    u16 m0 = ScriptReadHalfword(ctx);
+    u16 m1 = ScriptReadHalfword(ctx);
+    u16 m2 = ScriptReadHalfword(ctx);
+    u16 m3 = ScriptReadHalfword(ctx);
+    struct Pokemon *pkmn = &gEnemyParty[0];
+
+    CreateScriptedWildMon(species, level, item);
+
+    SetMonMoveSlot(pkmn, m0, 0);
+    SetMonMoveSlot(pkmn, m1, 1);
+    SetMonMoveSlot(pkmn, m2, 2);
+    SetMonMoveSlot(pkmn, m3, 3);  
+    return FALSE;
+}
+
 bool8 ScrCmd_dowildbattle(struct ScriptContext *ctx)
 {
     if (sIsScriptedWildDouble == FALSE)

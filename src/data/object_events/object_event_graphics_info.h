@@ -4104,7 +4104,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Wingull = {
 
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Shroomish = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_SHROOMISH,
+    .paletteTag = OBJ_EVENT_PAL_TAG_SHROOMISH,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
     .size = 128,
     .width = 16,
