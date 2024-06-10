@@ -1875,6 +1875,11 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext *ctx)
     u16 species2 = ScriptReadHalfword(ctx);
     u8 level2 = ScriptReadByte(ctx);
     u16 item2 = ScriptReadHalfword(ctx);
+	u16 m0 = ScriptReadHalfword(ctx);
+    u16 m1 = ScriptReadHalfword(ctx);
+    u16 m2 = ScriptReadHalfword(ctx);
+    u16 m3 = ScriptReadHalfword(ctx);
+    struct Pokemon *pkmn = &gEnemyParty[0];
 
     if(species2 == SPECIES_NONE)
     {
@@ -1886,7 +1891,20 @@ bool8 ScrCmd_setwildbattle(struct ScriptContext *ctx)
         CreateScriptedDoubleWildMon(species, level, item, species2, level2, item2);
         sIsScriptedWildDouble = TRUE;
     }
-
+	
+	if (m0 != MOVE_NONE) {
+        SetMonMoveSlot(pkmn, m0, 0);
+    }    
+    if (m1 != MOVE_NONE) {
+        SetMonMoveSlot(pkmn, m1, 1);
+    }    
+    if (m2 != MOVE_NONE) {
+        SetMonMoveSlot(pkmn, m2, 2);
+    }    
+    if (m3 != MOVE_NONE) {
+        SetMonMoveSlot(pkmn, m3, 3);
+    }  
+	
     return FALSE;
 }
 
@@ -1902,6 +1920,7 @@ bool8 ScrCmd_setwildbattlewithcustommoves(struct ScriptContext *ctx)
     struct Pokemon *pkmn = &gEnemyParty[0];
 
     CreateScriptedWildMon(species, level, item);
+	sIsScriptedWildDouble = FALSE;
 
     SetMonMoveSlot(pkmn, m0, 0);
     SetMonMoveSlot(pkmn, m1, 1);

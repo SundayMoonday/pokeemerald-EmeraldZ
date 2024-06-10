@@ -1435,7 +1435,7 @@
 	@ that is also against 'species2' at 'level2' holding 'item2'.
 	@ Running this command will not affect normal wild battles. You start the prepared battle with dowildbattle.
 	@ If the player only has one Pokemon, a scripted double battle will be buggy.
-	.macro setwildbattle species:req, level:req, item=ITEM_NONE, species2=SPECIES_NONE, level2=0, item2=ITEM_NONE
+	.macro setwildbattle species:req, level:req, item=ITEM_NONE, species2=SPECIES_NONE, level2=0, item2=ITEM_NONE, move1=MOVE_NONE, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE
 	.byte 0xb6
 	.2byte \species
 	.byte \level
@@ -1443,6 +1443,10 @@
 	.2byte \species2
 	.byte \level2
 	.2byte \item2
+	.2byte \move1
+    .2byte \move2
+    .2byte \move3
+    .2byte \move4
 	.endm
 	
 	.macro setwildbattlewithcustommoves species:req, level:req, item=ITEM_NONE, move1:req, move2:req, move3:req, move4:req

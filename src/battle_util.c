@@ -8136,6 +8136,31 @@ static bool32 IsBattlerModernFatefulEncounter(u32 battler)
     return TRUE;
 }
 
+u8 obedientLvl(void){
+	u8 obedienceLevel = 12;
+
+        if (FlagGet(FLAG_BADGE01_GET)) // Stone Badge
+            obedienceLevel = 18;
+        if (FlagGet(FLAG_BADGE02_GET)) // Knuckle Badge
+            obedienceLevel = 24;
+        if (FlagGet(FLAG_BADGE03_GET)) // Dynamo Badge
+            obedienceLevel = 30;
+        if (FlagGet(FLAG_BADGE04_GET)) // Heat Badge
+            obedienceLevel = 36;
+        if (FlagGet(FLAG_BADGE05_GET)) // Balance Badge
+            obedienceLevel = 42;
+        if (FlagGet(FLAG_BADGE06_GET)) // Feather Badge
+            obedienceLevel = 48;
+        if (FlagGet(FLAG_BADGE07_GET)) // Mind Badge
+            obedienceLevel = 54;
+		if (FlagGet(FLAG_BADGE08_GET)) // Rain Badge
+            obedienceLevel = 60;
+		if (FlagGet(FLAG_IS_CHAMPION)) // Postgame
+            obedienceLevel = 100;
+			
+		return obedienceLevel;
+}
+
 u8 IsMonDisobedient(void)
 {
     s32 rnd;

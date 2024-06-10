@@ -70,7 +70,7 @@ MauvilleCity_GameCorner_Text_999_CoinBoi:
 	.string "The chest jumped a little!$"
 
 MauvilleCity_GameCorner_EventScript_CoinBoi::
-	setwildbattle SPECIES_GIMMIGHOUL_CHEST, 15
+	setwildbattle SPECIES_GIMMIGHOUL_CHEST, 15, ITEM_NONE, SPECIES_NONE, 0, ITEM_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE
 	waitse
 	playmoncry SPECIES_GIMMIGHOUL_CHEST, CRY_MODE_ENCOUNTER
 	delay 40

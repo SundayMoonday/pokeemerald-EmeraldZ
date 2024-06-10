@@ -11,32 +11,39 @@ PetalburgWoods_EventScript_DevonResearcherLeft::
 	waitmovement 0
 	msgbox PetalburgWoods_Text_HaveYouSeenShroomish, MSGBOX_DEFAULT
 	closemessage
-	dofieldeffectgrass, 24, 25, 2
+	setobjectxy LOCALID_GRUNT, 18, 25
+	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaApproachResearcherLeft
+	waitmovement 0
+	applymovement LOCALID_GRUNT, Common_Movement_QuestionMark
+	waitmovement 0
+	delay 40
+	applymovement LOCALID_DEVON_EMPLOYEE, Common_Movement_ExclamationMark
+	waitmovement 0
+	//setfieldeffectargument 0, 1
+	//dofieldeffect FLDEFF_SHAKING_GRASS
 	//applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaEntrance shake grass
 	//waitmovement 0 V What ever you do, don't move. Ill sneak close to it
 	msgbox PetalburgWoods_Text_IWasGoingToAmbushYou, MSGBOX_DEFAULT
 	closemessage
-	setobjectxy LOCALID_GRUNT, 24, 25
-	waitfieldeffect FLDEFF_SHAKING_GRASS
+	//waitfieldeffect FLDEFF_SHAKING_GRASS
 	delay 10
-	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaApproachResearcherLeft
-	waitmovement 0
+	//msgbox PetalburgWoods_Text_YouHaveToHelpMe, MSGBOX_DEFAULT
+	//closemessage
 	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaApproachPlayer
 	waitmovement 0
-	playmoncry SPECIES_SHROOMISH, CRY_MODE_NORMAL
-	msgbox PetalburgWoods_Text_YouHaveToHelpMe, MSGBOX_DEFAULT
+	waitse
+	playmoncry SPECIES_SHROOMISH, CRY_MODE_ENCOUNTER
 	waitmoncry
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	setwildbattlewithcustommoves SPECIES_SHROOMISH, 9, ITEM_TINY_MUSHROOM, MOVE_SPORE, MOVE_ABSORB, MOVE_TACKLE, MOVE_STUN_SPORE
+	setwildbattle SPECIES_SHROOMISH, 9, ITEM_TINY_MUSHROOM, SPECIES_NONE, 0, ITEM_NONE, MOVE_NONE, MOVE_NONE, MOVE_SPORE, MOVE_NONE
 	dowildbattle
-	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaBackOff
-	waitmovement 0
-	call PetalburgWoods_EventScript_DevonResearcherPostBattle
-	applymovement OBJ_EVENT_ID_PLAYER, PetalburgWoods_Movement_WatchResearcherLeave
-	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherExitLeft
-	waitmovement 0
-	goto PetalburgWoods_EventScript_RemoveDevonResearcher
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, PetalburgWoods_EventScript_DefeatedShroomishL
+	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, PetalburgWoods_EventScript_DefeatedbyShroomish
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, PetalburgWoods_EventScript_CaughtShroomishL
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, PetalburgWoods_EventScript_DefeatedShroomishL
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, PetalburgWoods_EventScript_DefeatedShroomishL
 	end
 
 PetalburgWoods_EventScript_DevonResearcherRight::
@@ -48,35 +55,41 @@ PetalburgWoods_EventScript_DevonResearcherRight::
 	waitmovement 0
 	msgbox PetalburgWoods_Text_HaveYouSeenShroomish, MSGBOX_DEFAULT
 	closemessage
-	dofieldeffectgrass, 24, 25, 2
-	//applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaEntrance
-	//waitmovement 0
-	msgbox PetalburgWoods_Text_IWasGoingToAmbushYou, MSGBOX_DEFAULT
-	closemessage
-	setobjectxy LOCALID_GRUNT, 24, 25
-	waitfieldeffect FLDEFF_SHAKING_GRASS
-	delay 10
+	setobjectxy LOCALID_GRUNT, 18, 25
 	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaApproachResearcherRight
 	waitmovement 0
+	applymovement LOCALID_GRUNT, Common_Movement_QuestionMark
+	waitmovement 0
+	delay 40
+	applymovement LOCALID_DEVON_EMPLOYEE, Common_Movement_ExclamationMark
+	waitmovement 0
+	//setfieldeffectargument 0, 1
+	//dofieldeffect FLDEFF_SHAKING_GRASS
+	//applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaEntrance shake grass
+	//waitmovement 0 V What ever you do, don't move. Ill sneak close to it
+	msgbox PetalburgWoods_Text_IWasGoingToAmbushYou, MSGBOX_DEFAULT
+	closemessage
+	//waitfieldeffect FLDEFF_SHAKING_GRASS
+	//delay 10
+	//msgbox PetalburgWoods_Text_YouHaveToHelpMe, MSGBOX_DEFAULT
+	//closemessage
 	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaApproachPlayer
 	waitmovement 0
-	playmoncry SPECIES_SHROOMISH, CRY_MODE_NORMAL
-	msgbox PetalburgWoods_Text_YouHaveToHelpMe, MSGBOX_DEFAULT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	waitse
+	playmoncry SPECIES_SHROOMISH, CRY_MODE_ENCOUNTER
 	waitmoncry
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	setwildbattlewithcustommoves SPECIES_SHROOMISH, 9, ITEM_TINY_MUSHROOM, MOVE_SPORE, MOVE_ABSORB, MOVE_TACKLE, MOVE_STUN_SPORE
+	setwildbattle SPECIES_SHROOMISH, 9, ITEM_TINY_MUSHROOM, SPECIES_NONE, 0, ITEM_NONE, MOVE_NONE, MOVE_NONE, MOVE_SPORE, MOVE_NONE
 	dowildbattle
 	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, PetalburgWoods_EventScript_DefeatedShroomish
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, PetalburgWoods_EventScript_DefeatedShroomishR
 	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, PetalburgWoods_EventScript_DefeatedbyShroomish
-	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, PetalburgWoods_EventScript_CaughtShroomish
-	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, PetalburgWoods_EventScript_DefeatedShroomish
-	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, PetalburgWoods_EventScript_DefeatedShroomish
-	applymovement OBJ_EVENT_ID_PLAYER, PetalburgWoods_Movement_WatchResearcherLeave
-	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherExitRight
-	waitmovement 0
-	goto PetalburgWoods_EventScript_RemoveDevonResearcher
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, PetalburgWoods_EventScript_CaughtShroomishR
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, PetalburgWoods_EventScript_DefeatedShroomishR
+	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, PetalburgWoods_EventScript_DefeatedShroomishR
 	end
 
 PetalburgWoods_EventScript_DevonResearcherIntro::
@@ -86,14 +99,28 @@ PetalburgWoods_EventScript_DevonResearcherIntro::
 	closemessage
 	return
 
-PetalburgWoods_EventScript_DefeatedShroomish::
+PetalburgWoods_EventScript_DefeatedShroomishL::
 	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaRunAway
 	waitmovement 0
 	removeobject LOCALID_GRUNT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
 	msgbox PetalburgWoods_Text_ThatWasAwfullyClose, MSGBOX_DEFAULT
 	giveitem ITEM_GREAT_BALL
-	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFull
-	goto PetalburgWoods_EventScript_DevonResearcherFinish
+	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFullL
+	goto PetalburgWoods_EventScript_DevonResearcherFinishL
+	end
+	
+PetalburgWoods_EventScript_DefeatedShroomishR::
+	applymovement LOCALID_GRUNT, PetalburgWoods_Movement_AquaRunAway
+	waitmovement 0
+	removeobject LOCALID_GRUNT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox PetalburgWoods_Text_ThatWasAwfullyClose, MSGBOX_DEFAULT
+	giveitem ITEM_GREAT_BALL
+	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFullR
+	goto PetalburgWoods_EventScript_DevonResearcherFinishR
 	end
 	
 PetalburgWoods_EventScript_DefeatedbyShroomish::
@@ -101,26 +128,59 @@ PetalburgWoods_EventScript_DefeatedbyShroomish::
 	releaseall
 	end
 	
-PetalburgWoods_EventScript_CaughtShroomish::
+PetalburgWoods_EventScript_CaughtShroomishL::
 	removeobject LOCALID_GRUNT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
 	msgbox PetalburgWoods_Text_LetMeSeeIt, MSGBOX_DEFAULT
-	giveitem ITEM_GREAT_BALL
-	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFull
-	goto PetalburgWoods_EventScript_DevonResearcherFinish
+	giveitem ITEM_REPEAT_BALL
+	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFullL
+	goto PetalburgWoods_EventScript_DevonResearcherFinishL
+	end
+	
+PetalburgWoods_EventScript_CaughtShroomishR::
+	removeobject LOCALID_GRUNT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox PetalburgWoods_Text_LetMeSeeIt, MSGBOX_DEFAULT
+	giveitem ITEM_REPEAT_BALL
+	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFullR
+	goto PetalburgWoods_EventScript_DevonResearcherFinishR
 	end
 
-PetalburgWoods_EventScript_BagFull::
+PetalburgWoods_EventScript_BagFullL::
 	msgbox PetalburgWoods_Text_YoureLoadedWithItems, MSGBOX_DEFAULT
-	goto PetalburgWoods_EventScript_DevonResearcherFinish
+	goto PetalburgWoods_EventScript_DevonResearcherFinishL
+	end
+	
+PetalburgWoods_EventScript_BagFullR::
+	msgbox PetalburgWoods_Text_YoureLoadedWithItems, MSGBOX_DEFAULT
+	goto PetalburgWoods_EventScript_DevonResearcherFinishR
 	end
 
-PetalburgWoods_EventScript_DevonResearcherFinish::
+PetalburgWoods_EventScript_DevonResearcherFinishL::
 	msgbox PetalburgWoods_Text_TeamAquaAfterSomethingInRustboro, MSGBOX_DEFAULT
-	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherStartExit
+	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherStartExitLeft
 	waitmovement 0
 	msgbox PetalburgWoods_Text_ICantBeWastingTime, MSGBOX_DEFAULT
 	closemessage
-	return
+	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherExitLeft
+	waitmovement 0
+	goto PetalburgWoods_EventScript_RemoveDevonResearcher
+	end
+	
+PetalburgWoods_EventScript_DevonResearcherFinishR::
+	msgbox PetalburgWoods_Text_TeamAquaAfterSomethingInRustboro, MSGBOX_DEFAULT
+	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherStartExitRight
+	waitmovement 0
+	msgbox PetalburgWoods_Text_ICantBeWastingTime, MSGBOX_DEFAULT
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherExitRight
+	waitmovement 0
+	goto PetalburgWoods_EventScript_RemoveDevonResearcher
+	end
 
 PetalburgWoods_EventScript_RemoveDevonResearcher::
 	removeobject LOCALID_DEVON_EMPLOYEE
@@ -148,13 +208,14 @@ PetalburgWoods_Movement_DevonResearcherLookAround:
 	step_end
 
 PetalburgWoods_Movement_DevonResearcherExitLeft:
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
 	step_end
 
 PetalburgWoods_Movement_DevonResearcherApproachPlayerLeft:
@@ -175,34 +236,33 @@ PetalburgWoods_Movement_DevonResearcherApproachPlayerRight:
 
 PetalburgWoods_Movement_DevonResearcherExitRight:
 	walk_fast_left
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+PetalburgWoods_Movement_DevonResearcherStartExitLeft:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	step_end
-
-PetalburgWoods_Movement_WatchResearcherLeave:
-	delay_16
-	delay_16
-	walk_in_place_faster_up
-	step_end
-
-PetalburgWoods_Movement_DevonResearcherStartExit:
-	walk_in_place_faster_down
-	delay_16
-	delay_16
-	delay_16
-	delay_16
-	delay_16
-	face_up
+	
+PetalburgWoods_Movement_DevonResearcherStartExitRight:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
 	step_end
 
 PetalburgWoods_Movement_AquaApproachResearcherLeft:
-	walk_fast_right
-	walk_fast_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
 	step_end
 
 PetalburgWoods_Movement_AquaBackOff:
@@ -225,9 +285,11 @@ PetalburgWoods_Movement_AquaRunAway:
 	step_end
 
 PetalburgWoods_Movement_AquaApproachResearcherRight:
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
 	step_end
 
 PetalburgWoods_Movement_AquaEntrance:
@@ -238,7 +300,12 @@ PetalburgWoods_Movement_AquaEntrance:
 	step_end
 
 PetalburgWoods_Movement_AquaApproachPlayer:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
 	walk_up
+	jump_in_place_up
 	step_end
 
 PetalburgWoods_EventScript_Boy1::
@@ -330,10 +397,10 @@ PetalburgWoods_Text_HaveYouSeenShroomish:
 	.string "by walking too loudly.$"
 
 PetalburgWoods_Text_IWasGoingToAmbushYou:
-	.string "Success, a SHROOMISH!\p"
+	.string "Yes! It says a SHROOMISH is near by!\p"
 	.string "It should have SPORE, if the DexNav\n"
 	.string "is correct.\p"
-	.string "Now to sneak up on it…$"
+	.string "Now you stay here, and I'll …$"
 
 PetalburgWoods_Text_YouHaveToHelpMe:
 	.string "Shroooom!$"
@@ -350,8 +417,8 @@ PetalburgWoods_Text_LetMeSeeIt:
 	.string "May I see the SHROOMISH you caught?\p"
 	.string "…\n"
 	.string "It looks like the DexNav was accurate!\p"
-	.string "Here, take this GREAT BALL as thanks\n"
-	.string "and compensation for this research.$"
+	.string "Here, take a REPEAT BALL as thanks\n"
+	.string "and compensation for my research.$"
 
 PetalburgWoods_Text_TeamAquaAfterSomethingInRustboro:
 	.string "As much as I would like to test the\n"
@@ -365,7 +432,7 @@ PetalburgWoods_Text_ICantBeWastingTime:
 PetalburgWoods_Text_YoureLoadedWithItems:
 	.string "You're loaded with items,\n"
 	.string "how can you even walk?\l"
-	.string "I can't give you this GREAT BALL.$"
+	.string "Color me impressed.$"
 
 PetalburgWoods_Text_GoBugPokemonTeam:
 	.string "I caught a whole bunch of POKéMON!\p"

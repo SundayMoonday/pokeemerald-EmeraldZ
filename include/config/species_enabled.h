@@ -22,7 +22,7 @@
 // Battle gimmick specific Forms.
 #define P_MEGA_EVOLUTIONS                TRUE
 #define P_PRIMAL_REVERSIONS              TRUE // Groudon and Kyogre only.
-#define P_ULTRA_BURST_FORMS              FALSE // Ultra Necrozma only.
+#define P_ULTRA_BURST_FORMS              TRUE // Ultra Necrozma only.
 #define P_GIGANTAMAX_FORMS               FALSE
 #define P_TERA_FORMS                     FALSE
 
@@ -394,7 +394,7 @@
 #define P_FAMILY_FLABEBE                 P_GEN_6_POKEMON
 #define P_FAMILY_SKIDDO                  P_GEN_6_POKEMON
 #define P_FAMILY_PANCHAM                 P_GEN_6_POKEMON
-#define P_FAMILY_FURFROU                 FALSE
+#define P_FAMILY_FURFROU                 P_GEN_6_POKEMON
 #define P_FAMILY_ESPURR                  P_GEN_6_POKEMON
 #define P_FAMILY_HONEDGE                 P_GEN_6_POKEMON
 #define P_FAMILY_SPRITZEE                P_GEN_6_POKEMON
@@ -447,7 +447,7 @@
 #define P_FAMILY_WIMPOD                  P_GEN_7_POKEMON
 #define P_FAMILY_SANDYGAST               P_GEN_7_POKEMON
 #define P_FAMILY_PYUKUMUKU               P_GEN_7_POKEMON
-#define P_FAMILY_TYPE_NULL               FALSE
+#define P_FAMILY_TYPE_NULL               P_GEN_7_POKEMON
 #define P_FAMILY_MINIOR                  P_GEN_7_POKEMON
 #define P_FAMILY_KOMALA                  P_GEN_7_POKEMON
 #define P_FAMILY_TURTONATOR              P_GEN_7_POKEMON
