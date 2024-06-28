@@ -3336,7 +3336,9 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SPD_PLUS_1:
             case MOVE_EFFECT_SP_ATK_PLUS_1:
             case MOVE_EFFECT_SP_DEF_PLUS_1:
-            case MOVE_EFFECT_ACC_PLUS_1:
+            case MOVE_EFFECT_REACT_PLUS_1:
+            case MOVE_EFFECT_OBSER_PLUS_1:
+			case MOVE_EFFECT_ACC_PLUS_1:
             case MOVE_EFFECT_EVS_PLUS_1:
                 if (NoAliveMonsForEitherParty()
                   || ChangeStatBuffs(SET_STAT_BUFF_VALUE(1),
@@ -3358,6 +3360,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SPD_MINUS_1:
             case MOVE_EFFECT_SP_ATK_MINUS_1:
             case MOVE_EFFECT_SP_DEF_MINUS_1:
+			case MOVE_EFFECT_REACT_MINUS_1:
+            case MOVE_EFFECT_OBSER_MINUS_1:
             case MOVE_EFFECT_ACC_MINUS_1:
             case MOVE_EFFECT_EVS_MINUS_1:
                 flags = affectsUser;
@@ -3384,6 +3388,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SPD_PLUS_2:
             case MOVE_EFFECT_SP_ATK_PLUS_2:
             case MOVE_EFFECT_SP_DEF_PLUS_2:
+			case MOVE_EFFECT_REACT_PLUS_2:
+            case MOVE_EFFECT_OBSER_PLUS_2:
             case MOVE_EFFECT_ACC_PLUS_2:
             case MOVE_EFFECT_EVS_PLUS_2:
                 if (NoAliveMonsForEitherParty()
@@ -3406,6 +3412,8 @@ void SetMoveEffect(bool32 primary, u32 certain)
             case MOVE_EFFECT_SPD_MINUS_2:
             case MOVE_EFFECT_SP_ATK_MINUS_2:
             case MOVE_EFFECT_SP_DEF_MINUS_2:
+			case MOVE_EFFECT_REACT_MINUS_2:
+            case MOVE_EFFECT_OBSER_MINUS_2:
             case MOVE_EFFECT_ACC_MINUS_2:
             case MOVE_EFFECT_EVS_MINUS_2:
                 flags = affectsUser;
@@ -11273,6 +11281,10 @@ static u16 ReverseStatChangeMoveEffect(u16 moveEffect)
         return MOVE_EFFECT_SP_ATK_MINUS_1;
     case MOVE_EFFECT_SP_DEF_PLUS_1:
         return MOVE_EFFECT_SP_DEF_MINUS_1;
+	case MOVE_EFFECT_REACT_PLUS_1:
+        return MOVE_EFFECT_REACT_MINUS_1;
+    case MOVE_EFFECT_OBSER_PLUS_1:
+        return MOVE_EFFECT_OBSER_MINUS_1;
     case MOVE_EFFECT_ACC_PLUS_1:
         return MOVE_EFFECT_ACC_MINUS_1;
     case MOVE_EFFECT_EVS_PLUS_1:
@@ -11288,6 +11300,10 @@ static u16 ReverseStatChangeMoveEffect(u16 moveEffect)
         return MOVE_EFFECT_SP_ATK_PLUS_1;
     case MOVE_EFFECT_SP_DEF_MINUS_1:
         return MOVE_EFFECT_SP_DEF_PLUS_1;
+	case MOVE_EFFECT_REACT_MINUS_1:
+        return MOVE_EFFECT_REACT_PLUS_1;
+    case MOVE_EFFECT_OBSER_MINUS_1:
+        return MOVE_EFFECT_OBSER_PLUS_1;
     case MOVE_EFFECT_ACC_MINUS_1:
         return MOVE_EFFECT_ACC_PLUS_1;
     case MOVE_EFFECT_EVS_MINUS_1:
@@ -11302,6 +11318,10 @@ static u16 ReverseStatChangeMoveEffect(u16 moveEffect)
         return MOVE_EFFECT_SP_ATK_MINUS_2;
     case MOVE_EFFECT_SP_DEF_PLUS_2:
         return MOVE_EFFECT_SP_DEF_MINUS_2;
+		case MOVE_EFFECT_REACT_PLUS_2:
+        return MOVE_EFFECT_REACT_MINUS_2;
+    case MOVE_EFFECT_OBSER_PLUS_2:
+        return MOVE_EFFECT_OBSER_MINUS_2;
     case MOVE_EFFECT_ACC_PLUS_2:
         return MOVE_EFFECT_ACC_MINUS_2;
     case MOVE_EFFECT_EVS_PLUS_2:
@@ -11317,6 +11337,10 @@ static u16 ReverseStatChangeMoveEffect(u16 moveEffect)
         return MOVE_EFFECT_SP_ATK_PLUS_2;
     case MOVE_EFFECT_SP_DEF_MINUS_2:
         return MOVE_EFFECT_SP_DEF_PLUS_2;
+	case MOVE_EFFECT_REACT_MINUS_2:
+        return MOVE_EFFECT_REACT_PLUS_2;
+    case MOVE_EFFECT_OBSER_MINUS_2:
+        return MOVE_EFFECT_OBSER_PLUS_2;	
     case MOVE_EFFECT_ACC_MINUS_2:
         return MOVE_EFFECT_ACC_PLUS_2;
     case MOVE_EFFECT_EVS_MINUS_2:

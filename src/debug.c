@@ -261,6 +261,8 @@ struct DebugMonData
     u8  mon_iv_speed;
     u8  mon_iv_satk;
     u8  mon_iv_sdef;
+	u8  mon_iv_react;
+    u8  mon_iv_obser;
     u16 mon_move_0;
     u16 mon_move_1;
     u16 mon_move_2;
@@ -569,6 +571,8 @@ static const u8 sDebugText_IV_Defense[] =               _("IV Defense:{CLEAR_TO 
 static const u8 sDebugText_IV_Speed[] =                 _("IV Speed:{CLEAR_TO 90}\n    {STR_VAR_3}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
 static const u8 sDebugText_IV_SpAttack[] =              _("IV Sp. Attack:{CLEAR_TO 90}\n    {STR_VAR_3}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
 static const u8 sDebugText_IV_SpDefense[] =             _("IV Sp. Defense:{CLEAR_TO 90}\n    {STR_VAR_3}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
+static const u8 sDebugText_IV_Reaction[] =              _("IV Reaction:{CLEAR_TO 90}\n    {STR_VAR_3}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
+static const u8 sDebugText_IV_Observe[] =               _("IV Awareness:{CLEAR_TO 90}\n    {STR_VAR_3}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
 static const u8 sDebugText_PokemonMove_0[] =            _("Move 0: {STR_VAR_3}{CLEAR_TO 90}\n{STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
 static const u8 sDebugText_PokemonMove_1[] =            _("Move 1: {STR_VAR_3}{CLEAR_TO 90}\n{STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
 static const u8 sDebugText_PokemonMove_2[] =            _("Move 2: {STR_VAR_3}{CLEAR_TO 90}\n{STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}");
@@ -2957,6 +2961,8 @@ static void ResetMonDataStruct(struct DebugMonData *sDebugMonData)
     sDebugMonData->mon_iv_speed     = 0;
     sDebugMonData->mon_iv_satk      = 0;
     sDebugMonData->mon_iv_sdef      = 0;
+	sDebugMonData->mon_iv_react     = 0;
+    sDebugMonData->mon_iv_obser     = 0;
 }
 
 #define tIsComplex  data[5]
@@ -3425,6 +3431,12 @@ static void DebugAction_Give_Pokemon_SelectIVs(u8 taskId)
         case STAT_SPDEF:
             sDebugMonData->mon_iv_sdef = gTasks[taskId].tInput;
             break;
+		case STAT_REACT:
+            sDebugMonData->mon_iv_react = gTasks[taskId].tInput;
+            break;
+        case STAT_OBSER:
+            sDebugMonData->mon_iv_obser = gTasks[taskId].tInput;
+            break;
         }
 
         //Check if all IVs set
@@ -3614,7 +3626,7 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     struct Pokemon mon;
     u8 i;
     u16 moves[4];
-    u8 IVs[6];
+    u8 IVs[8];
     u8 iv_val;
     u16 species     = sDebugMonData->species;
     u8 level        = sDebugMonData->level;
@@ -3631,6 +3643,8 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     IVs[3]          = sDebugMonData->mon_iv_speed;
     IVs[4]          = sDebugMonData->mon_iv_satk;
     IVs[5]          = sDebugMonData->mon_iv_sdef;
+	IVs[6]          = sDebugMonData->mon_iv_react;
+    IVs[7]          = sDebugMonData->mon_iv_obser;
 
     //Nature
     if (nature == NUM_NATURES || nature == 0xFF)

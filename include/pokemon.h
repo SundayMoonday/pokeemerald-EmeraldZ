@@ -43,6 +43,8 @@ enum {
     MON_DATA_SPEED_EV,
     MON_DATA_SPATK_EV,
     MON_DATA_SPDEF_EV,
+	MON_DATA_REACT_EV,
+    MON_DATA_OBSER_EV,
     MON_DATA_FRIENDSHIP,
     MON_DATA_SMART,
     MON_DATA_POKERUS,
@@ -56,6 +58,8 @@ enum {
     MON_DATA_SPEED_IV,
     MON_DATA_SPATK_IV,
     MON_DATA_SPDEF_IV,
+	MON_DATA_REACT_IV,
+    MON_DATA_OBSER_IV,
     MON_DATA_IS_EGG,
     MON_DATA_ABILITY_NUM,
     MON_DATA_TOUGH,
@@ -75,6 +79,8 @@ enum {
     MON_DATA_SPEED,
     MON_DATA_SPATK,
     MON_DATA_SPDEF,
+	MON_DATA_REACT,
+    MON_DATA_OBSER,
     MON_DATA_MAIL,
     MON_DATA_SPECIES_OR_EGG,
     MON_DATA_IVS,
@@ -100,6 +106,8 @@ enum {
     MON_DATA_SPEED2,
     MON_DATA_SPATK2,
     MON_DATA_SPDEF2,
+	MON_DATA_REACT2,
+    MON_DATA_OBSER2,
 };
 
 struct PokemonSubstruct0
@@ -127,13 +135,15 @@ struct PokemonSubstruct2
     /*0x03*/ u8 speedEV;
     /*0x04*/ u8 spAttackEV;
     /*0x05*/ u8 spDefenseEV;
-    /*0x06*/ u8 cool;
-    /*0x07*/ u8 beauty;
-    /*0x08*/ u8 cute;
-    /*0x09*/ u8 smart;
-    /*0x0A*/ u8 tough;
-    /*0x0B*/ u8 sheen;
-}; /* size = 12 */
+	/*0x06*/ u8 reactionEV;
+    /*0x07*/ u8 observeEV;
+    /*0x08*/ u8 cool;
+    /*0x09*/ u8 beauty;
+    /*0x0A*/ u8 cute;
+    /*0x0B*/ u8 smart;
+    /*0x0C*/ u8 tough;
+    /*0x0D*/ u8 sheen;
+}; /* size = 14 */
 
 struct PokemonSubstruct3
 {
@@ -145,12 +155,14 @@ struct PokemonSubstruct3
  /* 0x03 */ u16 unused1:4;
  /* 0x03 */ u16 otGender:1;
 
- /* 0x04 */ u32 hpIV:5;
- /* 0x04 */ u32 attackIV:5;
- /* 0x05 */ u32 defenseIV:5;
- /* 0x05 */ u32 speedIV:5;
- /* 0x05 */ u32 spAttackIV:5;
- /* 0x06 */ u32 spDefenseIV:5;
+ /* 0x04 */ u16 hpIV:4;
+ /* 0x04 */ u16 attackIV:4;
+ /* 0x05 */ u16 defenseIV:4;
+ /* 0x05 */ u16 speedIV:4;
+ /* 0x05 */ u16 spAttackIV:4;
+ /* 0x06 */ u16 spDefenseIV:4;
+ /* 0x06 */ u16 reactionIV:4;
+ /* 0x06 */ u16 observeIV:4;
  /* 0x07 */ u32 isEgg:1;
  /* 0x07 */ u32 unused2:1;
 
@@ -164,8 +176,6 @@ struct PokemonSubstruct3
  /* 0x0A */ u32 victoryRibbon:1;            // Given at the Battle Tower's Level 100 challenge by winning a set of seven battles that extends the current streak to 56 or more.
  /* 0x0A */ u32 artistRibbon:1;             // Given at the Contest Hall by winning a Master Rank contest with at least 800 points, and agreeing to have the Pokémon's portrait placed in the museum after being offered.
  /* 0x0A */ u32 effortRibbon:1;             // Given at Slateport's market to Pokémon with maximum EVs.
- /* 0x0A */ u32 marineRibbon:1;             // Never distributed.
- /* 0x0A */ u32 landRibbon:1;               // Never distributed.
  /* 0x0A */ u32 skyRibbon:1;                // Never distributed.
  /* 0x0A */ u32 countryRibbon:1;            // Distributed during Pokémon Festa '04 and '05 to tournament winners.
  /* 0x0B */ u32 nationalRibbon:1;           // Given to purified Shadow Pokémon in Colosseum/XD.
@@ -237,6 +247,8 @@ struct Pokemon
     u16 speed;
     u16 spAttack;
     u16 spDefense;
+	u16 reaction;
+    u16 observe;
 };
 
 struct MonSpritesGfxManager
@@ -273,13 +285,17 @@ struct BattlePokemon
     /*0x06*/ u16 speed;
     /*0x08*/ u16 spAttack;
     /*0x0A*/ u16 spDefense;
+	/*0x08*/ u16 reaction;
+    /*0x0A*/ u16 observe;
     /*0x0C*/ u16 moves[MAX_MON_MOVES];
-    /*0x14*/ u32 hpIV:5;
-    /*0x14*/ u32 attackIV:5;
-    /*0x15*/ u32 defenseIV:5;
-    /*0x15*/ u32 speedIV:5;
-    /*0x16*/ u32 spAttackIV:5;
-    /*0x17*/ u32 spDefenseIV:5;
+    /*0x14*/ u16 hpIV:4;
+    /*0x14*/ u16 attackIV:4;
+    /*0x15*/ u16 defenseIV:4;
+    /*0x15*/ u16 speedIV:4;
+    /*0x16*/ u16 spAttackIV:4;
+    /*0x16*/ u16 spDefenseIV:4;
+	/*0x17*/ u16 reactionIV:4;
+    /*0x17*/ u16 observeIV:4;
     /*0x17*/ u32 abilityNum:2;
     /*0x18*/ s8 statStages[NUM_BATTLE_STATS];
     /*0x20*/ u16 ability;
@@ -318,6 +334,8 @@ struct SpeciesInfo /*0x8C*/
  /* 0x03 */ u8 baseSpeed;
  /* 0x04 */ u8 baseSpAttack;
  /* 0x05 */ u8 baseSpDefense;
+ /* 0x04 */ u8 baseReaction;
+ /* 0x05 */ u8 baseObserve;
  /* 0x06 */ u8 types[2];
  /* 0x08 */ u8 catchRate;
  /* 0x09 */ u8 padding1;
@@ -328,6 +346,8 @@ struct SpeciesInfo /*0x8C*/
             u16 evYield_Speed:2;
  /* 0x0D */ u16 evYield_SpAttack:2;
             u16 evYield_SpDefense:2;
+			u16 evYield_Reaction:2;
+            u16 evYield_Observe:2;
             u16 padding2:4;
  /* 0x0E */ u16 itemCommon;
  /* 0x10 */ u16 itemRare;
@@ -532,7 +552,7 @@ extern const u8 gPPUpAddValues[];
 extern const u8 gStatStageRatios[MAX_STAT_STAGE + 1][2];
 extern const u16 gUnionRoomFacilityClasses[];
 extern const struct SpriteTemplate gBattlerSpriteTemplates[];
-extern const s8 gNatureStatTable[][5];
+extern const s8 gNatureStatTable[][7];
 extern const u32 sExpCandyExperienceTable[];
 
 void ZeroBoxMonData(struct BoxPokemon *boxMon);

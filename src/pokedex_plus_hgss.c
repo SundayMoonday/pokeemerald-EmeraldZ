@@ -3645,6 +3645,8 @@ static const u8 sBaseStatOffsets[] =
     offsetof(struct SpeciesInfo, baseSpAttack),
     offsetof(struct SpeciesInfo, baseSpDefense),
     offsetof(struct SpeciesInfo, baseSpeed),
+	offsetof(struct SpeciesInfo, baseReaction),
+    offsetof(struct SpeciesInfo, baseObserve),
 };
 static void TryDestroyStatBars(void)
 {
@@ -3679,7 +3681,7 @@ static void CreateStatBars(struct PokedexListItem *dexMon)
         u8 i;
         u32 width, statValue;
         u8 *gfx = Alloc(64 * 64);
-        static const u8 sBarsYOffset[] = {3, 13, 23, 33, 43, 53};
+        static const u8 sBarsYOffset[] = {3, 11, 19, 27, 35, 43, 51, 59};
         struct SpriteSheet sheet = {gfx, 64 * 64, TAG_STAT_BAR};
         u32 species = NationalPokedexNumToSpecies(dexMon->dexNum);
 

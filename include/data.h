@@ -31,8 +31,8 @@ struct MonCoords
 #define MON_COORDS_SIZE(width, height)(DIV_ROUND_UP(width, 8) << 4 | DIV_ROUND_UP(height, 8))
 #define GET_MON_COORDS_WIDTH(size)((size >> 4) * 8)
 #define GET_MON_COORDS_HEIGHT(size)((size & 0xF) * 8)
-#define TRAINER_PARTY_IVS(hp, atk, def, speed, spatk, spdef) (hp | (atk << 5) | (def << 10) | (speed << 15) | (spatk << 20) | (spdef << 25))
-#define TRAINER_PARTY_EVS(hp, atk, def, speed, spatk, spdef) ((const u8[6]){hp,atk,def,spatk,spdef,speed})
+#define TRAINER_PARTY_IVS(hp, atk, def, speed, spatk, spdef, react, obser) (hp | (atk << 4) | (def << 8) | (speed << 12) | (spatk << 16) | (spdef << 20) | (react << 24) | (obser << 28))
+#define TRAINER_PARTY_EVS(hp, atk, def, speed, spatk, spdef, react, obser) ((const u8[8]){hp,atk,def,spatk,spdef,speed,react,obser})
 #define TRAINER_PARTY_NATURE(nature) (nature+1)
 
 struct TrainerMon

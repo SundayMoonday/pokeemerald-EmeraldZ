@@ -364,32 +364,56 @@ const struct SpindaSpot gSpindaSpotGraphics[] =
 #include "data/pokemon/item_effects.h"
 
 const s8 gNatureStatTable[NUM_NATURES][NUM_NATURE_STATS] =
-{                      // Attack  Defense  Speed  Sp.Atk  Sp. Def
-    [NATURE_HARDY]   = {    0,      0,      0,      0,      0   },
-    [NATURE_LONELY]  = {   +1,     -1,      0,      0,      0   },
-    [NATURE_BRAVE]   = {   +1,      0,     -1,      0,      0   },
-    [NATURE_ADAMANT] = {   +1,      0,      0,     -1,      0   },
-    [NATURE_NAUGHTY] = {   +1,      0,      0,      0,     -1   },
-    [NATURE_BOLD]    = {   -1,     +1,      0,      0,      0   },
-    [NATURE_DOCILE]  = {    0,      0,      0,      0,      0   },
-    [NATURE_RELAXED] = {    0,     +1,     -1,      0,      0   },
-    [NATURE_IMPISH]  = {    0,     +1,      0,     -1,      0   },
-    [NATURE_LAX]     = {    0,     +1,      0,      0,     -1   },
-    [NATURE_TIMID]   = {   -1,      0,     +1,      0,      0   },
-    [NATURE_HASTY]   = {    0,     -1,     +1,      0,      0   },
-    [NATURE_SERIOUS] = {    0,      0,      0,      0,      0   },
-    [NATURE_JOLLY]   = {    0,      0,     +1,     -1,      0   },
-    [NATURE_NAIVE]   = {    0,      0,     +1,      0,     -1   },
-    [NATURE_MODEST]  = {   -1,      0,      0,     +1,      0   },
-    [NATURE_MILD]    = {    0,     -1,      0,     +1,      0   },
-    [NATURE_QUIET]   = {    0,      0,     -1,     +1,      0   },
-    [NATURE_BASHFUL] = {    0,      0,      0,      0,      0   },
-    [NATURE_RASH]    = {    0,      0,      0,     +1,     -1   },
-    [NATURE_CALM]    = {   -1,      0,      0,      0,     +1   },
-    [NATURE_GENTLE]  = {    0,     -1,      0,      0,     +1   },
-    [NATURE_SASSY]   = {    0,      0,     -1,      0,     +1   },
-    [NATURE_CAREFUL] = {    0,      0,      0,     -1,     +1   },
-    [NATURE_QUIRKY]  = {    0,      0,      0,      0,      0   },
+{                      // Attack  Defense  Speed  Sp.Atk  Sp.Def  React Observation
+    [NATURE_HARDY]   = {    0,      0,      0,      0,      0,      0,      0   },
+    [NATURE_LONELY]  = {   +1,     -1,      0,      0,      0,      0,      0   },
+    [NATURE_BRAVE]   = {   +1,      0,     -1,      0,      0,      0,      0   },
+    [NATURE_ADAMANT] = {   +1,      0,      0,     -1,      0,      0,      0   },
+    [NATURE_NAUGHTY] = {   +1,      0,      0,      0,     -1,      0,      0   },
+    [NATURE_BOLD]    = {   -1,     +1,      0,      0,      0,      0,      0   },
+    [NATURE_DOCILE]  = {    0,      0,      0,      0,      0,      0,      0   },
+    [NATURE_RELAXED] = {    0,     +1,     -1,      0,      0,      0,      0   },
+    [NATURE_IMPISH]  = {    0,     +1,      0,     -1,      0,      0,      0   },
+    [NATURE_LAX]     = {    0,     +1,      0,      0,     -1,      0,      0   },
+    [NATURE_TIMID]   = {   -1,      0,     +1,      0,      0,      0,      0   },
+    [NATURE_HASTY]   = {    0,     -1,     +1,      0,      0,      0,      0   },
+    [NATURE_SERIOUS] = {    0,      0,      0,      0,      0,      0,      0   },
+    [NATURE_JOLLY]   = {    0,      0,     +1,     -1,      0,      0,      0   },
+    [NATURE_NAIVE]   = {    0,      0,     +1,      0,     -1,      0,      0   },
+    [NATURE_MODEST]  = {   -1,      0,      0,     +1,      0,      0,      0   },
+    [NATURE_MILD]    = {    0,     -1,      0,     +1,      0,      0,      0   },
+    [NATURE_QUIET]   = {    0,      0,     -1,     +1,      0,      0,      0   },
+    [NATURE_BASHFUL] = {    0,      0,      0,      0,      0,      0,      0   },
+    [NATURE_RASH]    = {    0,      0,      0,     +1,     -1,      0,      0   },
+    [NATURE_CALM]    = {   -1,      0,      0,      0,     +1,      0,      0   },
+    [NATURE_GENTLE]  = {    0,     -1,      0,      0,     +1,      0,      0   },
+    [NATURE_SASSY]   = {    0,      0,     -1,      0,     +1,      0,      0   },
+    [NATURE_CAREFUL] = {    0,      0,      0,     -1,     +1,      0,      0   },
+    [NATURE_QUIRKY]  = {    0,      0,      0,      0,      0,      0,      0   },
+	[NATURE_AUSTERE] = {   +1,      0,      0,      0,      0,     -1,      0   },
+    [NATURE_WILD]    = {   +1,      0,      0,      0,      0,      0,     -1   },
+    [NATURE_WARY]    = {    0,     +1,      0,      0,      0,     -1,      0   },
+    [NATURE_STRICT]  = {    0,     +1,      0,      0,      0,      0,     -1   },
+    [NATURE_POLITE]  = {    0,      0,      0,     +1,      0,     -1,      0   },
+    [NATURE_SPACEY]  = {    0,      0,      0,     +1,      0,      0,     -1   },
+    [NATURE_WISE]    = {    0,      0,      0,      0,     +1,     -1,      0   },
+    [NATURE_JEALOUS] = {    0,      0,      0,      0,     +1,      0,     -1   },
+    [NATURE_PROUD]   = {    0,      0,     +1,      0,      0,     -1,      0   },
+    [NATURE_VALIANT] = {    0,      0,     +1,      0,      0,      0,     -1   },
+    [NATURE_SHY]     = {   -1,      0,      0,      0,      0,     +1,      0   },
+    [NATURE_CURIOUS] = {    0,     -1,      0,      0,      0,     +1,      0   },
+    [NATURE_ALERT]   = {    0,      0,      0,     -1,      0,     +1,      0   },
+    [NATURE_SILLY]   = {    0,      0,      0,      0,     -1,     +1,      0   },
+    [NATURE_ANXIOUS] = {    0,      0,     -1,      0,      0,     +1,      0   },
+    [NATURE_SUAVE]   = {   -1,      0,      0,      0,      0,      0,     +1   },
+    [NATURE_PASSIVE] = {    0,     -1,      0,      0,      0,      0,     +1   },
+    [NATURE_SCEPTIC] = {    0,      0,      0,     -1,      0,      0,     +1   },
+    [NATURE_DEVOTED] = {    0,      0,      0,      0,     -1,      0,     +1   },
+    [NATURE_PATIENT] = {    0,      0,     -1,      0,      0,      0,     +1   },
+    [NATURE_ALOOF]   = {    0,      0,      0,      0,      0,      0,      0   },
+    [NATURE_ERRATIC] = {    0,      0,      0,      0,      0,     +1,     -1   },
+    [NATURE_FOCUSED] = {    0,      0,      0,      0,      0,     -1,     +1   },
+    [NATURE_ZEALOUS] = {    0,      0,      0,      0,      0,      0,      0   },
 };
 
 #include "data/graphics/pokemon.h"
@@ -602,13 +626,15 @@ static const u8 sGetMonDataEVConstants[] =
     MON_DATA_DEF_EV,
     MON_DATA_SPEED_EV,
     MON_DATA_SPDEF_EV,
-    MON_DATA_SPATK_EV
+    MON_DATA_SPATK_EV,
+	MON_DATA_REACT_EV,
+    MON_DATA_OBSER_EV
 };
 
 // For stat-raising items
 static const u8 sStatsToRaise[] =
 {
-    STAT_ATK, STAT_ATK, STAT_DEF, STAT_SPEED, STAT_SPATK, STAT_SPDEF, STAT_ACC
+    STAT_ATK, STAT_ATK, STAT_DEF, STAT_SPEED, STAT_SPATK, STAT_SPDEF, STAT_ACC, STAT_REACT, STAT_OBSER
 };
 
 // 3 modifiers each for how much to change friendship for different ranges
@@ -697,6 +723,8 @@ void ZeroMonData(struct Pokemon *mon)
     SetMonData(mon, MON_DATA_SPEED, &arg);
     SetMonData(mon, MON_DATA_SPATK, &arg);
     SetMonData(mon, MON_DATA_SPDEF, &arg);
+	SetMonData(mon, MON_DATA_REACT, &arg);
+    SetMonData(mon, MON_DATA_OBSER, &arg);
     arg = MAIL_NONE;
     SetMonData(mon, MON_DATA_MAIL, &arg);
 }
@@ -835,6 +863,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &fixedIV);
+		SetBoxMonData(boxMon, MON_DATA_REACT_IV, &fixedIV);
+        SetBoxMonData(boxMon, MON_DATA_OBSER_IV, &fixedIV);
     }
     else
     {
@@ -843,20 +873,28 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 5)) >> 5;
+        iv = (value & (MAX_IV_MASK << 4)) >> 4;
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 10)) >> 10;
+        iv = (value & (MAX_IV_MASK << 8)) >> 8;
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
 
         value = Random();
 
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 5)) >> 5;
+        iv = (value & (MAX_IV_MASK << 4)) >> 4;
         SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 10)) >> 10;
+        iv = (value & (MAX_IV_MASK << 8)) >> 8;
         SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
 
+        value = Random();
+
+        iv = value & MAX_IV_MASK;
+        SetBoxMonData(boxMon, MON_DATA_REACT_IV, &iv);
+        iv = (value & (MAX_IV_MASK << 4)) >> 4;
+        SetBoxMonData(boxMon, MON_DATA_OBSER_IV, &iv);
+		
+		
         if (gSpeciesInfo[species].allPerfectIVs)
         {
             iv = MAX_PER_STAT_IVS;
@@ -866,6 +904,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
             SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
             SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+			SetBoxMonData(boxMon, MON_DATA_REACT_IV, &iv);
+            SetBoxMonData(boxMon, MON_DATA_OBSER_IV, &iv);
         }
         else if (P_LEGENDARY_PERFECT_IVS >= GEN_6
          && (gSpeciesInfo[species].isLegendary
@@ -907,6 +947,12 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
                     break;
                 case STAT_SPDEF:
                     SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+                    break;
+				case STAT_REACT:
+                    SetBoxMonData(boxMon, MON_DATA_REACT_IV, &iv);
+                    break;
+                case STAT_OBSER:
+                    SetBoxMonData(boxMon, MON_DATA_OBSER_IV, &iv);
                     break;
                 }
             }
@@ -996,6 +1042,8 @@ void CreateMonWithIVsOTID(struct Pokemon *mon, u16 species, u8 level, u8 *ivs, u
     SetMonData(mon, MON_DATA_SPEED_IV, &ivs[STAT_SPEED]);
     SetMonData(mon, MON_DATA_SPATK_IV, &ivs[STAT_SPATK]);
     SetMonData(mon, MON_DATA_SPDEF_IV, &ivs[STAT_SPDEF]);
+	SetMonData(mon, MON_DATA_REACT_IV, &ivs[STAT_REACT]);
+    SetMonData(mon, MON_DATA_OBSER_IV, &ivs[STAT_OBSER]);
     CalculateMonStats(mon);
 }
 
@@ -1067,6 +1115,8 @@ void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src)
     SetMonData(mon, MON_DATA_SPEED_EV, &src->speedEV);
     SetMonData(mon, MON_DATA_SPATK_EV, &src->spAttackEV);
     SetMonData(mon, MON_DATA_SPDEF_EV, &src->spDefenseEV);
+	SetMonData(mon, MON_DATA_REACT_EV, &src->reactionEV);
+    SetMonData(mon, MON_DATA_SPDEF_EV, &src->observeEV);
     value = src->abilityNum;
     SetMonData(mon, MON_DATA_ABILITY_NUM, &value);
     value = src->hpIV;
@@ -1081,6 +1131,10 @@ void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src)
     SetMonData(mon, MON_DATA_SPATK_IV, &value);
     value = src->spDefenseIV;
     SetMonData(mon, MON_DATA_SPDEF_IV, &value);
+	value = src->reactionIV;
+    SetMonData(mon, MON_DATA_REACT_IV, &value);
+    value = src->observeIV;
+    SetMonData(mon, MON_DATA_OBSER_IV, &value);
     MonRestorePP(mon);
     CalculateMonStats(mon);
 }
@@ -1129,6 +1183,8 @@ void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPok
     SetMonData(mon, MON_DATA_SPEED_EV, &src->speedEV);
     SetMonData(mon, MON_DATA_SPATK_EV, &src->spAttackEV);
     SetMonData(mon, MON_DATA_SPDEF_EV, &src->spDefenseEV);
+	SetMonData(mon, MON_DATA_REACT_EV, &src->reactionEV);
+    SetMonData(mon, MON_DATA_OBSER_EV, &src->observeEV);
     value = src->abilityNum;
     SetMonData(mon, MON_DATA_ABILITY_NUM, &value);
     value = src->hpIV;
@@ -1143,6 +1199,10 @@ void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPok
     SetMonData(mon, MON_DATA_SPATK_IV, &value);
     value = src->spDefenseIV;
     SetMonData(mon, MON_DATA_SPDEF_IV, &value);
+	value = src->reactionIV;
+    SetMonData(mon, MON_DATA_REACT_IV, &value);
+    value = src->observeIV;
+    SetMonData(mon, MON_DATA_OBSER_IV, &value);
     MonRestorePP(mon);
     CalculateMonStats(mon);
 }
@@ -1238,6 +1298,8 @@ void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerP
     dest->speedEV = GetMonData(mon, MON_DATA_SPEED_EV, NULL);
     dest->spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
     dest->spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
+	dest->reactionEV = GetMonData(mon, MON_DATA_REACT_EV, NULL);
+    dest->observeEV = GetMonData(mon, MON_DATA_OBSER_EV, NULL);
     dest->friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
     dest->hpIV = GetMonData(mon, MON_DATA_HP_IV, NULL);
     dest->attackIV = GetMonData(mon, MON_DATA_ATK_IV, NULL);
@@ -1245,7 +1307,9 @@ void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerP
     dest->speedIV  = GetMonData(mon, MON_DATA_SPEED_IV, NULL);
     dest->spAttackIV  = GetMonData(mon, MON_DATA_SPATK_IV, NULL);
     dest->spDefenseIV  = GetMonData(mon, MON_DATA_SPDEF_IV, NULL);
-    dest->abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
+    dest->reactionIV  = GetMonData(mon, MON_DATA_REACT_IV, NULL);
+    dest->observeIV  = GetMonData(mon, MON_DATA_OBSER_IV, NULL);
+	dest->abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM, NULL);
     dest->personality = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
     GetMonData(mon, MON_DATA_NICKNAME, dest->nickname);
 }
@@ -1413,6 +1477,10 @@ void CalculateMonStats(struct Pokemon *mon)
     s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
     s32 spDefenseIV = GetMonData(mon, MON_DATA_SPDEF_IV, NULL);
     s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
+	s32 reactionIV = GetMonData(mon, MON_DATA_REACT_IV, NULL);
+    s32 reactionEV = GetMonData(mon, MON_DATA_REACT_EV, NULL);
+    s32 observeIV = GetMonData(mon, MON_DATA_OBSER_IV, NULL);
+    s32 observeEV = GetMonData(mon, MON_DATA_OBSER_EV, NULL);
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
     u8 friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
     s32 level = GetLevelFromMonExp(mon);
@@ -1441,6 +1509,8 @@ void CalculateMonStats(struct Pokemon *mon)
     CALC_STAT(baseSpeed, speedIV, speedEV, STAT_SPEED, MON_DATA_SPEED)
     CALC_STAT(baseSpAttack, spAttackIV, spAttackEV, STAT_SPATK, MON_DATA_SPATK)
     CALC_STAT(baseSpDefense, spDefenseIV, spDefenseEV, STAT_SPDEF, MON_DATA_SPDEF)
+	CALC_STAT(baseReaction, reactionIV, reactionEV, STAT_REACT, MON_DATA_REACT)
+    CALC_STAT(baseObserve, observeIV, observeEV, STAT_OBSER, MON_DATA_OBSER)
 
     if (species == SPECIES_SHEDINJA)
     {
@@ -1990,6 +2060,12 @@ u32 GetMonData3(struct Pokemon *mon, s32 field, u8 *data)
     case MON_DATA_SPDEF:
         ret = mon->spDefense;
         break;
+	case MON_DATA_REACT:
+        ret = mon->reaction;
+        break;
+    case MON_DATA_OBSER:
+        ret = mon->observe;
+        break;
     case MON_DATA_ATK2:
         ret = mon->attack;
         break;
@@ -2004,6 +2080,12 @@ u32 GetMonData3(struct Pokemon *mon, s32 field, u8 *data)
         break;
     case MON_DATA_SPDEF2:
         ret = mon->spDefense;
+        break;
+	case MON_DATA_REACT2:
+        ret = mon->reaction;
+        break;
+    case MON_DATA_OBSER2:
+        ret = mon->observe;
         break;
     case MON_DATA_MAIL:
         ret = mon->mail;
@@ -2097,6 +2179,12 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_SPDEF_EV:
             retVal = substruct2->spDefenseEV;
             break;
+		case MON_DATA_REACT_EV:
+            retVal = substruct2->reactionEV;
+            break;
+        case MON_DATA_OBSER_EV:
+            retVal = substruct2->observeEV;
+            break;
         case MON_DATA_COOL:
             retVal = substruct2->cool;
             break;
@@ -2151,6 +2239,12 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_SPDEF_IV:
             retVal = substruct3->spDefenseIV;
             break;
+		case MON_DATA_REACT_IV:
+            retVal = substruct3->reactionIV;
+            break;
+        case MON_DATA_OBSER_IV:
+            retVal = substruct3->observeIV;
+            break;
         case MON_DATA_IS_EGG:
             retVal = substruct3->isEgg;
             break;
@@ -2187,12 +2281,6 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_EFFORT_RIBBON:
             retVal = substruct3->effortRibbon;
             break;
-        case MON_DATA_MARINE_RIBBON:
-            retVal = substruct3->marineRibbon;
-            break;
-        case MON_DATA_LAND_RIBBON:
-            retVal = substruct3->landRibbon;
-            break;
         case MON_DATA_SKY_RIBBON:
             retVal = substruct3->skyRibbon;
             break;
@@ -2221,11 +2309,13 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             break;
         case MON_DATA_IVS:
             retVal = substruct3->hpIV
-                    | (substruct3->attackIV << 5)
-                    | (substruct3->defenseIV << 10)
-                    | (substruct3->speedIV << 15)
-                    | (substruct3->spAttackIV << 20)
-                    | (substruct3->spDefenseIV << 25);
+                    | (substruct3->attackIV << 4)
+                    | (substruct3->defenseIV << 8)
+                    | (substruct3->speedIV << 12)
+                    | (substruct3->spAttackIV << 16)
+                    | (substruct3->spDefenseIV << 20)
+					| (substruct3->reactionIV << 24)
+                    | (substruct3->observeIV << 28);
             break;
         case MON_DATA_KNOWN_MOVES:
             if (substruct0->species && !substruct3->isEgg)
@@ -2259,8 +2349,6 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 retVal += substruct3->victoryRibbon;
                 retVal += substruct3->artistRibbon;
                 retVal += substruct3->effortRibbon;
-                retVal += substruct3->marineRibbon;
-                retVal += substruct3->landRibbon;
                 retVal += substruct3->skyRibbon;
                 retVal += substruct3->countryRibbon;
                 retVal += substruct3->nationalRibbon;
@@ -2282,13 +2370,11 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                     | (substruct3->victoryRibbon << 17)
                     | (substruct3->artistRibbon << 18)
                     | (substruct3->effortRibbon << 19)
-                    | (substruct3->marineRibbon << 20)
-                    | (substruct3->landRibbon << 21)
-                    | (substruct3->skyRibbon << 22)
-                    | (substruct3->countryRibbon << 23)
-                    | (substruct3->nationalRibbon << 24)
-                    | (substruct3->earthRibbon << 25)
-                    | (substruct3->worldRibbon << 26);
+                    | (substruct3->skyRibbon << 20)
+                    | (substruct3->countryRibbon << 21)
+                    | (substruct3->nationalRibbon << 22)
+                    | (substruct3->earthRibbon << 23)
+                    | (substruct3->worldRibbon << 24);
             }
             break;
         default:
@@ -2430,6 +2516,12 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     case MON_DATA_SPDEF:
         SET16(mon->spDefense);
         break;
+	case MON_DATA_REACT:
+        SET16(mon->reaction);
+        break;
+    case MON_DATA_OBSER:
+        SET16(mon->observe);
+        break;
     case MON_DATA_MAIL:
         SET8(mon->mail);
         break;
@@ -2521,6 +2613,12 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_SPDEF_EV:
             SET8(substruct2->spDefenseEV);
             break;
+		case MON_DATA_REACT_EV:
+            SET8(substruct2->reactionEV);
+            break;
+        case MON_DATA_OBSER_EV:
+            SET8(substruct2->observeEV);
+            break;
         case MON_DATA_COOL:
             SET8(substruct2->cool);
             break;
@@ -2581,6 +2679,12 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_SPDEF_IV:
             SET8(substruct3->spDefenseIV);
             break;
+		case MON_DATA_REACT_IV:
+            SET8(substruct3->reactionIV);
+            break;
+        case MON_DATA_OBSER_IV:
+            SET8(substruct3->observeIV);
+            break;
         case MON_DATA_IS_EGG:
             SET8(substruct3->isEgg);
             if (substruct3->isEgg)
@@ -2621,12 +2725,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_EFFORT_RIBBON:
             SET8(substruct3->effortRibbon);
             break;
-        case MON_DATA_MARINE_RIBBON:
-            SET8(substruct3->marineRibbon);
-            break;
-        case MON_DATA_LAND_RIBBON:
-            SET8(substruct3->landRibbon);
-            break;
         case MON_DATA_SKY_RIBBON:
             SET8(substruct3->skyRibbon);
             break;
@@ -2650,13 +2748,15 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             break;
         case MON_DATA_IVS:
         {
-            u32 ivs = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
+            u32 ivs = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24) | (data[4] << 28);
             substruct3->hpIV = ivs & MAX_IV_MASK;
-            substruct3->attackIV = (ivs >> 5) & MAX_IV_MASK;
-            substruct3->defenseIV = (ivs >> 10) & MAX_IV_MASK;
-            substruct3->speedIV = (ivs >> 15) & MAX_IV_MASK;
-            substruct3->spAttackIV = (ivs >> 20) & MAX_IV_MASK;
-            substruct3->spDefenseIV = (ivs >> 25) & MAX_IV_MASK;
+            substruct3->attackIV = (ivs >> 4) & MAX_IV_MASK;
+            substruct3->defenseIV = (ivs >> 8) & MAX_IV_MASK;
+            substruct3->speedIV = (ivs >> 12) & MAX_IV_MASK;
+            substruct3->spAttackIV = (ivs >> 16) & MAX_IV_MASK;
+            substruct3->spDefenseIV = (ivs >> 20) & MAX_IV_MASK;
+			substruct3->reactionIV = (ivs >> 24) & MAX_IV_MASK;
+            substruct3->observeIV = (ivs >> 28) & MAX_IV_MASK;
             break;
         }
         default:
@@ -3058,6 +3158,8 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->speedIV = GetMonData(src, MON_DATA_SPEED_IV, NULL);
     dst->spAttackIV = GetMonData(src, MON_DATA_SPATK_IV, NULL);
     dst->spDefenseIV = GetMonData(src, MON_DATA_SPDEF_IV, NULL);
+	dst->reactionIV = GetMonData(src, MON_DATA_REACT_IV, NULL);
+    dst->observeIV = GetMonData(src, MON_DATA_OBSER_IV, NULL);
     dst->personality = GetMonData(src, MON_DATA_PERSONALITY, NULL);
     dst->status1 = GetMonData(src, MON_DATA_STATUS, NULL);
     dst->level = GetMonData(src, MON_DATA_LEVEL, NULL);
@@ -3068,6 +3170,8 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->speed = GetMonData(src, MON_DATA_SPEED, NULL);
     dst->spAttack = GetMonData(src, MON_DATA_SPATK, NULL);
     dst->spDefense = GetMonData(src, MON_DATA_SPDEF, NULL);
+	dst->reaction = GetMonData(src, MON_DATA_REACT, NULL);
+    dst->observe = GetMonData(src, MON_DATA_OBSER, NULL);
     dst->abilityNum = GetMonData(src, MON_DATA_ABILITY_NUM, NULL);
     dst->otId = GetMonData(src, MON_DATA_OT_ID, NULL);
     dst->type1 = gSpeciesInfo[dst->species].types[0];
@@ -3126,10 +3230,10 @@ bool8 ExecuteTableBasedItemEffect(struct Pokemon *mon, u16 item, u8 partyIndex, 
 // EXP candies store an index for this table in their holdEffectParam.
 const u32 sExpCandyExperienceTable[] = {
     [EXP_100 - 1] = 100,
-    [EXP_800 - 1] = 800,
-    [EXP_3000 - 1] = 3000,
-    [EXP_10000 - 1] = 10000,
-    [EXP_30000 - 1] = 30000,
+    [EXP_800 - 1] = 600,
+    [EXP_3000 - 1] = 1000,
+    [EXP_10000 - 1] = 5000,
+    [EXP_30000 - 1] = 10000,
 };
 
 // Returns TRUE if the item has no effect on the Pokémon, FALSE otherwise
@@ -4024,6 +4128,18 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                     case NATURE_RASH:
                     case NATURE_SASSY:
                     case NATURE_QUIRKY:
+					case NATURE_AUSTERE:
+                    case NATURE_WILD:
+                    case NATURE_STRICT:
+                    case NATURE_PROUD:
+                    case NATURE_VALIANT:
+                    case NATURE_SUAVE:
+                    case NATURE_CURIOUS:
+                    case NATURE_ALERT:
+                    case NATURE_SILLY:
+                    case NATURE_ANXIOUS:
+                    case NATURE_ERRATIC:
+                    case NATURE_ZEALOUS:
                         targetSpecies = evolutions[i].targetSpecies;
                         break;
                     }
@@ -4047,6 +4163,18 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                     case NATURE_CALM:
                     case NATURE_GENTLE:
                     case NATURE_CAREFUL:
+					case NATURE_WARY:
+                    case NATURE_POLITE:
+                    case NATURE_SPACEY:
+                    case NATURE_WISE:
+                    case NATURE_JEALOUS:
+                    case NATURE_SHY:
+                    case NATURE_PASSIVE:
+                    case NATURE_SCEPTIC:
+                    case NATURE_DEVOTED:
+                    case NATURE_PATIENT:
+                    case NATURE_ALOOF:
+                    case NATURE_FOCUSED:
                         targetSpecies = evolutions[i].targetSpecies;
                         break;
                     }

@@ -3144,6 +3144,8 @@ static void FillPartnerParty(u16 trainerId)
                 SetMonData(&gPlayerParty[i+3], MON_DATA_SPATK_EV, &(partyData[i].ev[3]));
                 SetMonData(&gPlayerParty[i+3], MON_DATA_SPDEF_EV, &(partyData[i].ev[4]));
                 SetMonData(&gPlayerParty[i+3], MON_DATA_SPEED_EV, &(partyData[i].ev[5]));
+				SetMonData(&gPlayerParty[i+3], MON_DATA_REACT_EV, &(partyData[i].ev[6]));
+                SetMonData(&gPlayerParty[i+3], MON_DATA_OBSER_EV, &(partyData[i].ev[7]));
             }
             if (partyData[i].ability != ABILITY_NONE)
             {

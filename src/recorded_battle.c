@@ -30,9 +30,10 @@ struct PlayerInfo
     u16 language;
 };
 
+#ifndef FREE_TRAINER_HILL
 // Save data using TryWriteSpecialSaveSector is allowed to exceed SECTOR_DATA_SIZE (up to the counter field)
 STATIC_ASSERT(sizeof(struct RecordedBattleSave) <= SECTOR_COUNTER_OFFSET, RecordedBattleSaveFreeSpace);
-
+#endif
 EWRAM_DATA u32 gRecordedBattleRngSeed = 0;
 EWRAM_DATA u32 gBattlePalaceMoveSelectionRngValue = 0;
 EWRAM_DATA static u8 sBattleRecords[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE] = {0};
@@ -278,13 +279,18 @@ static bool32 RecordedBattleToSave(struct RecordedBattleSave *battleSave, struct
 {
     memset(saveSector, 0, SECTOR_SIZE);
     memcpy(saveSector, battleSave, sizeof(*battleSave));
+	#ifndef FREE_TRAINER_HILL
 
     saveSector->checksum = CalcByteArraySum((void *)(saveSector), sizeof(*saveSector) - 4);
 
     if (TryWriteSpecialSaveSector(SECTOR_ID_RECORDED_BATTLE, (void *)(saveSector)) != SAVE_STATUS_OK)
-        return FALSE;
-    else
+		#endif
+        return FALSE; 
+		
+		#ifndef FREE_TRAINER_HILL
+		else
         return TRUE;
+	#endif
 }
 
 bool32 MoveRecordedBattleToSaveData(void)

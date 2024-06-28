@@ -625,7 +625,9 @@ u32 GetTotalBaseStat(u32 species)
         + gSpeciesInfo[species].baseDefense
         + gSpeciesInfo[species].baseSpeed
         + gSpeciesInfo[species].baseSpAttack
-        + gSpeciesInfo[species].baseSpDefense;
+        + gSpeciesInfo[species].baseSpDefense
+		+ gSpeciesInfo[species].baseReaction
+        + gSpeciesInfo[species].baseObserve;
 }
 
 bool32 IsTruantMonVulnerable(u32 battlerAI, u32 opposingBattler)

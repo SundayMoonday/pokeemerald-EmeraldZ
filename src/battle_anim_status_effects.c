@@ -540,6 +540,8 @@ void AnimTask_StatsChange(u8 taskId)
     case STAT_ANIM_PLUS1 + STAT_SPEED:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_SPEED;    break;
     case STAT_ANIM_PLUS1 + STAT_SPATK:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_SPATK;    break;
     case STAT_ANIM_PLUS1 + STAT_SPDEF:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_SPDEF;    break;
+	case STAT_ANIM_PLUS1 + STAT_REACT:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_REACT;    break;
+    case STAT_ANIM_PLUS1 + STAT_OBSER:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_OBSER;    break;
     case STAT_ANIM_PLUS1 + STAT_ACC:     goesDown = FALSE;  animStatId = STAT_ANIM_PAL_ACC;      break;
     case STAT_ANIM_PLUS1 + STAT_EVASION: goesDown = FALSE;  animStatId = STAT_ANIM_PAL_EVASION;  break;
 
@@ -548,6 +550,8 @@ void AnimTask_StatsChange(u8 taskId)
     case STAT_ANIM_MINUS1 + STAT_SPEED:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_SPEED;    break;
     case STAT_ANIM_MINUS1 + STAT_SPATK:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_SPATK;    break;
     case STAT_ANIM_MINUS1 + STAT_SPDEF:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_SPDEF;    break;
+	case STAT_ANIM_MINUS1 + STAT_REACT:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_REACT;    break;
+    case STAT_ANIM_MINUS1 + STAT_OBSER:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_OBSER;    break;
     case STAT_ANIM_MINUS1 + STAT_ACC:     goesDown = TRUE;  animStatId = STAT_ANIM_PAL_ACC;      break;
     case STAT_ANIM_MINUS1 + STAT_EVASION: goesDown = TRUE;  animStatId = STAT_ANIM_PAL_EVASION;  break;
 
@@ -556,6 +560,8 @@ void AnimTask_StatsChange(u8 taskId)
     case STAT_ANIM_PLUS2 + STAT_SPEED:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_SPEED;    sharply = TRUE;  break;
     case STAT_ANIM_PLUS2 + STAT_SPATK:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_SPATK;    sharply = TRUE;  break;
     case STAT_ANIM_PLUS2 + STAT_SPDEF:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_SPDEF;    sharply = TRUE;  break;
+	case STAT_ANIM_PLUS2 + STAT_REACT:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_REACT;    sharply = TRUE;  break;
+    case STAT_ANIM_PLUS2 + STAT_OBSER:   goesDown = FALSE;  animStatId = STAT_ANIM_PAL_OBSER;    sharply = TRUE;  break;
     case STAT_ANIM_PLUS2 + STAT_ACC:     goesDown = FALSE;  animStatId = STAT_ANIM_PAL_ACC;      sharply = TRUE;  break;
     case STAT_ANIM_PLUS2 + STAT_EVASION: goesDown = FALSE;  animStatId = STAT_ANIM_PAL_EVASION;  sharply = TRUE;  break;
 
@@ -564,6 +570,8 @@ void AnimTask_StatsChange(u8 taskId)
     case STAT_ANIM_MINUS2 + STAT_SPEED:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_SPEED;    sharply = TRUE;  break;
     case STAT_ANIM_MINUS2 + STAT_SPATK:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_SPATK;    sharply = TRUE;  break;
     case STAT_ANIM_MINUS2 + STAT_SPDEF:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_SPDEF;    sharply = TRUE;  break;
+	case STAT_ANIM_MINUS2 + STAT_REACT:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_REACT;    sharply = TRUE;  break;
+    case STAT_ANIM_MINUS2 + STAT_OBSER:   goesDown = TRUE;  animStatId = STAT_ANIM_PAL_OBSER;    sharply = TRUE;  break;
     case STAT_ANIM_MINUS2 + STAT_ACC:     goesDown = TRUE;  animStatId = STAT_ANIM_PAL_ACC;      sharply = TRUE;  break;
     case STAT_ANIM_MINUS2 + STAT_EVASION: goesDown = TRUE;  animStatId = STAT_ANIM_PAL_EVASION;  sharply = TRUE;  break;
 

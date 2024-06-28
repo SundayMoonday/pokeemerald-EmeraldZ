@@ -70,7 +70,31 @@
 #define NATURE_SASSY    22
 #define NATURE_CAREFUL  23
 #define NATURE_QUIRKY   24
-#define NUM_NATURES     25
+#define NATURE_AUSTERE  25
+#define NATURE_WILD     26
+#define NATURE_WARY     27
+#define NATURE_STRICT   28
+#define NATURE_POLITE   29
+#define NATURE_SPACEY   30
+#define NATURE_WISE     31
+#define NATURE_JEALOUS  32
+#define NATURE_PROUD    33
+#define NATURE_VALIANT  34
+#define NATURE_SHY      35
+#define NATURE_CURIOUS  36
+#define NATURE_ALERT    37
+#define NATURE_SILLY    38
+#define NATURE_ANXIOUS  39
+#define NATURE_SUAVE    40
+#define NATURE_PASSIVE  41
+#define NATURE_SCEPTIC  42
+#define NATURE_DEVOTED  43
+#define NATURE_PATIENT  44
+#define NATURE_ALOOF    45
+#define NATURE_ERRATIC  46
+#define NATURE_FOCUSED  47
+#define NATURE_ZEALOUS  48
+#define NUM_NATURES     49
 
 // Pokemon Stats
 #define STAT_HP      0
@@ -79,10 +103,12 @@
 #define STAT_SPEED   3
 #define STAT_SPATK   4
 #define STAT_SPDEF   5
-#define NUM_STATS    6
+#define STAT_REACT   6
+#define STAT_OBSER   7
+#define NUM_STATS    8
 
-#define STAT_ACC     6 // Only in battles.
-#define STAT_EVASION 7 // Only in battles.
+#define STAT_ACC     8 // Only in battles.
+#define STAT_EVASION 9 // Only in battles.
 
 #define NUM_NATURE_STATS (NUM_STATS - 1) // excludes HP
 #define NUM_BATTLE_STATS (NUM_STATS + 2) // includes Accuracy and Evasion
@@ -210,8 +236,8 @@
 #define MAX_SHEEN       255
 #define MAX_CONDITION   255
 
-#define MAX_PER_STAT_IVS 31
-#define MAX_IV_MASK 31
+#define MAX_PER_STAT_IVS 15
+#define MAX_IV_MASK 15
 #define USE_RANDOM_IVS (MAX_PER_STAT_IVS + 1)
 #if P_EV_CAP >= GEN_6
 #define MAX_PER_STAT_EVS 252
