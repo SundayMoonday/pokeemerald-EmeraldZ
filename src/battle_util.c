@@ -272,6 +272,7 @@ void HandleAction_UseMove(void)
     }
 
     gIsCriticalHit = FALSE;
+	gIsCloseCall = FALSE;
     gBattleStruct->atkCancellerTracker = 0;
     gMoveResultFlags = 0;
     gMultiHitCounter = 0;
@@ -3609,7 +3610,7 @@ u8 AtkCanceller_UnableToUseMove(u32 moveType)
                     {
                         gBattleCommunication[MULTISTRING_CHOOSER] = TRUE;
                         gBattlerTarget = gBattlerAttacker;
-                        gBattleMoveDamage = CalculateMoveDamage(MOVE_NONE, gBattlerAttacker, gBattlerAttacker, TYPE_MYSTERY, 40, FALSE, FALSE, TRUE);
+                        gBattleMoveDamage = CalculateMoveDamage(MOVE_NONE, gBattlerAttacker, gBattlerAttacker, TYPE_MYSTERY, 40, FALSE, FALSE, FALSE, TRUE);
                         gProtectStructs[gBattlerAttacker].confusionSelfDmg = TRUE;
                         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
                     }
@@ -8276,7 +8277,7 @@ u8 IsMonDisobedient(void)
         calc -= obedienceLevel;
         if (calc < obedienceLevel)
         {
-            gBattleMoveDamage = CalculateMoveDamage(MOVE_NONE, gBattlerAttacker, gBattlerAttacker, TYPE_MYSTERY, 40, FALSE, FALSE, TRUE);
+            gBattleMoveDamage = CalculateMoveDamage(MOVE_NONE, gBattlerAttacker, gBattlerAttacker, TYPE_MYSTERY, 40, FALSE, FALSE, FALSE, TRUE);
             gBattlerTarget = gBattlerAttacker;
             gBattlescriptCurrInstr = BattleScript_IgnoresAndHitsItself;
             gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -9726,6 +9727,13 @@ static inline uq4_12_t GetZMaxMoveAgainstProtectionModifier(u32 battlerDef, u32 
     return UQ_4_12(1.0);
 }
 
+static inline uq4_12_t GetCloseCallModifier(bool32 isClose)
+{
+    if (isClose)
+        return UQ_4_12(0.25);
+    return UQ_4_12(1.0);
+}
+
 static inline uq4_12_t GetMinimizeModifier(u32 move, u32 battlerDef)
 {
     if (gBattleMoves[move].minimizeDoubleDamage && gStatuses3[battlerDef] & STATUS3_MINIMIZED)
@@ -9934,7 +9942,7 @@ static inline uq4_12_t GetOtherModifiers(u32 move, u32 moveType, u32 battlerAtk,
 } while (0)
 
 static inline s32 DoMoveDamageCalcVars(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower,
-                            bool32 isCrit, bool32 randomFactor, bool32 updateFlags, uq4_12_t typeEffectivenessModifier, u32 weather,
+                            bool32 isCrit, bool32 isClose, bool32 randomFactor, bool32 updateFlags, uq4_12_t typeEffectivenessModifier, u32 weather,
                             u32 holdEffectAtk, u32 holdEffectDef, u32 abilityAtk, u32 abilityDef)
 {
     s32 dmg;
@@ -9966,6 +9974,7 @@ static inline s32 DoMoveDamageCalcVars(u32 move, u32 battlerAtk, u32 battlerDef,
     DAMAGE_APPLY_MODIFIER(typeEffectivenessModifier);
     DAMAGE_APPLY_MODIFIER(GetBurnOrFrostBiteModifier(battlerAtk, move, abilityAtk));
     DAMAGE_APPLY_MODIFIER(GetZMaxMoveAgainstProtectionModifier(battlerDef, move));
+	DAMAGE_APPLY_MODIFIER(GetCloseCallModifier(isClose));
     DAMAGE_APPLY_MODIFIER(GetOtherModifiers(move, moveType, battlerAtk, battlerDef, isCrit, typeEffectivenessModifier, updateFlags, abilityAtk, abilityDef, holdEffectAtk, holdEffectDef));
 
     if (dmg == 0)
@@ -9974,7 +9983,7 @@ static inline s32 DoMoveDamageCalcVars(u32 move, u32 battlerAtk, u32 battlerDef,
 }
 
 static inline s32 DoMoveDamageCalc(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower,
-                            bool32 isCrit, bool32 randomFactor, bool32 updateFlags, uq4_12_t typeEffectivenessModifier, u32 weather)
+                            bool32 isCrit, bool32 isClose, bool32 randomFactor, bool32 updateFlags, uq4_12_t typeEffectivenessModifier, u32 weather)
 {
     u32 holdEffectAtk, holdEffectDef, abilityAtk, abilityDef;
 
@@ -9986,7 +9995,7 @@ static inline s32 DoMoveDamageCalc(u32 move, u32 battlerAtk, u32 battlerDef, u32
     abilityAtk = GetBattlerAbility(battlerAtk);
     abilityDef = GetBattlerAbility(battlerDef);
 
-    return DoMoveDamageCalcVars(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, randomFactor,
+    return DoMoveDamageCalcVars(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, isClose, randomFactor,
                             updateFlags, typeEffectivenessModifier, weather, holdEffectAtk, holdEffectDef, abilityAtk, abilityDef);
 }
 
@@ -10000,18 +10009,18 @@ static u32 GetWeather(void)
         return gBattleWeather;
 }
 
-s32 CalculateMoveDamage(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, bool32 isCrit, bool32 randomFactor, bool32 updateFlags)
+s32 CalculateMoveDamage(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, bool32 isCrit, bool32 isClose, bool32 randomFactor, bool32 updateFlags)
 {
-    return DoMoveDamageCalc(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, randomFactor,
+    return DoMoveDamageCalc(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, isClose, randomFactor,
                             updateFlags, CalcTypeEffectivenessMultiplier(move, moveType, battlerAtk, battlerDef, GetBattlerAbility(battlerDef), updateFlags),
                             GetWeather());
 }
 
 // for AI so that typeEffectivenessModifier, weather, abilities and holdEffects are calculated only once
 s32 CalculateMoveDamageVars(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, uq4_12_t typeEffectivenessModifier,
-                                          u32 weather, bool32 isCrit, u32 holdEffectAtk, u32 holdEffectDef, u32 abilityAtk, u32 abilityDef)
+                                          u32 weather, bool32 isCrit, bool32 isClose, u32 holdEffectAtk, u32 holdEffectDef, u32 abilityAtk, u32 abilityDef)
 {
-    return DoMoveDamageCalcVars(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, FALSE, FALSE,
+    return DoMoveDamageCalcVars(move, battlerAtk, battlerDef, moveType, fixedBasePower, isCrit, isClose, FALSE, FALSE,
                                 typeEffectivenessModifier, weather, holdEffectAtk, holdEffectDef, abilityAtk, abilityDef);
 }
 
@@ -11204,16 +11213,6 @@ bool32 CanTargetBattler(u32 battlerAtk, u32 battlerDef, u16 move)
     return TRUE;
 }
 
-static void SetRandomMultiHitCounter()
-{
-    if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_LOADED_DICE)
-        gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 5);
-    else if (B_MULTI_HIT_CHANCE >= GEN_5)
-        gMultiHitCounter = RandomWeighted(RNG_HITS, 0, 0, 7, 7, 3, 3); // 35%: 2 hits, 35%: 3 hits, 15% 4 hits, 15% 5 hits.
-    else
-        gMultiHitCounter = RandomWeighted(RNG_HITS, 0, 0, 3, 3, 1, 1); // 37.5%: 2 hits, 37.5%: 3 hits, 12.5% 4 hits, 12.5% 5 hits.
-}
-
 void CopyMonLevelAndBaseStatsToBattleMon(u32 battler, struct Pokemon *mon)
 {
     gBattleMons[battler].level = GetMonData(mon, MON_DATA_LEVEL);
@@ -11224,6 +11223,8 @@ void CopyMonLevelAndBaseStatsToBattleMon(u32 battler, struct Pokemon *mon)
     gBattleMons[battler].speed = GetMonData(mon, MON_DATA_SPEED);
     gBattleMons[battler].spAttack = GetMonData(mon, MON_DATA_SPATK);
     gBattleMons[battler].spDefense = GetMonData(mon, MON_DATA_SPDEF);
+	gBattleMons[battler].reaction = GetMonData(mon, MON_DATA_REACT);
+    gBattleMons[battler].observe = GetMonData(mon, MON_DATA_OBSER);
 }
 
 void CopyMonAbilityAndTypesToBattleMon(u32 battler, struct Pokemon *mon)
@@ -11232,6 +11233,166 @@ void CopyMonAbilityAndTypesToBattleMon(u32 battler, struct Pokemon *mon)
     gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].types[0];
     gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].types[1];
     gBattleMons[battler].type3 = TYPE_MYSTERY;
+}
+
+u32 GetBattlerTotalReactStatArgs(u32 battler, u32 ability, u32 holdEffect)
+{
+	u32 react = gBattleMons[battler].reaction;
+    u32 highestStat = GetHighestStatId(battler);
+
+    // weather abilities
+    if (WEATHER_HAS_EFFECT)
+    {
+        if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+			react = (react * 150) / 100;
+    }
+
+    // other abilities
+    if (ability == ABILITY_QUICK_FEET && gBattleMons[battler].status1 & STATUS1_ANY)
+		react *= 2;
+	else if (ability == ABILITY_RATTLED)
+        react = (react * 150) / 100;
+	else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_REACT)
+        react = (react * 150) / 100;
+	 else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_REACT)
+        react = (react * 150) / 100;
+	
+	if (gBattleMons[battler].status2 & STATUS2_WRAPPED){
+		react = (react * 50) / 100;
+	}
+
+    // stat stages
+	react *= gStatStageRatios[gBattleMons[battler].statStages[STAT_REACT]][0];
+    react /= gStatStageRatios[gBattleMons[battler].statStages[STAT_REACT]][1];
+
+    // player's badge boost
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
+        && ShouldGetStatBadgeBoost(FLAG_BADGE02_GET, battler)
+        && GetBattlerSide(battler) == B_SIDE_PLAYER)
+    {
+        react = (react * 110) / 100;
+    }
+
+    // item effects
+    if (holdEffect == HOLD_EFFECT_ZOOM_LENS)
+        react *= (react * 150) / 100;
+
+    return react;
+}
+
+u32 GetBattlerTotalReactStat(u32 battler)
+{
+    u32 ability = GetBattlerAbility(battler);
+    u32 holdEffect = GetBattlerHoldEffect(battler, TRUE);
+    return GetBattlerTotalReactStatArgs(battler, ability, holdEffect);
+}
+
+void GetWhichBattlerReacts(u32 battler1, u32 battler2)
+{
+	u32 reactsFirst[] = {0,0,0,0,0,0};
+
+    u32 reactBattler1 = GetBattlerTotalReactStat(battler1);
+    u32 reactBattler2 = GetBattlerTotalReactStat(battler2);
+	
+	u32 reactTotal = reactBattler1 + reactBattler2;
+	u32 reactPercent = (reactBattler1 * 100) / reactTotal;
+	
+	if (reactPercent < 10) {
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 7;
+		reactsFirst[2] = 8;
+		reactsFirst[3] = 3;
+		reactsFirst[4] = 2;
+		reactsFirst[5] = 0;
+	}
+	else if (reactPercent < 20){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 6;
+		reactsFirst[2] = 7;
+		reactsFirst[3] = 4;
+		reactsFirst[4] = 3;
+		reactsFirst[5] = 0;
+	}
+	else if (reactPercent < 30){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 9;
+		reactsFirst[3] = 8;
+		reactsFirst[4] = 2;
+		reactsFirst[5] = 1;
+	}
+	else if (reactPercent < 40){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 8;
+		reactsFirst[3] = 7;
+		reactsFirst[4] = 3;
+		reactsFirst[5] = 2;
+	}
+	else if (reactPercent < 50){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 7;
+		reactsFirst[3] = 6;
+		reactsFirst[4] = 4;
+		reactsFirst[5] = 3;
+	}
+	else if (reactPercent < 60){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 4;
+		reactsFirst[3] = 6;
+		reactsFirst[4] = 6;
+		reactsFirst[5] = 4;
+	}
+	else if (reactPercent < 70){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 3;
+		reactsFirst[3] = 4;
+		reactsFirst[4] = 6;
+		reactsFirst[5] = 7;
+	}
+	else if (reactPercent < 80){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 2;
+		reactsFirst[3] = 3;
+		reactsFirst[4] = 7;
+		reactsFirst[5] = 8;
+	}
+	else if (reactPercent < 90){
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 1;
+		reactsFirst[3] = 2;
+		reactsFirst[4] = 8;
+		reactsFirst[5] = 9;
+	}
+	else{
+		reactsFirst[0] = 0;
+		reactsFirst[1] = 0;
+		reactsFirst[2] = 0;
+		reactsFirst[3] = 0;
+		reactsFirst[4] = 1;
+		reactsFirst[5] = 5;
+	}
+
+    gMultiHitCounter = RandomWeighted(RNG_HITS, reactsFirst[0], reactsFirst[1], reactsFirst[2], reactsFirst[3], reactsFirst[4], reactsFirst[5]);
+}
+
+static void SetRandomMultiHitCounter()
+{
+	
+	
+    if (GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_LOADED_DICE){
+        gMultiHitCounter = RandomUniform(RNG_LOADED_DICE, 4, 5);
+	}
+    else {
+		
+		GetWhichBattlerReacts(gBattlerAttacker, gBattlerTarget);
+	}
+    
 }
 
 void RecalcBattlerStats(u32 battler, struct Pokemon *mon)

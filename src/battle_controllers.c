@@ -1592,6 +1592,8 @@ static u32 GetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId, u8 *
         battleMon.speedIV = GetMonData(&party[monId], MON_DATA_SPEED_IV);
         battleMon.spAttackIV = GetMonData(&party[monId], MON_DATA_SPATK_IV);
         battleMon.spDefenseIV = GetMonData(&party[monId], MON_DATA_SPDEF_IV);
+		battleMon.reactionIV = GetMonData(&party[monId], MON_DATA_REACT_IV);
+        battleMon.observeIV = GetMonData(&party[monId], MON_DATA_OBSER_IV);
         battleMon.personality = GetMonData(&party[monId], MON_DATA_PERSONALITY);
         battleMon.status1 = GetMonData(&party[monId], MON_DATA_STATUS);
         battleMon.level = GetMonData(&party[monId], MON_DATA_LEVEL);
@@ -1602,6 +1604,8 @@ static u32 GetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId, u8 *
         battleMon.speed = GetMonData(&party[monId], MON_DATA_SPEED);
         battleMon.spAttack = GetMonData(&party[monId], MON_DATA_SPATK);
         battleMon.spDefense = GetMonData(&party[monId], MON_DATA_SPDEF);
+		battleMon.reaction = GetMonData(&party[monId], MON_DATA_REACT);
+        battleMon.observe = GetMonData(&party[monId], MON_DATA_OBSER);
         battleMon.abilityNum = GetMonData(&party[monId], MON_DATA_ABILITY_NUM);
         battleMon.otId = GetMonData(&party[monId], MON_DATA_OT_ID);
         battleMon.metLevel = GetMonData(&party[monId], MON_DATA_MET_LEVEL);
@@ -1695,6 +1699,14 @@ static u32 GetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId, u8 *
         dst[0] = GetMonData(&party[monId], MON_DATA_SPDEF_EV);
         size = 1;
         break;
+	case REQUEST_REACT_EV_BATTLE:
+        dst[0] = GetMonData(&party[monId], MON_DATA_REACT_EV);
+        size = 1;
+        break;
+    case REQUEST_OBSER_EV_BATTLE:
+        dst[0] = GetMonData(&party[monId], MON_DATA_OBSER_EV);
+        size = 1;
+        break;
     case REQUEST_FRIENDSHIP_BATTLE:
         dst[0] = GetMonData(&party[monId], MON_DATA_FRIENDSHIP);
         size = 1;
@@ -1726,7 +1738,9 @@ static u32 GetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId, u8 *
         dst[3] = GetMonData(&party[monId], MON_DATA_SPEED_IV);
         dst[4] = GetMonData(&party[monId], MON_DATA_SPATK_IV);
         dst[5] = GetMonData(&party[monId], MON_DATA_SPDEF_IV);
-        size = 6;
+		dst[6] = GetMonData(&party[monId], MON_DATA_REACT_IV);
+        dst[7] = GetMonData(&party[monId], MON_DATA_OBSER_IV);
+        size = 8;
         break;
     case REQUEST_HP_IV_BATTLE:
         dst[0] = GetMonData(&party[monId], MON_DATA_HP_IV);
@@ -1749,6 +1763,14 @@ static u32 GetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId, u8 *
         size = 1;
         break;
     case REQUEST_SPDEF_IV_BATTLE:
+        dst[0] = GetMonData(&party[monId], MON_DATA_SPDEF_IV);
+        size = 1;
+        break;
+	case REQUEST_REACT_IV_BATTLE:
+        dst[0] = GetMonData(&party[monId], MON_DATA_SPATK_IV);
+        size = 1;
+        break;
+    case REQUEST_OBSER_IV_BATTLE:
         dst[0] = GetMonData(&party[monId], MON_DATA_SPDEF_IV);
         size = 1;
         break;
@@ -1816,6 +1838,18 @@ static u32 GetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId, u8 *
         break;
     case REQUEST_SPDEF_BATTLE:
         data16 = GetMonData(&party[monId], MON_DATA_SPDEF);
+        dst[0] = data16;
+        dst[1] = data16 >> 8;
+        size = 2;
+        break;
+	case REQUEST_REACT_BATTLE:
+        data16 = GetMonData(&party[monId], MON_DATA_REACT);
+        dst[0] = data16;
+        dst[1] = data16 >> 8;
+        size = 2;
+        break;
+    case REQUEST_OBSER_BATTLE:
+        data16 = GetMonData(&party[monId], MON_DATA_OBSER);
         dst[0] = data16;
         dst[1] = data16 >> 8;
         size = 2;
@@ -1978,7 +2012,7 @@ static void SetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId)
     case REQUEST_SPDEF_EV_BATTLE:
         SetMonData(&party[monId], MON_DATA_SPDEF_EV, &gBattleResources->bufferA[battler][3]);
         break;
-		case REQUEST_REACT_EV_BATTLE:
+	case REQUEST_REACT_EV_BATTLE:
         SetMonData(&party[monId], MON_DATA_REACT_EV, &gBattleResources->bufferA[battler][3]);
         break;
     case REQUEST_OBSER_EV_BATTLE:

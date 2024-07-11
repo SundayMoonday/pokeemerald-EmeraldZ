@@ -2837,6 +2837,11 @@ static void PrintTextOnWindow(u8 windowId, const u8 *string, u8 x, u8 y, u8 line
     AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, lineSpacing, sTextColors[colorId], 0, string);
 }
 
+static void PrintSmallTextOnWindow(u8 windowId, const u8 *string, u8 x, u8 y, u8 lineSpacing, u8 colorId)
+{
+    AddTextPrinterParameterized4(windowId, FONT_SMALL, x, y, 0, lineSpacing, sTextColors[colorId], 0, string);
+}
+
 static void PrintMonInfo(void)
 {
     FillWindowPixelBuffer(PSS_LABEL_WINDOW_PORTRAIT_DEX_NUMBER, PIXEL_FILL(0));
@@ -2966,18 +2971,22 @@ static void PrintPageNamesAndStats(void)
 
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_INFO_RENTAL, gText_RentalPkmn, 0, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_INFO_TYPE, gText_TypeSlash, 0, 1, 0, 0);
-    statsXPos = 6 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_HP4, 42);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_HP4, statsXPos, 1, 0, 1);
-    statsXPos = 6 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Attack3, 42);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Attack3, statsXPos, 17, 0, 1);
-    statsXPos = 6 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Defense3, 42);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Defense3, statsXPos, 33, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_SpAtk4, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpAtk4, statsXPos, 1, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_SpDef4, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpDef4, statsXPos, 17, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Speed2, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Speed2, statsXPos, 33, 0, 1);
+    statsXPos = 6 + GetStringCenterAlignXOffset(FONT_SMALL, gText_HP4, 42);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_HP4, statsXPos, 0, 0, 1);
+    statsXPos = 6 + GetStringCenterAlignXOffset(FONT_SMALL, gText_Attack3, 42);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Attack3, statsXPos, 12, 0, 1);
+    statsXPos = 6 + GetStringCenterAlignXOffset(FONT_SMALL, gText_Defense3, 42);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Defense3, statsXPos, 22, 0, 1);
+	statsXPos = 6 + GetStringCenterAlignXOffset(FONT_SMALL, gText_Observe, 42);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Observe, statsXPos, 32, 0, 1);
+    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_SMALL, gText_SpAtk4, 36);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpAtk4, statsXPos, 0, 0, 1);
+    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_SMALL, gText_SpDef4, 36);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpDef4, statsXPos, 12, 0, 1);
+    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_SMALL, gText_Speed2, 36);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Speed2, statsXPos, 22, 0, 1);
+	statsXPos = 2 + GetStringCenterAlignXOffset(FONT_SMALL, gText_Reaction, 36);
+    PrintSmallTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Reaction, statsXPos, 32, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_ExpPoints, 6, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_NextLv, 6, 17, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS, gText_Status, 2, 1, 0, 1);
@@ -3514,7 +3523,7 @@ static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
 
 static void BufferIvOrEvStats(u8 mode)
 {
-    u16 hp, hp2, atk, def, spA, spD, spe;
+    u16 hp, hp2, atk, def, spA, spD, spe, rea, obs;
     u8 *currHPString = Alloc(20);
     const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
 
@@ -3526,28 +3535,34 @@ static void BufferIvOrEvStats(u8 mode)
         hp2 = sMonSummaryScreen->summary.maxHP;
         atk = sMonSummaryScreen->summary.atk;
         def = sMonSummaryScreen->summary.def;
+		obs = sMonSummaryScreen->summary.obser;
 
         spA = sMonSummaryScreen->summary.spatk;
         spD = sMonSummaryScreen->summary.spdef;
         spe = sMonSummaryScreen->summary.speed;
+		rea = sMonSummaryScreen->summary.react;
         break;
     case 1: // iv mode
         hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_IV);
         atk = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK_IV);
         def = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF_IV);
+		obs = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_OBSER_IV);
 
         spA = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK_IV);
         spD = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF_IV);
         spe = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED_IV);
+		rea = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_REACT_IV);
         break;
     case 2: // ev mode
         hp = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_HP_EV);
         atk = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_ATK_EV);
         def = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_DEF_EV);
+		obs = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_OBSER_EV);
 
         spA = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPATK_EV);
         spD = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPDEF_EV);
         spe = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_SPEED_EV);
+		rea = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_REACT_EV);
         break;
     }
 
@@ -3562,12 +3577,14 @@ static void BufferIvOrEvStats(u8 mode)
         BufferStat(gStringVar1, 0, hp2, 1, 3);
         BufferStat(gStringVar2, natureMod[STAT_ATK - 1], atk, 2, 7);
         BufferStat(gStringVar3, natureMod[STAT_DEF - 1], def, 3, 7);
+		BufferStat(gStringVar5, natureMod[STAT_OBSER - 1], obs, 4, 7);
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
         PrintLeftColumnStats();
 
         BufferStat(gStringVar1, natureMod[STAT_SPATK - 1], spA, 0, 3);
         BufferStat(gStringVar2, natureMod[STAT_SPDEF - 1], spD, 1, 3);
         BufferStat(gStringVar3, natureMod[STAT_SPEED - 1], spe, 2, 3);
+		BufferStat(gStringVar5, natureMod[STAT_REACT - 1], rea, 3, 3);
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
         PrintRightColumnStats();
         break;
@@ -3576,12 +3593,14 @@ static void BufferIvOrEvStats(u8 mode)
         BufferStat(gStringVar1, 0, hp, 0, 7);
         BufferStat(gStringVar2, 0, atk, 1, 7);
         BufferStat(gStringVar3, 0, def, 2, 7);
+		BufferStat(gStringVar5, 0, obs, 3, 7);
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayoutIVEV);
         PrintLeftColumnStats();
 
         BufferStat(gStringVar1, 0, spA, 0, 3);
         BufferStat(gStringVar2, 0, spD, 1, 3);
         BufferStat(gStringVar3, 0, spe, 2, 3);
+		BufferStat(gStringVar5, 0, rea, 3, 3);
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
         PrintRightColumnStats();
         break;
@@ -3596,6 +3615,7 @@ static void BufferLeftColumnStats(void)
     u8 *maxHPString = Alloc(20);
     u8 *attackString = Alloc(20);
     u8 *defenseString = Alloc(20);
+	u8 *observeString = Alloc(20);
     const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
 
     DynamicPlaceholderTextUtil_Reset();
@@ -3603,17 +3623,19 @@ static void BufferLeftColumnStats(void)
     BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3);
     BufferStat(attackString, natureMod[STAT_ATK - 1], sMonSummaryScreen->summary.atk, 2, 7);
     BufferStat(defenseString, natureMod[STAT_DEF - 1], sMonSummaryScreen->summary.def, 3, 7);
+	BufferStat(observeString, natureMod[STAT_OBSER - 1], sMonSummaryScreen->summary.obser, 4, 7);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
 
     Free(currentHPString);
     Free(maxHPString);
     Free(attackString);
     Free(defenseString);
+	Free(observeString);
 }
 
 static void PrintLeftColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 1, 0, 0);
+    PrintSmallTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_LEFT), gStringVar4, 4, 0, 0, 0);
 }
 
 static void BufferRightColumnStats(void)
@@ -3624,12 +3646,13 @@ static void BufferRightColumnStats(void)
     BufferStat(gStringVar1, natureMod[STAT_SPATK - 1], sMonSummaryScreen->summary.spatk, 0, 3);
     BufferStat(gStringVar2, natureMod[STAT_SPDEF - 1], sMonSummaryScreen->summary.spdef, 1, 3);
     BufferStat(gStringVar3, natureMod[STAT_SPEED - 1], sMonSummaryScreen->summary.speed, 2, 3);
+	BufferStat(gStringVar5, natureMod[STAT_REACT - 1], sMonSummaryScreen->summary.reaction, 3, 3);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
 }
 
 static void PrintRightColumnStats(void)
 {
-    PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar4, 2, 1, 0, 0);
+    PrintSmallTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_STATS_RIGHT), gStringVar4, 2, 0, 0, 0);
 }
 
 static void PrintExpPointsNextLevel(void)

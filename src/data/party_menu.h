@@ -1155,7 +1155,9 @@ static const u8 *const sUnused_StatStrings[] =
     gText_Defense3,
     gText_SpAtk4,
     gText_SpDef4,
-    gText_Speed2
+    gText_Speed2,
+	gText_React,
+	gText_Obser
 };
 
 static const u16 sRotomFormChangeMoves[5] =

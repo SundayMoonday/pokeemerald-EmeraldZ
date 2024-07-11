@@ -368,6 +368,7 @@ static void Cmd_waitanimation(void);
 static void Cmd_healthbarupdate(void);
 static void Cmd_datahpupdate(void);
 static void Cmd_critmessage(void);
+static void Cmd_closemessage(void);
 static void Cmd_effectivenesssound(void);
 static void Cmd_resultmessage(void);
 static void Cmd_printstring(void);
@@ -418,7 +419,6 @@ static void Cmd_return(void);
 static void Cmd_end(void);
 static void Cmd_end2(void);
 static void Cmd_end3(void);
-static void Cmd_unused5(void);
 static void Cmd_call(void);
 static void Cmd_setroost(void);
 static void Cmd_jumpifabilitypresent(void);
@@ -677,7 +677,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_end,                                     //0x3D
     Cmd_end2,                                    //0x3E
     Cmd_end3,                                    //0x3F
-    Cmd_unused5,                 //0x40
+    Cmd_closemessage,            			     //0x40
     Cmd_call,                                    //0x41
     Cmd_setroost,                                //0x42
     Cmd_jumpifabilitypresent,                    //0x43
@@ -1600,21 +1600,21 @@ static bool32 JumpIfMoveFailed(u8 adder, u16 move)
     return FALSE;
 }
 
-static void Cmd_unused5(void)
-{
-    CMD_ARGS(const u8 *failInstr);
+//static void Cmd_unused5(void)
+//{
+//    CMD_ARGS(const u8 *failInstr);
 
-    if (IsBattlerProtected(gBattlerTarget, gCurrentMove))
-    {
-        gMoveResultFlags |= MOVE_RESULT_MISSED;
-        JumpIfMoveFailed(sizeof(*cmd), MOVE_NONE);
-        gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
-    }
-    else
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-}
+//    if (IsBattlerProtected(gBattlerTarget, gCurrentMove))
+ //   {
+ //       gMoveResultFlags |= MOVE_RESULT_MISSED;
+ //       JumpIfMoveFailed(sizeof(*cmd), MOVE_NONE);
+ //       gBattleCommunication[MISS_TYPE] = B_MSG_PROTECTED;
+ //   }
+ //   else
+ //   {
+ //       gBattlescriptCurrInstr = cmd->nextInstr;
+ //   }
+//}
 
 static bool8 JumpIfMoveAffectedByProtect(u16 move)
 {
@@ -1718,6 +1718,52 @@ static bool32 AccuracyCalcHelper(u16 move)
     return FALSE;
 }
 
+u32 GetBattlerTotalObserStatArgs(u32 battler, u32 ability, u32 holdEffect)
+{
+	u32 obser = gBattleMons[battler].observe;
+    u32 highestStat = GetHighestStatId(battler);
+
+
+    // other abilities
+    if (ability == ABILITY_INNER_FOCUS || ability == ABILITY_KEEN_EYE || ability == ABILITY_ANTICIPATION || ability == ABILITY_ANALYTIC || ability == ABILITY_MINDS_EYE)
+        obser = (obser * 150) / 100;
+	else if (ability == ABILITY_UNAWARE || ability == ABILITY_OBLIVIOUS)
+        obser = (obser * 75) / 100;
+	else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_OBSER)
+        obser = (obser * 150) / 100;
+	 else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_OBSER)
+        obser = (obser * 150) / 100;
+	
+	if (gBattleMons[battler].status2 & STATUS2_CONFUSION){
+		obser = (obser * 50) / 100;
+	}
+	
+    // stat stages
+	obser *= gStatStageRatios[gBattleMons[battler].statStages[STAT_OBSER]][0];
+    obser /= gStatStageRatios[gBattleMons[battler].statStages[STAT_OBSER]][1];
+
+    // player's badge boost
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
+        && ShouldGetStatBadgeBoost(FLAG_BADGE06_GET, battler)
+        && GetBattlerSide(battler) == B_SIDE_PLAYER)
+    {
+        obser = (obser * 110) / 100;
+    }
+
+    // item effects
+    if (holdEffect == HOLD_EFFECT_SCOPE_LENS)
+        obser *= (obser * 150) / 100;
+
+    return obser;
+}
+
+u32 GetBattlerTotalObserStat(u32 battler)
+{
+    u32 ability = GetBattlerAbility(battler);
+    u32 holdEffect = GetBattlerHoldEffect(battler, TRUE);
+    return GetBattlerTotalReactStatArgs(battler, ability, holdEffect);
+}
+
 u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect)
 {
     u32 calc, moveAcc;
@@ -1726,6 +1772,8 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     u32 defParam = GetBattlerHoldEffectParam(battlerDef);
     u32 atkAlly = BATTLE_PARTNER(battlerAtk);
     u32 atkAllyAbility = GetBattlerAbility(atkAlly);
+	u32 battlerAtkReact = GetBattlerTotalReactStat(battlerAtk);
+	u32 battlerDefAware = GetBattlerTotalObserStat(battlerDef);
 
     gPotentialItemEffectBattler = battlerDef;
     accStage = gBattleMons[battlerAtk].statStages[STAT_ACC];
@@ -1746,7 +1794,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
         buff = MIN_STAT_STAGE;
     if (buff > MAX_STAT_STAGE)
         buff = MAX_STAT_STAGE;
-
+	
+	
+	
     moveAcc = gBattleMoves[move].accuracy;
     // Check Thunder and Hurricane on sunny weather.
     if (IsBattlerWeatherAffected(battlerDef, B_WEATHER_SUN)
@@ -1758,8 +1808,12 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
 
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;
     calc /= gAccuracyStageRatios[buff].divisor;
-
-    // Attacker's ability
+	
+	if (battlerDefAware > battlerAtkReact && IS_MOVE_STATUS(move)){
+		calc = ((((battlerAtkReact + battlerDefAware) * 100) / (2 * battlerDefAware)) * calc) / 100;
+	}
+    
+	// Attacker's ability
     switch (atkAbility)
     {
     case ABILITY_COMPOUND_EYES:
@@ -2023,6 +2077,8 @@ s32 CalcCritChanceStageArgs(u32 battlerAtk, u32 battlerDef, u32 move, bool32 rec
     return critChance;
 }
 
+
+
 s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordAbility)
 {
     u32 abilityAtk = GetBattlerAbility(gBattlerAttacker);
@@ -2030,6 +2086,37 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
     u32 holdEffectAtk = GetBattlerHoldEffect(battlerAtk, TRUE);
     return CalcCritChanceStageArgs(battlerAtk, battlerDef, move, recordAbility, abilityAtk, abilityDef, holdEffectAtk);
 }
+
+u32 CalcCritAware(u32 battlerAtk, u32 battlerDef)
+{
+    u32 battlerAtkObser = GetBattlerTotalObserStat(battlerAtk);
+	u32 battlerDefObser = GetBattlerTotalObserStat(battlerDef);
+	u32 critBonusRoll = 1;
+	
+	if (battlerAtkObser > battlerDefObser){
+		battlerAtkObser *= 2;
+		critBonusRoll = ((battlerAtkObser * 20) / battlerDefObser) / 10;
+	}
+	
+	return critBonusRoll;
+}
+
+u32 CalcCloseAware(u32 battlerAtk, u32 battlerDef)
+{
+    u32 battlerAtkObser = GetBattlerTotalObserStat(battlerAtk);
+	u32 battlerDefReact = GetBattlerTotalReactStat(battlerDef);
+	u32 critBonusRoll = 1;
+	
+	if (battlerDefReact > battlerAtkObser){
+		battlerDefReact *= 2;
+		critBonusRoll = ((battlerDefReact * 10) / battlerAtkObser) / 10;
+	} else {
+		critBonusRoll = 0;
+	}
+	
+	return critBonusRoll;
+}
+
 #undef BENEFITS_FROM_LEEK
 
 s32 GetCritHitChance(s32 critChanceIndex)
@@ -2047,15 +2134,33 @@ static void Cmd_critcalc(void)
     u16 partySlot;
     s32 critChance = CalcCritChanceStage(gBattlerAttacker, gBattlerTarget, gCurrentMove, TRUE);
     gPotentialItemEffectBattler = gBattlerAttacker;
+	u32 critBonusRoll, closeRoll, i;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_WALLY_TUTORIAL | BATTLE_TYPE_FIRST_BATTLE))
+    if (gBattleTypeFlags & (BATTLE_TYPE_WALLY_TUTORIAL | BATTLE_TYPE_FIRST_BATTLE)){
         gIsCriticalHit = FALSE;
-    else if (critChance == -1)
+	}
+    else if (critChance == -1){
         gIsCriticalHit = FALSE;
-    else if (critChance == -2)
+	}
+    else if (critChance == -2){
         gIsCriticalHit = TRUE;
-    else
+		gIsCloseCall = FALSE;
+	}
+    else{
+		critBonusRoll = CalcCritAware(gBattlerAttacker, gBattlerTarget);
+		for (i = 0; i < critBonusRoll; i++){
         gIsCriticalHit = RandomWeighted(RNG_CRITICAL_HIT, sCriticalHitChance[critChance] - 1, 1);
+		if (gIsCriticalHit < 1){
+			break;
+		}
+		}
+	}
+	
+	if (gIsCriticalHit == FALSE){
+	// Check for Close Call	
+	closeRoll = CalcCloseAware(gBattlerAttacker, gBattlerTarget);
+		gIsCloseCall = RandomWeighted(RNG_CLOSE_CALL, 10, closeRoll);
+	}
 
     // Counter for EVO_CRITICAL_HITS.
     partySlot = gBattlerPartyIndexes[gBattlerAttacker];
@@ -2073,7 +2178,7 @@ static void Cmd_damagecalc(void)
     u8 moveType;
 
     GET_MOVE_TYPE(gCurrentMove, moveType);
-    gBattleMoveDamage = CalculateMoveDamage(gCurrentMove, gBattlerAttacker, gBattlerTarget, moveType, 0, gIsCriticalHit, TRUE, TRUE);
+    gBattleMoveDamage = CalculateMoveDamage(gCurrentMove, gBattlerAttacker, gBattlerTarget, moveType, 0, gIsCriticalHit, gIsCloseCall, TRUE, TRUE);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -2517,6 +2622,26 @@ static void Cmd_critmessage(void)
             PrepareStringBattle(STRINGID_CRITICALHIT, gBattlerAttacker);
 
             // Signal for the trainer slide-in system.
+            if (GetBattlerSide(gBattlerTarget) != B_SIDE_PLAYER && gBattleStruct->trainerSlideFirstCriticalHitMsgState != 2)
+                gBattleStruct->trainerSlideFirstCriticalHitMsgState = 1;
+
+            gBattleCommunication[MSG_DISPLAY] = 1;
+        }
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
+}
+
+static void Cmd_closemessage(void)
+{
+    CMD_ARGS();
+
+    if (gBattleControllerExecFlags == 0)
+    {
+        if (gIsCloseCall == TRUE && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT))
+        {
+            PrepareStringBattle(STRINGID_CLOSECALL, gBattlerTarget);
+
+            //Signal for the trainer slide-in system.
             if (GetBattlerSide(gBattlerTarget) != B_SIDE_PLAYER && gBattleStruct->trainerSlideFirstCriticalHitMsgState != 2)
                 gBattleStruct->trainerSlideFirstCriticalHitMsgState = 1;
 
@@ -4396,6 +4521,8 @@ static void Cmd_getexp(void)
                 gBattleResources->beforeLvlUp->stats[STAT_SPEED] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPEED);
                 gBattleResources->beforeLvlUp->stats[STAT_SPATK] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPATK);
                 gBattleResources->beforeLvlUp->stats[STAT_SPDEF] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_SPDEF);
+				gBattleResources->beforeLvlUp->stats[STAT_REACT] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_REACT);
+                gBattleResources->beforeLvlUp->stats[STAT_OBSER] = GetMonData(&gPlayerParty[*expMonId], MON_DATA_OBSER);
 
                 BtlController_EmitExpUpdate(gBattleStruct->expGetterBattlerId, BUFFER_A, *expMonId, gBattleMoveDamage);
                 MarkBattlerForControllerExec(gBattleStruct->expGetterBattlerId);
@@ -4583,7 +4710,8 @@ static void MoveValuesCleanUp(void)
 {
     gMoveResultFlags = 0;
     gIsCriticalHit = FALSE;
-    gBattleScripting.moveEffect = 0;
+    gIsCloseCall = FALSE;
+	gBattleScripting.moveEffect = 0;
     gBattleCommunication[MISS_TYPE] = 0;
     gHitMarker &= ~HITMARKER_DESTINYBOND;
     gHitMarker &= ~HITMARKER_SYNCHRONISE_EFFECT;
@@ -7831,7 +7959,7 @@ static void Cmd_drawlvlupbox(void)
         if (IsMonGettingExpSentOut())
             gBattleScripting.drawlvlupboxState = 3;
         else
-            gBattleScripting.drawlvlupboxState = 1;
+            gBattleScripting.drawlvlupboxState = 3; //Make this 1 when you have figured out what went wrong
     }
 
     switch (gBattleScripting.drawlvlupboxState)
@@ -7856,7 +7984,7 @@ static void Cmd_drawlvlupbox(void)
         SetBgAttribute(1, BG_ATTR_PRIORITY, 0);
         ShowBg(0);
         ShowBg(1);
-        HandleBattleWindow(18, 7, 29, 19, WINDOW_BG1);
+        HandleBattleWindow(18, 3, 29, 19, WINDOW_BG1);
         gBattleScripting.drawlvlupboxState = 4;
         break;
     case 4:
@@ -7890,7 +8018,7 @@ static void Cmd_drawlvlupbox(void)
         {
             // Close level up box
             PlaySE(SE_SELECT);
-            HandleBattleWindow(18, 7, 29, 19, WINDOW_BG1 | WINDOW_CLEAR);
+            HandleBattleWindow(18, 3, 29, 19, WINDOW_BG1 | WINDOW_CLEAR);
             gBattleScripting.drawlvlupboxState++;
         }
         break;

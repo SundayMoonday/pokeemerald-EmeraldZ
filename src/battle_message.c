@@ -449,13 +449,16 @@ static const u8 sText_Defense[] = _("Defense");
 static const u8 sText_Speed[] = _("Speed");
 static const u8 sText_SpAttack[] = _("Sp. Atk");
 static const u8 sText_SpDefense[] = _("Sp. Def");
+static const u8 sText_Reaction[] = _("Reaction");
+static const u8 sText_Observe[] = _("Awareness");
 static const u8 sText_Accuracy[] = _("accuracy");
 static const u8 sText_Evasiveness[] = _("evasiveness");
 
 const u8 *const gStatNamesTable[NUM_BATTLE_STATS] =
 {
     sText_HP, sText_Attack, sText_Defense,
-    sText_Speed, sText_SpAttack, sText_SpDefense,
+    sText_Speed, sText_SpAttack, sText_SpDefense, 
+	sText_Reaction, sText_Observe,
     sText_Accuracy, sText_Evasiveness
 };
 
@@ -805,6 +808,7 @@ static const u8 sText_PkmnBurningUp[] = _("{B_ATK_NAME_WITH_PREFIX} is burning u
 static const u8 sText_TeamSurroundedByRocks[] = _("{B_DEF_TEAM1} team was surrounded\nby rocks!");
 static const u8 sText_PkmnHurtByRocksThrown[] = _("{B_ATK_NAME_WITH_PREFIX} is hurt by\nrocks thrown out by G-Max Volcalith!");
 static const u8 sText_CouldntFullyProtect[] = _("{B_DEF_NAME_WITH_PREFIX} couldn't fully protect\nitself and got hurt!");
+static const u8 sText_CloseCall[] = _("A close call! {B_DEF_NAME_WITH_PREFIX} dodged\nmost of the attack!");
 static const u8 sText_StockpiledEffectWoreOff[] = _("{B_ATK_NAME_WITH_PREFIX}'s stockpiled\neffect wore off!");
 static const u8 sText_MoveBlockedByDynamax[] = _("The move was blocked by\nthe power of Dynamax!");
 static const u8 sText_PkmnRevivedReadyToFight[] = _("{B_BUFF1} was revived and\nis ready to fight again!");
@@ -861,6 +865,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_PKMNREVIVEDREADYTOFIGHT - BATTLESTRINGS_TABLE_START] = sText_PkmnRevivedReadyToFight,
     [STRINGID_STOCKPILEDEFFECTWOREOFF - BATTLESTRINGS_TABLE_START] = sText_StockpiledEffectWoreOff,
     [STRINGID_COULDNTFULLYPROTECT - BATTLESTRINGS_TABLE_START] = sText_CouldntFullyProtect,
+	[STRINGID_CLOSECALL - BATTLESTRINGS_TABLE_START] = sText_CloseCall,
     [STRINGID_PKMNHURTBYROCKSTHROWN - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtByRocksThrown,
     [STRINGID_TEAMSURROUNDEDBYROCKS - BATTLESTRINGS_TABLE_START] = sText_TeamSurroundedByRocks,
     [STRINGID_PKMNBURNINGUP - BATTLESTRINGS_TABLE_START] = sText_PkmnBurningUp,

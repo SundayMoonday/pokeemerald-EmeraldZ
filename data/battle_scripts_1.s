@@ -615,6 +615,7 @@ BattleScript_EffectHit_Pledge::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -943,6 +944,7 @@ BattleScript_EffectMaxHp50Recoil::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -1103,6 +1105,7 @@ BattleScript_EffectFling:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_MED
 	resultmessage
 	waitmessage B_WAIT_TIME_MED
@@ -2108,6 +2111,7 @@ BattleScript_SynchronoiseLoop:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -3260,6 +3264,7 @@ BattleScript_HitFromAtkAnimation::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -3286,6 +3291,7 @@ BattleScript_EffectHit_Ret::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -3312,6 +3318,7 @@ BattleScript_EffectNaturalGift:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -3547,6 +3554,7 @@ BattleScript_ExplosionDmgRet:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -3633,6 +3641,7 @@ BattleScript_DreamEaterWorked:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -3875,6 +3884,7 @@ BattleScript_DoMultiHit::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	multihitresultmessage
 	flushtextbox
@@ -4772,6 +4782,7 @@ BattleScript_EffectEerieSpell::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -5457,6 +5468,7 @@ BattleScript_BeatUpAttack::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -6014,6 +6026,7 @@ BattleScript_BrickBreakDoHit::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -6766,6 +6779,7 @@ BattleScript_PursuitDmgOnSwitchOut::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -7533,6 +7547,7 @@ BattleScript_DoFutureAttackHit::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_DoFutureAttackResult:
 	resultmessage
@@ -10243,6 +10258,7 @@ BattleScript_EffectHitSetRemoveTerrain:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -10269,6 +10285,7 @@ BattleScript_RemoveTerrain_Cont:
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -10486,6 +10503,7 @@ BattleScript_EffectMaxMove::
 	healthbarupdate BS_TARGET
 	datahpupdate BS_TARGET
 	critmessage
+	closemessage
 	waitmessage B_WAIT_TIME_LONG
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
@@ -10768,6 +10786,11 @@ BattleScript_PokemonCantUseTheMove::
 
 BattleScript_CouldntFullyProtect::
 	printstring STRINGID_COULDNTFULLYPROTECT
+	waitmessage B_WAIT_TIME_LONG
+	return
+	
+BattleScript_CloseCall::
+	printstring STRINGID_CLOSECALL
 	waitmessage B_WAIT_TIME_LONG
 	return
 

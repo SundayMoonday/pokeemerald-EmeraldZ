@@ -1510,7 +1510,9 @@ static const u8 *const sLvlUpStatStrings[NUM_STATS] =
     gText_Defense,
     gText_SpAtk,
     gText_SpDef,
-    gText_Speed
+    gText_Speed,
+	gText_React,
+    gText_Obser
 };
 
 void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bgClr, u8 fgClr, u8 shadowClr)
@@ -1528,6 +1530,8 @@ void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bg
     statsDiff[3] = statsAfter[STAT_SPATK] - statsBefore[STAT_SPATK];
     statsDiff[4] = statsAfter[STAT_SPDEF] - statsBefore[STAT_SPDEF];
     statsDiff[5] = statsAfter[STAT_SPEED] - statsBefore[STAT_SPEED];
+	statsDiff[6] = statsAfter[STAT_REACT] - statsBefore[STAT_REACT];
+    statsDiff[7] = statsAfter[STAT_OBSER] - statsBefore[STAT_OBSER];
 
     color[0] = bgClr;
     color[1] = fgClr;
@@ -1583,6 +1587,8 @@ void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 s
     stats[3] = currStats[STAT_SPATK];
     stats[4] = currStats[STAT_SPDEF];
     stats[5] = currStats[STAT_SPEED];
+	stats[6] = currStats[STAT_REACT];
+    stats[7] = currStats[STAT_OBSER];
 
     color[0] = bgClr;
     color[1] = fgClr;
@@ -1626,4 +1632,6 @@ void GetMonLevelUpWindowStats(struct Pokemon *mon, u16 *currStats)
     currStats[STAT_SPEED] = GetMonData(mon, MON_DATA_SPEED);
     currStats[STAT_SPATK] = GetMonData(mon, MON_DATA_SPATK);
     currStats[STAT_SPDEF] = GetMonData(mon, MON_DATA_SPDEF);
+	currStats[STAT_REACT] = GetMonData(mon, MON_DATA_REACT);
+    currStats[STAT_OBSER] = GetMonData(mon, MON_DATA_OBSER);
 }

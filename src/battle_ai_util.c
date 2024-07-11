@@ -744,7 +744,7 @@ s32 AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u8 *typeEffectivenes
             break;
         }
         normalDmg = CalculateMoveDamageVars(move, battlerAtk, battlerDef, moveType, fixedBasePower,
-                                             effectivenessMultiplier, weather, FALSE,
+                                             effectivenessMultiplier, weather, FALSE, FALSE,
                                              aiData->holdEffects[battlerAtk], aiData->holdEffects[battlerDef],
                                              aiData->abilities[battlerAtk], aiData->abilities[battlerDef]);
 
@@ -752,7 +752,7 @@ s32 AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u8 *typeEffectivenes
         if (critChanceIndex > 1) // Consider crit damage only if a move has at least +1 crit chance
         {
             s32 critDmg = CalculateMoveDamageVars(move, battlerAtk, battlerDef, moveType, fixedBasePower,
-                                             effectivenessMultiplier, weather, TRUE,
+                                             effectivenessMultiplier, weather, TRUE, FALSE,
                                              aiData->holdEffects[battlerAtk], aiData->holdEffects[battlerDef],
                                              aiData->abilities[battlerAtk], aiData->abilities[battlerDef]);
             u32 critChance = GetCritHitChance(critChanceIndex);
@@ -802,7 +802,7 @@ s32 AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u8 *typeEffectivenes
                     gBattleStruct->beatUpSlot = 0;
                     dmg = 0;
                     for (i = 0; i < partyCount; i++) {
-                        dmg += CalculateMoveDamage(move, battlerAtk, battlerDef, moveType, 0, FALSE, FALSE, FALSE);
+                        dmg += CalculateMoveDamage(move, battlerAtk, battlerDef, moveType, 0, FALSE, FALSE, FALSE, FALSE);
                     }
                     gBattleStruct->beatUpSlot = 0;
                 }

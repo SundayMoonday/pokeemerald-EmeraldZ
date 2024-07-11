@@ -136,6 +136,8 @@ static const u8 sText_Stats_Defense[] = _("DEF");
 static const u8 sText_Stats_Speed[] = _("SPE");
 static const u8 sText_Stats_SpAttack[] = _("SP.A");
 static const u8 sText_Stats_SpDefense[] = _("SP.D");
+static const u8 sText_Stats_Reaction[] = _("REA");
+static const u8 sText_Stats_Observe[] = _("AWA");
 static const u8 sText_Stats_EV_Plus1[] = _("{UP_ARROW_2}");
 static const u8 sText_Stats_EV_Plus2[] = _("{UP_ARROW_2}{UP_ARROW_2}");
 static const u8 sText_Stats_EV_Plus3[] = _("{UP_ARROW_2}{UP_ARROW_2}{UP_ARROW_2}");
@@ -292,7 +294,7 @@ static const u32 sPokedexPlusHGSS_ScreenSearchNational_Tilemap[] = INCBIN_U32("g
 
 #define SCROLLING_MON_X 146
 #define HGSS_DECAPPED FALSE
-#define HGSS_DARK_MODE FALSE
+#define HGSS_DARK_MODE TRUE
 #define HGSS_HIDE_UNSEEN_EVOLUTION_NAMES FALSE
 
 // For scrolling search parameter
@@ -371,6 +373,8 @@ struct PokemonStats
     u8  baseSpAttack;
     u8  baseDefense;
     u8  baseSpDefense;
+	u8  baseReaction;
+    u8  baseObserve;
     u8  differentEVs;
     u8  evYield_HP;
     u8  evYield_Speed;
@@ -378,6 +382,8 @@ struct PokemonStats
     u8  evYield_SpAttack;
     u8  evYield_Defense;
     u8  evYield_SpDefense;
+	u8  evYield_Reaction;
+    u8  evYield_Observe;
     u8  catchRate;
     u8  growthRate;
     u8  eggGroup1;
@@ -3681,7 +3687,7 @@ static void CreateStatBars(struct PokedexListItem *dexMon)
         u8 i;
         u32 width, statValue;
         u8 *gfx = Alloc(64 * 64);
-        static const u8 sBarsYOffset[] = {3, 11, 19, 27, 35, 43, 51, 59};
+        static const u8 sBarsYOffset[] = {1, 9, 17, 25, 33, 41, 49, 57};
         struct SpriteSheet sheet = {gfx, 64 * 64, TAG_STAT_BAR};
         u32 species = NationalPokedexNumToSpecies(dexMon->dexNum);
 
@@ -4996,7 +5002,9 @@ static void SaveMonDataInStruct(void)
         [STAT_DEF]   = gSpeciesInfo[species].evYield_Attack,
         [STAT_SPEED] = gSpeciesInfo[species].evYield_SpAttack,
         [STAT_SPATK] = gSpeciesInfo[species].evYield_Defense,
-        [STAT_SPDEF] = gSpeciesInfo[species].evYield_SpDefense
+        [STAT_SPDEF] = gSpeciesInfo[species].evYield_SpDefense,
+		[STAT_REACT] = gSpeciesInfo[species].evYield_Reaction,
+        [STAT_OBSER] = gSpeciesInfo[species].evYield_Observe
     };
     u8 differentEVs = 0;
     u8 i;
@@ -5016,6 +5024,8 @@ static void SaveMonDataInStruct(void)
     sPokedexView->sPokemonStats.baseSpAttack        = gSpeciesInfo[species].baseSpAttack;
     sPokedexView->sPokemonStats.baseDefense         = gSpeciesInfo[species].baseDefense;
     sPokedexView->sPokemonStats.baseSpDefense       = gSpeciesInfo[species].baseSpDefense;
+	sPokedexView->sPokemonStats.baseReaction        = gSpeciesInfo[species].baseReaction;
+    sPokedexView->sPokemonStats.baseObserve         = gSpeciesInfo[species].baseObserve;
     sPokedexView->sPokemonStats.differentEVs        = differentEVs;
     sPokedexView->sPokemonStats.evYield_HP          = evs[STAT_HP];
     sPokedexView->sPokemonStats.evYield_Speed       = evs[STAT_ATK];
@@ -5023,6 +5033,8 @@ static void SaveMonDataInStruct(void)
     sPokedexView->sPokemonStats.evYield_SpAttack    = evs[STAT_SPEED];
     sPokedexView->sPokemonStats.evYield_Defense     = evs[STAT_SPATK];
     sPokedexView->sPokemonStats.evYield_SpDefense   = evs[STAT_SPDEF];
+	sPokedexView->sPokemonStats.evYield_Defense     = evs[STAT_REACT];
+    sPokedexView->sPokemonStats.evYield_SpDefense   = evs[STAT_OBSER];
     sPokedexView->sPokemonStats.catchRate           = gSpeciesInfo[species].catchRate;
     sPokedexView->sPokemonStats.growthRate          = gSpeciesInfo[species].growthRate;
     sPokedexView->sPokemonStats.eggGroup1           = gSpeciesInfo[species].eggGroups[0];
@@ -5635,11 +5647,11 @@ static void PrintStatsScreen_Left(u8 taskId)
     u8 total_x = 93;
     u8 strEV[25];
     u8 strBase[14];
-    u8 EVs[6] = {sPokedexView->sPokemonStats.evYield_HP, sPokedexView->sPokemonStats.evYield_Speed, sPokedexView->sPokemonStats.evYield_Attack, sPokedexView->sPokemonStats.evYield_SpAttack, sPokedexView->sPokemonStats.evYield_Defense, sPokedexView->sPokemonStats.evYield_SpDefense};
+    u8 EVs[8] = {sPokedexView->sPokemonStats.evYield_HP, sPokedexView->sPokemonStats.evYield_Speed, sPokedexView->sPokemonStats.evYield_Attack, sPokedexView->sPokemonStats.evYield_SpAttack, sPokedexView->sPokemonStats.evYield_Defense, sPokedexView->sPokemonStats.evYield_SpDefense, sPokedexView->sPokemonStats.evYield_Reaction, sPokedexView->sPokemonStats.evYield_Observe};
     u8 differentEVs = 0;
 
     //Base stats
-    if (gTasks[taskId].data[5] == 0)
+    if (gTasks[taskId].data[7] == 0)
     {
         PrintStatsScreenTextSmall(WIN_STATS_LEFT, sText_Stats_HP, base_x, base_y + base_y_offset*base_i);
         ConvertIntToDecimalStringN(strBase, sPokedexView->sPokemonStats.baseHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
@@ -5665,6 +5677,16 @@ static void PrintStatsScreen_Left(u8 taskId)
 
         PrintStatsScreenTextSmall(WIN_STATS_LEFT, sText_Stats_SpDefense, base_x+base_x_second_row, base_y + base_y_offset*base_i);
         ConvertIntToDecimalStringN(strBase, sPokedexView->sPokemonStats.baseSpDefense, STR_CONV_MODE_RIGHT_ALIGN, 3);
+        PrintStatsScreenTextSmall(WIN_STATS_LEFT, strBase, base_x+base_x_offset, base_y + base_y_offset*base_i);
+        base_i++;
+		
+		base_i++;
+        PrintStatsScreenTextSmall(WIN_STATS_LEFT, sText_Stats_Defense, base_x, base_y + base_y_offset*base_i);
+        ConvertIntToDecimalStringN(strBase, sPokedexView->sPokemonStats.baseReaction, STR_CONV_MODE_RIGHT_ALIGN, 3);
+        PrintStatsScreenTextSmall(WIN_STATS_LEFT, strBase, base_x+base_x_first_row, base_y + base_y_offset*base_i);
+
+        PrintStatsScreenTextSmall(WIN_STATS_LEFT, sText_Stats_SpDefense, base_x+base_x_second_row, base_y + base_y_offset*base_i);
+        ConvertIntToDecimalStringN(strBase, sPokedexView->sPokemonStats.baseObserve, STR_CONV_MODE_RIGHT_ALIGN, 3);
         PrintStatsScreenTextSmall(WIN_STATS_LEFT, strBase, base_x+base_x_offset, base_y + base_y_offset*base_i);
         base_i++;
     }
@@ -5740,6 +5762,27 @@ static void PrintStatsScreen_Left(u8 taskId)
                 StringExpandPlaceholders(gStringVar3, sText_Stats_EvStr1Str2);
                 PrintStatsScreenTextSmall(WIN_STATS_LEFT, gStringVar3, base_x + x_offset_column*column, base_y + base_y_offset*base_i);
             }
+			if (EVs[6] > 0)
+            {
+                differentEVs++;
+                column = PrintMonStatsToggle_DifferentEVsColumn(differentEVs);
+                base_i = PrintMonStatsToggle_DifferentEVsRow(differentEVs);
+                StringCopy(gStringVar1, sText_Stats_Reaction);
+                PrintMonStatsToggle_EV_Arrows(gStringVar2, EVs[6]);
+                StringExpandPlaceholders(gStringVar3, sText_Stats_EvStr1Str2);
+                PrintStatsScreenTextSmall(WIN_STATS_LEFT, gStringVar3, base_x + x_offset_column*column, base_y + base_y_offset*base_i);
+            }
+            //Special Defense
+            if (EVs[7] > 0)
+            {
+                differentEVs++;
+                column = PrintMonStatsToggle_DifferentEVsColumn(differentEVs);
+                base_i = PrintMonStatsToggle_DifferentEVsRow(differentEVs);
+                StringCopy(gStringVar1, sText_Stats_Observe);
+                PrintMonStatsToggle_EV_Arrows(gStringVar2, EVs[7]);
+                StringExpandPlaceholders(gStringVar3, sText_Stats_EvStr1Str2);
+                PrintStatsScreenTextSmall(WIN_STATS_LEFT, gStringVar3, base_x + x_offset_column*column, base_y + base_y_offset*base_i);
+            }
         }
         else //3 different EVs in 1 row
         {
@@ -5793,6 +5836,23 @@ static void PrintStatsScreen_Left(u8 taskId)
             if (EVs[5] > 0)
             {
                 StringCopy(gStringVar1, sText_Stats_SpDefense);
+                PrintMonStatsToggle_EV_Arrows(gStringVar2, EVs[5]);
+                StringExpandPlaceholders(gStringVar3, sText_Stats_EvStr1Str2);
+                PrintStatsScreenTextSmall(WIN_STATS_LEFT, gStringVar3, base_x + 29*column, base_y + base_y_offset*base_i);
+                column++;
+            }
+			if (EVs[6] > 0)
+            {
+                StringCopy(gStringVar1, sText_Stats_Reaction);
+                PrintMonStatsToggle_EV_Arrows(gStringVar2, EVs[4]);
+                StringExpandPlaceholders(gStringVar3, sText_Stats_EvStr1Str2);
+                PrintStatsScreenTextSmall(WIN_STATS_LEFT, gStringVar3, base_x + 29*column, base_y + base_y_offset*base_i);
+                column++;
+            }
+            //Special Defense
+            if (EVs[7] > 0)
+            {
+                StringCopy(gStringVar1, sText_Stats_Observe);
                 PrintMonStatsToggle_EV_Arrows(gStringVar2, EVs[5]);
                 StringExpandPlaceholders(gStringVar3, sText_Stats_EvStr1Str2);
                 PrintStatsScreenTextSmall(WIN_STATS_LEFT, gStringVar3, base_x + 29*column, base_y + base_y_offset*base_i);

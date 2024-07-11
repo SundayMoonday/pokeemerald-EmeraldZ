@@ -388,6 +388,8 @@ static const struct ListMenuItem sStatsListItems[] =
     {gText_Speed, 4},
     {gText_SpAtk, 5},
     {gText_SpDef, 6},
+	{gText_React, 7},
+    {gText_Obser, 8},
 };
 
 static const struct ListMenuItem sStatus1ListItems[] =

@@ -172,9 +172,9 @@ u32 GetMoveSlot(u16 *moves, u32 move);
 u32 GetBattlerWeight(u32 battler);
 u32 CalcRolloutBasePower(u32 battlerAtk, u32 basePower, u32 rolloutTimer);
 u32 CalcFuryCutterBasePower(u32 basePower, u32 furyCutterCounter);
-s32 CalculateMoveDamage(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, bool32 isCrit, bool32 randomFactor, bool32 updateFlags);
+s32 CalculateMoveDamage(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, bool32 isCrit, bool32 isClose, bool32 randomFactor, bool32 updateFlags);
 s32 CalculateMoveDamageVars(u32 move, u32 battlerAtk, u32 battlerDef, u32 moveType, s32 fixedBasePower, uq4_12_t typeEffectivenessModifier,
-                                          u32 weather, bool32 isCrit, u32 holdEffectAtk, u32 holdEffectDef, u32 abilityAtk, u32 abilityDef);
+                                          u32 weather, bool32 isCrit, bool32 isClose, u32 holdEffectAtk, u32 holdEffectDef, u32 abilityAtk, u32 abilityDef);
 uq4_12_t CalcTypeEffectivenessMultiplier(u32 move, u32 moveType, u32 battlerAtk, u32 battlerDef, u32 defAbility, bool32 recordAbilities);
 uq4_12_t CalcPartyMonTypeEffectivenessMultiplier(u16 move, u16 speciesDef, u16 abilityDef);
 uq4_12_t GetTypeModifier(u32 atkType, u32 defType);
@@ -222,6 +222,9 @@ void CopyMonAbilityAndTypesToBattleMon(u32 battler, struct Pokemon *mon);
 void RecalcBattlerStats(u32 battler, struct Pokemon *mon);
 bool32 IsAlly(u32 battlerAtk, u32 battlerDef);
 bool32 IsGen6ExpShareEnabled(void);
+u32 GetBattlerTotalReactStat(u32 battler);
+u32 GetBattlerTotalReactStatArgs(u32 battler, u32 ability, u32 holdEffect);
+void GetWhichBattlerReacts(u32 battler1, u32 battler2);
 
 // Ability checks
 bool32 IsRolePlayBannedAbilityAtk(u16 ability);

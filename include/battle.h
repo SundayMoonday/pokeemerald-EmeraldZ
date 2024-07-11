@@ -1012,6 +1012,7 @@ extern u8 gEffectBattler;
 extern u8 gPotentialItemEffectBattler;
 extern u8 gAbsentBattlerFlags;
 extern u8 gIsCriticalHit;
+extern u8 gIsCloseCall;
 extern u8 gMultiHitCounter;
 extern const u8 *gBattlescriptCurrInstr;
 extern u8 gChosenActionByBattler[MAX_BATTLERS_COUNT];

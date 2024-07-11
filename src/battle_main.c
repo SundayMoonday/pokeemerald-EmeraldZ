@@ -169,6 +169,7 @@ EWRAM_DATA u8 gEffectBattler = 0;
 EWRAM_DATA u8 gPotentialItemEffectBattler = 0;
 EWRAM_DATA u8 gAbsentBattlerFlags = 0;
 EWRAM_DATA u8 gIsCriticalHit = FALSE;
+EWRAM_DATA u8 gIsCloseCall = FALSE;
 EWRAM_DATA u8 gMultiHitCounter = 0;
 EWRAM_DATA const u8 *gBattlescriptCurrInstr = NULL;
 EWRAM_DATA u8 gChosenActionByBattler[MAX_BATTLERS_COUNT] = {0};
@@ -4545,36 +4546,64 @@ void SwapTurnOrder(u8 id1, u8 id2)
 u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
 {
     u32 speed = gBattleMons[battler].speed;
+	u32 react = gBattleMons[battler].reaction;
     u32 highestStat = GetHighestStatId(battler);
 
     // weather abilities
     if (WEATHER_HAS_EFFECT)
     {
-        if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN)
+        if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_RAIN){
             speed *= 2;
-        else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+		}
+        else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN){
             speed *= 2;
-        else if (ability == ABILITY_SAND_RUSH   && gBattleWeather & B_WEATHER_SANDSTORM)
+			react = (react * 150) / 100;
+		}
+        else if (ability == ABILITY_SAND_RUSH   && gBattleWeather & B_WEATHER_SANDSTORM){
             speed *= 2;
-        else if (ability == ABILITY_SLUSH_RUSH  && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+		}
+        else if (ability == ABILITY_SLUSH_RUSH  && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW))){
             speed *= 2;
+		}
     }
 
     // other abilities
-    if (ability == ABILITY_QUICK_FEET && gBattleMons[battler].status1 & STATUS1_ANY)
+    if (ability == ABILITY_QUICK_FEET && gBattleMons[battler].status1 & STATUS1_ANY){
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
+		react *= 2;
+	}
+	else if (ability == ABILITY_RATTLED){
+        react = (react * 150) / 100;
+	}
+    else if (ability == ABILITY_SURGE_SURFER && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN){
         speed *= 2;
-    else if (ability == ABILITY_SLOW_START && gDisableStructs[battler].slowStartTimer != 0)
+	}
+    else if (ability == ABILITY_SLOW_START && gDisableStructs[battler].slowStartTimer != 0){
         speed /= 2;
-    else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_SPEED)
+	}
+    else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_SPEED){
         speed = (speed * 150) / 100;
-    else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_SPEED)
+	}
+	else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_REACT){
+        react = (react * 150) / 100;
+	}
+    else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_SPEED){
         speed = (speed * 150) / 100;
+	}
+	 else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_REACT){
+        react = (react * 150) / 100;
+	 }
+
+	if (gBattleMons[battler].status2 & STATUS2_WRAPPED){
+		react = (react * 50) / 100;
+	}
 
     // stat stages
     speed *= gStatStageRatios[gBattleMons[battler].statStages[STAT_SPEED]][0];
     speed /= gStatStageRatios[gBattleMons[battler].statStages[STAT_SPEED]][1];
+	
+	react *= gStatStageRatios[gBattleMons[battler].statStages[STAT_REACT]][0];
+    react /= gStatStageRatios[gBattleMons[battler].statStages[STAT_REACT]][1];
 
     // player's badge boost
     if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
@@ -4582,6 +4611,12 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
         && GetBattlerSide(battler) == B_SIDE_PLAYER)
     {
         speed = (speed * 110) / 100;
+    }
+	if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
+        && ShouldGetStatBadgeBoost(FLAG_BADGE02_GET, battler)
+        && GetBattlerSide(battler) == B_SIDE_PLAYER)
+    {
+        react = (react * 110) / 100;
     }
 
     // item effects
@@ -4591,8 +4626,10 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
         speed /= 2;
     else if (holdEffect == HOLD_EFFECT_CHOICE_SCARF && !IsDynamaxed(battler))
         speed = (speed * 150) / 100;
-    else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battler].species == SPECIES_DITTO && !(gBattleMons[battler].status2 & STATUS2_TRANSFORMED))
-        speed *= 2;
+    else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battler].species)
+        speed = (speed * 150) / 100;
+	else if (holdEffect == HOLD_EFFECT_ZOOM_LENS)
+        react *= (react * 150) / 100;
 
     // various effects
     if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_TAILWIND)
@@ -4606,6 +4643,8 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, u32 holdEffect)
 
     if (gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SWAMP)
         speed /= 4;
+
+	speed = speed + (react * 25) / 100;
 
     return speed;
 }
@@ -4757,6 +4796,8 @@ u32 GetWhichBattlerFaster(u32 battler1, u32 battler2, bool32 ignoreChosenMoves)
     return GetWhichBattlerFasterArgs(battler1, battler2, ignoreChosenMoves, ability1, ability2,
                                      holdEffectBattler1, holdEffectBattler2, speedBattler1, speedBattler2, priority1, priority2);
 }
+
+
 
 static void SetActionsAndBattlersTurnOrder(void)
 {
