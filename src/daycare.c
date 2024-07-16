@@ -703,6 +703,22 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
 				}
                 SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
                 break;
+			case 6:
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_REACT_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_REACT_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_REACT_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_REACT_IV);
+				}
+                SetMonData(egg, MON_DATA_REACT_IV, &iv);
+                break;
+            case 7:
+				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_OBSER_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_OBSER_IV)){
+					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_OBSER_IV);
+				} else {
+					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_OBSER_IV);
+				}
+                SetMonData(egg, MON_DATA_OBSER_IV, &iv);
+                break;
         }
     }
 }
