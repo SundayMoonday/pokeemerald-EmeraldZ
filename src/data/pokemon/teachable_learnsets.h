@@ -12903,41 +12903,6 @@ static const u16 sLinooneTeachableLearnset[] = {
     MOVE_UNAVAILABLE,
 };
 
-static const u16 sGogogoonTeachableLearnset[] = {
-    MOVE_ATTRACT,
-    MOVE_BLIZZARD,
-    MOVE_CUT,
-    MOVE_DIG,
-    MOVE_DOUBLE_TEAM,
-    MOVE_FACADE,
-    MOVE_HYPER_BEAM,
-    MOVE_ICE_BEAM,
-    MOVE_IRON_TAIL,
-    MOVE_PROTECT,
-    MOVE_RAIN_DANCE,
-    MOVE_REST,
-    MOVE_ROAR,
-    MOVE_ROCK_SMASH,
-    MOVE_SHADOW_BALL,
-    MOVE_SHOCK_WAVE,
-    MOVE_STRENGTH,
-    MOVE_SUNNY_DAY,
-    MOVE_SURF,
-    MOVE_THIEF,
-    MOVE_THUNDER,
-    MOVE_THUNDERBOLT,
-    MOVE_TOXIC,
-    MOVE_WATER_PULSE,
-    MOVE_DOUBLE_EDGE,
-    MOVE_ICY_WIND,
-    MOVE_MUD_SLAP,
-    MOVE_SLEEP_TALK,
-    MOVE_SNORE,
-    MOVE_SWAGGER,
-    MOVE_THUNDER_WAVE,
-    MOVE_UNAVAILABLE,
-};
-
 #if P_GALARIAN_FORMS
 static const u16 sZigzagoonGalarTeachableLearnset[] = {
     MOVE_ATTRACT,

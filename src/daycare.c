@@ -33,7 +33,6 @@ static void ClearDaycareMonMail(struct DaycareMail *mail);
 static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *daycare);
 static void DaycarePrintMonInfo(u8 windowId, u32 daycareSlotId, u8 y);
 static u8 ModifyBreedingScoreForOvalCharm(u8 score);
-u8 GetEggMoves(struct Pokemon *pokemon, u16 *eggMoves);
 static u16 GetEggSpecies(u16 species);
 
 // RAM buffers used to assist with BuildEggMoveset()
@@ -260,6 +259,13 @@ static void StorePokemonInDaycare(struct Pokemon *mon, struct DaycareMon *daycar
         TakeMailFromMon(mon);
     }
 
+    u32 newSpecies = GetFormChangeTargetSpecies(mon, FORM_CHANGE_DEPOSIT, 0);
+    if (newSpecies != GetMonData(mon, MON_DATA_SPECIES))
+    {
+        SetMonData(mon, MON_DATA_SPECIES, &newSpecies);
+        CalculateMonStats(mon);
+    }
+
     daycareMon->mon = mon->box;
     daycareMon->steps = 0;
     ZeroMonData(mon);
@@ -331,8 +337,8 @@ static void ApplyDaycareExperience(struct Pokemon *mon)
 
 static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
 {
-    u16 species;
-    u16 newSpecies;
+    u32 species;
+    u32 newSpecies;
     u32 experience;
     struct Pokemon pokemon;
 
@@ -341,7 +347,7 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
     BoxMonToMon(&daycareMon->mon, &pokemon);
 
     newSpecies = GetFormChangeTargetSpecies(&pokemon, FORM_CHANGE_WITHDRAW, 0);
-    if (newSpecies != SPECIES_NONE)
+    if (newSpecies != species)
     {
         SetMonData(&pokemon, MON_DATA_SPECIES, &newSpecies);
         CalculateMonStats(&pokemon);
@@ -595,14 +601,14 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
     u16 motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
     u16 fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
     u8 i, start;
-    u8 selectedIvs[7];
+    u8 selectedIvs[5];
     u8 availableIVs[NUM_STATS];
-    u8 whichParents[7];
+    u8 whichParents[5];
     u8 iv;
-    u8 howManyIVs = 4;
+    u8 howManyIVs = 3;
 
     if (motherItem == ITEM_DESTINY_KNOT || fatherItem == ITEM_DESTINY_KNOT)
-        howManyIVs = 7;
+        howManyIVs = 5;
 
     // Initialize a list of IV indices.
     for (i = 0; i < NUM_STATS; i++)
@@ -657,8 +663,7 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
     // Determine which parent each of the selected IVs should inherit from.
     for (i = start; i < howManyIVs; i++)
     {
-        //whichParents[i] = Random() % DAYCARE_MON_COUNT;
-		whichParents[i] = 0;
+        whichParents[i] = Random() % DAYCARE_MON_COUNT;
     }
 
     // Set each of inherited IVs on the egg mon.
@@ -667,68 +672,28 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
         switch (selectedIvs[i])
         {
             case 0:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HP_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HP_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HP_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HP_IV);
-				}
+                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_HP_IV);
                 SetMonData(egg, MON_DATA_HP_IV, &iv);
                 break;
             case 1:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_ATK_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_ATK_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_ATK_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_ATK_IV);
-				}
+                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_ATK_IV);
                 SetMonData(egg, MON_DATA_ATK_IV, &iv);
                 break;
             case 2:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_DEF_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_DEF_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_DEF_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_DEF_IV);
-				}
+                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_DEF_IV);
                 SetMonData(egg, MON_DATA_DEF_IV, &iv);
                 break;
             case 3:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPEED_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPEED_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPEED_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPEED_IV);
-				}
+                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPEED_IV);
                 SetMonData(egg, MON_DATA_SPEED_IV, &iv);
                 break;
             case 4:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPATK_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPATK_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPATK_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPATK_IV);
-				}
+                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPATK_IV);
                 SetMonData(egg, MON_DATA_SPATK_IV, &iv);
                 break;
             case 5:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPDEF_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPDEF_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPDEF_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPDEF_IV);
-				}
+                iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPDEF_IV);
                 SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
-                break;
-			case 6:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_REACT_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_REACT_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_REACT_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_REACT_IV);
-				}
-                SetMonData(egg, MON_DATA_REACT_IV, &iv);
-                break;
-            case 7:
-				if (GetBoxMonData(&daycare->mons[0].mon, MON_DATA_AWARE_IV) > GetBoxMonData(&daycare->mons[1].mon, MON_DATA_AWARE_IV)){
-					iv = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_AWARE_IV);
-				} else {
-					iv = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_AWARE_IV);
-				}
-                SetMonData(egg, MON_DATA_AWARE_IV, &iv);
                 break;
         }
     }
@@ -1048,10 +1013,6 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         eggSpecies = SPECIES_NIDORAN_F;
     else if (P_NIDORAN_M_DITTO_BREED >= GEN_5 && eggSpecies == SPECIES_VOLBEAT && !(daycare->offspringPersonality & EGG_GENDER_MALE))
         eggSpecies = SPECIES_ILLUMISE;
-	else if (eggSpecies == SPECIES_LATIAS && daycare->offspringPersonality & EGG_GENDER_MALE)
-        eggSpecies = SPECIES_LATIOS;
-	else if (eggSpecies == SPECIES_LATIOS && !(daycare->offspringPersonality & EGG_GENDER_MALE))
-        eggSpecies = SPECIES_LATIAS;
     else if (eggSpecies == SPECIES_MANAPHY)
         eggSpecies = SPECIES_PHIONE;
     else if (GET_BASE_SPECIES_ID(eggSpecies) == SPECIES_ROTOM)
@@ -1327,42 +1288,6 @@ u8 GetDaycareCompatibilityScore(struct DayCare *daycare)
     // two Ditto can't breed
     if (eggGroups[0][0] == EGG_GROUP_DITTO && eggGroups[1][0] == EGG_GROUP_DITTO)
         return PARENTS_INCOMPATIBLE;
-	
-	
-	
-	// Legendary Breeding Rules
-	if (eggGroups[0][0] == EGG_GROUP_EON || eggGroups[1][0] == EGG_GROUP_EON){
-		if (species[0] == SPECIES_LATIAS || species[1] == SPECIES_LATIAS)
-		{
-			if (species[0] == SPECIES_LATIOS || species[1] == SPECIES_LATIOS){
-				if (trainerIds[0] == trainerIds[1])
-					return PARENTS_LOW_COMPATIBILITY;
-
-			return PARENTS_MED_COMPATIBILITY;
-			}
-			return PARENTS_INCOMPATIBLE;
-		} else if (species[0] == SPECIES_LUNALA || species[1] == SPECIES_LUNALA)
-		{
-			if (species[0] == SPECIES_SOLGALEO || species[1] == SPECIES_SOLGALEO){
-				if (trainerIds[0] == trainerIds[1])
-					return PARENTS_LOW_COMPATIBILITY;
-
-			return PARENTS_MED_COMPATIBILITY;
-			}
-			return PARENTS_INCOMPATIBLE;
-		} else
-		{
-			if (species[0] == species[1]){
-				if (trainerIds[0] == trainerIds[1])
-					return PARENTS_LOW_COMPATIBILITY;
-
-					return PARENTS_MED_COMPATIBILITY;
-				} else if (eggGroups[0][0] == EGG_GROUP_DITTO || eggGroups[1][0] == EGG_GROUP_DITTO){
-					return PARENTS_LOW_COMPATIBILITY;
-				}
-			return PARENTS_INCOMPATIBLE;
-		}
-	}
 
     // one parent is Ditto
     if (eggGroups[0][0] == EGG_GROUP_DITTO || eggGroups[1][0] == EGG_GROUP_DITTO)

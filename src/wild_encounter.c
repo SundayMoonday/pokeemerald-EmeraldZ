@@ -42,7 +42,6 @@ enum {
     WILD_AREA_WATER,
     WILD_AREA_ROCKS,
     WILD_AREA_FISHING,
-	WILD_AREA_HIDDEN,
 };
 
 #define WILD_CHECK_REPEL    (1 << 0)
@@ -1069,9 +1068,6 @@ static u8 GetMaxLevelOfSpeciesInWildTable(const struct WildPokemon *wildMon, u16
     case WILD_AREA_ROCKS:
         numMon = ROCK_WILD_COUNT;
         break;
-	case WILD_AREA_HIDDEN:
-        numMon = HIDDEN_WILD_COUNT;
-        break;
     }
 
     for (i = 0; i < numMon; i++)
@@ -1117,27 +1113,6 @@ static void ApplyCleanseTagEncounterRateMod(u32 *encRate)
         *encRate = *encRate * 2 / 3;
 }
 
-u8 ChooseHiddenMonIndex(void)
-{
-    #ifdef ENCOUNTER_CHANCE_HIDDEN_MONS_TOTAL
-        u8 rand = Random() % ENCOUNTER_CHANCE_HIDDEN_MONS_TOTAL;
-
-        if (rand < ENCOUNTER_CHANCE_HIDDEN_MONS_SLOT_0)
-            return 0;
-        else if (rand >= ENCOUNTER_CHANCE_HIDDEN_MONS_SLOT_0 && rand < ENCOUNTER_CHANCE_HIDDEN_MONS_SLOT_1)
-            return 1;
-        else
-            return 2;
-    #else
-        return 0xFF;
-    #endif
-}
-
-bool32 MapHasNoEncounterData(void)
-{
-    return (GetCurrentMapWildMonHeaderId() == HEADER_NONE);
-}
-
 bool8 TryDoDoubleWildBattle(void)
 {
     if (GetSafariZoneFlag()
@@ -1158,4 +1133,25 @@ bool8 StandardWildEncounter_Debug(void)
 
     DoStandardWildBattle_Debug();
     return TRUE;
+}
+
+u8 ChooseHiddenMonIndex(void)
+{
+    #ifdef ENCOUNTER_CHANCE_HIDDEN_MONS_TOTAL
+        u8 rand = Random() % ENCOUNTER_CHANCE_HIDDEN_MONS_TOTAL;
+
+        if (rand < ENCOUNTER_CHANCE_HIDDEN_MONS_SLOT_0)
+            return 0;
+        else if (rand >= ENCOUNTER_CHANCE_HIDDEN_MONS_SLOT_0 && rand < ENCOUNTER_CHANCE_HIDDEN_MONS_SLOT_1)
+            return 1;
+        else
+            return 2;
+    #else
+        return 0xFF;
+    #endif
+}
+
+bool32 MapHasNoEncounterData(void)
+{
+    return (GetCurrentMapWildMonHeaderId() == HEADER_NONE);
 }

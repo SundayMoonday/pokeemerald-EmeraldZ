@@ -26,8 +26,6 @@ extern u8 gSelectedMonPartyId;
 extern MainCallback gPostMenuFieldCallback;
 extern u8 gSelectedOrderFromParty[MAX_FRONTIER_PARTY_SIZE];
 extern u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2];
-extern const struct SpriteSheet sSpriteSheet_HeldItem;
-extern const struct SpritePalette sSpritePalette_HeldItem;
 
 extern const struct SpriteSheet gSpriteSheet_HeldItem;
 extern const u16 gHeldItemPalette[];
@@ -72,7 +70,6 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_DynamaxCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_SacredAsh(u8 taskId, TaskFunc task);
 void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc task);
-void ItemUseCB_EvolutionCoins(u8 taskId, TaskFunc task);
 void ItemUseCB_FormChange(u8 taskId, TaskFunc task);
 void ItemUseCB_FormChange_ConsumedOnUse(u8 taskId, TaskFunc task);
 void ItemUseCB_RotomCatalog(u8 taskId, TaskFunc task);
@@ -108,6 +105,5 @@ void MoveDeleterForgetMove(void);
 void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
-void CB2_ReturnToPartyMenuFromSummaryScreen(void);
 
 #endif // GUARD_PARTY_MENU_H

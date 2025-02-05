@@ -51,8 +51,6 @@ enum {
     MON_DATA_SPEED_EV,
     MON_DATA_SPATK_EV,
     MON_DATA_SPDEF_EV,
-	MON_DATA_REACT_EV,
-    MON_DATA_AWARE_EV,
     MON_DATA_FRIENDSHIP,
     MON_DATA_SMART,
     MON_DATA_POKERUS,
@@ -66,8 +64,6 @@ enum {
     MON_DATA_SPEED_IV,
     MON_DATA_SPATK_IV,
     MON_DATA_SPDEF_IV,
-	MON_DATA_REACT_IV,
-    MON_DATA_AWARE_IV,
     MON_DATA_IS_EGG,
     MON_DATA_ABILITY_NUM,
     MON_DATA_TOUGH,
@@ -85,8 +81,6 @@ enum {
     MON_DATA_SPEED,
     MON_DATA_SPATK,
     MON_DATA_SPDEF,
-	MON_DATA_REACT,
-    MON_DATA_AWARE,
     MON_DATA_MAIL,
     MON_DATA_SPECIES_OR_EGG,
     MON_DATA_IVS,
@@ -111,16 +105,12 @@ enum {
     MON_DATA_SPEED2,
     MON_DATA_SPATK2,
     MON_DATA_SPDEF2,
-	MON_DATA_REACT2,
-    MON_DATA_AWARE2,
     MON_DATA_HYPER_TRAINED_HP,
     MON_DATA_HYPER_TRAINED_ATK,
     MON_DATA_HYPER_TRAINED_DEF,
     MON_DATA_HYPER_TRAINED_SPEED,
     MON_DATA_HYPER_TRAINED_SPATK,
     MON_DATA_HYPER_TRAINED_SPDEF,
-	MON_DATA_HYPER_TRAINED_REACT,
-    MON_DATA_HYPER_TRAINED_AWARE,
     MON_DATA_IS_SHADOW,
     MON_DATA_DYNAMAX_LEVEL,
     MON_DATA_GIGANTAMAX_FACTOR,
@@ -153,7 +143,7 @@ struct PokemonSubstruct1
     u16 move3:11; // 2047 moves.
     u16 unused_04:5;
     u16 move4:11; // 2047 moves.
-    u16 unused_06:1;
+    u16 unused_06:3;
     u16 hyperTrainedHP:1;
     u16 hyperTrainedAttack:1;
     u8 pp1:7; // 127 PP.
@@ -164,8 +154,6 @@ struct PokemonSubstruct1
     u8 hyperTrainedSpAttack:1;
     u8 pp4:7; // 127 PP.
     u8 hyperTrainedSpDefense:1;
-	u8 hyperTrainedReaction:1;
-    u8 hyperTrainedAwareness:1;
 };
 
 struct PokemonSubstruct2
@@ -176,8 +164,6 @@ struct PokemonSubstruct2
     u8 speedEV;
     u8 spAttackEV;
     u8 spDefenseEV;
-	u8 reactionEV;
-    u8 awarenessEV;
     u8 cool;
     u8 beauty;
     u8 cute;
@@ -194,14 +180,12 @@ struct PokemonSubstruct3
     u16 metGame:4;
     u16 dynamaxLevel:4;
     u16 otGender:1;
-	u16 hpIV:4;
-	u16 attackIV:4;
-	u16 defenseIV:4;
-	u16 speedIV:4;
-	u16 spAttackIV:4;
-	u16 spDefenseIV:4;
-	u16 reactionIV:4;
-	u16 awarenessIV:4;
+    u32 hpIV:5;
+    u32 attackIV:5;
+    u32 defenseIV:5;
+    u32 speedIV:5;
+    u32 spAttackIV:5;
+    u32 spDefenseIV:5;
     u32 isEgg:1;
     u32 gigantamaxFactor:1;
     u32 coolRibbon:3;     // Stores the highest contest rank achieved in the Cool category.
@@ -214,8 +198,8 @@ struct PokemonSubstruct3
     u32 victoryRibbon:1;  // Given at the Battle Tower's Level 100 challenge by winning a set of seven battles that extends the current streak to 56 or more.
     u32 artistRibbon:1;   // Given at the Contest Hall by winning a Master Rank contest with at least 800 points, and agreeing to have the Pokémon's portrait placed in the museum after being offered.
     u32 effortRibbon:1;   // Given at Slateport's market to Pokémon with maximum EVs.
-    //u32 marineRibbon:1;   // Never distributed.
-    //u32 landRibbon:1;     // Never distributed.
+    u32 marineRibbon:1;   // Never distributed.
+    u32 landRibbon:1;     // Never distributed.
     u32 skyRibbon:1;      // Never distributed.
     u32 countryRibbon:1;  // Distributed during Pokémon Festa '04 and '05 to tournament winners.
     u32 nationalRibbon:1; // Given to purified Shadow Pokémon in Colosseum/XD.
@@ -258,11 +242,11 @@ struct BoxPokemon
     u32 otId;
     u8 nickname[min(10, POKEMON_NAME_LENGTH)];
     u8 language:3;
-    u8 hiddenNatureModifier:6; // 31 natures.
+    u8 hiddenNatureModifier:5; // 31 natures.
     u8 isBadEgg:1;
     u8 hasSpecies:1;
     u8 isEgg:1;
-    //u8 blockBoxRS:1; // Unused, but Pokémon Box Ruby & Sapphire will refuse to deposit a Pokémon with this flag set.
+    u8 blockBoxRS:1; // Unused, but Pokémon Box Ruby & Sapphire will refuse to deposit a Pokémon with this flag set.
     u8 daysSinceFormChange:3; // 7 days.
     u8 unused_13:1;
     u8 otName[PLAYER_NAME_LENGTH];
@@ -293,8 +277,6 @@ struct Pokemon
     u16 speed;
     u16 spAttack;
     u16 spDefense;
-	u16 reaction;
-    u16 awareness;
 };
 
 struct MonSpritesGfxManager
@@ -331,17 +313,13 @@ struct BattlePokemon
     /*0x06*/ u16 speed;
     /*0x08*/ u16 spAttack;
     /*0x0A*/ u16 spDefense;
-			 u16 reaction;
-    /*0x0A*/ u16 awareness;
     /*0x0C*/ u16 moves[MAX_MON_MOVES];
-    /*0x14*/ u16 hpIV:4;
-    /*0x14*/ u16 attackIV:4;
-    /*0x15*/ u16 defenseIV:4;
-    /*0x15*/ u16 speedIV:4;
-    /*0x16*/ u16 spAttackIV:4;
-    /*0x16*/ u16 spDefenseIV:4;
-	/*0x17*/ u16 reactionIV:4;
-    /*0x17*/ u16 awarenessIV:4;
+    /*0x14*/ u32 hpIV:5;
+    /*0x14*/ u32 attackIV:5;
+    /*0x15*/ u32 defenseIV:5;
+    /*0x15*/ u32 speedIV:5;
+    /*0x16*/ u32 spAttackIV:5;
+    /*0x17*/ u32 spDefenseIV:5;
     /*0x17*/ u32 abilityNum:2;
     /*0x18*/ s8 statStages[NUM_BATTLE_STATS];
     /*0x20*/ u16 ability;
@@ -379,8 +357,6 @@ struct SpeciesInfo /*0xC4*/
     u8 baseSpeed;
     u8 baseSpAttack;
     u8 baseSpDefense;
-	u8 baseReaction;
-    u8 baseAwareness;
     u8 types[2];
     u8 catchRate;
     u8 forceTeraType;
@@ -391,8 +367,6 @@ struct SpeciesInfo /*0xC4*/
     u16 evYield_Speed:2;
     u16 evYield_SpAttack:2;
     u16 evYield_SpDefense:2;
-	u16 evYield_Reaction:2;
-    u16 evYield_Awareness:2;
     u16 padding2:4;
     u16 itemCommon;
     u16 itemRare;
@@ -505,110 +479,6 @@ struct SpeciesInfo /*0xC4*/
 #endif //OW_POKEMON_OBJECT_EVENTS
 };
 
-struct MoveInfo
-{
-    const u8 *name;
-    const u8 *description;
-    u16 effect;
-    u16 type:5;
-    u16 category:2;
-    u16 power:9; // up to 511
-    u16 accuracy:7;
-    u16 target:9;
-    u8 pp;
-    union {
-        u8 effect;
-        u8 powerOverride;
-    } zMove;
-
-    s32 priority:4;
-    u32 recoil:7;
-    u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
-    u32 criticalHitStage:2;
-    u32 alwaysCriticalHit:1;
-    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
-    // 12 bits left to complete this word - continues into flags
-
-    // Flags
-    u32 makesContact:1;
-    u32 ignoresProtect:1;
-    u32 magicCoatAffected:1;
-    u32 snatchAffected:1;
-    u32 ignoresKingsRock:1;
-    u32 punchingMove:1;
-    u32 bitingMove:1;
-    u32 pulseMove:1;
-    u32 soundMove:1;
-    u32 ballisticMove:1;
-    u32 powderMove:1;
-    u32 danceMove:1;
-    u32 windMove:1;
-    u32 slicingMove:1; // end of word
-	u32 fieldMove:1;
-    u32 healingMove:1;
-    u32 minimizeDoubleDamage:1;
-    u32 ignoresTargetAbility:1;
-    u32 ignoresTargetDefenseEvasionStages:1;
-    u32 damagesUnderground:1;
-    u32 damagesUnderwater:1;
-    u32 damagesAirborne:1;
-    u32 damagesAirborneDoubleDamage:1;
-    u32 ignoreTypeIfFlyingAndUngrounded:1;
-    u32 thawsUser:1;
-    u32 ignoresSubstitute:1;
-    u32 forcePressure:1;
-    u32 cantUseTwice:1;
-
-    // Ban flags
-    u32 gravityBanned:1;
-    u32 mirrorMoveBanned:1;
-    u32 meFirstBanned:1;
-    u32 mimicBanned:1;
-    u32 metronomeBanned:1;
-    u32 copycatBanned:1;
-    u32 assistBanned:1; // Matches same moves as copycatBanned + semi-invulnerable moves and Mirror Coat.
-    u32 sleepTalkBanned:1;
-    u32 instructBanned:1;
-    u32 encoreBanned:1;
-    u32 parentalBondBanned:1;
-    u32 skyBattleBanned:1;
-    u32 sketchBanned:1;
-    u32 padding:5; // end of word
-
-    u32 argument;
-
-    // primary/secondary effects
-    const struct AdditionalEffect *additionalEffects;
-
-    // contest parameters
-    u8 contestEffect;
-    u8 contestCategory:3;
-    u8 contestComboStarterId;
-    u8 contestComboMoves[MAX_COMBO_MOVES];
-    const u8 *battleAnimScript;
-};
-
-#define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
-#define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
-
-enum SheerForceBoost
-{
-    SHEER_FORCE_AUTO_BOOST, // This is the default state when a move has a move effect with a chance
-    SHEER_FORCE_BOOST,      // If a move effect doesn't have an effect with a chance this can force a boost
-    SHEER_FORCE_NO_BOOST,   // Prevents a Sheer Force boost
-};
-
-struct AdditionalEffect
-{
-    u16 moveEffect;
-    u8 self:1;
-    u8 onlyIfTargetRaisedStats:1;
-    u8 onChargeTurnOnly:1;
-    u8 sheerForceBoost:2; // Handles edge cases for Sheer Force
-    u8 padding:3;
-    u8 chance; // 0% = effect certain, primary effect
-};
-
 struct Ability
 {
     u8 name[ABILITY_NAME_LENGTH + 1];
@@ -640,54 +510,30 @@ enum {
 // The animation the Pokémon does during the feeding scene depends on their nature.
 // The below values are offsets into sMonPokeblockAnims of the animation data for that nature.
 #define ANIM_HARDY   0
-#define ANIM_LONELY  (ANIM_HARDY + 3) //3
-#define ANIM_BRAVE   (ANIM_LONELY + 1) //4
-#define ANIM_ADAMANT (ANIM_BRAVE + 1)  //5
-#define ANIM_NAUGHTY (ANIM_ADAMANT + 5) //10
-#define ANIM_BOLD    (ANIM_NAUGHTY + 3) //13
-#define ANIM_DOCILE  (ANIM_BOLD + 2) //15
-#define ANIM_RELAXED (ANIM_DOCILE + 1) //16
-#define ANIM_IMPISH  (ANIM_RELAXED + 2) //18
-#define ANIM_LAX     (ANIM_IMPISH + 1) //19
-#define ANIM_TIMID   (ANIM_LAX + 1) //20
-#define ANIM_HASTY   (ANIM_TIMID + 5) //25
-#define ANIM_SERIOUS (ANIM_HASTY + 2) //27
-#define ANIM_JOLLY   (ANIM_SERIOUS + 1) //28
-#define ANIM_NAIVE   (ANIM_JOLLY + 1) //29
-#define ANIM_MODEST  (ANIM_NAIVE + 4) //33
-#define ANIM_MILD    (ANIM_MODEST + 3) //36
-#define ANIM_QUIET   (ANIM_MILD + 1) //37
-#define ANIM_BASHFUL (ANIM_QUIET + 2) //39
-#define ANIM_RASH    (ANIM_BASHFUL + 3) //42
-#define ANIM_CALM    (ANIM_RASH + 3) //45
-#define ANIM_GENTLE  (ANIM_CALM + 1) //46
-#define ANIM_SASSY   (ANIM_GENTLE + 1) //47
-#define ANIM_CAREFUL (ANIM_SASSY + 1) //48
-#define ANIM_QUIRKY  (ANIM_CAREFUL + 5) //53
-#define ANIM_AUSTERE (ANIM_QUIRKY + 2) //56
-#define ANIM_WILD    (ANIM_AUSTERE + 3) //60
-#define ANIM_WARY    (ANIM_WILD + 5)  //61
-#define ANIM_STRICT  (ANIM_WARY + 1) //62
-#define ANIM_POLITE  (ANIM_STRICT + 1) //64
-#define ANIM_SPACEY  (ANIM_POLITE + 2) //69
-#define ANIM_WISE    (ANIM_SPACEY + 3) //70
-#define ANIM_JEALOUS (ANIM_WISE + 1) //72
-#define ANIM_PROUD   (ANIM_JEALOUS + 2) //73
-#define ANIM_VALIANT (ANIM_PROUD + 1) //74
-#define ANIM_SHY     (ANIM_VALIANT + 1) //76
-#define ANIM_CURIOUS (ANIM_SHY + 2) //81
-#define ANIM_ALERT   (ANIM_CURIOUS + 5) //82
-#define ANIM_SILLY   (ANIM_ALERT + 1) //83
-#define ANIM_ANXIOUS (ANIM_SILLY + 1) //87
-#define ANIM_SUAVE   (ANIM_ANXIOUS + 4) //36
-#define ANIM_PASSIVE (ANIM_SUAVE + 3) //37
-#define ANIM_SKEPTIC (ANIM_PASSIVE + 1) //39
-#define ANIM_DEVOTED (ANIM_SKEPTIC + 2) //42
-#define ANIM_PATIENT (ANIM_DEVOTED + 3) //46
-#define ANIM_ALOOF (ANIM_PATIENT + 1) //47
-#define ANIM_ERRATIC (ANIM_ALOOF + 1) //47
-#define ANIM_FOCUSED (ANIM_ERRATIC + 5) //48
-#define ANIM_ZEALOUS (ANIM_FOCUSED + 1) //53
+#define ANIM_LONELY  (ANIM_HARDY + 3)
+#define ANIM_BRAVE   (ANIM_LONELY + 1)
+#define ANIM_ADAMANT (ANIM_BRAVE + 1)
+#define ANIM_NAUGHTY (ANIM_ADAMANT + 5)
+#define ANIM_BOLD    (ANIM_NAUGHTY + 3)
+#define ANIM_DOCILE  (ANIM_BOLD + 2)
+#define ANIM_RELAXED (ANIM_DOCILE + 1)
+#define ANIM_IMPISH  (ANIM_RELAXED + 2)
+#define ANIM_LAX     (ANIM_IMPISH + 1)
+#define ANIM_TIMID   (ANIM_LAX + 1)
+#define ANIM_HASTY   (ANIM_TIMID + 5)
+#define ANIM_SERIOUS (ANIM_HASTY + 2)
+#define ANIM_JOLLY   (ANIM_SERIOUS + 1)
+#define ANIM_NAIVE   (ANIM_JOLLY + 1)
+#define ANIM_MODEST  (ANIM_NAIVE + 4)
+#define ANIM_MILD    (ANIM_MODEST + 3)
+#define ANIM_QUIET   (ANIM_MILD + 1)
+#define ANIM_BASHFUL (ANIM_QUIET + 2)
+#define ANIM_RASH    (ANIM_BASHFUL + 3)
+#define ANIM_CALM    (ANIM_RASH + 3)
+#define ANIM_GENTLE  (ANIM_CALM + 1)
+#define ANIM_SASSY   (ANIM_GENTLE + 1)
+#define ANIM_CAREFUL (ANIM_SASSY + 1)
+#define ANIM_QUIRKY  (ANIM_CAREFUL + 5)
 
 // In palace double battles, Pokémon have a target preference depending on nature
 #define PALACE_TARGET_STRONGER 0
@@ -762,7 +608,6 @@ extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern struct SpriteTemplate gMultiuseSpriteTemplate;
 extern u16 gFollowerSteps;
 
-extern const struct MoveInfo gMovesInfo[];
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];
 extern const struct SpeciesInfo gSpeciesInfo[];
@@ -939,8 +784,8 @@ void DestroyMonSpritesGfxManager(u8 managerId);
 u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum);
 u16 GetFormSpeciesId(u16 speciesId, u8 formId);
 u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
-u16 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
-u16 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg);
+u32 GetFormChangeTargetSpecies(struct Pokemon *mon, u16 method, u32 arg);
+u32 GetFormChangeTargetSpeciesBoxMon(struct BoxPokemon *boxMon, u16 method, u32 arg);
 bool32 DoesSpeciesHaveFormChangeMethod(u16 species, u16 method);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
 void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv);
@@ -957,8 +802,6 @@ u16 GetCryIdBySpecies(u16 species);
 u16 GetSpeciesPreEvolution(u16 species);
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
-const u8 *GetMoveName(u16 moveId);
-const u8 *GetMoveAnimationScript(u16 moveId);
 void UpdateDaysPassedSinceFormChange(u16 days);
 void TrySetDayLimitToFormChange(struct Pokemon *mon);
 u32 CheckDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler);

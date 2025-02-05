@@ -75,9 +75,7 @@
 #define FLDEFF_TRACKS_SLITHER            70
 #define FLDEFF_TRACKS_SPOT               71
 #define FLDEFF_TRACKS_BUG                72
-#define FLDEFF_USE_ROCK_CLIMB            73
-#define FLDEFF_ROCK_CLIMB_DUST           74
-#define FLDEFF_CAVE_DUST                 75
+#define FLDEFF_CAVE_DUST                 73
 
 #define FLDEFFOBJ_SHADOW_S              0
 #define FLDEFFOBJ_SHADOW_M              1
@@ -96,9 +94,9 @@
 #define FLDEFFOBJ_JUMP_SMALL_SPLASH     14
 #define FLDEFFOBJ_LONG_GRASS            15
 #define FLDEFFOBJ_JUMP_LONG_GRASS       16
-#define FLDEFFOBJ_SHAKING_GRASS         17
-#define FLDEFFOBJ_SHAKING_LONG_GRASS    18
-#define FLDEFFOBJ_SAND_HOLE             19
+#define FLDEFFOBJ_UNUSED_GRASS          17
+#define FLDEFFOBJ_UNUSED_GRASS_2        18
+#define FLDEFFOBJ_UNUSED_SAND           19
 #define FLDEFFOBJ_WATER_SURFACING       20
 #define FLDEFFOBJ_REFLECTION_DISTORTION 21
 #define FLDEFFOBJ_SPARKLE               22
@@ -119,9 +117,7 @@
 #define FLDEFFOBJ_TRACKS_SLITHER        37
 #define FLDEFFOBJ_TRACKS_SPOT           38
 #define FLDEFFOBJ_TRACKS_BUG            39
-#define FLDEFFOBJ_ROCK_CLIMB_BLOB       40
-#define FLDEFFOBJ_ROCK_CLIMB_DUST       41
-#define FLDEFFOBJ_CAVE_DUST             42
+#define FLDEFFOBJ_CAVE_DUST             40
 
 #define FLDEFF_PAL_TAG_CUT_GRASS          0x1000
 #define FLDEFF_PAL_TAG_SECRET_POWER_TREE  0x1003
@@ -135,7 +131,6 @@
 #define FLDEFF_PAL_TAG_SMALL_SPARKLE      0x100F
 #define FLDEFF_PAL_TAG_HOF_MONITOR        0x1010
 #define FLDEFF_PAL_TAG_UNKNOWN            0x1011
-#define FLDEFF_PAL_TAG_DUST_CLOUD         0x1012
-#define FLDEFF_PAL_TAG_CAVE_DUST          0x1013
+#define FLDEFF_PAL_TAG_CAVE_DUST          0x1012
 
 #endif // GUARD_FIELD_EFFECT_CONSTANTS_H

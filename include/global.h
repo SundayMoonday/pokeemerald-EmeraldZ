@@ -20,8 +20,6 @@
 #include "constants/items.h"
 #include "config/save.h"
 
-#define FREE_FIELD_3598					TRUE //frees up unused saveblock data. 384 bytes
-
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
 
@@ -315,17 +313,13 @@ struct BattleTowerPokemon
     u8 speedEV;
     u8 spAttackEV;
     u8 spDefenseEV;
-	u8 reactionEV;
-    u8 awarenessEV;
     u32 otId;
-    u16 hpIV:4;
-    u16 attackIV:4;
-    u16 defenseIV:4;
-    u16 speedIV:4;
-    u16 spAttackIV:4;
-    u16 spDefenseIV:4;
-	u16 reactionIV:4;
-    u16 awarenessIV:4;
+    u32 hpIV:5;
+    u32 attackIV:5;
+    u32 defenseIV:5;
+    u32 speedIV:5;
+    u32 spAttackIV:5;
+    u32 spDefenseIV:5;
     u32 gap:1;
     u32 abilityNum:1;
     u32 personality;
@@ -1044,7 +1038,7 @@ struct SaveBlock1
     /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
 #if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1 == FALSE
-    /*0x988*/ //u8 filler1[0x34];  Previously Dex Flags, feel free to remove.
+    /*0x988*/ u8 filler1[0x34]; // Previously Dex Flags, feel free to remove.
 #endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1
     /*0x9BC*/ u16 berryBlenderRecords[3];
     /*0x9C2*/ u8 unused_9C2[6];
@@ -1077,12 +1071,10 @@ struct SaveBlock1
     /*0x2B92*/ u8 outbreakLocationMapNum;
     /*0x2B93*/ u8 outbreakLocationMapGroup;
     /*0x2B94*/ u8 outbreakPokemonLevel;
-    /*0x2B95*/ u8 dexNavSearchLevels[NUM_SPECIES];
-    /*0x2B96*/ u8 dexNavChain;
+    /*0x2B95*/ u8 outbreakUnused1;
+    /*0x2B96*/ u16 outbreakUnused2;
     /*0x2B98*/ u16 outbreakPokemonMoves[MAX_MON_MOVES];
-	/*0x2BA0*/ u8 outbreakUnused1;
-	/*0x2BA0*/ u8 outbreakUnused2;
-	/*0x2BA0*/ u8 outbreakUnused3;
+    /*0x2BA0*/ u8 outbreakUnused3;
     /*0x2BA1*/ u8 outbreakPokemonProbability;
     /*0x2BA2*/ u16 outbreakDaysLeft;
     /*0x2BA4*/ struct GabbyAndTyData gabbyAndTyData;

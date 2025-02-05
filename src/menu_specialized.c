@@ -10,6 +10,7 @@
 #include "international_string_util.h"
 #include "menu.h"
 #include "menu_specialized.h"
+#include "move.h"
 #include "move_relearner.h"
 #include "palette.h"
 #include "player_pc.h"
@@ -752,7 +753,6 @@ u8 LoadMoveRelearnerMovesList(const struct ListMenuItem *items, u16 numChoices)
 static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
 {
     s32 x;
-    const struct MoveInfo *move;
     u8 buffer[32];
     const u8 *str;
 
@@ -780,49 +780,41 @@ static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
         CopyWindowToVram(RELEARNERWIN_DESC_BATTLE, COPYWIN_GFX);
         return;
     }
-    move = &gMovesInfo[chosenMove];
-    str = gTypesInfo[move->type].name;
+    str = gTypesInfo[GetMoveType(chosenMove)].name;
     AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NORMAL, str, 4, 25, TEXT_SKIP_DRAW, NULL);
 
     x = 4 + GetStringWidth(FONT_NORMAL, gText_MoveRelearnerPP, 0);
-    ConvertIntToDecimalStringN(buffer, move->pp, STR_CONV_MODE_LEFT_ALIGN, 2);
+    ConvertIntToDecimalStringN(buffer, GetMovePP(chosenMove), STR_CONV_MODE_LEFT_ALIGN, 2);
     AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NORMAL, buffer, x, 41, TEXT_SKIP_DRAW, NULL);
 
-    if (move->power < 2)
+    if (GetMovePower(chosenMove) < 2)
     {
         str = gText_ThreeDashes;
     }
     else
     {
-        ConvertIntToDecimalStringN(buffer, move->power, STR_CONV_MODE_LEFT_ALIGN, 3);
+        ConvertIntToDecimalStringN(buffer, GetMovePower(chosenMove), STR_CONV_MODE_LEFT_ALIGN, 3);
         str = buffer;
     }
     AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NORMAL, str, 106, 25, TEXT_SKIP_DRAW, NULL);
 
-    if (move->accuracy == 0)
+    if (GetMoveAccuracy(chosenMove) == 0)
     {
         str = gText_ThreeDashes;
     }
     else
     {
-        ConvertIntToDecimalStringN(buffer, move->accuracy, STR_CONV_MODE_LEFT_ALIGN, 3);
+        ConvertIntToDecimalStringN(buffer, GetMoveAccuracy(chosenMove), STR_CONV_MODE_LEFT_ALIGN, 3);
         str = buffer;
     }
     AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NORMAL, str, 106, 41, TEXT_SKIP_DRAW, NULL);
-
-    if (move->effect != EFFECT_PLACEHOLDER)
-        str = gMovesInfo[chosenMove].description;
-    else
-        str = gNotDoneYetDescription;
-
-    AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NARROW, str, 0, 65, 0, NULL);
+    AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NARROW, GetMoveDescription(chosenMove), 0, 65, 0, NULL);
 }
 
 static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
 {
     s32 x;
     const u8 *str;
-    const struct MoveInfo *move;
 
     MoveRelearnerShowHideHearts(chosenMove);
     FillWindowPixelBuffer(RELEARNERWIN_DESC_CONTEST, PIXEL_FILL(1));
@@ -844,11 +836,10 @@ static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
         return;
     }
 
-    move = &gMovesInfo[chosenMove];
-    str = gContestMoveTypeTextPointers[move->contestCategory];
+    str = gContestMoveTypeTextPointers[GetMoveContestCategory(chosenMove)];
     AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, 4, 25, TEXT_SKIP_DRAW, NULL);
 
-    str = gContestEffectDescriptionPointers[move->contestEffect];
+    str = gContestEffectDescriptionPointers[GetMoveContestEffect(chosenMove)];
     AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NARROW, str, 0, 65, TEXT_SKIP_DRAW, NULL);
 
     CopyWindowToVram(RELEARNERWIN_DESC_CONTEST, COPYWIN_GFX);
@@ -1514,8 +1505,6 @@ static const u8 *const sLvlUpStatStrings[NUM_STATS] =
     gText_Defense,
     gText_SpAtk,
     gText_SpDef,
-	gText_React,
-    gText_Aware,
     gText_Speed
 };
 
@@ -1533,9 +1522,7 @@ void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bg
     statsDiff[2] = statsAfter[STAT_DEF]   - statsBefore[STAT_DEF];
     statsDiff[3] = statsAfter[STAT_SPATK] - statsBefore[STAT_SPATK];
     statsDiff[4] = statsAfter[STAT_SPDEF] - statsBefore[STAT_SPDEF];
-	statsDiff[5] = statsAfter[STAT_REACT] - statsBefore[STAT_REACT];
-    statsDiff[6] = statsAfter[STAT_AWARE] - statsBefore[STAT_AWARE];
-    statsDiff[7] = statsAfter[STAT_SPEED] - statsBefore[STAT_SPEED];
+    statsDiff[5] = statsAfter[STAT_SPEED] - statsBefore[STAT_SPEED];
 
     color[0] = bgClr;
     color[1] = fgClr;
@@ -1590,9 +1577,7 @@ void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 s
     stats[2] = currStats[STAT_DEF];
     stats[3] = currStats[STAT_SPATK];
     stats[4] = currStats[STAT_SPDEF];
-	stats[5] = currStats[STAT_REACT];
-    stats[6] = currStats[STAT_AWARE];
-    stats[7] = currStats[STAT_SPEED];
+    stats[5] = currStats[STAT_SPEED];
 
     color[0] = bgClr;
     color[1] = fgClr;
@@ -1636,6 +1621,4 @@ void GetMonLevelUpWindowStats(struct Pokemon *mon, u16 *currStats)
     currStats[STAT_SPEED] = GetMonData(mon, MON_DATA_SPEED);
     currStats[STAT_SPATK] = GetMonData(mon, MON_DATA_SPATK);
     currStats[STAT_SPDEF] = GetMonData(mon, MON_DATA_SPDEF);
-	currStats[STAT_REACT] = GetMonData(mon, MON_DATA_REACT);
-    currStats[STAT_AWARE] = GetMonData(mon, MON_DATA_AWARE);
 }

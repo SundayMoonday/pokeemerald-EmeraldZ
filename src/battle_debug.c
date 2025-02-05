@@ -125,8 +125,6 @@ enum
     LIST_STAT_SPEED,
     LIST_STAT_SP_ATK,
     LIST_STAT_SP_DEF,
-	LIST_STAT_REACTION,
-    LIST_STAT_AWARENESS,
 };
 
 enum
@@ -301,8 +299,6 @@ static const u8 sText_Defense[] = _("Defense");
 static const u8 sText_Speed[] = _("Speed");
 static const u8 sText_SpAtk[] = _("Sp. Atk");
 static const u8 sText_SpDef[] = _("Sp. Def");
-static const u8 sText_React[] = _("Reaction");
-static const u8 sText_Aware[] = _("Awareness");
 static const u8 sText_Sleep[] = _("Sleep");
 static const u8 sText_Poison[] = _("Poison");
 static const u8 sText_Burn[] = _("Burn");
@@ -537,8 +533,6 @@ static const struct ListMenuItem sStatsListItems[] =
     {sText_Speed, LIST_STAT_SPEED},
     {sText_SpAtk, LIST_STAT_SP_ATK},
     {sText_SpDef, LIST_STAT_SP_DEF},
-	{sText_React, LIST_STAT_REACTION},
-    {sText_Aware, LIST_STAT_AWARENESS},
 };
 
 static const struct ListMenuItem sStatus1ListItems[] =
@@ -824,7 +818,7 @@ static void PrintDigitChars(struct BattleDebugMenu *data);
 static void SetUpModifyArrows(struct BattleDebugMenu *data);
 static void UpdateBattlerValue(struct BattleDebugMenu *data);
 static void UpdateMonData(struct BattleDebugMenu *data);
-static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue);
+static u16 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue);
 static bool32 TryMoveDigit(struct BattleDebugModifyArrows *modArrows, bool32 moveUp);
 static void SwitchToDebugView(u8 taskId);
 static void SwitchToDebugViewFromAiParty(u8 taskId);
@@ -1858,7 +1852,7 @@ static void ValueToCharDigits(u8 *charDigits, u32 newValue, u8 maxDigits)
         charDigits[i] = valueDigits[i] + CHAR_0;
 }
 
-static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue)
+static u16 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue)
 {
     struct SideTimer *sideTimer = &gSideTimers[GetBattlerSide(data->battlerId)];
 
@@ -1988,7 +1982,7 @@ static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus,
                 *(u32 *)(data->modifyArrows.modifiedValPtr) |= SIDE_STATUS_DAMAGE_NON_TYPES;
             else
                 *(u32 *)(data->modifyArrows.modifiedValPtr) &= ~SIDE_STATUS_DAMAGE_NON_TYPES;
-            sideTimer->damageNonTypesType = gMovesInfo[gCurrentMove].type;
+            sideTimer->damageNonTypesType = GetMoveType(gCurrentMove);
         }
         return &sideTimer->damageNonTypesTimer;
     case LIST_SIDE_RAINBOW:
@@ -2308,8 +2302,6 @@ static const u8 sText_HoldEffectDefenseUp[] = _("Defense Up");
 static const u8 sText_HoldEffectSpeedUp[] = _("Speed Up");
 static const u8 sText_HoldEffectSpAttackUp[] = _("Sp Attack Up");
 static const u8 sText_HoldEffectSpDefenseUp[] = _("Sp Defense Up");
-static const u8 sText_HoldEffectReactionUp[] = _("Reaction Up");
-static const u8 sText_HoldEffectAwarenessUp[] = _("Awareness Up");
 static const u8 sText_HoldEffectCriticalUp[] = _("Critical Up");
 static const u8 sText_HoldEffectRandomStatUp[] = _("Random Stat Up");
 static const u8 sText_HoldEffectEvasionUp[] = _("Evasion Up");
@@ -2461,8 +2453,6 @@ static const u8 *const sHoldEffectNames[] =
     [HOLD_EFFECT_SPEED_UP] = sText_HoldEffectSpeedUp,
     [HOLD_EFFECT_SP_ATTACK_UP] = sText_HoldEffectSpAttackUp,
     [HOLD_EFFECT_SP_DEFENSE_UP] = sText_HoldEffectSpDefenseUp,
-	[HOLD_EFFECT_REACTION_UP] = sText_HoldEffectReactionUp,
-    [HOLD_EFFECT_AWARENESS_UP] = sText_HoldEffectAwarenessUp,
     [HOLD_EFFECT_CRITICAL_UP] = sText_HoldEffectCriticalUp,
     [HOLD_EFFECT_RANDOM_STAT_UP] = sText_HoldEffectRandomStatUp,
     [HOLD_EFFECT_EVASION_UP] = sText_HoldEffectEvasionUp,

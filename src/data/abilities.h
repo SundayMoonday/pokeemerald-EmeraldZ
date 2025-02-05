@@ -2408,10 +2408,4 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
-	[ABILITY_FIELD_EXPERT] =
-    {
-        .name = _("Field Expert"),
-        .description = COMPOUND_STRING("Strengthens field moves."),
-        .aiRating = 7,
-    },
 };

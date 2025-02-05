@@ -168,14 +168,8 @@ const u16 gObjectEventPal_Kyogre[] = INCBIN_U16("graphics/object_events/palettes
 const u16 gObjectEventPal_KyogreReflection[] = INCBIN_U16("graphics/object_events/palettes/kyogre_reflection.gbapal");
 const u16 gObjectEventPal_Groudon[] = INCBIN_U16("graphics/object_events/palettes/groudon.gbapal");
 const u16 gObjectEventPal_GroudonReflection[] = INCBIN_U16("graphics/object_events/palettes/groudon_reflection.gbapal");
-const u32 gObjectEventPic_Chest[] = INCBIN_U32("graphics/object_events/pics/misc/chest.4bpp");
-const u32 gFieldEffectObjectPic_RockClimbBlob[] = INCBIN_U32("graphics/field_effects/pics/rock_climb_blob.4bpp");
-const u32 gFieldEffectObjectPic_RockClimbDust[] = INCBIN_U32("graphics/field_effects/pics/rock_climb_dust.4bpp");
-const u16 gFieldEffectPal_DustCloud[] = INCBIN_U16("graphics/field_effects/palettes/big_dust.gbapal");
-const u32 gObjectEventPic_ShroomishO[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/shroomish.4bpp");
-const u16 gObjectEventPal_ShroomishO[] = INCBIN_U16("graphics/object_events/palettes/shroomish.gbapal");
-const u32 gFieldEffectObjectPic_CaveDust[] = INCBIN_U32("graphics/field_effects/pics/cave_dust.4bpp");
-const u16 gFieldEffectObjectPalette_CaveDust[] = INCBIN_U16("graphics/field_effects/palettes/cave_dust.gbapal");
+const u32 gObjectEventPic_UnusedNatuDoll[] = INCBIN_U32("graphics/object_events/pics/dolls/unused_natu_doll.4bpp");
+const u32 gObjectEventPic_UnusedMagnemiteDoll[] = INCBIN_U32("graphics/object_events/pics/dolls/unused_magnemite_doll.4bpp");
 const u32 gObjectEventPic_UnusedSquirtleDoll[] = INCBIN_U32("graphics/object_events/pics/dolls/unused_squirtle_doll.4bpp");
 const u32 gObjectEventPic_UnusedWooperDoll[] = INCBIN_U32("graphics/object_events/pics/dolls/unused_wooper_doll.4bpp");
 const u32 gObjectEventPic_UnusedPikachuDoll[] = INCBIN_U32("graphics/object_events/pics/dolls/unused_pikachu_doll.4bpp");
@@ -460,3 +454,6 @@ const u16 gObjectEventPal_BeastBall[] = INCBIN_U16("graphics/object_events/pics/
 const u16 gObjectEventPal_StrangeBall[] = INCBIN_U16("graphics/object_events/pics/misc/ball_strange.gbapal");
 #endif //ITEM_STRANGE_BALL
 #endif //OW_FOLLOWERS_POKEBALLS
+
+const u32 gFieldEffectObjectPic_CaveDust[] = INCBIN_U32("graphics/field_effects/pics/cave_dust.4bpp");
+const u16 gFieldEffectObjectPalette_CaveDust[] = INCBIN_U16("graphics/field_effects/palettes/cave_dust.gbapal");

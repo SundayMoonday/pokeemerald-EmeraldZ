@@ -44,8 +44,9 @@
 #include "berry_powder.h"
 #include "mystery_gift.h"
 #include "union_room_chat.h"
-#include "constants/items.h"
 #include "constants/map_groups.h"
+#include "constants/items.h"
+#include "difficulty.h"
 
 extern const u8 EventScript_ResetAllMapFlags[];
 
@@ -53,6 +54,7 @@ static void ClearFrontierRecord(void);
 static void WarpToTruck(void);
 static void ResetMiniGamesRecords(void);
 static void ResetItemFlags(void);
+static void ResetDexNav(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
@@ -206,9 +208,9 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
-	memset(gSaveBlock1Ptr->dexNavSearchLevels, 0, sizeof(gSaveBlock1Ptr->dexNavSearchLevels));
-    gSaveBlock3Ptr->dexNavChain = 0;
+    ResetDexNav();
 }
 
 static void ResetMiniGamesRecords(void)

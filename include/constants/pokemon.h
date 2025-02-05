@@ -41,62 +41,37 @@
 #define EGG_GROUP_WATER_2             12
 #define EGG_GROUP_DITTO               13
 #define EGG_GROUP_DRAGON              14
-#define EGG_GROUP_EON                 15
-#define EGG_GROUP_NO_EGGS_DISCOVERED  16
+#define EGG_GROUP_NO_EGGS_DISCOVERED  15
 
 #define EGG_GROUPS_PER_MON            2
 
 // Pokémon natures
-#define NATURE_HARDY    0
-#define NATURE_LONELY   1
-#define NATURE_BRAVE    2
-#define NATURE_ADAMANT  3
-#define NATURE_NAUGHTY  4
-#define NATURE_BOLD     5
-#define NATURE_DOCILE   6
-#define NATURE_RELAXED  7
-#define NATURE_IMPISH   8
-#define NATURE_LAX      9
-#define NATURE_TIMID    10
-#define NATURE_HASTY    11
-#define NATURE_SERIOUS  12
-#define NATURE_JOLLY    13
-#define NATURE_NAIVE    14
-#define NATURE_MODEST   15
-#define NATURE_MILD     16
-#define NATURE_QUIET    17
-#define NATURE_BASHFUL  18
-#define NATURE_RASH     19
-#define NATURE_CALM     20
-#define NATURE_GENTLE   21
-#define NATURE_SASSY    22
-#define NATURE_CAREFUL  23
-#define NATURE_QUIRKY   24
-#define NATURE_AUSTERE  25
-#define NATURE_WILD     26
-#define NATURE_WARY     27
-#define NATURE_STRICT   28
-#define NATURE_POLITE   29
-#define NATURE_SPACEY   30
-#define NATURE_WISE     31
-#define NATURE_JEALOUS  32
-#define NATURE_PROUD    33
-#define NATURE_VALIANT  34
-#define NATURE_SHY      35
-#define NATURE_CURIOUS  36
-#define NATURE_ALERT    37
-#define NATURE_SILLY    38
-#define NATURE_ANXIOUS  39
-#define NATURE_SUAVE    40
-#define NATURE_PASSIVE  41
-#define NATURE_SKEPTIC  42
-#define NATURE_DEVOTED  43
-#define NATURE_PATIENT  44
-#define NATURE_ALOOF    45
-#define NATURE_ERRATIC  46
-#define NATURE_FOCUSED  47
-#define NATURE_ZEALOUS  48
-#define NUM_NATURES     49
+#define NATURE_HARDY    0 // Neutral
+#define NATURE_LONELY   1 // +Atk -Def
+#define NATURE_BRAVE    2 // +Atk -Speed
+#define NATURE_ADAMANT  3 // +Atk -SpAtk
+#define NATURE_NAUGHTY  4 // +Atk -SpDef
+#define NATURE_BOLD     5 // +Def -Atk
+#define NATURE_DOCILE   6 // Neutral
+#define NATURE_RELAXED  7 // +Def -Speed
+#define NATURE_IMPISH   8 // +Def -SpAtk
+#define NATURE_LAX      9 // +Def -SpDef
+#define NATURE_TIMID    10 // +Speed -Atk
+#define NATURE_HASTY    11 // +Speed -Def
+#define NATURE_SERIOUS  12 // Neutral
+#define NATURE_JOLLY    13 // +Speed -SpAtk
+#define NATURE_NAIVE    14 // +Speed - SpDef
+#define NATURE_MODEST   15 // +SpAtk -Atk
+#define NATURE_MILD     16 // +SpAtk -Def
+#define NATURE_QUIET    17 // +SpAtk -Speed
+#define NATURE_BASHFUL  18 // Neutral
+#define NATURE_RASH     19 // +SpAtk -SpDef
+#define NATURE_CALM     20 // +SpDef -Atk
+#define NATURE_GENTLE   21 // +SpDef -Def
+#define NATURE_SASSY    22 // +SpDef -Speed
+#define NATURE_CAREFUL  23 // +SpDef -SpAtk
+#define NATURE_QUIRKY   24 // Neutral
+#define NUM_NATURES     25
 
 // Pokémon Stats
 #define STAT_HP      0
@@ -105,12 +80,10 @@
 #define STAT_SPEED   3
 #define STAT_SPATK   4
 #define STAT_SPDEF   5
-#define STAT_REACT   6
-#define STAT_AWARE   7
-#define NUM_STATS    8
+#define NUM_STATS    6
 
-#define STAT_ACC     8 // Only in battles.
-#define STAT_EVASION 9 // Only in battles.
+#define STAT_ACC     6 // Only in battles.
+#define STAT_EVASION 7 // Only in battles.
 
 #define NUM_NATURE_STATS (NUM_STATS - 1) // excludes HP
 #define NUM_BATTLE_STATS (NUM_STATS + 2) // includes Accuracy and Evasion
@@ -120,7 +93,7 @@
 #define MAX_STAT_STAGE    12
 
 // Shiny odds
-#define SHINY_ODDS 64 // Actual probability is SHINY_ODDS/65536
+#define SHINY_ODDS 8 // Actual probability is SHINY_ODDS/65536
 
 // Ribbon IDs used by TV and Pokénav
 #define CHAMPION_RIBBON       0
@@ -237,11 +210,11 @@
 #define MAX_SHEEN       255
 #define MAX_CONDITION   255
 
-#define MAX_PER_STAT_IVS 15
-#define MAX_IV_MASK 15
+#define MAX_PER_STAT_IVS 31
+#define MAX_IV_MASK 31
 #define USE_RANDOM_IVS (MAX_PER_STAT_IVS + 1)
 #define MAX_PER_STAT_EVS ((P_EV_CAP >= GEN_6) ? 252 : 255)
-#define MAX_TOTAL_EVS 760
+#define MAX_TOTAL_EVS 510
 #define EV_ITEM_RAISE_LIMIT ((I_VITAMIN_EV_CAP >= GEN_8) ? MAX_PER_STAT_EVS : 100)
 
 // Move category defines.
@@ -316,7 +289,7 @@ enum EvolutionMethods {
     EVO_ITEM_NIGHT,                      // specified item is used on Pokémon, is night
     EVO_ITEM_DAY,                        // specified item is used on Pokémon, is day
     EVO_ITEM_HOLD,                       // Pokémon levels up, holds specified item
-    EVO_ITEM_COINS,                      // 999 Coins are given to the Pokémon
+    EVO_LEVEL_FOG,                       // Pokémon reaches the specified level during fog in the overworld
     EVO_MOVE_TWO_SEGMENT,                // Pokémon levels up, knows specified move, has a personality value with a modulus of 0
     EVO_MOVE_THREE_SEGMENT,              // Pokémon levels up, knows specified move, has a personality value with a modulus of 1-99
     EVO_LEVEL_FAMILY_OF_THREE,           // Pokémon reaches the specified level in battle with a personality value with a modulus of 0
@@ -351,8 +324,9 @@ enum EvolutionMode {
 // - Unown has 1 frame, presumably to avoid the work of animating all 28 of its forms
 #define MAX_MON_PIC_FRAMES 2
 
-#define BATTLE_ALIVE_EXCEPT_BATTLER  0
-#define BATTLE_ALIVE_SIDE            1
+#define BATTLE_ALIVE_EXCEPT_BATTLER      0
+#define BATTLE_ALIVE_EXCEPT_BATTLER_SIDE 1
+#define BATTLE_ALIVE_SIDE                2
 
 #define SKIP_FRONT_ANIM (1 << 7)
 
@@ -364,7 +338,7 @@ enum EvolutionMode {
 #define NUM_ABILITY_PERSONALITY 0xFF
 
 #if P_LEGENDARY_PERFECT_IVS >= GEN_6
-#define LEGENDARY_PERFECT_IV_COUNT 4
+#define LEGENDARY_PERFECT_IV_COUNT 3
 #else
 #define LEGENDARY_PERFECT_IV_COUNT 0
 #endif

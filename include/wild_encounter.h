@@ -23,8 +23,8 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *landMonsInfo;
     const struct WildPokemonInfo *waterMonsInfo;
     const struct WildPokemonInfo *rockSmashMonsInfo;
+    const struct WildPokemonInfo *hiddenMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
-	const struct WildPokemonInfo *hiddenMonsInfo;
 };
 
 extern const struct WildPokemonHeader gWildMonHeaders[];
@@ -43,12 +43,12 @@ u16 GetLocalWaterMon(void);
 bool8 UpdateRepelCounter(void);
 bool8 TryDoDoubleWildBattle(void);
 bool8 StandardWildEncounter_Debug(void);
+u32 CalculateChainFishingShinyRolls(void);
 void CreateWildMon(u16 species, u8 level);
 u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
 bool32 MapHasNoEncounterData(void);
-u32 CalculateChainFishingShinyRolls(void);
 
 #endif // GUARD_WILD_ENCOUNTER_H

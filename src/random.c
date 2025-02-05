@@ -39,15 +39,6 @@ static void SFC32_Seed(struct Sfc32State *state, u32 seed, u8 stream)
     }
 }
 
-u16 RandRange(u16 min, u16 max)
-{    
-    if (min == max)
-        return min;
-
-    max++;   // make inclusive
-    return (Random() % (max - min)) + min;
-}
-
 /*This ASM implementation uses some shortcuts and is generally faster on the GBA.
 * It's not necessarily faster if inlined, or on other platforms.
 * In addition, it's extremely non-portable. */

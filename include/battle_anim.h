@@ -206,10 +206,10 @@ u8 GetSubstituteSpriteDefault_Y(u8 battlerId);
 #define STAT_ANIM_PLUS2  (MOVE_EFFECT_ATK_PLUS_2 - 1)
 #define STAT_ANIM_MINUS1 (MOVE_EFFECT_ATK_MINUS_1 - 1)
 #define STAT_ANIM_MINUS2 (MOVE_EFFECT_ATK_MINUS_2 - 1)
-#define STAT_ANIM_MULTIPLE_PLUS1 61
-#define STAT_ANIM_MULTIPLE_PLUS2 62
-#define STAT_ANIM_MULTIPLE_MINUS1 63
-#define STAT_ANIM_MULTIPLE_MINUS2 64
+#define STAT_ANIM_MULTIPLE_PLUS1 55
+#define STAT_ANIM_MULTIPLE_PLUS2 56
+#define STAT_ANIM_MULTIPLE_MINUS1 57
+#define STAT_ANIM_MULTIPLE_MINUS2 58
 
 enum {
     STAT_ANIM_PAL_ATK,
@@ -219,8 +219,6 @@ enum {
     STAT_ANIM_PAL_EVASION,
     STAT_ANIM_PAL_SPATK,
     STAT_ANIM_PAL_SPDEF,
-	STAT_ANIM_PAL_REACT,
-    STAT_ANIM_PAL_AWARE,
     STAT_ANIM_PAL_MULTIPLE = 0xFF
 };
 
@@ -269,6 +267,7 @@ void AnimConversion(struct Sprite *sprite);
 void AnimCuttingSlice(struct Sprite *sprite);
 void AnimThoughtBubble(struct Sprite *sprite);
 void AnimTranslateLinearSingleSineWave(struct Sprite *sprite);
+void AnimTeraStarstormStars(struct Sprite *sprite);
 void AnimGrantingStars(struct Sprite *sprite);
 void AnimFollowMeFinger(struct Sprite *sprite);
 extern const union AnimCmd *const gRazorLeafParticleAnimTable[];
@@ -466,6 +465,7 @@ void AnimElectricPuff(struct Sprite *sprite);
 void AnimSparkElectricityFlashing(struct Sprite *sprite);
 void AnimGrowingShockWaveOrb(struct Sprite *sprite);
 void AnimElectricity(struct Sprite *);
+void AnimTask_VoltSwitch(struct Sprite* sprite);
 extern const union AffineAnimCmd *const gAffineAnims_GrowingElectricOrb[];
 extern const union AffineAnimCmd *const gAffineAnims_FlashingSpark[];
 extern const union AnimCmd *const gAnims_ThunderboltOrb[];

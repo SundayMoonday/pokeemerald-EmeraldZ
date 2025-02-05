@@ -30,7 +30,6 @@ OldaleTown_EventScript_MoveMartEmployee::
 	return
 
 OldaleTown_EventScript_TownSign::
-setflag FLAG_SYS_DEXNAV_GET
 	msgbox OldaleTown_Text_TownSign, MSGBOX_SIGN
 	end
 
@@ -76,7 +75,7 @@ OldaleTown_EventScript_GoToMartEast::
 
 OldaleTown_EventScript_ExplainPokemonMart::
 	msgbox OldaleTown_Text_ThisIsAPokemonMart, MSGBOX_DEFAULT
-	giveitem ITEM_POKE_BALL, 5
+	giveitem ITEM_POTION
 	goto_if_eq VAR_RESULT, FALSE, OldaleTown_EventScript_BagIsFull
 	msgbox OldaleTown_Text_PotionExplanation, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_POTION_OLDALE

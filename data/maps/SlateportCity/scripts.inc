@@ -155,28 +155,6 @@ SlateportCity_Pokemart_EnergyGuru:
 	.2byte ITEM_CALCIUM
 	.2byte ITEM_HP_UP
 	pokemartlistend
-	
-	SlateportCity_EventScript_BerryBeauty::
-	lock
-	faceplayer
-	message SlateportCity_Text_BerryBeautySellWhatYouNeed
-	waitmessage
-	pokemart SlateportCity_Pokemart_BerryBeauty
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
-	release
-	end
-
-	.align 2
-SlateportCity_Pokemart_BerryBeauty:
-	.2byte ITEM_POMEG_BERRY
-	.2byte ITEM_KELPSY_BERRY
-	.2byte ITEM_QUALOT_BERRY
-	.2byte ITEM_HONDEW_BERRY
-	.2byte ITEM_GREPA_BERRY
-	.2byte ITEM_TAMATO_BERRY
-	.2byte ITEM_NONE
-	release
-	end
 
 SlateportCity_EventScript_EffortRibbonWoman::
 	lock
@@ -967,10 +945,6 @@ SlateportCity_EventScript_BerryCrushRankingsSign::
 SlateportCity_Text_EnergyGuruSellWhatYouNeed:
 	.string "I'm the ENERGY GURU! I'll go for it and\n"
 	.string "sell you what you need!$"
-	
-SlateportCity_Text_BerryBeautySellWhatYouNeed:
-	.string "People call me the Berry Beauty!\n"
-	.string "Here's what I have in stock…$"
 
 SlateportCity_Text_OhYourPokemon:
 	.string "Oh?\n"

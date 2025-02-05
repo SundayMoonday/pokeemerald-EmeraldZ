@@ -275,9 +275,9 @@ static const struct WindowTemplate sStandardBattleWindowTemplates[] =
     [B_WIN_LEVEL_UP_BOX] = {
         .bg = 1,
         .tilemapLeft = 19,
-        .tilemapTop = 4,
+        .tilemapTop = 8,
         .width = 10,
-        .height = 15,
+        .height = 11,
         .paletteNum = 5,
         .baseBlock = 0x0100,
     },
@@ -505,9 +505,9 @@ static const struct WindowTemplate sBattleArenaWindowTemplates[] =
     [B_WIN_LEVEL_UP_BOX] = {
         .bg = 1,
         .tilemapLeft = 19,
-        .tilemapTop = 4,
+        .tilemapTop = 8,
         .width = 10,
-        .height = 15,
+        .height = 11,
         .paletteNum = 5,
         .baseBlock = 0x0100,
     },
@@ -703,24 +703,6 @@ const struct BattleBackground sBattleTerrainTable[] =
     },
 };
 
-static void UNUSED CB2_UnusedBattleInit(void);
-
-static void UNUSED UnusedBattleInit(void)
-{
-    u8 spriteId;
-
-    ResetSpriteData();
-    spriteId = CreateSprite(&gUnusedBattleInitSprite, 0, 0, 0);
-    gSprites[spriteId].invisible = TRUE;
-    SetMainCallback2(CB2_UnusedBattleInit);
-}
-
-static void UNUSED CB2_UnusedBattleInit(void)
-{
-    AnimateSprites();
-    BuildOamBuffer();
-}
-
 void BattleInitBgsAndWindows(void)
 {
     ResetBgsAndClearDma3BusyFlags(0);
@@ -806,7 +788,7 @@ void DrawMainBattleBackground(void)
     {
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
-            u32 trainerClass = GetTrainerClassFromId(gTrainerBattleOpponent_A);
+            u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
             if (trainerClass == TRAINER_CLASS_LEADER)
             {
                 LZDecompressVram(gBattleTerrainTiles_Building, (void *)(BG_CHAR_ADDR(2)));
@@ -1207,7 +1189,7 @@ void DrawBattleEntryBackground(void)
     {
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
-            u32 trainerClass = GetTrainerClassFromId(gTrainerBattleOpponent_A);
+            u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
             if (trainerClass == TRAINER_CLASS_LEADER)
             {
                 LZDecompressVram(gBattleTerrainAnimTiles_Building, (void *)(BG_CHAR_ADDR(1)));
@@ -1272,7 +1254,7 @@ bool8 LoadChosenBattleElement(u8 caseId)
         {
             if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
             {
-                u32 trainerClass = GetTrainerClassFromId(gTrainerBattleOpponent_A);
+                u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
                 if (trainerClass == TRAINER_CLASS_LEADER)
                 {
                     LZDecompressVram(gBattleTerrainTiles_Building, (void *)(BG_CHAR_ADDR(2)));
@@ -1334,7 +1316,7 @@ bool8 LoadChosenBattleElement(u8 caseId)
         {
             if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
             {
-                u32 trainerClass = GetTrainerClassFromId(gTrainerBattleOpponent_A);
+                u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
                 if (trainerClass == TRAINER_CLASS_LEADER)
                 {
                     LZDecompressVram(gBattleTerrainTilemap_Building, (void *)(BG_SCREEN_ADDR(26)));
@@ -1396,7 +1378,7 @@ bool8 LoadChosenBattleElement(u8 caseId)
         {
             if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
             {
-                u32 trainerClass = GetTrainerClassFromId(gTrainerBattleOpponent_A);
+                u32 trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
                 if (trainerClass == TRAINER_CLASS_LEADER)
                 {
                     LoadCompressedPalette(gBattleTerrainPalette_BuildingLeader, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);

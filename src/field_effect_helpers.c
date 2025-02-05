@@ -1020,15 +1020,16 @@ u32 FldEff_ShakingGrass(void)
     u8 spriteId;
 
     SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_SHAKING_GRASS], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
+    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_UNUSED_GRASS], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled = TRUE;
         sprite->oam.priority = gFieldEffectArguments[3];
-        sprite->data[0] = FLDEFF_SHAKING_GRASS;
+        sprite->sWaitFldEff = FLDEFF_SHAKING_GRASS;
     }
-    return 0;
+    
+    return spriteId;
 }
 
 u32 FldEff_ShakingGrass2(void)
@@ -1036,15 +1037,16 @@ u32 FldEff_ShakingGrass2(void)
     u8 spriteId;
 
     SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_SHAKING_LONG_GRASS], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
+    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_UNUSED_GRASS_2], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled = TRUE;
         sprite->oam.priority = gFieldEffectArguments[3];
-        sprite->data[0] = FLDEFF_SHAKING_LONG_GRASS;
+        sprite->sWaitFldEff = FLDEFF_SHAKING_LONG_GRASS;
     }
-    return 0;
+    
+    return spriteId;
 }
 
 u32 FldEff_UnusedSand(void)
@@ -1052,13 +1054,13 @@ u32 FldEff_UnusedSand(void)
     u8 spriteId;
 
     SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_SAND_HOLE], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
+    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_UNUSED_SAND], gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];
         sprite->coordOffsetEnabled = TRUE;
         sprite->oam.priority = gFieldEffectArguments[3];
-        sprite->data[0] = FLDEFF_SAND_HOLE;
+        sprite->sWaitFldEff = FLDEFF_SAND_HOLE;
     }
     return spriteId;
 }
@@ -1076,6 +1078,7 @@ u32 FldEff_WaterSurfacing(void)
         sprite->oam.priority = gFieldEffectArguments[3];
         sprite->sWaitFldEff = FLDEFF_WATER_SURFACING;
     }
+    
     return spriteId;
 }
 
@@ -1243,10 +1246,10 @@ static void SynchroniseSurfAnim(struct ObjectEvent *playerObj, struct Sprite *sp
         [DIR_NORTH] = 1,
         [DIR_WEST] = 2,
         [DIR_EAST] = 3,
-        [DIR_SOUTHWEST] = 2,
-        [DIR_SOUTHEAST] = 3,
-        [DIR_NORTHWEST] = 2,
-        [DIR_NORTHEAST] = 3,
+        [DIR_SOUTHWEST] = 0,
+        [DIR_SOUTHEAST] = 0,
+        [DIR_NORTHWEST] = 1,
+        [DIR_NORTHEAST] = 1,
     };
 
     if (!GetSurfBlob_DontSyncAnim(sprite))
@@ -1365,24 +1368,6 @@ u32 FldEff_Dust(void)
         sprite->oam.priority = gFieldEffectArguments[3];
         sprite->sJumpElevation = gFieldEffectArguments[2];
         sprite->sJumpFldEff = FLDEFF_DUST;
-    }
-    return 0;
-}
-
-u32 FldEff_RockClimbDust(void)
-{
-    u8 spriteId;
-    struct Sprite *sprite;
-
-    SetSpritePosToOffsetMapCoords((s16 *)&gFieldEffectArguments[0], (s16 *)&gFieldEffectArguments[1], 8, 12);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_ROCK_CLIMB_DUST], gFieldEffectArguments[0], gFieldEffectArguments[1], 0);
-    if (spriteId != MAX_SPRITES)
-    {
-        sprite = &gSprites[spriteId];
-        sprite->coordOffsetEnabled = TRUE;
-        sprite->oam.priority = gFieldEffectArguments[3];
-        sprite->data[0] = gFieldEffectArguments[2];
-        sprite->data[1] = FLDEFF_ROCK_CLIMB_DUST;
     }
     return 0;
 }
@@ -1884,27 +1869,3 @@ static void UpdateGrassFieldEffectSubpriority(struct Sprite *sprite, u8 elevatio
     }
 }
 
-// Unused, duplicates of data in event_object_movement.c
-static const s8 sFigure8XOffsets[FIGURE_8_LENGTH] = {
-    1, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 1, 2, 2, 1, 2,
-    2, 1, 2, 2, 1, 2, 1, 1,
-    2, 1, 1, 2, 1, 1, 2, 1,
-    1, 2, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    0, 1, 1, 1, 0, 1, 1, 0,
-    1, 0, 1, 0, 1, 0, 0, 0,
-    0, 1, 0, 0, 0, 0, 0, 0,
-};
-
-static const s8 sFigure8YOffsets[FIGURE_8_LENGTH] = {
-     0,  0,  1,  0,  0,  1,  0,  0,
-     1,  0,  1,  1,  0,  1,  1,  0,
-     1,  1,  0,  1,  1,  0,  1,  1,
-     0,  0,  1,  0,  0,  1,  0,  0,
-     1,  0,  0,  0,  0,  0,  0,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,
-     0,  0, -1,  0,  0, -1,  0,  0,
-    -1,  0, -1, -1,  0, -1, -1,  0,
-    -1, -1, -1, -1, -1, -1, -1, -2,
-};

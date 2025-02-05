@@ -12,8 +12,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 65,
         .baseSpDefense = 55,
-        .baseReaction  = 60,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 62 : 65,
@@ -43,7 +41,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Treecko,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Treecko,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Treecko,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 48),
@@ -56,10 +60,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 4, SHADOW_SIZE_S)
         FOOTPRINT(Treecko)
         OVERWORLD(
-            sPicTable_Treecko,
+            gObjectEventPic_Treecko,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Treecko,
             gShinyOverworldPalette_Treecko
         )
@@ -77,8 +82,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 95,
         .baseSpAttack  = 85,
         .baseSpDefense = 65,
-        .baseReaction  = 75,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 142 : 141,
@@ -108,7 +111,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Grovyle,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 5,
-        .frontAnimFrames = sAnims_Grovyle,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Grovyle,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -121,10 +130,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 7, SHADOW_SIZE_M)
         FOOTPRINT(Grovyle)
         OVERWORLD(
-            sPicTable_Grovyle,
+            gObjectEventPic_Grovyle,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Grovyle,
             gShinyOverworldPalette_Grovyle
         )
@@ -136,13 +146,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SCEPTILE] =
     {
         .baseHP        = 70,
-        .baseAttack    = 105,
+        .baseAttack    = 85,
         .baseDefense   = 65,
         .baseSpeed     = 120,
-        .baseSpAttack  = 85,
+        .baseSpAttack  = 105,
         .baseSpDefense = 85,
-        .baseReaction  = 100,
-        .baseAwareness = 65,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -158,7 +166,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_DRAGON),
-        .abilities = { ABILITY_OVERGROW, ABILITY_NONE, ABILITY_SHARPNESS },
+        .abilities = { ABILITY_OVERGROW, ABILITY_NONE, ABILITY_UNBURDEN },
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Sceptile"),
         .cryId = CRY_SCEPTILE,
@@ -178,7 +186,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Sceptile,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Sceptile,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 26),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Sceptile,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -191,10 +203,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 11, SHADOW_SIZE_L)
         FOOTPRINT(Sceptile)
         OVERWORLD(
-            sPicTable_Sceptile,
+            gObjectEventPic_Sceptile,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Sceptile,
             gShinyOverworldPalette_Sceptile
         )
@@ -208,13 +221,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SCEPTILE_MEGA] =
     {
         .baseHP        = 70,
-        .baseAttack    = 140,
+        .baseAttack    = 110,
         .baseDefense   = 75,
         .baseSpeed     = 145,
-        .baseSpAttack  = 115,
+        .baseSpAttack  = 145,
         .baseSpDefense = 85,
-        .baseReaction  = 120,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_GRASS, TYPE_DRAGON),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 315 : 284,
@@ -224,7 +235,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_DRAGON),
-        .abilities = { ABILITY_SHARPNESS, ABILITY_SHARPNESS, ABILITY_SHARPNESS },
+        .abilities = { ABILITY_LIGHTNING_ROD, ABILITY_LIGHTNING_ROD, ABILITY_LIGHTNING_ROD },
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Sceptile"),
         .cryId = CRY_SCEPTILE_MEGA,
@@ -244,7 +255,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SceptileMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SceptileMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SceptileMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -256,6 +267,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 1,
         SHADOW(3, 11, SHADOW_SIZE_L)
         FOOTPRINT(Sceptile)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SceptileMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SceptileMega,
+            gShinyOverworldPalette_SceptileMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSceptileLevelUpLearnset,
         .teachableLearnset = sSceptileTeachableLearnset,
@@ -274,8 +296,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 45,
         .baseSpAttack  = 70,
         .baseSpDefense = 50,
-        .baseReaction  = 55,
-        .baseAwareness = 45,
         .types = MON_TYPES(TYPE_FIRE),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 62 : 65,
@@ -305,7 +325,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Torchic,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(32, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 12,
-        .frontAnimFrames = sAnims_Torchic,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 4),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 4),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_H_STRETCH : ANIM_V_JUMPS_SMALL,
         .backPic = gMonBackPic_Torchic,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 56) : MON_COORDS_SIZE(40, 48),
@@ -322,18 +350,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 1, SHADOW_SIZE_S)
         FOOTPRINT(Torchic)
         OVERWORLD(
-            sPicTable_Torchic,
+            gObjectEventPic_Torchic,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Torchic,
             gShinyOverworldPalette_Torchic
         )
         OVERWORLD_FEMALE(
-            sPicTable_TorchicF,
+            gObjectEventPic_TorchicF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sTorchicLevelUpLearnset,
         .teachableLearnset = sTorchicTeachableLearnset,
@@ -349,8 +379,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 55,
         .baseSpAttack  = 85,
         .baseSpDefense = 60,
-        .baseReaction  = 75,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = 142,
@@ -381,7 +409,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Combusken,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(48, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 3,
-        .frontAnimFrames = sAnims_Combusken,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 12),
+        ),
         .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Combusken,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -400,18 +432,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Combusken)
         OVERWORLD(
-            sPicTable_Combusken,
+            gObjectEventPic_Combusken,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Combusken,
             gShinyOverworldPalette_Combusken
         )
         OVERWORLD_FEMALE(
-            sPicTable_CombuskenF,
+            gObjectEventPic_CombuskenF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sCombuskenLevelUpLearnset,
         .teachableLearnset = sCombuskenTeachableLearnset,
@@ -421,13 +455,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_BLAZIKEN] =
     {
         .baseHP        = 80,
-        .baseAttack    = 125,
+        .baseAttack    = 120,
         .baseDefense   = 70,
         .baseSpeed     = 80,
-        .baseSpAttack  = 105,
+        .baseSpAttack  = 110,
         .baseSpDefense = 70,
-        .baseReaction  = 85,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -463,7 +495,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Blaziken,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Blaziken,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .backPic = gMonBackPic_Blaziken,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -482,18 +520,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 8, SHADOW_SIZE_M)
         FOOTPRINT(Blaziken)
         OVERWORLD(
-            sPicTable_Blaziken,
+            gObjectEventPic_Blaziken,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Blaziken,
             gShinyOverworldPalette_Blaziken
         )
         OVERWORLD_FEMALE(
-            sPicTable_BlazikenF,
+            gObjectEventPic_BlazikenF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sBlazikenLevelUpLearnset,
         .teachableLearnset = sBlazikenTeachableLearnset,
@@ -508,10 +548,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 160,
         .baseDefense   = 80,
         .baseSpeed     = 100,
-        .baseSpAttack  = 95,
-        .baseSpDefense = 90,
-        .baseReaction  = 105,
-        .baseAwareness = 80,
+        .baseSpAttack  = 130,
+        .baseSpDefense = 80,
         .types = MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 315 : 284,
@@ -541,7 +579,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_BlazikenMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_BlazikenMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_BlazikenMega,
         .backPicSize = MON_COORDS_SIZE(56, 64),
@@ -553,6 +591,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(2, 11, SHADOW_SIZE_M)
         FOOTPRINT(Blaziken)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_BlazikenMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_BlazikenMega,
+            gShinyOverworldPalette_BlazikenMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sBlazikenLevelUpLearnset,
         .teachableLearnset = sBlazikenTeachableLearnset,
@@ -571,8 +620,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 40,
         .baseSpAttack  = 50,
         .baseSpDefense = 50,
-        .baseReaction  = 40,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 62 : 65,
@@ -602,7 +649,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Mudkip,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 13,
-        .frontAnimFrames = sAnims_Mudkip,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 13),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Mudkip,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(48, 48),
@@ -615,10 +668,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 1, SHADOW_SIZE_S)
         FOOTPRINT(Mudkip)
         OVERWORLD(
-            sPicTable_Mudkip,
+            gObjectEventPic_Mudkip,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Mudkip,
             gShinyOverworldPalette_Mudkip
         )
@@ -636,8 +690,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 60,
         .baseSpDefense = 70,
-        .baseReaction  = 50,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 142 : 143,
@@ -667,7 +719,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Marshtomp,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 7,
-        .frontAnimFrames = sAnims_Marshtomp,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SLIDE : ANIM_V_STRETCH,
         .backPic = gMonBackPic_Marshtomp,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
@@ -680,10 +742,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 7, SHADOW_SIZE_M)
         FOOTPRINT(Marshtomp)
         OVERWORLD(
-            sPicTable_Marshtomp,
+            gObjectEventPic_Marshtomp,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Marshtomp,
             gShinyOverworldPalette_Marshtomp
         )
@@ -700,8 +763,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 60,
         .baseSpAttack  = 85,
         .baseSpDefense = 90,
-        .baseReaction  = 65,
-        .baseAwareness = 100,
         .types = MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -717,7 +778,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_WATER_1),
-        .abilities = { ABILITY_TORRENT, ABILITY_NONE, ABILITY_SWIFT_SWIM },
+        .abilities = { ABILITY_TORRENT, ABILITY_NONE, ABILITY_DAMP },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Swampert"),
         .cryId = CRY_SWAMPERT,
@@ -737,7 +798,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Swampert,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 6,
-        .frontAnimFrames = sAnims_Swampert,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 18),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_JUMPS_BIG : ANIM_H_SHAKE,
         .backPic = gMonBackPic_Swampert,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
@@ -750,10 +817,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(5, 7, SHADOW_SIZE_L)
         FOOTPRINT(Swampert)
         OVERWORLD(
-            sPicTable_Swampert,
+            gObjectEventPic_Swampert,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Swampert,
             gShinyOverworldPalette_Swampert
         )
@@ -772,8 +840,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 95,
         .baseSpDefense = 110,
-        .baseReaction  = 75,
-        .baseAwareness = 110,
         .types = MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 318 : 286,
@@ -803,7 +869,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SwampertMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_SwampertMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SwampertMega,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -815,6 +881,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(6, 8, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Swampert)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SwampertMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SwampertMega,
+            gShinyOverworldPalette_SwampertMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSwampertLevelUpLearnset,
         .teachableLearnset = sSwampertTeachableLearnset,
@@ -827,14 +904,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_POOCHYENA
     [SPECIES_POOCHYENA] =
     {
-        .baseHP        = 40,
+        .baseHP        = 35,
         .baseAttack    = 55,
         .baseDefense   = 35,
         .baseSpeed     = 35,
         .baseSpAttack  = 30,
-        .baseSpDefense = 35,
-        .baseReaction  = 65,
-        .baseAwareness = 40,
+        .baseSpDefense = 30,
         .types = MON_TYPES(TYPE_DARK),
         .catchRate = 255,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -874,7 +949,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Poochyena,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 11,
-        .frontAnimFrames = sAnims_Poochyena,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Poochyena,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 48),
@@ -887,10 +966,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 2, SHADOW_SIZE_M)
         FOOTPRINT(Poochyena)
         OVERWORLD(
-            sPicTable_Poochyena,
+            gObjectEventPic_Poochyena,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Poochyena,
             gShinyOverworldPalette_Poochyena
         )
@@ -903,13 +983,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_MIGHTYENA] =
     {
         .baseHP        = 70,
-        .baseAttack    = 100,
-        .baseDefense   = 75,
+        .baseAttack    = 90,
+        .baseDefense   = 70,
         .baseSpeed     = 70,
         .baseSpAttack  = 60,
-        .baseSpDefense = 65,
-        .baseReaction  = 75,
-        .baseAwareness = 60,
+        .baseSpDefense = 60,
         .types = MON_TYPES(TYPE_DARK),
         .catchRate = 127,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 128,
@@ -943,7 +1021,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Mightyena,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
-        .frontAnimFrames = sAnims_Mightyena,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Mightyena,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
@@ -956,10 +1040,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 6, SHADOW_SIZE_L)
         FOOTPRINT(Mightyena)
         OVERWORLD(
-            sPicTable_Mightyena,
+            gObjectEventPic_Mightyena,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Mightyena,
             gShinyOverworldPalette_Mightyena
         )
@@ -979,14 +1064,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_ZIGZAGOON] =
     {
-        .baseHP        = 38,                                                    
-        .baseAttack    = 40,                                                    
-        .baseDefense   = 41,                                                    
-        .baseSpeed     = 60,                                                    
-        .baseSpAttack  = 30,                                                    
-        .baseSpDefense = 41,                                                    
-        .baseReaction  = 63,							
-        .baseAwareness = 37,
+        .baseHP        = 38,
+        .baseAttack    = 30,
+        .baseDefense   = 41,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 30,
+        .baseSpDefense = 41,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = ZIGZAGOON_EXP_YIELD,
@@ -1022,7 +1105,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Zigzagoon,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
-        .frontAnimFrames = sAnims_Zigzagoon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = ANIM_H_SLIDE,
         .backPic = gMonBackPic_Zigzagoon,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 56),
@@ -1035,10 +1124,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-4, 0, SHADOW_SIZE_M)
         FOOTPRINT(Zigzagoon)
         OVERWORLD(
-            sPicTable_Zigzagoon,
+            gObjectEventPic_Zigzagoon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Zigzagoon,
             gShinyOverworldPalette_Zigzagoon
         )
@@ -1051,14 +1141,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LINOONE] =
     {
-        .baseHP        = 78,                                                    
-        .baseAttack    = 70,                                                    
-        .baseDefense   = 61,                                                    
-        .baseSpeed     = 100,                                                   
-        .baseSpAttack  = 50,                                                    
-        .baseSpDefense = 61,                                                    
-        .baseReaction  = 75,							
-        .baseAwareness = 55,
+        .baseHP        = 78,
+        .baseAttack    = 70,
+        .baseDefense   = 61,
+        .baseSpeed     = 100,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 61,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 128,
@@ -1094,7 +1182,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Linoone,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 13,
-        .frontAnimFrames = sAnims_Linoone,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 14),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Linoone,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
@@ -1107,93 +1201,28 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-6, 0, SHADOW_SIZE_L)
         FOOTPRINT(Linoone)
         OVERWORLD(
-            sPicTable_Linoone,
+            gObjectEventPic_Linoone,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Linoone,
             gShinyOverworldPalette_Linoone
         )
         .levelUpLearnset = sLinooneLevelUpLearnset,
         .teachableLearnset = sLinooneTeachableLearnset,
         .formSpeciesIdTable = sLinooneFormSpeciesIdTable,
-		.evolutions = EVOLUTION({EVO_LEVEL_DAY, 35, SPECIES_GOGOGOON}),
-    },
-	
-[SPECIES_GOGOGOON] =
-    {
-        .baseHP        = 90,
-        .baseAttack    = 95,
-        .baseDefense   = 82,
-        .baseSpeed     = 101,
-        .baseSpAttack  = 82,
-        .baseSpDefense = 70,
-        .baseReaction  = 100,
-        .baseAwareness = 65,
-        .types = { TYPE_NORMAL, TYPE_FIGHTING },
-        .catchRate = 45,
-        .expYield = 260,
-        .evYield_Defense = 3,
-        .genderRatio = PERCENT_FEMALE(50),
-        .eggCycles = 15,
-        .friendship = STANDARD_FRIENDSHIP,
-        .growthRate = GROWTH_MEDIUM_FAST,
-        .eggGroups = { EGG_GROUP_FIELD, EGG_GROUP_FIELD },
-        .abilities = { ABILITY_PICKUP, ABILITY_FIELD_EXPERT, ABILITY_QUICK_FEET },
-        .bodyColor = BODY_COLOR_BROWN,
-        .speciesName = _("Gogogoon"),
-        .cryId = CRY_GOGOGOON,
-        .natDexNum = NATIONAL_DEX_GOGOGOON,
-        .categoryName = _("Cardinal"),
-        .height = 16,
-        .weight = 460,
-        .description = COMPOUND_STRING(
-            "This Pokémon endlessly walks through\n"
-            "the outdoors. No obstacle will stop\n"
-            "its wonderlust; trainers rely on its\n"
-            "ability to travel rough terrain."),
-        .pokemonScale = 259,
-        .pokemonOffset = 1,
-        .trainerScale = 296,
-        .trainerOffset = 1,
-        .frontPic = gMonFrontPic_Obstagoon,
-        .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Obstagoon,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_Obstagoon,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 1,
-        //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_Obstagoon,
-        .shinyPalette = gMonShinyPalette_Obstagoon,
-        .iconSprite = gMonIcon_Obstagoon,
-        .iconPalIndex = 0,
-        SHADOW(2, 13, SHADOW_SIZE_M)
-        FOOTPRINT(Obstagoon)
-        OVERWORLD(
-            sPicTable_Obstagoon,
-            SIZE_32x32,
-            SHADOW_SIZE_M,
-            TRACKS_FOOT,
-            gOverworldPalette_Obstagoon,
-            gShinyOverworldPalette_Obstagoon
-        )
-        .levelUpLearnset = sGogogoonLevelUpLearnset,
-        .teachableLearnset = sGogogoonTeachableLearnset,
     },
 
 #if P_GALARIAN_FORMS
     [SPECIES_ZIGZAGOON_GALAR] =
     {
-        .baseHP        = 38,                                                    
-        .baseAttack    = 40,                                                    
-        .baseDefense   = 41,                                                    
-        .baseSpeed     = 60,                                                    
-        .baseSpAttack  = 30,                                                    
-        .baseSpDefense = 41,                                                    
-        .baseReaction  = 63,							
-        .baseAwareness = 37,
+        .baseHP        = 38,
+        .baseAttack    = 30,
+        .baseDefense   = 41,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 30,
+        .baseSpDefense = 41,
         .types = MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 255,
         .expYield = ZIGZAGOON_EXP_YIELD,
@@ -1223,7 +1252,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_ZigzagoonGalar,
         .frontPicSize = MON_COORDS_SIZE(56, 40),
         .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_ZigzagoonGalar,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_ZigzagoonGalar,
         .backPicSize = MON_COORDS_SIZE(56, 48),
@@ -1236,10 +1265,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-5, 0, SHADOW_SIZE_M)
         FOOTPRINT(Zigzagoon)
         OVERWORLD(
-            sPicTable_ZigzagoonGalar,
+            gObjectEventPic_ZigzagoonGalar,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_ZigzagoonGalar,
             gShinyOverworldPalette_ZigzagoonGalar
         )
@@ -1253,14 +1283,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LINOONE_GALAR] =
     {
-        .baseHP        = 78,                                                    
-        .baseAttack    = 70,                                                    
-        .baseDefense   = 61,                                                    
-        .baseSpeed     = 100,                                                   
-        .baseSpAttack  = 50,                                                    
-        .baseSpDefense = 61,                                                    
-        .baseReaction  = 75,							
-        .baseAwareness = 55,
+        .baseHP        = 78,
+        .baseAttack    = 70,
+        .baseDefense   = 61,
+        .baseSpeed     = 100,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 61,
         .types = MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 128,
@@ -1290,7 +1318,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_LinooneGalar,
         .frontPicSize = MON_COORDS_SIZE(64, 40),
         .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_LinooneGalar,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_LinooneGalar,
         .backPicSize = MON_COORDS_SIZE(64, 40),
@@ -1303,10 +1331,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-4, 0, SHADOW_SIZE_L)
         FOOTPRINT(Linoone)
         OVERWORLD(
-            sPicTable_LinooneGalar,
+            gObjectEventPic_LinooneGalar,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_LinooneGalar,
             gShinyOverworldPalette_LinooneGalar
         )
@@ -1321,12 +1350,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 93,
         .baseAttack    = 90,
-        .baseDefense   = 111,
+        .baseDefense   = 101,
         .baseSpeed     = 95,
         .baseSpAttack  = 60,
         .baseSpDefense = 81,
-        .baseReaction  = 75,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_DARK, TYPE_NORMAL),
         .catchRate = 45,
         .expYield = 260,
@@ -1356,7 +1383,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Obstagoon,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Obstagoon,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Obstagoon,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -1369,10 +1396,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 13, SHADOW_SIZE_M)
         FOOTPRINT(Obstagoon)
         OVERWORLD(
-            sPicTable_Obstagoon,
+            gObjectEventPic_Obstagoon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Obstagoon,
             gShinyOverworldPalette_Obstagoon
         )
@@ -1389,10 +1417,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 45,
         .baseDefense   = 35,
         .baseSpeed     = 20,
-        .baseSpAttack  = 30,
-        .baseSpDefense = 35,
-        .baseReaction  = 35,
-        .baseAwareness = 40,
+        .baseSpAttack  = 20,
+        .baseSpDefense = 30,
         .types = MON_TYPES(TYPE_BUG),
         .catchRate = 255,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -1430,7 +1456,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Wurmple,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 40) : MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 12,
-        .frontAnimFrames = sAnims_Wurmple,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Wurmple,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 56),
@@ -1443,10 +1473,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Wurmple)
         OVERWORLD(
-            sPicTable_Wurmple,
+            gObjectEventPic_Wurmple,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BUG,
+            sAnimTable_Following,
             gOverworldPalette_Wurmple,
             gShinyOverworldPalette_Wurmple
         )
@@ -1459,14 +1490,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SILCOON] =
     {
-        .baseHP        = 60,
+        .baseHP        = 50,
         .baseAttack    = 35,
-        .baseDefense   = 65,
+        .baseDefense   = 55,
         .baseSpeed     = 15,
-        .baseSpAttack  = 35,
+        .baseSpAttack  = 25,
         .baseSpDefense = 25,
-        .baseReaction  = 30,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_BUG),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_4) ? 72 : 71,
@@ -1496,7 +1525,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Silcoon,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 10,
-        .frontAnimFrames = sAnims_Silcoon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Silcoon,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 40),
@@ -1509,10 +1542,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, -4, SHADOW_SIZE_M)
         FOOTPRINT(Silcoon)
         OVERWORLD(
-            sPicTable_Silcoon,
+            gObjectEventPic_Silcoon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BUG,
+            sAnimTable_Following,
             gOverworldPalette_Silcoon,
             gShinyOverworldPalette_Silcoon
         )
@@ -1524,14 +1558,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_BEAUTIFLY] =
     {
-        .baseHP        = 75,
-        .baseAttack    = 60,
+        .baseHP        = 60,
+        .baseAttack    = 70,
         .baseDefense   = 50,
         .baseSpeed     = 65,
         .baseSpAttack  = P_UPDATED_STATS >= GEN_6 ? 100 : 90,
         .baseSpDefense = 50,
-        .baseReaction  = 75,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -1570,7 +1602,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Beautifly,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Beautifly,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 8 : 10,
         .backPic = gMonBackPic_Beautifly,
@@ -1590,18 +1632,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-5, 12, SHADOW_SIZE_S)
         FOOTPRINT(Beautifly)
         OVERWORLD(
-            sPicTable_Beautifly,
+            gObjectEventPic_Beautifly,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Beautifly,
             gShinyOverworldPalette_Beautifly
         )
         OVERWORLD_FEMALE(
-            sPicTable_BeautiflyF,
+            gObjectEventPic_BeautiflyF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_NONE
+            TRACKS_NONE,
+            sAnimTable_Following
         )
         .levelUpLearnset = sBeautiflyLevelUpLearnset,
         .teachableLearnset = sBeautiflyTeachableLearnset,
@@ -1609,14 +1653,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CASCOON] =
     {
-        .baseHP        = 60,
+        .baseHP        = 50,
         .baseAttack    = 35,
         .baseDefense   = 55,
         .baseSpeed     = 15,
         .baseSpAttack  = 25,
-        .baseSpDefense = 45,
-        .baseReaction  = 30,
-        .baseAwareness = 70,
+        .baseSpDefense = 25,
         .types = MON_TYPES(TYPE_BUG),
         .catchRate = 120,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -1652,7 +1694,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Cascoon,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 10,
-        .frontAnimFrames = sAnims_Cascoon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Cascoon,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 24) : MON_COORDS_SIZE(56, 40),
@@ -1665,10 +1713,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, -4, SHADOW_SIZE_M)
         FOOTPRINT(Cascoon)
         OVERWORLD(
-            sPicTable_Cascoon,
+            gObjectEventPic_Cascoon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BUG,
+            sAnimTable_Following,
             gOverworldPalette_Cascoon,
             gShinyOverworldPalette_Cascoon
         )
@@ -1681,13 +1730,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_DUSTOX] =
     {
         .baseHP        = 60,
-        .baseAttack    = 40,
+        .baseAttack    = 50,
         .baseDefense   = 70,
         .baseSpeed     = 65,
-        .baseSpAttack  = 60,
+        .baseSpAttack  = 50,
         .baseSpDefense = 90,
-        .baseReaction  = 85,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_BUG, TYPE_POISON),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -1728,7 +1775,23 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Dustox,
         .frontPicSize = MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
-        .frontAnimFrames = sAnims_Dustox,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 3),
+            ANIMCMD_FRAME(1, 3),
+            ANIMCMD_FRAME(0, 4),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 10 : 12,
         .backPic = gMonBackPic_Dustox,
@@ -1748,18 +1811,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 11, SHADOW_SIZE_S)
         FOOTPRINT(Dustox)
         OVERWORLD(
-            sPicTable_Dustox,
+            gObjectEventPic_Dustox,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Dustox,
             gShinyOverworldPalette_Dustox
         )
         OVERWORLD_FEMALE(
-            sPicTable_DustoxF,
+            gObjectEventPic_DustoxF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_NONE
+            TRACKS_NONE,
+            sAnimTable_Following
         )
         .levelUpLearnset = sDustoxLevelUpLearnset,
         .teachableLearnset = sDustoxTeachableLearnset,
@@ -1769,14 +1834,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LOTAD
     [SPECIES_LOTAD] =
     {
-        .baseHP        = 50,
+        .baseHP        = 40,
         .baseAttack    = 30,
-        .baseDefense   = 40,
+        .baseDefense   = 30,
         .baseSpeed     = 30,
-        .baseSpAttack  = 45,
-        .baseSpDefense = 55,
-        .baseReaction  = 25,
-        .baseAwareness = 60,
+        .baseSpAttack  = 40,
+        .baseSpDefense = 50,
         .types = MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 44 : 74,
@@ -1807,7 +1870,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lotad,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
-        .frontAnimFrames = sAnims_Lotad,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 55),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Lotad,
         .backPicSize = MON_COORDS_SIZE(56, 40),
@@ -1820,10 +1887,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, -3, SHADOW_SIZE_S)
         FOOTPRINT(Lotad)
         OVERWORLD(
-            sPicTable_Lotad,
+            gObjectEventPic_Lotad,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Lotad,
             gShinyOverworldPalette_Lotad
         )
@@ -1835,14 +1903,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LOMBRE] =
     {
-        .baseHP        = 65,
+        .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 50,
         .baseSpeed     = 50,
         .baseSpAttack  = 60,
         .baseSpDefense = 70,
-        .baseReaction  = 55,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 119 : 141,
@@ -1873,7 +1939,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lombre,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 10,
-        .frontAnimFrames = sAnims_Lombre,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Lombre,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(48, 56),
@@ -1886,10 +1958,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 2, SHADOW_SIZE_S)
         FOOTPRINT(Lombre)
         OVERWORLD(
-            sPicTable_Lombre,
+            gObjectEventPic_Lombre,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Lombre,
             gShinyOverworldPalette_Lombre
         )
@@ -1904,10 +1977,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 70,
         .baseDefense   = 70,
         .baseSpeed     = 70,
-        .baseSpAttack  = 100,
+        .baseSpAttack  = 90,
         .baseSpDefense = 100,
-        .baseReaction  = 85,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_WATER, TYPE_GRASS),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -1924,7 +1995,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_GRASS),
-        .abilities = { ABILITY_SWIFT_SWIM, ABILITY_RAIN_DISH, ABILITY_DANCER },
+        .abilities = { ABILITY_SWIFT_SWIM, ABILITY_RAIN_DISH, ABILITY_OWN_TEMPO },
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Ludicolo"),
         .cryId = CRY_LUDICOLO,
@@ -1944,7 +2015,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Ludicolo,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Ludicolo,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Ludicolo,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -1963,18 +2042,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 14, SHADOW_SIZE_M)
         FOOTPRINT(Ludicolo)
         OVERWORLD(
-            sPicTable_Ludicolo,
+            gObjectEventPic_Ludicolo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Ludicolo,
             gShinyOverworldPalette_Ludicolo
         )
         OVERWORLD_FEMALE(
-            sPicTable_LudicoloF,
+            gObjectEventPic_LudicoloF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sLudicoloLevelUpLearnset,
         .teachableLearnset = sLudicoloTeachableLearnset,
@@ -1984,14 +2065,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SEEDOT
     [SPECIES_SEEDOT] =
     {
-        .baseHP        = 45,
-        .baseAttack    = 45,
+        .baseHP        = 40,
+        .baseAttack    = 40,
         .baseDefense   = 50,
         .baseSpeed     = 30,
         .baseSpAttack  = 30,
         .baseSpDefense = 30,
-        .baseReaction  = 55,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 44 : 74,
@@ -2022,7 +2101,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Seedot,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(32, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 12,
-        .frontAnimFrames = sAnims_Seedot,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES : ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Seedot,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(48, 48),
@@ -2035,10 +2124,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Seedot)
         OVERWORLD(
-            sPicTable_Seedot,
+            gObjectEventPic_Seedot,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Seedot,
             gShinyOverworldPalette_Seedot
         )
@@ -2050,14 +2140,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_NUZLEAF] =
     {
-        .baseHP        = 75,
-        .baseAttack    = 75,
+        .baseHP        = 70,
+        .baseAttack    = 70,
         .baseDefense   = 40,
         .baseSpeed     = 60,
         .baseSpAttack  = 60,
         .baseSpDefense = 40,
-        .baseReaction  = 75,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 119 : 141,
@@ -2088,7 +2176,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Nuzleaf,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
-        .frontAnimFrames = sAnims_Nuzleaf,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Nuzleaf,
         .backPicSize = MON_COORDS_SIZE(56, 48),
@@ -2107,18 +2205,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 5, SHADOW_SIZE_S)
         FOOTPRINT(Nuzleaf)
         OVERWORLD(
-            sPicTable_Nuzleaf,
+            gObjectEventPic_Nuzleaf,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Nuzleaf,
             gShinyOverworldPalette_Nuzleaf
         )
         OVERWORLD_FEMALE(
-            sPicTable_NuzleafF,
+            gObjectEventPic_NuzleafF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sNuzleafLevelUpLearnset,
         .teachableLearnset = sNuzleafTeachableLearnset,
@@ -2133,8 +2233,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 90,
         .baseSpDefense = 60,
-        .baseReaction  = 85,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -2175,7 +2273,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shiftry,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 7,
-        .frontAnimFrames = sAnims_Shiftry,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .backPic = gMonBackPic_Shiftry,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -2194,18 +2296,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-5, 5, SHADOW_SIZE_M)
         FOOTPRINT(Shiftry)
         OVERWORLD(
-            sPicTable_Shiftry,
+            gObjectEventPic_Shiftry,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Shiftry,
             gShinyOverworldPalette_Shiftry
         )
         OVERWORLD_FEMALE(
-            sPicTable_ShiftryF,
+            gObjectEventPic_ShiftryF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sShiftryLevelUpLearnset,
         .teachableLearnset = sShiftryTeachableLearnset,
@@ -2215,14 +2319,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TAILLOW
     [SPECIES_TAILLOW] =
     {
-        .baseHP        = 45,
-        .baseAttack    = 60,
+        .baseHP        = 40,
+        .baseAttack    = 55,
         .baseDefense   = 30,
         .baseSpeed     = 85,
         .baseSpAttack  = 30,
         .baseSpDefense = 30,
-        .baseReaction  = 65,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 54 : 59,
@@ -2252,7 +2354,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Taillow,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 11,
-        .frontAnimFrames = sAnims_Taillow,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = ANIM_V_JUMPS_BIG,
         .backPic = gMonBackPic_Taillow,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(56, 40),
@@ -2265,10 +2377,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 1, SHADOW_SIZE_S)
         FOOTPRINT(Taillow)
         OVERWORLD(
-            sPicTable_Taillow,
+            gObjectEventPic_Taillow,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Taillow,
             gShinyOverworldPalette_Taillow
         )
@@ -2281,13 +2394,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SWELLOW] =
     {
         .baseHP        = 60,
-        .baseAttack    = 95,
+        .baseAttack    = 85,
         .baseDefense   = 60,
         .baseSpeed     = 125,
-        .baseSpAttack  = P_UPDATED_STATS >= GEN_7 ? 65 : 50,
+        .baseSpAttack  = P_UPDATED_STATS >= GEN_7 ? 75 : 50,
         .baseSpDefense = 50,
-        .baseReaction  = 90,
-        .baseAwareness = 65,
         .types = MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -2323,7 +2434,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Swellow,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 5,
-        .frontAnimFrames = sAnims_Swellow,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Swellow,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 56),
@@ -2336,10 +2451,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-7, 7, SHADOW_SIZE_M)
         FOOTPRINT(Swellow)
         OVERWORLD(
-            sPicTable_Swellow,
+            gObjectEventPic_Swellow,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Swellow,
             gShinyOverworldPalette_Swellow
         )
@@ -2357,8 +2473,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 85,
         .baseSpAttack  = 55,
         .baseSpDefense = 30,
-        .baseReaction  = 63,
-        .baseAwareness = 52,
         .types = MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 190,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 54 : 64,
@@ -2393,7 +2507,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Wingull,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 24 : 11,
-        .frontAnimFrames = sAnims_Wingull,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 23),
+            ANIMCMD_FRAME(0, 13),
+        ),
         .frontAnimId = ANIM_H_PIVOT,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 16 : 15,
         .backPic = gMonBackPic_Wingull,
@@ -2407,10 +2525,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 15, SHADOW_SIZE_S)
         FOOTPRINT(Wingull)
         OVERWORLD(
-            sPicTable_Wingull,
+            gObjectEventPic_Wingull,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Wingull,
             gShinyOverworldPalette_Wingull
         )
@@ -2422,14 +2541,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_PELIPPER] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 45,
+        .baseHP        = 60,
+        .baseAttack    = 50,
         .baseDefense   = 100,
         .baseSpeed     = 65,
         .baseSpAttack  = P_UPDATED_STATS >= GEN_7 ? 95 : 85,
         .baseSpDefense = 70,
-        .baseReaction  = 70,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_WATER, TYPE_FLYING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -2470,7 +2587,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Pelipper,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 2,
-        .frontAnimFrames = sAnims_Pelipper,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_Pelipper,
@@ -2484,10 +2611,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 17, SHADOW_SIZE_M)
         FOOTPRINT(Pelipper)
         OVERWORLD(
-            sPicTable_Pelipper,
+            gObjectEventPic_Pelipper,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Pelipper,
             gShinyOverworldPalette_Pelipper
         )
@@ -2513,8 +2641,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 40,
         .baseSpAttack  = 45,
         .baseSpDefense = 35,
-        .baseReaction  = 60,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_PSYCHIC, RALTS_FAMILY_TYPE2),
         .catchRate = 235,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 40 : 70,
@@ -2544,7 +2670,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Ralts,
         .frontPicSize = MON_COORDS_SIZE(24, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
-        .frontAnimFrames = sAnims_Ralts,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Ralts,
         .backPicSize = MON_COORDS_SIZE(32, 40),
@@ -2557,10 +2687,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Ralts)
         OVERWORLD(
-            sPicTable_Ralts,
+            gObjectEventPic_Ralts,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Ralts,
             gShinyOverworldPalette_Ralts
         )
@@ -2578,8 +2709,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 65,
         .baseSpDefense = 55,
-        .baseReaction  = 70,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_PSYCHIC, RALTS_FAMILY_TYPE2),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 97 : 140,
@@ -2609,7 +2738,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Kirlia,
         .frontPicSize = MON_COORDS_SIZE(32, 56),
         .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Kirlia,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 39),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Kirlia,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 56) : MON_COORDS_SIZE(48, 56),
@@ -2622,10 +2755,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 7, SHADOW_SIZE_S)
         FOOTPRINT(Kirlia)
         OVERWORLD(
-            sPicTable_Kirlia,
+            gObjectEventPic_Kirlia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Kirlia,
             gShinyOverworldPalette_Kirlia
         )
@@ -2643,8 +2777,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 125,
         .baseSpDefense = 115,
-        .baseReaction  = 70,
-        .baseAwareness = 95,
         .types = MON_TYPES(TYPE_PSYCHIC, RALTS_FAMILY_TYPE2),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -2680,7 +2812,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Gardevoir,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
-        .frontAnimFrames = sAnims_Gardevoir,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SQUISH_AND_BOUNCE : ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Gardevoir,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(48, 56),
@@ -2693,10 +2829,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 14, SHADOW_SIZE_L)
         FOOTPRINT(Gardevoir)
         OVERWORLD(
-            sPicTable_Gardevoir,
+            gObjectEventPic_Gardevoir,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Gardevoir,
             gShinyOverworldPalette_Gardevoir
         )
@@ -2715,8 +2852,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 100,
         .baseSpAttack  = 165,
         .baseSpDefense = 135,
-        .baseReaction  = 75,
-        .baseAwareness = 105,
         .types = MON_TYPES(TYPE_PSYCHIC, RALTS_FAMILY_TYPE2),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 309 : 278,
@@ -2746,7 +2881,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GardevoirMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_GardevoirMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_GardevoirMega,
         .backPicSize = MON_COORDS_SIZE(48, 56),
@@ -2758,6 +2893,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 1,
         SHADOW(1, 14, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Gardevoir)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GardevoirMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GardevoirMega,
+            gShinyOverworldPalette_GardevoirMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGardevoirLevelUpLearnset,
         .teachableLearnset = sGardevoirTeachableLearnset,
@@ -2775,8 +2921,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 65,
         .baseSpDefense = 115,
-        .baseReaction  = 95,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -2816,7 +2960,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Gallade,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Gallade,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .backPic = gMonBackPic_Gallade,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -2829,10 +2976,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 13, SHADOW_SIZE_L)
         FOOTPRINT(Gallade)
         OVERWORLD(
-            sPicTable_Gallade,
+            gObjectEventPic_Gallade,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Gallade,
             gShinyOverworldPalette_Gallade
         )
@@ -2851,8 +2999,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 110,
         .baseSpAttack  = 65,
         .baseSpDefense = 115,
-        .baseReaction  = 105,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_PSYCHIC, TYPE_FIGHTING),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 309 : 278,
@@ -2882,7 +3028,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GalladeMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_GalladeMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_GalladeMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -2894,6 +3040,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 1,
         SHADOW(-2, 13, SHADOW_SIZE_L)
         FOOTPRINT(Gallade)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GalladeMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GalladeMega,
+            gShinyOverworldPalette_GalladeMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGalladeLevelUpLearnset,
         .teachableLearnset = sGalladeTeachableLearnset,
@@ -2913,8 +3070,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 65,
         .baseSpAttack  = 50,
         .baseSpDefense = 52,
-        .baseReaction  = 75,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_BUG, TYPE_WATER),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 54 : 63,
@@ -2945,7 +3100,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Surskit,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 8,
-        .frontAnimFrames = sAnims_Surskit,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Surskit,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 40),
@@ -2958,10 +3119,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, -3, SHADOW_SIZE_S)
         FOOTPRINT(Surskit)
         OVERWORLD(
-            sPicTable_Surskit,
+            gObjectEventPic_Surskit,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BUG,
+            sAnimTable_Following,
             gOverworldPalette_Surskit,
             gShinyOverworldPalette_Surskit
         )
@@ -2974,18 +3136,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_MASQUERAIN] =
     {
         .baseHP        = 70,
-        .baseAttack    = 50,
+        .baseAttack    = 60,
         .baseDefense   = 62,
-        .baseSpDefense = 72,
-        .baseReaction  = 100,
-        .baseAwareness = 80,
-        #if P_UPDATED_STATS >= GEN_7
-            .baseSpeed     = 80,
-            .baseSpAttack  = 100,
-        #else
-            .baseSpeed     = 60,
-            .baseSpAttack  = 80,
-        #endif
+        .baseSpeed     = P_UPDATED_STATS >= GEN_7 ? 80 : 60,
+        .baseSpAttack  = P_UPDATED_STATS >= GEN_7 ? 100 : 80,
+        .baseSpDefense = 82,
         .types = MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 75,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -3023,7 +3178,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Masquerain,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 4,
-        .frontAnimFrames = sAnims_Masquerain,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 10,
         .backPic = gMonBackPic_Masquerain,
@@ -3037,10 +3202,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-4, 17, SHADOW_SIZE_M)
         FOOTPRINT(Masquerain)
         OVERWORLD(
-            sPicTable_Masquerain,
+            gObjectEventPic_Masquerain,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Masquerain,
             gShinyOverworldPalette_Masquerain
         )
@@ -3058,8 +3224,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 35,
         .baseSpAttack  = 40,
         .baseSpDefense = 60,
-        .baseReaction  = 60,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 59 : 65,
@@ -3095,7 +3259,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shroomish,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 32) : MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 14,
-        .frontAnimFrames = sAnims_Shroomish,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Shroomish,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 48),
@@ -3108,10 +3284,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 0, SHADOW_SIZE_S)
         FOOTPRINT(Shroomish)
         OVERWORLD(
-            sPicTable_Shroomish,
+            gObjectEventPic_Shroomish,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Shroomish,
             gShinyOverworldPalette_Shroomish
         )
@@ -3129,8 +3306,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 60,
         .baseSpDefense = 60,
-        .baseReaction  = 95,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_GRASS, TYPE_FIGHTING),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 161 : 165,
@@ -3166,7 +3341,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Breloom,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(48, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
-        .frontAnimFrames = sAnims_Breloom,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Breloom,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
@@ -3179,10 +3360,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-4, 9, SHADOW_SIZE_M)
         FOOTPRINT(Breloom)
         OVERWORLD(
-            sPicTable_Breloom,
+            gObjectEventPic_Breloom,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Breloom,
             gShinyOverworldPalette_Breloom
         )
@@ -3199,9 +3381,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseDefense   = 60,
         .baseSpeed     = 30,
         .baseSpAttack  = 35,
-        .baseSpDefense = 55,
-        .baseReaction  = 10,
-        .baseAwareness = 25,
+        .baseSpDefense = 35,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 56 : 83,
@@ -3211,7 +3391,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_TRUANT, ABILITY_NONE, ABILITY_STALL },
+        .abilities = { ABILITY_TRUANT, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Slakoth"),
         .cryId = CRY_SLAKOTH,
@@ -3231,7 +3411,14 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Slakoth,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(56, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 15,
-        .frontAnimFrames = sAnims_Slakoth,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Slakoth,
         .backPicSize = MON_COORDS_SIZE(64, 40),
@@ -3244,10 +3431,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, -4, SHADOW_SIZE_M)
         FOOTPRINT(Slakoth)
         OVERWORLD(
-            sPicTable_Slakoth,
+            gObjectEventPic_Slakoth,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Slakoth,
             gShinyOverworldPalette_Slakoth
         )
@@ -3265,8 +3453,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 55,
         .baseSpDefense = 55,
-        .baseReaction  = 75,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 154 : 126,
@@ -3276,7 +3462,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_VITAL_SPIRIT, ABILITY_NONE, ABILITY_DEFIANT },
+        .abilities = { ABILITY_VITAL_SPIRIT, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_WHITE,
         .speciesName = _("Vigoroth"),
         .cryId = CRY_VIGOROTH,
@@ -3296,7 +3482,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Vigoroth,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 7,
-        .frontAnimFrames = sAnims_Vigoroth,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_H_JUMPS,
         .backPic = gMonBackPic_Vigoroth,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 64),
@@ -3309,10 +3503,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 6, SHADOW_SIZE_M)
         FOOTPRINT(Vigoroth)
         OVERWORLD(
-            sPicTable_Vigoroth,
+            gObjectEventPic_Vigoroth,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Vigoroth,
             gShinyOverworldPalette_Vigoroth
         )
@@ -3329,8 +3524,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 100,
         .baseSpAttack  = 95,
         .baseSpDefense = 65,
-        .baseReaction  = 40,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -3346,7 +3539,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
-        .abilities = { ABILITY_TRUANT, ABILITY_NONE, ABILITY_STALL },
+        .abilities = { ABILITY_TRUANT, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Slaking"),
         .cryId = CRY_SLAKING,
@@ -3366,7 +3559,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Slaking,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
-        .frontAnimFrames = sAnims_Slaking,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Slaking,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -3379,10 +3580,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 6, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Slaking)
         OVERWORLD(
-            sPicTable_Slaking,
+            gObjectEventPic_Slaking,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Slaking,
             gShinyOverworldPalette_Slaking
         )
@@ -3400,8 +3602,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 40,
         .baseSpAttack  = 30,
         .baseSpDefense = 30,
-        .baseReaction  = 50,
-        .baseAwareness = 65,
         .types = MON_TYPES(TYPE_BUG, TYPE_GROUND),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 53 : 65,
@@ -3432,7 +3632,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Nincada,
         .frontPicSize = MON_COORDS_SIZE(56, 32),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 16,
-        .frontAnimFrames = sAnims_Nincada,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Nincada,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 32),
@@ -3445,10 +3651,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, -3, SHADOW_SIZE_M)
         FOOTPRINT(Nincada)
         OVERWORLD(
-            sPicTable_Nincada,
+            gObjectEventPic_Nincada,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BUG,
+            sAnimTable_Following,
             gOverworldPalette_Nincada,
             gShinyOverworldPalette_Nincada
         )
@@ -3467,8 +3674,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 160,
         .baseSpAttack  = 50,
         .baseSpDefense = 50,
-        .baseReaction  = 100,
-        .baseAwareness = 50,
         .types = MON_TYPES(TYPE_BUG, TYPE_FLYING),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 160 : 155,
@@ -3498,7 +3703,26 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Ninjask,
         .frontPicSize = MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 11,
-        .frontAnimFrames = sAnims_Ninjask,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_H_SLIDE_SLOW,
         .enemyMonElevation = 10,
         .backPic = gMonBackPic_Ninjask,
@@ -3512,10 +3736,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 10, SHADOW_SIZE_S)
         FOOTPRINT(Ninjask)
         OVERWORLD(
-            sPicTable_Ninjask,
+            gObjectEventPic_Ninjask,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Ninjask,
             gShinyOverworldPalette_Ninjask
         )
@@ -3526,13 +3751,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SHEDINJA] =
     {
         .baseHP        = 1,
-        .baseAttack    = 110,
+        .baseAttack    = 90,
         .baseDefense   = 45,
         .baseSpeed     = 40,
-        .baseSpAttack  = 60,
+        .baseSpAttack  = 30,
         .baseSpDefense = 30,
-        .baseReaction  = 30,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_BUG, TYPE_GHOST),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 83 : 95,
@@ -3562,7 +3785,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shedinja,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Shedinja,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_Shedinja,
@@ -3576,10 +3805,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 9, SHADOW_SIZE_S)
         FOOTPRINT(Shedinja)
         OVERWORLD(
-            sPicTable_Shedinja,
+            gObjectEventPic_Shedinja,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Shedinja,
             gShinyOverworldPalette_Shedinja
         )
@@ -3593,12 +3823,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 64,
         .baseAttack    = 51,
-        .baseDefense   = 33,
+        .baseDefense   = 23,
         .baseSpeed     = 28,
         .baseSpAttack  = 51,
-        .baseSpDefense = 33,
-        .baseReaction  = 50,
-        .baseAwareness = 35,
+        .baseSpDefense = 23,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 190,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 48 : 68,
@@ -3628,7 +3856,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Whismur,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(48, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
-        .frontAnimFrames = sAnims_Whismur,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_H_SLIDE,
         .backPic = gMonBackPic_Whismur,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
@@ -3641,10 +3880,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Whismur)
         OVERWORLD(
-            sPicTable_Whismur,
+            gObjectEventPic_Whismur,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Whismur,
             gShinyOverworldPalette_Whismur
         )
@@ -3658,12 +3898,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 84,
         .baseAttack    = 71,
-        .baseDefense   = 48,
+        .baseDefense   = 43,
         .baseSpeed     = 48,
         .baseSpAttack  = 71,
-        .baseSpDefense = 48,
-        .baseReaction  = 70,
-        .baseAwareness = 50,
+        .baseSpDefense = 43,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 126,
@@ -3693,7 +3931,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Loudred,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Loudred,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 33),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW : ANIM_SHRINK_GROW,
         .backPic = gMonBackPic_Loudred,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -3706,10 +3950,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 9, SHADOW_SIZE_M)
         FOOTPRINT(Loudred)
         OVERWORLD(
-            sPicTable_Loudred,
+            gObjectEventPic_Loudred,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Loudred,
             gShinyOverworldPalette_Loudred
         )
@@ -3724,9 +3969,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 91,
         .baseDefense   = 63,
         .baseSpeed     = 68,
-        .baseSpAttack  = 111,
-        .baseReaction  = 80,
-        .baseAwareness = 65,
+        .baseSpAttack  = 91,
         .baseSpDefense = P_UPDATED_STATS >= GEN_6 ? 73 : 63,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 45,
@@ -3765,7 +4008,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Exploud,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
-        .frontAnimFrames = sAnims_Exploud,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_V_SHAKE_TWICE,
         .backPic = gMonBackPic_Exploud,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -3778,10 +4025,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 12, SHADOW_SIZE_L)
         FOOTPRINT(Exploud)
         OVERWORLD(
-            sPicTable_Exploud,
+            gObjectEventPic_Exploud,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Exploud,
             gShinyOverworldPalette_Exploud
         )
@@ -3795,12 +4043,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 72,
         .baseAttack    = 60,
-        .baseDefense   = 35,
+        .baseDefense   = 30,
         .baseSpeed     = 25,
         .baseSpAttack  = 20,
-        .baseSpDefense = 35,
-        .baseReaction  = 60,
-        .baseAwareness = 35,
+        .baseSpDefense = 30,
         .types = MON_TYPES(TYPE_FIGHTING),
         .catchRate = 180,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 47 : 87,
@@ -3831,7 +4077,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Makuhita,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 8,
-        .frontAnimFrames = sAnims_Makuhita,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONCAVE : ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Makuhita,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 56),
@@ -3844,10 +4100,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Makuhita)
         OVERWORLD(
-            sPicTable_Makuhita,
+            gObjectEventPic_Makuhita,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Makuhita,
             gShinyOverworldPalette_Makuhita
         )
@@ -3860,13 +4117,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_HARIYAMA] =
     {
         .baseHP        = 144,
-        .baseAttack    = 125,
-        .baseDefense   = 65,
+        .baseAttack    = 120,
+        .baseDefense   = 60,
         .baseSpeed     = 50,
         .baseSpAttack  = 40,
-        .baseSpDefense = 70,
-        .baseReaction  = 70,
-        .baseAwareness = 65,
+        .baseSpDefense = 60,
         .types = MON_TYPES(TYPE_FIGHTING),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 166 : 184,
@@ -3897,7 +4152,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Hariyama,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
-        .frontAnimFrames = sAnims_Hariyama,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_ROTATE_UP_TO_SIDES,
         .backPic = gMonBackPic_Hariyama,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -3910,10 +4170,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 9, SHADOW_SIZE_L)
         FOOTPRINT(Hariyama)
         OVERWORLD(
-            sPicTable_Hariyama,
+            gObjectEventPic_Hariyama,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Hariyama,
             gShinyOverworldPalette_Hariyama
         )
@@ -3925,14 +4186,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_NOSEPASS
     [SPECIES_NOSEPASS] =
     {
-        .baseHP        = 40,
+        .baseHP        = 30,
         .baseAttack    = 45,
         .baseDefense   = 135,
         .baseSpeed     = 30,
         .baseSpAttack  = 45,
         .baseSpDefense = 90,
-        .baseReaction  = 50,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_ROCK),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 75 : 108,
@@ -3943,7 +4202,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_STURDY, ABILITY_MAGNET_PULL, ABILITY_STALWART },
+        .abilities = { ABILITY_STURDY, ABILITY_MAGNET_PULL, ABILITY_SAND_FORCE },
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Nosepass"),
         .cryId = CRY_NOSEPASS,
@@ -3963,7 +4222,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Nosepass,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
-        .frontAnimFrames = sAnims_Nosepass,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 27),
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 27),
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 27),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW : ANIM_H_SLIDE_SLOW,
         .backPic = gMonBackPic_Nosepass,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 48),
@@ -3976,10 +4243,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 3, SHADOW_SIZE_M)
         FOOTPRINT(Nosepass)
         OVERWORLD(
-            sPicTable_Nosepass,
+            gObjectEventPic_Nosepass,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Nosepass,
             gShinyOverworldPalette_Nosepass
         )
@@ -3999,8 +4267,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 40,
         .baseSpAttack  = 75,
         .baseSpDefense = 150,
-        .baseReaction  = 55,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_ROCK, TYPE_STEEL),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 184 : 198,
@@ -4012,7 +4278,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_STURDY, ABILITY_MAGNET_PULL, ABILITY_STALWART },
+        .abilities = { ABILITY_STURDY, ABILITY_MAGNET_PULL, ABILITY_SAND_FORCE },
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Probopass"),
         .cryId = CRY_PROBOPASS,
@@ -4032,7 +4298,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Probopass,
         .frontPicSize = MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Probopass,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Probopass,
@@ -4046,10 +4318,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 13, SHADOW_SIZE_L)
         FOOTPRINT(Probopass)
         OVERWORLD(
-            sPicTable_Probopass,
+            gObjectEventPic_Probopass,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Probopass,
             gShinyOverworldPalette_Probopass
         )
@@ -4063,13 +4336,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SKITTY] =
     {
         .baseHP        = 50,
-        .baseAttack    = 50,
+        .baseAttack    = 45,
         .baseDefense   = 45,
-        .baseSpeed     = 60,
-        .baseSpAttack  = 50,
+        .baseSpeed     = 50,
+        .baseSpAttack  = 35,
         .baseSpDefense = 35,
-        .baseReaction  = 60,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 52 : 65,
@@ -4103,7 +4374,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Skitty,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 12,
-        .frontAnimFrames = sAnims_Skitty,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Skitty,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -4116,10 +4391,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 1, SHADOW_SIZE_S)
         FOOTPRINT(Skitty)
         OVERWORLD(
-            sPicTable_Skitty,
+            gObjectEventPic_Skitty,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Skitty,
             gShinyOverworldPalette_Skitty
         )
@@ -4135,10 +4411,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 65,
         .baseDefense   = 65,
         .baseSpeed     = P_UPDATED_STATS >= GEN_7 ? 90 : 70,
-        .baseSpAttack  = 85,
-        .baseSpDefense = 85,
-        .baseReaction  = 80,
-        .baseAwareness = 75,
+        .baseSpAttack  = 55,
+        .baseSpDefense = 55,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 60,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -4179,7 +4453,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Delcatty,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 4,
-        .frontAnimFrames = sAnims_Delcatty,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 46),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Delcatty,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 64),
@@ -4192,10 +4470,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 9, SHADOW_SIZE_S)
         FOOTPRINT(Delcatty)
         OVERWORLD(
-            sPicTable_Delcatty,
+            gObjectEventPic_Delcatty,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Delcatty,
             gShinyOverworldPalette_Delcatty
         )
@@ -4208,13 +4487,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SABLEYE] =
     {
         .baseHP        = 50,
-        .baseAttack    = 85,
+        .baseAttack    = 75,
         .baseDefense   = 75,
         .baseSpeed     = 50,
-        .baseSpAttack  = 75,
+        .baseSpAttack  = 65,
         .baseSpDefense = 65,
-        .baseReaction  = 60,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_DARK, TYPE_GHOST),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 133 : 98,
@@ -4250,7 +4527,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Sableye,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 10,
-        .frontAnimFrames = sAnims_Sableye,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_GLOW_BLACK,
         .backPic = gMonBackPic_Sableye,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 48),
@@ -4263,10 +4546,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 3, SHADOW_SIZE_S)
         FOOTPRINT(Sableye)
         OVERWORLD(
-            sPicTable_Sableye,
+            gObjectEventPic_Sableye,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Sableye,
             gShinyOverworldPalette_Sableye
         )
@@ -4281,13 +4565,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SABLEYE_MEGA] =
     {
         .baseHP        = 50,
-        .baseAttack    = 95,
-        .baseDefense   = 135,
+        .baseAttack    = 85,
+        .baseDefense   = 125,
         .baseSpeed     = 20,
-        .baseSpAttack  = 105,
+        .baseSpAttack  = 85,
         .baseSpDefense = 115,
-        .baseReaction  = 50,
-        .baseAwareness = 115,
         .types = MON_TYPES(TYPE_DARK, TYPE_GHOST),
         .catchRate = 45,
         .expYield = 168,
@@ -4317,7 +4599,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SableyeMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_SableyeMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SableyeMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -4329,6 +4611,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 2,
         SHADOW(3, 7, SHADOW_SIZE_S)
         FOOTPRINT(Sableye)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SableyeMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SableyeMega,
+            gShinyOverworldPalette_SableyeMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSableyeLevelUpLearnset,
         .teachableLearnset = sSableyeTeachableLearnset,
@@ -4348,14 +4641,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MAWILE] =
     {
-        .baseHP        = 60,
+        .baseHP        = 50,
         .baseAttack    = 85,
         .baseDefense   = 85,
         .baseSpeed     = 50,
         .baseSpAttack  = 55,
         .baseSpDefense = 55,
-        .baseReaction  = 50,
-        .baseAwareness = 65,
         .types = MAWILE_TYPES,
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 133 : 98,
@@ -4387,7 +4678,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Mawile,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Mawile,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Mawile,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -4400,10 +4699,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 4, SHADOW_SIZE_L)
         FOOTPRINT(Mawile)
         OVERWORLD(
-            sPicTable_Mawile,
+            gObjectEventPic_Mawile,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Mawile,
             gShinyOverworldPalette_Mawile
         )
@@ -4417,14 +4717,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_MAWILE_MEGA] =
     {
-        .baseHP        = 60,
+        .baseHP        = 50,
         .baseAttack    = 105,
         .baseDefense   = 125,
         .baseSpeed     = 50,
         .baseSpAttack  = 55,
         .baseSpDefense = 95,
-        .baseReaction  = 80,
-        .baseAwareness = 85,
         .types = MAWILE_TYPES,
         .catchRate = 45,
         .expYield = 168,
@@ -4455,7 +4753,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_MawileMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_MawileMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_MawileMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -4467,6 +4765,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(0, 9, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Mawile)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_MawileMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_MawileMega,
+            gShinyOverworldPalette_MawileMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sMawileLevelUpLearnset,
         .teachableLearnset = sMawileTeachableLearnset,
@@ -4485,9 +4794,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseDefense   = 100,
         .baseSpeed     = 30,
         .baseSpAttack  = 40,
-        .baseSpDefense = 50,
-        .baseReaction  = 50,
-        .baseAwareness = 50,
+        .baseSpDefense = 40,
         .types = MON_TYPES(TYPE_STEEL, TYPE_ROCK),
         .catchRate = 180,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 66 : 96,
@@ -4518,7 +4825,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Aron,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 24) : MON_COORDS_SIZE(32, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 20 : 14,
-        .frontAnimFrames = sAnims_Aron,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Aron,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 32) : MON_COORDS_SIZE(48, 40),
@@ -4531,10 +4844,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, -3, SHADOW_SIZE_S)
         FOOTPRINT(Aron)
         OVERWORLD(
-            sPicTable_Aron,
+            gObjectEventPic_Aron,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Aron,
             gShinyOverworldPalette_Aron
         )
@@ -4551,9 +4865,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseDefense   = 140,
         .baseSpeed     = 40,
         .baseSpAttack  = 50,
-        .baseSpDefense = 60,
-        .baseReaction  = 60,
-        .baseAwareness = 60,
+        .baseSpDefense = 50,
         .types = MON_TYPES(TYPE_STEEL, TYPE_ROCK),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 151 : 152,
@@ -4584,7 +4896,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lairon,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 8,
-        .frontAnimFrames = sAnims_Lairon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 29),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 29),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Lairon,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 40),
@@ -4597,10 +4915,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 2, SHADOW_SIZE_L)
         FOOTPRINT(Lairon)
         OVERWORLD(
-            sPicTable_Lairon,
+            gObjectEventPic_Lairon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Lairon,
             gShinyOverworldPalette_Lairon
         )
@@ -4611,14 +4930,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_AGGRON] =
     {
-        .baseHP        = 80,
+        .baseHP        = 70,
         .baseAttack    = 110,
         .baseDefense   = 180,
         .baseSpeed     = 50,
         .baseSpAttack  = 60,
-        .baseSpDefense = 70,
-        .baseReaction  = 70,
-        .baseAwareness = 75,
+        .baseSpDefense = 60,
         .types = MON_TYPES(TYPE_STEEL, TYPE_ROCK),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -4655,7 +4972,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Aggron,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Aggron,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SHAKE_TWICE,
         .backPic = gMonBackPic_Aggron,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -4668,10 +4989,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(5, 12, SHADOW_SIZE_L)
         FOOTPRINT(Aggron)
         OVERWORLD(
-            sPicTable_Aggron,
+            gObjectEventPic_Aggron,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Aggron,
             gShinyOverworldPalette_Aggron
         )
@@ -4684,14 +5006,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_AGGRON_MEGA] =
     {
-        .baseHP        = 80,
+        .baseHP        = 70,
         .baseAttack    = 140,
         .baseDefense   = 230,
         .baseSpeed     = 50,
         .baseSpAttack  = 60,
-        .baseSpDefense = 100,
-        .baseReaction  = 70,
-        .baseAwareness = 75,
+        .baseSpDefense = 80,
         .types = MON_TYPES(TYPE_STEEL),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 315 : 284,
@@ -4722,7 +5042,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_AggronMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_AggronMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_AggronMega,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -4734,6 +5054,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 2,
         SHADOW(1, 12, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Aggron)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_AggronMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_AggronMega,
+            gShinyOverworldPalette_AggronMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sAggronLevelUpLearnset,
         .teachableLearnset = sAggronTeachableLearnset,
@@ -4746,14 +5077,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_MEDITITE
     [SPECIES_MEDITITE] =
     {
-        .baseHP        = 35,
-        .baseAttack    = 45,
+        .baseHP        = 30,
+        .baseAttack    = 40,
         .baseDefense   = 55,
         .baseSpeed     = 60,
         .baseSpAttack  = 40,
         .baseSpDefense = 55,
-        .baseReaction  = 50,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 180,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 56 : 91,
@@ -4783,7 +5112,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Meditite,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
-        .frontAnimFrames = sAnims_Meditite,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES,
         .backPic = gMonBackPic_Meditite,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 48),
@@ -4802,18 +5135,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Meditite)
         OVERWORLD(
-            sPicTable_Meditite,
+            gObjectEventPic_Meditite,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Meditite,
             gShinyOverworldPalette_Meditite
         )
         OVERWORLD_FEMALE(
-            sPicTable_MedititeF,
+            gObjectEventPic_MedititeF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sMedititeLevelUpLearnset,
         .teachableLearnset = sMedititeTeachableLearnset,
@@ -4829,8 +5164,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 60,
         .baseSpDefense = 75,
-        .baseReaction  = 60,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 144 : 153,
@@ -4860,7 +5193,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Medicham,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(40, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
-        .frontAnimFrames = sAnims_Medicham,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Medicham,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(56, 64),
@@ -4879,18 +5220,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 13, SHADOW_SIZE_S)
         FOOTPRINT(Medicham)
         OVERWORLD(
-            sPicTable_Medicham,
+            gObjectEventPic_Medicham,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Medicham,
             gShinyOverworldPalette_Medicham
         )
         OVERWORLD_FEMALE(
-            sPicTable_MedichamF,
+            gObjectEventPic_MedichamF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sMedichamLevelUpLearnset,
         .teachableLearnset = sMedichamTeachableLearnset,
@@ -4907,8 +5250,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 100,
         .baseSpAttack  = 80,
         .baseSpDefense = 85,
-        .baseReaction  = 80,
-        .baseAwareness = 108,
         .types = MON_TYPES(TYPE_FIGHTING, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = 179,
@@ -4938,7 +5279,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_MedichamMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_MedichamMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_MedichamMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -4950,6 +5291,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(-2, 13, SHADOW_SIZE_S)
         FOOTPRINT(Medicham)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_MedichamMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_MedichamMega,
+            gShinyOverworldPalette_MedichamMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sMedichamLevelUpLearnset,
         .teachableLearnset = sMedichamTeachableLearnset,
@@ -4962,14 +5314,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ELECTRIKE
     [SPECIES_ELECTRIKE] =
     {
-        .baseHP        = 45,
+        .baseHP        = 40,
         .baseAttack    = 45,
         .baseDefense   = 40,
         .baseSpeed     = 65,
         .baseSpAttack  = 65,
         .baseSpDefense = 40,
-        .baseReaction  = 65,
-        .baseAwareness = 45,
         .types = MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 59 : 104,
@@ -4999,7 +5349,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Electrike,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(48, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 14,
-        .frontAnimFrames = sAnims_Electrike,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Electrike,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(56, 40),
@@ -5012,10 +5368,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(3, -1, SHADOW_SIZE_M)
         FOOTPRINT(Electrike)
         OVERWORLD(
-            sPicTable_Electrike,
+            gObjectEventPic_Electrike,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Electrike,
             gShinyOverworldPalette_Electrike
         )
@@ -5031,10 +5388,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 75,
         .baseDefense   = 60,
         .baseSpeed     = 105,
-        .baseSpAttack  = 110,
+        .baseSpAttack  = 105,
         .baseSpDefense = 60,
-        .baseReaction  = 100,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 166 : 168,
@@ -5064,7 +5419,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Manectric,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 56) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 2,
-        .frontAnimFrames = sAnims_Manectric,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Manectric,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 64),
@@ -5077,10 +5438,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 10, SHADOW_SIZE_M)
         FOOTPRINT(Manectric)
         OVERWORLD(
-            sPicTable_Manectric,
+            gObjectEventPic_Manectric,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Manectric,
             gShinyOverworldPalette_Manectric
         )
@@ -5099,8 +5461,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 135,
         .baseSpAttack  = 135,
         .baseSpDefense = 80,
-        .baseReaction  = 140,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 45,
         .expYield = 201,
@@ -5129,7 +5489,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_ManectricMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_ManectricMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_ManectricMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -5141,6 +5501,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Manectric)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_ManectricMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_ManectricMega,
+            gShinyOverworldPalette_ManectricMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sManectricLevelUpLearnset,
         .teachableLearnset = sManectricTeachableLearnset,
@@ -5159,8 +5530,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 95,
         .baseSpAttack  = 85,
         .baseSpDefense = 75,
-        .baseReaction  = 70,
-        .baseAwareness = 55,
         .types = MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 142 : 120,
@@ -5195,7 +5564,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Plusle,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 11,
-        .frontAnimFrames = sAnims_Plusle,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SQUISH_AND_BOUNCE : ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Plusle,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 64),
@@ -5208,10 +5583,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 3, SHADOW_SIZE_S)
         FOOTPRINT(Plusle)
         OVERWORLD(
-            sPicTable_Plusle,
+            gObjectEventPic_Plusle,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Plusle,
             gShinyOverworldPalette_Plusle
         )
@@ -5230,8 +5606,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 95,
         .baseSpAttack  = 75,
         .baseSpDefense = 85,
-        .baseReaction  = 50,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_ELECTRIC),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 142 : 120,
@@ -5266,7 +5640,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Minun,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 11,
-        .frontAnimFrames = sAnims_Minun,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_CIRCULAR_STRETCH_TWICE : ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Minun,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 64),
@@ -5279,10 +5659,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-4, 3, SHADOW_SIZE_S)
         FOOTPRINT(Minun)
         OVERWORLD(
-            sPicTable_Minun,
+            gObjectEventPic_Minun,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Minun,
             gShinyOverworldPalette_Minun
         )
@@ -5297,17 +5678,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 65,
         .baseAttack    = 73,
+        .baseDefense   = P_UPDATED_STATS >= GEN_7 ? 75 : 55,
         .baseSpeed     = 85,
         .baseSpAttack  = 47,
-        .baseReaction  = 50,
-        .baseAwareness = 80,
-        #if P_UPDATED_STATS >= GEN_7
-            .baseDefense   = 75,
-            .baseSpDefense = 85,
-        #else
-            .baseDefense   = 55,
-            .baseSpDefense = 75,
-        #endif
+        .baseSpDefense = P_UPDATED_STATS >= GEN_7 ? 85 : 75,
         .types = MON_TYPES(TYPE_BUG),
         .catchRate = 150,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -5344,7 +5718,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Volbeat,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Volbeat,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 5),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Volbeat,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 64),
@@ -5357,10 +5739,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 5, SHADOW_SIZE_S)
         FOOTPRINT(Volbeat)
         OVERWORLD(
-            sPicTable_Volbeat,
+            gObjectEventPic_Volbeat,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Volbeat,
             gShinyOverworldPalette_Volbeat
         )
@@ -5373,17 +5756,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 65,
         .baseAttack    = 47,
+        .baseDefense   = P_UPDATED_STATS >= GEN_7 ? 75 : 55,
         .baseSpeed     = 85,
         .baseSpAttack  = 73,
-        .baseReaction  = 55,
-        .baseAwareness = 75,
-        #if P_UPDATED_STATS >= GEN_7
-            .baseDefense   = 75,
-            .baseSpDefense = 85,
-        #else
-            .baseDefense   = 55,
-            .baseSpDefense = 75,
-        #endif
+        .baseSpDefense = P_UPDATED_STATS >= GEN_7 ? 85 : 75,
         .types = MON_TYPES(TYPE_BUG),
         .catchRate = 150,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -5424,7 +5800,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Illumise,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 10,
-        .frontAnimFrames = sAnims_Illumise,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES : ANIM_RISING_WOBBLE,
         .backPic = gMonBackPic_Illumise,
         .backPicSize = MON_COORDS_SIZE(48, 56),
@@ -5437,10 +5819,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 5, SHADOW_SIZE_S)
         FOOTPRINT(Illumise)
         OVERWORLD(
-            sPicTable_Illumise,
+            gObjectEventPic_Illumise,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Illumise,
             gShinyOverworldPalette_Illumise
         )
@@ -5459,9 +5842,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseDefense   = 35,
         .baseSpeed     = 55,
         .baseSpAttack  = 50,
-        .baseSpDefense = 75,
-        .baseReaction  = 40,
-        .baseAwareness = 55,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 56 : 68,
@@ -5493,7 +5874,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Budew,
         .frontPicSize = MON_COORDS_SIZE(32, 40),
         .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Budew,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Budew,
         .backPicSize = MON_COORDS_SIZE(40, 56),
@@ -5506,10 +5891,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 0, SHADOW_SIZE_S)
         FOOTPRINT(Budew)
         OVERWORLD(
-            sPicTable_Budew,
+            gObjectEventPic_Budew,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Budew,
             gShinyOverworldPalette_Budew
         )
@@ -5528,8 +5914,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 65,
         .baseSpAttack  = 100,
         .baseSpDefense = 80,
-        .baseReaction  = 55,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 150,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 140 : 152,
@@ -5540,7 +5924,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY, EGG_GROUP_GRASS),
-        .abilities = { ABILITY_NATURAL_CURE, ABILITY_POISON_POINT, ABILITY_FLOWER_VEIL },
+        .abilities = { ABILITY_NATURAL_CURE, ABILITY_POISON_POINT, ABILITY_LEAF_GUARD },
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = TRUE,
         .speciesName = _("Roselia"),
@@ -5561,7 +5945,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Roselia,
         .frontPicSize = MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 11,
-        .frontAnimFrames = sAnims_Roselia,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 18),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Roselia,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -5580,18 +5968,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 3, SHADOW_SIZE_S)
         FOOTPRINT(Roselia)
         OVERWORLD(
-            sPicTable_Roselia,
+            gObjectEventPic_Roselia,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Roselia,
             gShinyOverworldPalette_Roselia
         )
         OVERWORLD_FEMALE(
-            sPicTable_RoseliaF,
+            gObjectEventPic_RoseliaF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sRoseliaLevelUpLearnset,
         .teachableLearnset = sRoseliaTeachableLearnset,
@@ -5608,8 +5998,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 125,
         .baseSpDefense = 105,
-        .baseReaction  = 78,
-        .baseAwareness = 87,
         .types = MON_TYPES(TYPE_GRASS, TYPE_POISON),
         .catchRate = 75,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -5649,7 +6037,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Roserade,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Roserade,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .backPic = gMonBackPic_Roserade,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -5668,18 +6059,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 6, SHADOW_SIZE_S)
         FOOTPRINT(Roserade)
         OVERWORLD(
-            sPicTable_Roserade,
+            gObjectEventPic_Roserade,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Roserade,
             gShinyOverworldPalette_Roserade
         )
         OVERWORLD_FEMALE(
-            sPicTable_RoseradeF,
+            gObjectEventPic_RoseradeF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sRoseradeLevelUpLearnset,
         .teachableLearnset = sRoseradeTeachableLearnset,
@@ -5694,10 +6087,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 43,
         .baseDefense   = 53,
         .baseSpeed     = 40,
-        .baseSpAttack  = 53,
-        .baseSpDefense = 63,
-        .baseReaction  = 30,
-        .baseAwareness = 55,
+        .baseSpAttack  = 43,
+        .baseSpDefense = 53,
         .types = MON_TYPES(TYPE_POISON),
         .catchRate = 225,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 60 : 75,
@@ -5729,7 +6120,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Gulpin,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 15,
-        .frontAnimFrames = sAnims_Gulpin,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 4),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Gulpin,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
@@ -5748,18 +6145,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, -2, SHADOW_SIZE_S)
         FOOTPRINT(Gulpin)
         OVERWORLD(
-            sPicTable_Gulpin,
+            gObjectEventPic_Gulpin,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Gulpin,
             gShinyOverworldPalette_Gulpin
         )
         OVERWORLD_FEMALE(
-            sPicTable_GulpinF,
+            gObjectEventPic_GulpinF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_SPOT
+            TRACKS_SPOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sGulpinLevelUpLearnset,
         .teachableLearnset = sGulpinTeachableLearnset,
@@ -5775,8 +6174,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 55,
         .baseSpAttack  = 73,
         .baseSpDefense = 83,
-        .baseReaction  = 40,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_POISON),
         .catchRate = 75,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 163 : 168,
@@ -5808,7 +6205,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Swalot,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 5,
-        .frontAnimFrames = sAnims_Swalot,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 30),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Swalot,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
@@ -5827,18 +6229,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 3, SHADOW_SIZE_L)
         FOOTPRINT(Swalot)
         OVERWORLD(
-            sPicTable_Swalot,
+            gObjectEventPic_Swalot,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
+            sAnimTable_Following,
             gOverworldPalette_Swalot,
             gShinyOverworldPalette_Swalot
         )
         OVERWORLD_FEMALE(
-            sPicTable_SwalotF,
+            gObjectEventPic_SwalotF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_SLITHER
+            TRACKS_SLITHER,
+            sAnimTable_Following
         )
         .levelUpLearnset = sSwalotLevelUpLearnset,
         .teachableLearnset = sSwalotTeachableLearnset,
@@ -5854,8 +6258,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 65,
         .baseSpAttack  = 65,
         .baseSpDefense = 20,
-        .baseReaction  = 75,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 225,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 61 : 88,
@@ -5886,7 +6288,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Carvanha,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Carvanha,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Carvanha,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
@@ -5899,10 +6311,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 8, SHADOW_SIZE_S)
         FOOTPRINT(Carvanha)
         OVERWORLD(
-            sPicTable_Carvanha,
+            gObjectEventPic_Carvanha,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Carvanha,
             gShinyOverworldPalette_Carvanha
         )
@@ -5920,8 +6333,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 95,
         .baseSpAttack  = 95,
         .baseSpDefense = 40,
-        .baseReaction  = 95,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 161 : 175,
@@ -5952,7 +6363,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Sharpedo,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 0,
-        .frontAnimFrames = sAnims_Sharpedo,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_H_JUMPS_V_STRETCH_TWICE,
         .backPic = gMonBackPic_Sharpedo,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -5965,10 +6386,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Sharpedo)
         OVERWORLD(
-            sPicTable_Sharpedo,
+            gObjectEventPic_Sharpedo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Sharpedo,
             gShinyOverworldPalette_Sharpedo
         )
@@ -5987,8 +6409,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 105,
         .baseSpAttack  = 110,
         .baseSpDefense = 65,
-        .baseReaction  = 105,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 60,
         .expYield = 196,
@@ -6019,7 +6439,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SharpedoMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SharpedoMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 1,
         .backPic = gMonBackPic_SharpedoMega,
@@ -6032,6 +6452,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Sharpedo)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SharpedoMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_SharpedoMega,
+            gShinyOverworldPalette_SharpedoMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSharpedoLevelUpLearnset,
         .teachableLearnset = sSharpedoTeachableLearnset,
@@ -6048,10 +6479,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 70,
         .baseDefense   = 35,
         .baseSpeed     = 60,
-        .baseSpAttack  = 80,
-        .baseSpDefense = 45,
-        .baseReaction  = 40,
-        .baseAwareness = 55,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 35,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 125,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 80 : 137,
@@ -6081,7 +6510,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Wailmer,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 10,
-        .frontAnimFrames = sAnims_Wailmer,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Wailmer,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 48),
@@ -6094,10 +6531,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 3, SHADOW_SIZE_L)
         FOOTPRINT(Wailmer)
         OVERWORLD(
-            sPicTable_Wailmer,
+            gObjectEventPic_Wailmer,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Wailmer,
             gShinyOverworldPalette_Wailmer
         )
@@ -6113,10 +6551,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 90,
         .baseDefense   = 45,
         .baseSpeed     = 60,
-        .baseSpAttack  = 100,
-        .baseSpDefense = 55,
-        .baseReaction  = 65,
-        .baseAwareness = 70,
+        .baseSpAttack  = 90,
+        .baseSpDefense = 45,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 175 : 206,
@@ -6146,7 +6582,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Wailord,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 4,
-        .frontAnimFrames = sAnims_Wailord,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 48),
+            ANIMCMD_FRAME(0, 33),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .frontAnimDelay = 10,
         .backPic = gMonBackPic_Wailord,
@@ -6160,10 +6600,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 7, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Wailord)
         OVERWORLD(
-            sPicTable_Wailord,
+            gObjectEventPic_Wailord,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Wailord,
             gShinyOverworldPalette_Wailord
         )
@@ -6179,10 +6620,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 60,
         .baseDefense   = 40,
         .baseSpeed     = 35,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 55,
-        .baseReaction  = 30,
-        .baseAwareness = 45,
+        .baseSpAttack  = 65,
+        .baseSpDefense = 45,
         .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 61 : 88,
@@ -6216,7 +6655,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Numel,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 9,
-        .frontAnimFrames = sAnims_Numel,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 20),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 40),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Numel,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 56),
@@ -6235,18 +6680,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 2, SHADOW_SIZE_S)
         FOOTPRINT(Numel)
         OVERWORLD(
-            sPicTable_Numel,
+            gObjectEventPic_Numel,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Numel,
             gShinyOverworldPalette_Numel
         )
         OVERWORLD_FEMALE(
-            sPicTable_NumelF,
+            gObjectEventPic_NumelF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sNumelLevelUpLearnset,
         .teachableLearnset = sNumelTeachableLearnset,
@@ -6256,14 +6703,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CAMERUPT] =
     {
-        .baseHP        = 80,
+        .baseHP        = 70,
         .baseAttack    = 100,
         .baseDefense   = 70,
         .baseSpeed     = 40,
-        .baseSpAttack  = 115,
-        .baseSpDefense = 85,
-        .baseReaction  = 50,
-        .baseAwareness = 65,
+        .baseSpAttack  = 105,
+        .baseSpDefense = 75,
         .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 150,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 161 : 175,
@@ -6298,7 +6743,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Camerupt,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 6,
-        .frontAnimFrames = sAnims_Camerupt,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Camerupt,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 40),
@@ -6317,18 +6770,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 4, SHADOW_SIZE_L)
         FOOTPRINT(Camerupt)
         OVERWORLD(
-            sPicTable_Camerupt,
+            gObjectEventPic_Camerupt,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Camerupt,
             gShinyOverworldPalette_Camerupt
         )
         OVERWORLD_FEMALE(
-            sPicTable_CameruptF,
+            gObjectEventPic_CameruptF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sCameruptLevelUpLearnset,
         .teachableLearnset = sCameruptTeachableLearnset,
@@ -6339,14 +6794,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_CAMERUPT_MEGA] =
     {
-        .baseHP        = 80,
+        .baseHP        = 70,
         .baseAttack    = 120,
         .baseDefense   = 100,
         .baseSpeed     = 20,
-        .baseSpAttack  = 155,
-        .baseSpDefense = 115,
-        .baseReaction  = 60,
-        .baseAwareness = 75,
+        .baseSpAttack  = 145,
+        .baseSpDefense = 105,
         .types = MON_TYPES(TYPE_FIRE, TYPE_GROUND),
         .catchRate = 150,
         .expYield = 196,
@@ -6377,7 +6830,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CameruptMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_CameruptMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_CameruptMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -6389,6 +6842,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(1, 6, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Camerupt)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_CameruptMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_CameruptMega,
+            gShinyOverworldPalette_CameruptMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sCameruptLevelUpLearnset,
         .teachableLearnset = sCameruptTeachableLearnset,
@@ -6407,8 +6871,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 20,
         .baseSpAttack  = 85,
         .baseSpDefense = 70,
-        .baseReaction  = 24,
-        .baseAwareness = 76,
         .types = MON_TYPES(TYPE_FIRE),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 165 : 161,
@@ -6443,7 +6905,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Torkoal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 3,
-        .frontAnimFrames = sAnims_Torkoal,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Torkoal,
         .backPicSize = MON_COORDS_SIZE(64, 48),
@@ -6456,10 +6924,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 7, SHADOW_SIZE_L)
         FOOTPRINT(Torkoal)
         OVERWORLD(
-            sPicTable_Torkoal,
+            gObjectEventPic_Torkoal,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Torkoal,
             gShinyOverworldPalette_Torkoal
         )
@@ -6478,8 +6947,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 60,
         .baseSpAttack  = 70,
         .baseSpDefense = 80,
-        .baseReaction  = 60,
-        .baseAwareness = 45,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 66 : 89,
@@ -6509,7 +6976,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Spoink,
         .frontPicSize = MON_COORDS_SIZE(32, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Spoink,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_H_JUMPS_V_STRETCH_TWICE,
         .backPic = gMonBackPic_Spoink,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 64),
@@ -6522,10 +7001,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 5, SHADOW_SIZE_S)
         FOOTPRINT(Spoink)
         OVERWORLD(
-            sPicTable_Spoink,
+            gObjectEventPic_Spoink,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Spoink,
             gShinyOverworldPalette_Spoink
         )
@@ -6543,8 +7023,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 90,
         .baseSpDefense = 110,
-        .baseReaction  = 85,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 165 : 164,
@@ -6574,7 +7052,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Grumpig,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 2,
-        .frontAnimFrames = sAnims_Grumpig,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_JUMPS_V_STRETCH,
         .frontAnimDelay = 15,
         .backPic = gMonBackPic_Grumpig,
@@ -6588,10 +7072,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Grumpig)
         OVERWORLD(
-            sPicTable_Grumpig,
+            gObjectEventPic_Grumpig,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Grumpig,
             gShinyOverworldPalette_Grumpig
         )
@@ -6603,14 +7088,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SPINDA
     [SPECIES_SPINDA] =
     {
-        .baseHP        = 69,
-        .baseAttack    = 69,
-        .baseDefense   = 69,
-        .baseSpeed     = 69,
-        .baseSpAttack  = 69,
-        .baseSpDefense = 69,
-        .baseReaction  = 69,
-        .baseAwareness = 69,
+        .baseHP        = 60,
+        .baseAttack    = 60,
+        .baseDefense   = 60,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 60,
+        .baseSpDefense = 60,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 126 : 85,
@@ -6645,7 +7128,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Spinda,
         .frontPicSize = MON_COORDS_SIZE(48, 64),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Spinda,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 23),
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 23),
+            ANIMCMD_FRAME(0, 13),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_H_JUMPS : ANIM_CIRCLE_INTO_BG,
         .backPic = gMonBackPic_Spinda,
         .backPicSize = MON_COORDS_SIZE(56, 56),
@@ -6658,10 +7147,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 6, SHADOW_SIZE_S)
         FOOTPRINT(Spinda)
         OVERWORLD(
-            sPicTable_Spinda,
+            gObjectEventPic_Spinda,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Spinda,
             gShinyOverworldPalette_Spinda
         )
@@ -6680,8 +7170,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 10,
         .baseSpAttack  = 45,
         .baseSpDefense = 45,
-        .baseReaction  = 12,
-        .baseAwareness = 88,
         .types = MON_TYPES(TYPE_GROUND),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 58 : 73,
@@ -6716,7 +7204,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Trapinch,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 32) : MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 12,
-        .frontAnimFrames = sAnims_Trapinch,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Trapinch,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(48, 48),
@@ -6729,10 +7223,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, -1, SHADOW_SIZE_S)
         FOOTPRINT(Trapinch)
         OVERWORLD(
-            sPicTable_Trapinch,
+            gObjectEventPic_Trapinch,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Trapinch,
             gShinyOverworldPalette_Trapinch
         )
@@ -6750,8 +7245,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 50,
         .baseSpDefense = 50,
-        .baseReaction  = 45,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 119 : 126,
@@ -6786,7 +7279,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Vibrava,
         .frontPicSize = MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
-        .frontAnimFrames = sAnims_Vibrava,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .backPic = gMonBackPic_Vibrava,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(64, 40),
@@ -6799,10 +7300,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 0, SHADOW_SIZE_L)
         FOOTPRINT(Vibrava)
         OVERWORLD(
-            sPicTable_Vibrava,
+            gObjectEventPic_Vibrava,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Vibrava,
             gShinyOverworldPalette_Vibrava
         )
@@ -6814,13 +7316,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_FLYGON] =
     {
         .baseHP        = 80,
-        .baseAttack    = 110,
+        .baseAttack    = 100,
         .baseDefense   = 80,
-        .baseSpeed     = 110,
+        .baseSpeed     = 100,
         .baseSpAttack  = 80,
         .baseSpDefense = 80,
-        .baseReaction  = 80,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_GROUND, TYPE_DRAGON),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -6861,7 +7361,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Flygon,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Flygon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_ZIGZAG_SLOW,
         .enemyMonElevation = 7,
         .backPic = gMonBackPic_Flygon,
@@ -6875,10 +7383,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 17, SHADOW_SIZE_M)
         FOOTPRINT(Flygon)
         OVERWORLD(
-            sPicTable_Flygon,
+            gObjectEventPic_Flygon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Flygon,
             gShinyOverworldPalette_Flygon
         )
@@ -6890,14 +7399,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_CACNEA
     [SPECIES_CACNEA] =
     {
-        .baseHP        = 60,
+        .baseHP        = 50,
         .baseAttack    = 85,
         .baseDefense   = 40,
         .baseSpeed     = 35,
         .baseSpAttack  = 85,
-        .baseSpDefense = 50,
-        .baseReaction  = 40,
-        .baseAwareness = 55,
+        .baseSpDefense = 40,
         .types = MON_TYPES(TYPE_GRASS),
         .catchRate = 190,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 67 : 97,
@@ -6928,7 +7435,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Cacnea,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(56, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 13,
-        .frontAnimFrames = sAnims_Cacnea,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Cacnea,
         .backPicSize = MON_COORDS_SIZE(64, 40),
@@ -6941,10 +7460,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Cacnea)
         OVERWORLD(
-            sPicTable_Cacnea,
+            gObjectEventPic_Cacnea,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Cacnea,
             gShinyOverworldPalette_Cacnea
         )
@@ -6956,14 +7476,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CACTURNE] =
     {
-        .baseHP        = 80,
-        .baseAttack    = 125,
+        .baseHP        = 70,
+        .baseAttack    = 115,
         .baseDefense   = 60,
-        .baseSpeed     = 50,
-        .baseSpAttack  = 105,
+        .baseSpeed     = 55,
+        .baseSpAttack  = 115,
         .baseSpDefense = 60,
-        .baseReaction  = 90,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_GRASS, TYPE_DARK),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 166 : 177,
@@ -6995,7 +7513,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Cacturne,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Cacturne,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Cacturne,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
@@ -7012,18 +7536,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 14, SHADOW_SIZE_M)
         FOOTPRINT(Cacturne)
         OVERWORLD(
-            sPicTable_Cacturne,
+            gObjectEventPic_Cacturne,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Cacturne,
             gShinyOverworldPalette_Cacturne
         )
         OVERWORLD_FEMALE(
-            sPicTable_CacturneF,
+            gObjectEventPic_CacturneF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_FOOT
+            TRACKS_FOOT,
+            sAnimTable_Following
         )
         .levelUpLearnset = sCacturneLevelUpLearnset,
         .teachableLearnset = sCacturneTeachableLearnset,
@@ -7036,11 +7562,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseHP        = 45,
         .baseAttack    = 40,
         .baseDefense   = 60,
-        .baseSpeed     = 55,
+        .baseSpeed     = 50,
         .baseSpAttack  = 40,
         .baseSpDefense = 75,
-        .baseReaction  = 55,
-        .baseAwareness = 45,
         .types = MON_TYPES(TYPE_NORMAL, TYPE_FLYING),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 62 : 74,
@@ -7070,7 +7594,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Swablu,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 14,
-        .frontAnimFrames = sAnims_Swablu,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SLIDE : ANIM_GROW_VIBRATE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 0,
         .backPic = gMonBackPic_Swablu,
@@ -7084,10 +7616,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 0, SHADOW_SIZE_S)
         FOOTPRINT(Swablu)
         OVERWORLD(
-            sPicTable_Swablu,
+            gObjectEventPic_Swablu,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Swablu,
             gShinyOverworldPalette_Swablu
         )
@@ -7105,8 +7638,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 70,
         .baseSpDefense = 105,
-        .baseReaction  = 80,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 172 : 188,
@@ -7136,7 +7667,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Altaria,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 1,
-        .frontAnimFrames = sAnims_Altaria,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_H_STRETCH : ANIM_V_STRETCH,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 8 : 0,
         .backPic = gMonBackPic_Altaria,
@@ -7150,10 +7687,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 14, SHADOW_SIZE_L)
         FOOTPRINT(Altaria)
         OVERWORLD(
-            sPicTable_Altaria,
+            gObjectEventPic_Altaria,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Altaria,
             gShinyOverworldPalette_Altaria
         )
@@ -7172,8 +7710,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 110,
         .baseSpDefense = 105,
-        .baseReaction  = 95,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_FAIRY),
         .catchRate = 45,
         .expYield = 207,
@@ -7203,7 +7739,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_AltariaMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_AltariaMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_AltariaMega,
@@ -7216,6 +7752,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(-2, 17, SHADOW_SIZE_L)
         FOOTPRINT(Altaria)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_AltariaMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_AltariaMega,
+            gShinyOverworldPalette_AltariaMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sAltariaLevelUpLearnset,
         .teachableLearnset = sAltariaTeachableLearnset,
@@ -7234,8 +7781,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 60,
         .baseSpDefense = 60,
-        .baseReaction  = 80,
-        .baseAwareness = 50,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 160 : 165,
@@ -7267,7 +7812,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Zangoose,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Zangoose,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Zangoose,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
@@ -7280,10 +7833,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Zangoose)
         OVERWORLD(
-            sPicTable_Zangoose,
+            gObjectEventPic_Zangoose,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Zangoose,
             gShinyOverworldPalette_Zangoose
         )
@@ -7302,8 +7856,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 65,
         .baseSpAttack  = 100,
         .baseSpDefense = 60,
-        .baseReaction  = 50,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_POISON),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 160 : 165,
@@ -7336,7 +7888,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Seviper,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 6,
-        .frontAnimFrames = sAnims_Seviper,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Seviper,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -7349,10 +7909,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 7, SHADOW_SIZE_L)
         FOOTPRINT(Seviper)
         OVERWORLD(
-            sPicTable_Seviper,
+            gObjectEventPic_Seviper,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BIKE_TIRE,
+            sAnimTable_Following,
             gOverworldPalette_Seviper,
             gShinyOverworldPalette_Seviper
         )
@@ -7371,8 +7932,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 95,
         .baseSpDefense = 85,
-        .baseReaction  = 36,
-        .baseAwareness = 108,
         .types = MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -7410,7 +7969,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lunatone,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Lunatone,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_SWING_CONVEX_FAST,
         .enemyMonElevation = 13,
         .backPic = gMonBackPic_Lunatone,
@@ -7424,10 +7989,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 15, SHADOW_SIZE_S)
         FOOTPRINT(Lunatone)
         OVERWORLD(
-            sPicTable_Lunatone,
+            gObjectEventPic_Lunatone,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Lunatone,
             gShinyOverworldPalette_Lunatone
         )
@@ -7445,8 +8011,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 55,
         .baseSpDefense = 65,
-        .baseReaction  = 108,
-		.baseAwareness = 36,
         .types = MON_TYPES(TYPE_ROCK, TYPE_PSYCHIC),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -7484,7 +8048,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Solrock,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
-        .frontAnimFrames = sAnims_Solrock,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_ROTATE_TO_SIDES_TWICE,
         .enemyMonElevation = 4,
         .backPic = gMonBackPic_Solrock,
@@ -7498,10 +8068,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 15, SHADOW_SIZE_M)
         FOOTPRINT(Solrock)
         OVERWORLD(
-            sPicTable_Solrock,
+            gObjectEventPic_Solrock,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Solrock,
             gShinyOverworldPalette_Solrock
         )
@@ -7519,8 +8090,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 60,
         .baseSpAttack  = 46,
         .baseSpDefense = 41,
-        .baseReaction  = 45,
-		.baseAwareness = 70,
         .types = MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 190,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 58 : 92,
@@ -7554,7 +8123,21 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Barboach,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(48, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 15,
-        .frontAnimFrames = sAnims_Barboach,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 0 : 7,
         .backPic = gMonBackPic_Barboach,
@@ -7568,10 +8151,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 3, SHADOW_SIZE_M)
         FOOTPRINT(Barboach)
         OVERWORLD(
-            sPicTable_Barboach,
+            gObjectEventPic_Barboach,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Barboach,
             gShinyOverworldPalette_Barboach
         )
@@ -7589,8 +8173,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 60,
         .baseSpAttack  = 76,
         .baseSpDefense = 71,
-        .baseReaction  = 60,
-		.baseAwareness = 95,
         .types = MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 75,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 164 : 158,
@@ -7624,7 +8206,21 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Whiscash,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Whiscash,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Whiscash,
         .backPicSize = MON_COORDS_SIZE(64, 48),
@@ -7637,10 +8233,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 3, SHADOW_SIZE_L)
         FOOTPRINT(Whiscash)
         OVERWORLD(
-            sPicTable_Whiscash,
+            gObjectEventPic_Whiscash,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Whiscash,
             gShinyOverworldPalette_Whiscash
         )
@@ -7655,11 +8252,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseHP        = 43,
         .baseAttack    = 80,
         .baseDefense   = 65,
-        .baseSpeed     = 45,
+        .baseSpeed     = 35,
         .baseSpAttack  = 50,
         .baseSpDefense = 35,
-        .baseReaction  = 65,
-		.baseAwareness = 50,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 205,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 62 : 111,
@@ -7689,7 +8284,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Corphish,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 8,
-        .frontAnimFrames = sAnims_Corphish,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Corphish,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 48),
@@ -7702,10 +8305,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Corphish)
         OVERWORLD(
-            sPicTable_Corphish,
+            gObjectEventPic_Corphish,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Corphish,
             gShinyOverworldPalette_Corphish
         )
@@ -7720,11 +8324,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseHP        = 63,
         .baseAttack    = 120,
         .baseDefense   = 85,
-        .baseSpeed     = 60,
+        .baseSpeed     = 55,
         .baseSpAttack  = 90,
         .baseSpDefense = 55,
-        .baseReaction  = 85,
-		.baseAwareness = 60,
         .types = MON_TYPES(TYPE_WATER, TYPE_DARK),
         .catchRate = 155,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 164 : 161,
@@ -7754,7 +8356,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Crawdaunt,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 4,
-        .frontAnimFrames = sAnims_Crawdaunt,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Crawdaunt,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -7767,10 +8375,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(6, 9, SHADOW_SIZE_M)
         FOOTPRINT(Crawdaunt)
         OVERWORLD(
-            sPicTable_Crawdaunt,
+            gObjectEventPic_Crawdaunt,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Crawdaunt,
             gShinyOverworldPalette_Crawdaunt
         )
@@ -7788,8 +8397,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 55,
         .baseSpAttack  = 40,
         .baseSpDefense = 70,
-        .baseReaction  = 45,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 60 : 58,
@@ -7820,7 +8427,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Baltoy,
         .frontPicSize = MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 14,
-        .frontAnimFrames = sAnims_Baltoy,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 4 : 8,
         .backPic = gMonBackPic_Baltoy,
@@ -7834,10 +8449,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 5, SHADOW_SIZE_S)
         FOOTPRINT(Baltoy)
         OVERWORLD(
-            sPicTable_Baltoy,
+            gObjectEventPic_Baltoy,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Baltoy,
             gShinyOverworldPalette_Baltoy
         )
@@ -7854,8 +8470,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 75,
         .baseSpAttack  = 70,
         .baseSpDefense = 120,
-        .baseReaction  = 70,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_GROUND, TYPE_PSYCHIC),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 175 : 189,
@@ -7886,7 +8500,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Claydol,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 3,
-        .frontAnimFrames = sAnims_Claydol,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE_SMALL,
         .enemyMonElevation = 10,
         .backPic = gMonBackPic_Claydol,
@@ -7900,10 +8522,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 18, SHADOW_SIZE_M)
         FOOTPRINT(Claydol)
         OVERWORLD(
-            sPicTable_Claydol,
+            gObjectEventPic_Claydol,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Claydol,
             gShinyOverworldPalette_Claydol
         )
@@ -7921,8 +8544,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 23,
         .baseSpAttack  = 61,
         .baseSpDefense = 87,
-        .baseReaction  = 45,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_ROCK, TYPE_GRASS),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_5
@@ -7959,7 +8580,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lileep,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Lileep,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Lileep,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(48, 48),
@@ -7972,10 +8599,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 5, SHADOW_SIZE_S)
         FOOTPRINT(Lileep)
         OVERWORLD(
-            sPicTable_Lileep,
+            gObjectEventPic_Lileep,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
+            sAnimTable_Following,
             gOverworldPalette_Lileep,
             gShinyOverworldPalette_Lileep
         )
@@ -7991,10 +8619,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 81,
         .baseDefense   = 97,
         .baseSpeed     = 43,
-        .baseSpAttack  = 91,
+        .baseSpAttack  = 81,
         .baseSpDefense = 107,
-        .baseReaction  = 50,
-        .baseAwareness = 95,
         .types = MON_TYPES(TYPE_ROCK, TYPE_GRASS),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_5
@@ -8031,7 +8657,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Cradily,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Cradily,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE_TWICE,
         .backPic = gMonBackPic_Cradily,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(56, 64),
@@ -8044,10 +8678,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 11, SHADOW_SIZE_M)
         FOOTPRINT(Cradily)
         OVERWORLD(
-            sPicTable_Cradily,
+            gObjectEventPic_Cradily,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
+            sAnimTable_Following,
             gOverworldPalette_Cradily,
             gShinyOverworldPalette_Cradily
         )
@@ -8065,8 +8700,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 75,
         .baseSpAttack  = 40,
         .baseSpDefense = 50,
-        .baseReaction  = 70,
-        .baseAwareness = 45,
         .types = MON_TYPES(TYPE_ROCK, TYPE_BUG),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_5
@@ -8102,7 +8735,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Anorith,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
-        .frontAnimFrames = sAnims_Anorith,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_TWIST,
         .backPic = gMonBackPic_Anorith,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(56, 32),
@@ -8115,10 +8756,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 4, SHADOW_SIZE_S)
         FOOTPRINT(Anorith)
         OVERWORLD(
-            sPicTable_Anorith,
+            gObjectEventPic_Anorith,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_BUG,
+            sAnimTable_Following,
             gOverworldPalette_Anorith,
             gShinyOverworldPalette_Anorith
         )
@@ -8136,8 +8778,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 45,
         .baseSpAttack  = 70,
         .baseSpDefense = 80,
-        .baseReaction  = 95,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_ROCK, TYPE_BUG),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_5
@@ -8173,7 +8813,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Armaldo,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 2,
-        .frontAnimFrames = sAnims_Armaldo,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Armaldo,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
@@ -8186,10 +8832,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 11, SHADOW_SIZE_L)
         FOOTPRINT(Armaldo)
         OVERWORLD(
-            sPicTable_Armaldo,
+            gObjectEventPic_Armaldo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Armaldo,
             gShinyOverworldPalette_Armaldo
         )
@@ -8205,10 +8852,8 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseAttack    = 15,
         .baseDefense   = 20,
         .baseSpeed     = 80,
-        .baseSpAttack  = 20,
+        .baseSpAttack  = 10,
         .baseSpDefense = 55,
-        .baseReaction  = 55,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 40 : 61,
@@ -8242,7 +8887,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Feebas,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 10,
-        .frontAnimFrames = sAnims_Feebas,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Feebas,
         .backPicSize = MON_COORDS_SIZE(48, 56),
@@ -8255,10 +8908,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 2, SHADOW_SIZE_S)
         FOOTPRINT(Feebas)
         OVERWORLD(
-            sPicTable_Feebas,
+            gObjectEventPic_Feebas,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Feebas,
             gShinyOverworldPalette_Feebas
         )
@@ -8273,13 +8927,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_MILOTIC] =
     {
         .baseHP        = 95,
-        .baseAttack    = 50,
+        .baseAttack    = 60,
         .baseDefense   = 79,
         .baseSpeed     = 81,
-        .baseSpAttack  = 110,
+        .baseSpAttack  = 100,
         .baseSpDefense = 125,
-        .baseReaction  = 73,
-        .baseAwareness = 82,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 189 : 213,
@@ -8290,7 +8942,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .growthRate = GROWTH_ERRATIC,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_DRAGON),
     #if P_UPDATED_ABILITIES >= GEN_4
-        .abilities = { ABILITY_MARVEL_SCALE, ABILITY_COMPETITIVE, ABILITY_DAZZLING },
+        .abilities = { ABILITY_MARVEL_SCALE, ABILITY_COMPETITIVE, ABILITY_CUTE_CHARM },
     #else
         .abilities = { ABILITY_MARVEL_SCALE, ABILITY_NONE, ABILITY_CUTE_CHARM },
     #endif
@@ -8313,7 +8965,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Milotic,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 2,
-        .frontAnimFrames = sAnims_Milotic,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_GLOW_BLUE : ANIM_CIRCULAR_STRETCH_TWICE,
         .frontAnimDelay = 45,
         .backPic = gMonBackPic_Milotic,
@@ -8333,18 +8993,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 12, SHADOW_SIZE_M)
         FOOTPRINT(Milotic)
         OVERWORLD(
-            sPicTable_Milotic,
+            gObjectEventPic_Milotic,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
+            sAnimTable_Following,
             gOverworldPalette_Milotic,
             gShinyOverworldPalette_Milotic
         )
         OVERWORLD_FEMALE(
-            sPicTable_MiloticF,
+            gObjectEventPic_MiloticF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_SLITHER
+            TRACKS_SLITHER,
+            sAnimTable_Following
         )
         .levelUpLearnset = sMiloticLevelUpLearnset,
         .teachableLearnset = sMiloticTeachableLearnset,
@@ -8355,13 +9017,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_CASTFORM_NORMAL] =
     {
         .baseHP        = 70,
-        .baseAttack    = 72,
-        .baseDefense   = 72,
-        .baseSpeed     = 73,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 74,
-		.baseReaction  = 73,									
-        .baseAwareness = 71,
+        .baseAttack    = 70,
+        .baseDefense   = 70,
+        .baseSpeed     = 70,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 145,
@@ -8393,7 +9053,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformNormal,
         .frontPicSize = MON_COORDS_SIZE(24, 32),
         .frontPicYOffset = 17,
-        .frontAnimFrames = sAnims_CastformNormal,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 24),
+            ANIMCMD_FRAME(0, 24),
+            ANIMCMD_FRAME(1, 24),
+            ANIMCMD_FRAME(0, 24),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .enemyMonElevation = 16,
         .backPic = gMonBackPic_CastformNormal,
@@ -8407,10 +9073,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 10, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
         OVERWORLD(
-            sPicTable_CastformNormal,
+            gObjectEventPic_CastformNormal,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_CastformNormal,
             gShinyOverworldPalette_CastformNormal
         )
@@ -8424,13 +9091,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_CASTFORM_SUNNY] =
     {
         .baseHP        = 70,
-        .baseAttack    = 72,
-        .baseDefense   = 72,
-        .baseSpeed     = 73,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 74,
-		.baseReaction  = 73,									
-        .baseAwareness = 71,
+        .baseAttack    = 70,
+        .baseDefense   = 70,
+        .baseSpeed     = 70,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_FIRE),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 145,
@@ -8462,7 +9127,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformSunny,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_CastformSunny,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_CastformSunny,
@@ -8476,10 +9149,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 7, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
         OVERWORLD(
-            sPicTable_CastformSunny,
+            gObjectEventPic_CastformSunny,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_CastformSunny,
             gShinyOverworldPalette_CastformSunny
         )
@@ -8493,13 +9167,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_CASTFORM_RAINY] =
     {
         .baseHP        = 70,
-        .baseAttack    = 72,
-        .baseDefense   = 72,
-        .baseSpeed     = 73,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 74,
-		.baseReaction  = 73,									
-        .baseAwareness = 71,
+        .baseAttack    = 70,
+        .baseDefense   = 70,
+        .baseSpeed     = 70,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 145,
@@ -8531,7 +9203,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformRainy,
         .frontPicSize = MON_COORDS_SIZE(32, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_CastformRainy,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_SWING_CONVEX_FAST,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_CastformRainy,
@@ -8545,10 +9223,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 7, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
         OVERWORLD(
-            sPicTable_CastformRainy,
+            gObjectEventPic_CastformRainy,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_CastformRainy,
             gShinyOverworldPalette_CastformRainy
         )
@@ -8562,13 +9241,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_CASTFORM_SNOWY] =
     {
         .baseHP        = 70,
-        .baseAttack    = 72,
-        .baseDefense   = 72,
-        .baseSpeed     = 73,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 74,
-		.baseReaction  = 73,									
-        .baseAwareness = 71,
+        .baseAttack    = 70,
+        .baseDefense   = 70,
+        .baseSpeed     = 70,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_ICE),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 145,
@@ -8600,7 +9277,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformSnowy,
         .frontPicSize = MON_COORDS_SIZE(40, 56),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_CastformSnowy,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 29),
+            ANIMCMD_FRAME(0, 12),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_CastformSnowy,
@@ -8614,10 +9297,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 8, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
         OVERWORLD(
-            sPicTable_CastformSnowy,
+            gObjectEventPic_CastformSnowy,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_CastformSnowy,
             gShinyOverworldPalette_CastformSnowy
         )
@@ -8638,8 +9322,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 40,
         .baseSpAttack  = 60,
         .baseSpDefense = 120,
-        .baseReaction  = 70,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 154 : 132,
@@ -8673,7 +9355,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Kecleon,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 5,
-        .frontAnimFrames = sAnims_Kecleon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_FLICKER_INCREASING,
         .frontAnimDelay = 30,
         .backPic = gMonBackPic_Kecleon,
@@ -8687,10 +9375,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 8, SHADOW_SIZE_S)
         FOOTPRINT(Kecleon)
         OVERWORLD(
-            sPicTable_Kecleon,
+            gObjectEventPic_Kecleon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Kecleon,
             gShinyOverworldPalette_Kecleon
         )
@@ -8709,8 +9398,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 45,
         .baseSpAttack  = 63,
         .baseSpDefense = 33,
-        .baseReaction  = 65,
-        .baseAwareness = 50,
         .types = MON_TYPES(TYPE_GHOST),
         .catchRate = 225,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 59 : 97,
@@ -8745,7 +9432,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shuppet,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
-        .frontAnimFrames = sAnims_Shuppet,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 14,
         .backPic = gMonBackPic_Shuppet,
@@ -8759,10 +9454,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 12, SHADOW_SIZE_S)
         FOOTPRINT(Shuppet)
         OVERWORLD(
-            sPicTable_Shuppet,
+            gObjectEventPic_Shuppet,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Shuppet,
             gShinyOverworldPalette_Shuppet
         )
@@ -8780,8 +9476,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 65,
         .baseSpAttack  = 83,
         .baseSpDefense = 63,
-        .baseReaction  = 75,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_GHOST),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 159 : 179,
@@ -8816,7 +9510,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Banette,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 7,
-        .frontAnimFrames = sAnims_Banette,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONVEX : ANIM_CIRCULAR_STRETCH_TWICE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 8 : 0,
         .backPic = gMonBackPic_Banette,
@@ -8830,10 +9532,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 7, SHADOW_SIZE_S)
         FOOTPRINT(Banette)
         OVERWORLD(
-            sPicTable_Banette,
+            gObjectEventPic_Banette,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Banette,
             gShinyOverworldPalette_Banette
         )
@@ -8852,8 +9555,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 75,
         .baseSpAttack  = 93,
         .baseSpDefense = 83,
-        .baseReaction  = 85,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_GHOST),
         .catchRate = 45,
         .expYield = 194,
@@ -8883,7 +9584,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_BanetteMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_BanetteMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_BanetteMega,
@@ -8896,6 +9597,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(0, 16, SHADOW_SIZE_M)
         FOOTPRINT(Banette)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_BanetteMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_BanetteMega,
+            gShinyOverworldPalette_BanetteMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sBanetteLevelUpLearnset,
         .teachableLearnset = sBanetteTeachableLearnset,
@@ -8909,13 +9621,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_DUSKULL] =
     {
         .baseHP        = 20,
-        .baseAttack    = 45,
-        .baseDefense   = 85,
+        .baseAttack    = 40,
+        .baseDefense   = 90,
         .baseSpeed     = 25,
         .baseSpAttack  = 30,
         .baseSpDefense = 90,
-        .baseReaction  = 55,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_GHOST),
         .catchRate = 190,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 59 : 97,
@@ -8951,7 +9661,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Duskull,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 12,
-        .frontAnimFrames = sAnims_Duskull,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_ZIGZAG_FAST,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 9 : 13,
         .backPic = gMonBackPic_Duskull,
@@ -8965,10 +9681,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 12, SHADOW_SIZE_S)
         FOOTPRINT(Duskull)
         OVERWORLD(
-            sPicTable_Duskull,
+            gObjectEventPic_Duskull,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Duskull,
             gShinyOverworldPalette_Duskull
         )
@@ -8981,13 +9698,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_DUSCLOPS] =
     {
         .baseHP        = 40,
-        .baseAttack    = 75,
-        .baseDefense   = 125,
+        .baseAttack    = 70,
+        .baseDefense   = 130,
         .baseSpeed     = 25,
         .baseSpAttack  = 60,
         .baseSpDefense = 130,
-        .baseReaction  = 50,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_GHOST),
         .catchRate = 90,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 159 : 179,
@@ -9023,7 +9738,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Dusclops,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 3,
-        .frontAnimFrames = sAnims_Dusclops,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .frontAnimDelay = 30,
         .backPic = gMonBackPic_Dusclops,
@@ -9037,10 +9758,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-2, 8, SHADOW_SIZE_M)
         FOOTPRINT(Dusclops)
         OVERWORLD(
-            sPicTable_Dusclops,
+            gObjectEventPic_Dusclops,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Dusclops,
             gShinyOverworldPalette_Dusclops
         )
@@ -9053,14 +9775,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_DUSKNOIR] =
     {
-        .baseHP        = 75,
-        .baseAttack    = 120,
+        .baseHP        = 45,
+        .baseAttack    = 100,
         .baseDefense   = 135,
-        .baseSpeed     = 35,
+        .baseSpeed     = 45,
         .baseSpAttack  = 65,
         .baseSpDefense = 135,
-        .baseReaction  = 45,
-        .baseAwareness = 95,
         .types = MON_TYPES(TYPE_GHOST),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -9102,7 +9822,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Dusknoir,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Dusknoir,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_H_SLIDE,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Dusknoir,
@@ -9116,10 +9847,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(6, 13, SHADOW_SIZE_M)
         FOOTPRINT(Dusknoir)
         OVERWORLD(
-            sPicTable_Dusknoir,
+            gObjectEventPic_Dusknoir,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Dusknoir,
             gShinyOverworldPalette_Dusknoir
         )
@@ -9132,14 +9864,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TROPIUS
     [SPECIES_TROPIUS] =
     {
-        .baseHP        = 108,
+        .baseHP        = 99,
         .baseAttack    = 68,
-        .baseDefense   = 80,
-        .baseSpeed     = 72,
+        .baseDefense   = 83,
+        .baseSpeed     = 51,
         .baseSpAttack  = 72,
-        .baseSpDefense = 90,
-        .baseReaction  = 50,
-        .baseAwareness = 75,
+        .baseSpDefense = 87,
         .types = MON_TYPES(TYPE_GRASS, TYPE_FLYING),
         .catchRate = 200,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 161 : 169,
@@ -9173,7 +9903,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Tropius,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Tropius,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Tropius,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 64),
@@ -9186,10 +9922,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-6, 13, SHADOW_SIZE_L)
         FOOTPRINT(Tropius)
         OVERWORLD(
-            sPicTable_Tropius,
+            gObjectEventPic_Tropius,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Tropius,
             gShinyOverworldPalette_Tropius
         )
@@ -9209,8 +9946,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 45,
         .baseSpAttack  = 65,
         .baseSpDefense = 50,
-        .baseReaction  = 55,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 57 : 74,
@@ -9241,7 +9976,16 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Chingling,
         .frontPicSize = MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Chingling,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .backPic = gMonBackPic_Chingling,
         .backPicSize = MON_COORDS_SIZE(48, 48),
@@ -9254,10 +9998,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, -2, SHADOW_SIZE_S)
         FOOTPRINT(Chingling)
         OVERWORLD(
-            sPicTable_Chingling,
+            gObjectEventPic_Chingling,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Chingling,
             gShinyOverworldPalette_Chingling
         )
@@ -9270,20 +10015,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CHIMECHO] =
     {
+        .baseHP        = P_UPDATED_STATS >= GEN_7 ? 75 : 65,
         .baseAttack    = 50,
+        .baseDefense   = P_UPDATED_STATS >= GEN_7 ? 80 : 70,
         .baseSpeed     = 65,
         .baseSpAttack  = 95,
-        .baseReaction  = 65,
-        .baseAwareness = 90,
-        #if P_UPDATED_STATS >= GEN_7
-            .baseHP        = 75,
-            .baseDefense   = 80,
-            .baseSpDefense = 90,
-        #else
-            .baseHP        = 65,
-            .baseDefense   = 70,
-            .baseSpDefense = 80,
-        #endif
+        .baseSpDefense = P_UPDATED_STATS >= GEN_7 ? 90 : 80,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_7
@@ -9321,7 +10058,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Chimecho,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Chimecho,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 16,
         .backPic = gMonBackPic_Chimecho,
@@ -9335,10 +10082,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-3, 16, SHADOW_SIZE_S)
         FOOTPRINT(Chimecho)
         OVERWORLD(
-            sPicTable_Chimecho,
+            gObjectEventPic_Chimecho,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Chimecho,
             gShinyOverworldPalette_Chimecho
         )
@@ -9357,8 +10105,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 75,
         .baseSpAttack  = 75,
         .baseSpDefense = 60,
-        .baseReaction  = 85,
-        .baseAwareness = 120,
         .types = MON_TYPES(TYPE_DARK),
         .catchRate = 30,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 163 : 174,
@@ -9393,7 +10139,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Absol,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 2,
-        .frontAnimFrames = sAnims_Absol,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_CIRCULAR_VIBRATE,
         .frontAnimDelay = 45,
         .backPic = gMonBackPic_Absol,
@@ -9407,10 +10159,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 6, SHADOW_SIZE_L)
         FOOTPRINT(Absol)
         OVERWORLD(
-            sPicTable_Absol,
+            gObjectEventPic_Absol,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Absol,
             gShinyOverworldPalette_Absol
         )
@@ -9430,8 +10183,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 115,
         .baseSpAttack  = 115,
         .baseSpDefense = 60,
-        .baseReaction  = 105,
-        .baseAwareness = 140,
         .types = MON_TYPES(TYPE_DARK),
         .catchRate = 30,
         .expYield = 198,
@@ -9462,7 +10213,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_AbsolMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_AbsolMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_AbsolMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -9474,6 +10225,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(1, 7, SHADOW_SIZE_L)
         FOOTPRINT(Absol)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_AbsolMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_AbsolMega,
+            gShinyOverworldPalette_AbsolMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sAbsolLevelUpLearnset,
         .teachableLearnset = sAbsolTeachableLearnset,
@@ -9493,8 +10255,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 50,
         .baseSpDefense = 50,
-        .baseReaction  = 50,
-        .baseAwareness = 50,
         .types = MON_TYPES(TYPE_ICE),
         .catchRate = 190,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 60 : 74,
@@ -9529,7 +10289,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Snorunt,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(32, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 12,
-        .frontAnimFrames = sAnims_Snorunt,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .frontAnimDelay = 20,
         .backPic = gMonBackPic_Snorunt,
@@ -9543,10 +10309,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Snorunt)
         OVERWORLD(
-            sPicTable_Snorunt,
+            gObjectEventPic_Snorunt,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Snorunt,
             gShinyOverworldPalette_Snorunt
         )
@@ -9565,8 +10332,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 80,
         .baseSpAttack  = 80,
         .baseSpDefense = 80,
-        .baseReaction  = 80,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_ICE),
         .catchRate = 75,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 168 : 187,
@@ -9600,7 +10365,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Glalie,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 8,
-        .frontAnimFrames = sAnims_Glalie,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_ZIGZAG_FAST,
         .enemyMonElevation = 12,
         .backPic = gMonBackPic_Glalie,
@@ -9614,10 +10385,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 15, SHADOW_SIZE_M)
         FOOTPRINT(Glalie)
         OVERWORLD(
-            sPicTable_Glalie,
+            gObjectEventPic_Glalie,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Glalie,
             gShinyOverworldPalette_Glalie
         )
@@ -9636,8 +10408,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 100,
         .baseSpAttack  = 120,
         .baseSpDefense = 80,
-        .baseReaction  = 100,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_ICE),
         .catchRate = 75,
         .expYield = 203,
@@ -9666,7 +10436,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GlalieMega,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_GlalieMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_GlalieMega,
@@ -9679,6 +10449,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(3, 18, SHADOW_SIZE_L)
         FOOTPRINT(Glalie)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GlalieMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GlalieMega,
+            gShinyOverworldPalette_GlalieMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGlalieLevelUpLearnset,
         .teachableLearnset = sGlalieTeachableLearnset,
@@ -9693,11 +10474,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseHP        = 70,
         .baseAttack    = 80,
         .baseDefense   = 70,
-        .baseSpeed     = 100,
-        .baseSpAttack  = 90,
+        .baseSpeed     = 110,
+        .baseSpAttack  = 80,
         .baseSpDefense = 70,
-        .baseReaction  = 70,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_ICE, TYPE_GHOST),
         .catchRate = 75,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 168 : 187,
@@ -9727,7 +10506,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Froslass,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Froslass,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 50),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = 7,
         .backPic = gMonBackPic_Froslass,
@@ -9741,10 +10524,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 10, SHADOW_SIZE_S)
         FOOTPRINT(Froslass)
         OVERWORLD(
-            sPicTable_Froslass,
+            gObjectEventPic_Froslass,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Froslass,
             gShinyOverworldPalette_Froslass
         )
@@ -9758,13 +10542,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SPHEAL] =
     {
         .baseHP        = 70,
-        .baseAttack    = 45,
+        .baseAttack    = 40,
         .baseDefense   = 50,
         .baseSpeed     = 25,
         .baseSpAttack  = 55,
         .baseSpDefense = 50,
-        .baseReaction  = 50,
-        .baseAwareness = 45,
         .types = MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 58 : 75,
@@ -9798,7 +10580,16 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Spheal,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 11,
-        .frontAnimFrames = sAnims_Spheal,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 43),
+            ANIMCMD_FRAME(1, 60),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SPIN : ANIM_SPIN_LONG,
         .frontAnimDelay = 15,
         .backPic = gMonBackPic_Spheal,
@@ -9812,10 +10603,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, -1, SHADOW_SIZE_M)
         FOOTPRINT(Spheal)
         OVERWORLD(
-            sPicTable_Spheal,
+            gObjectEventPic_Spheal,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Spheal,
             gShinyOverworldPalette_Spheal
         )
@@ -9828,13 +10620,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_SEALEO] =
     {
         .baseHP        = 90,
-        .baseAttack    = 65,
+        .baseAttack    = 60,
         .baseDefense   = 70,
         .baseSpeed     = 45,
         .baseSpAttack  = 75,
         .baseSpDefense = 70,
-        .baseReaction  = 60,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 120,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 144 : 128,
@@ -9868,7 +10658,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Sealeo,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Sealeo,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Sealeo,
         .backPicSize = MON_COORDS_SIZE(64, 48),
@@ -9881,10 +10677,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 2, SHADOW_SIZE_L)
         FOOTPRINT(Sealeo)
         OVERWORLD(
-            sPicTable_Sealeo,
+            gObjectEventPic_Sealeo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Sealeo,
             gShinyOverworldPalette_Sealeo
         )
@@ -9895,14 +10692,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_WALREIN] =
     {
-        .baseHP        = 120,
-        .baseAttack    = 85,
+        .baseHP        = 110,
+        .baseAttack    = 80,
         .baseDefense   = 90,
         .baseSpeed     = 65,
         .baseSpAttack  = 95,
         .baseSpDefense = 90,
-        .baseReaction  = 75,
-        .baseAwareness = 85,
         .types = MON_TYPES(TYPE_ICE, TYPE_WATER),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -9942,7 +10737,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Walrein,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Walrein,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .backPic = gMonBackPic_Walrein,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
@@ -9955,10 +10756,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 8, SHADOW_SIZE_L)
         FOOTPRINT(Walrein)
         OVERWORLD(
-            sPicTable_Walrein,
+            gObjectEventPic_Walrein,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Walrein,
             gShinyOverworldPalette_Walrein
         )
@@ -9975,9 +10777,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseDefense   = 85,
         .baseSpeed     = 32,
         .baseSpAttack  = 74,
-        .baseSpDefense = 65,
-        .baseReaction  = 45,
-        .baseAwareness = 60,
+        .baseSpDefense = 55,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 255,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 69 : 142,
@@ -10009,7 +10809,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Clamperl,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 11,
-        .frontAnimFrames = sAnims_Clamperl,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_TWIST,
         .backPic = gMonBackPic_Clamperl,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
@@ -10022,10 +10828,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 1, SHADOW_SIZE_M)
         FOOTPRINT(Clamperl)
         OVERWORLD(
-            sPicTable_Clamperl,
+            gObjectEventPic_Clamperl,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Clamperl,
             gShinyOverworldPalette_Clamperl
         )
@@ -10040,14 +10847,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_HUNTAIL] =
     {
-        .baseHP        = 60,
+        .baseHP        = 55,
         .baseAttack    = 104,
         .baseDefense   = 105,
         .baseSpeed     = 52,
         .baseSpAttack  = 94,
         .baseSpDefense = 75,
-        .baseReaction  = 90,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 170 : 178,
@@ -10079,7 +10884,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Huntail,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Huntail,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Huntail,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(64, 56),
@@ -10092,10 +10903,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 7, SHADOW_SIZE_L)
         FOOTPRINT(Huntail)
         OVERWORLD(
-            sPicTable_Huntail,
+            gObjectEventPic_Huntail,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
+            sAnimTable_Following,
             gOverworldPalette_Huntail,
             gShinyOverworldPalette_Huntail
         )
@@ -10105,14 +10917,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GOREBYSS] =
     {
-        .baseHP        = 65,
+        .baseHP        = 55,
         .baseAttack    = 84,
         .baseDefense   = 105,
         .baseSpeed     = 52,
         .baseSpAttack  = 114,
         .baseSpDefense = 75,
-        .baseReaction  = 40,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 170 : 178,
@@ -10143,7 +10953,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Gorebyss,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 6,
-        .frontAnimFrames = sAnims_Gorebyss,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .backPic = gMonBackPic_Gorebyss,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 56),
@@ -10156,10 +10972,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Gorebyss)
         OVERWORLD(
-            sPicTable_Gorebyss,
+            gObjectEventPic_Gorebyss,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SLITHER,
+            sAnimTable_Following,
             gOverworldPalette_Gorebyss,
             gShinyOverworldPalette_Gorebyss
         )
@@ -10172,13 +10989,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     [SPECIES_RELICANTH] =
     {
         .baseHP        = 100,
-        .baseAttack    = 100,
+        .baseAttack    = 90,
         .baseDefense   = 130,
         .baseSpeed     = 55,
         .baseSpAttack  = 45,
         .baseSpDefense = 65,
-        .baseReaction  = 25,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_WATER, TYPE_ROCK),
         .catchRate = 25,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 170 : 198,
@@ -10210,7 +11025,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Relicanth,
         .frontPicSize = MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 8,
-        .frontAnimFrames = sAnims_Relicanth,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_TIP_MOVE_FORWARD,
         .backPic = gMonBackPic_Relicanth,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 40),
@@ -10229,18 +11050,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 3, SHADOW_SIZE_M)
         FOOTPRINT(Relicanth)
         OVERWORLD(
-            sPicTable_Relicanth,
+            gObjectEventPic_Relicanth,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Relicanth,
             gShinyOverworldPalette_Relicanth
         )
         OVERWORLD_FEMALE(
-            sPicTable_RelicanthF,
+            gObjectEventPic_RelicanthF,
             SIZE_32x32,
             SHADOW_SIZE_M,
-            TRACKS_NONE
+            TRACKS_NONE,
+            sAnimTable_Following
         )
         .levelUpLearnset = sRelicanthLevelUpLearnset,
         .teachableLearnset = sRelicanthTeachableLearnset,
@@ -10257,8 +11080,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 97,
         .baseSpAttack  = 40,
         .baseSpDefense = 65,
-        .baseReaction  = 75,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 225,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 116 : 110,
@@ -10289,7 +11110,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Luvdisc,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(32, 40),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 24 : 14,
-        .frontAnimFrames = sAnims_Luvdisc,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .backPic = gMonBackPic_Luvdisc,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(40, 48),
@@ -10302,10 +11129,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Luvdisc)
         OVERWORLD(
-            sPicTable_Luvdisc,
+            gObjectEventPic_Luvdisc,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_SPOT,
+            sAnimTable_Following,
             gOverworldPalette_Luvdisc,
             gShinyOverworldPalette_Luvdisc
         )
@@ -10324,8 +11152,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 40,
         .baseSpDefense = 30,
-        .baseReaction  = 60,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_DRAGON),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 60 : 89,
@@ -10356,7 +11182,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Bagon,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(32, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 9,
-        .frontAnimFrames = sAnims_Bagon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SHAKE_TWICE : ANIM_H_SHAKE,
         .backPic = gMonBackPic_Bagon,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(48, 56),
@@ -10369,10 +11201,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 3, SHADOW_SIZE_S)
         FOOTPRINT(Bagon)
         OVERWORLD(
-            sPicTable_Bagon,
+            gObjectEventPic_Bagon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Bagon,
             gShinyOverworldPalette_Bagon
         )
@@ -10386,12 +11219,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
     {
         .baseHP        = 65,
         .baseAttack    = 95,
-        .baseDefense   = 105,
+        .baseDefense   = 100,
         .baseSpeed     = 50,
         .baseSpAttack  = 60,
         .baseSpDefense = 50,
-        .baseReaction  = 55,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_DRAGON),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 144,
@@ -10422,7 +11253,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shelgon,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Shelgon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Shelgon,
         .backPicSize = MON_COORDS_SIZE(64, 40),
@@ -10435,10 +11272,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 2, SHADOW_SIZE_M)
         FOOTPRINT(Shelgon)
         OVERWORLD(
-            sPicTable_Shelgon,
+            gObjectEventPic_Shelgon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Shelgon,
             gShinyOverworldPalette_Shelgon
         )
@@ -10455,8 +11293,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 100,
         .baseSpAttack  = 110,
         .baseSpDefense = 80,
-        .baseReaction  = 95,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -10493,7 +11329,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Salamence,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
-        .frontAnimFrames = sAnims_Salamence,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .frontAnimDelay = 70,
         .backPic = gMonBackPic_Salamence,
@@ -10507,10 +11349,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(3, 8, SHADOW_SIZE_L)
         FOOTPRINT(Salamence)
         OVERWORLD(
-            sPicTable_Salamence,
+            gObjectEventPic_Salamence,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Salamence,
             gShinyOverworldPalette_Salamence
         )
@@ -10529,8 +11372,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 120,
         .baseSpAttack  = 120,
         .baseSpDefense = 90,
-        .baseReaction  = 125,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 350 : 315,
@@ -10561,7 +11402,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SalamenceMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_SalamenceMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SalamenceMega,
         .backPicSize = MON_COORDS_SIZE(56, 64),
@@ -10573,6 +11414,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(3, 8, SHADOW_SIZE_L)
         FOOTPRINT(Salamence)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SalamenceMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SalamenceMega,
+            gShinyOverworldPalette_SalamenceMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSalamenceLevelUpLearnset,
         .teachableLearnset = sSalamenceTeachableLearnset,
@@ -10591,8 +11443,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 30,
         .baseSpAttack  = 35,
         .baseSpDefense = 60,
-        .baseReaction  = 40,
-        .baseAwareness = 60,
         .types = MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 60 : 103,
@@ -10623,7 +11473,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Beldum,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(48, 40),
         .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Beldum,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_Beldum,
@@ -10637,10 +11493,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 4, SHADOW_SIZE_S)
         FOOTPRINT(Beldum)
         OVERWORLD(
-            sPicTable_Beldum,
+            gObjectEventPic_Beldum,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Beldum,
             gShinyOverworldPalette_Beldum
         )
@@ -10658,8 +11515,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 55,
         .baseSpDefense = 80,
-        .baseReaction  = 55,
-        .baseAwareness = 75,
         .types = MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 147 : 153,
@@ -10690,7 +11545,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Metang,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 9,
-        .frontAnimFrames = sAnims_Metang,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Metang,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 40),
@@ -10703,10 +11564,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 2, SHADOW_SIZE_M)
         FOOTPRINT(Metang)
         OVERWORLD(
-            sPicTable_Metang,
+            gObjectEventPic_Metang,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Metang,
             gShinyOverworldPalette_Metang
         )
@@ -10723,8 +11585,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 70,
         .baseSpAttack  = 95,
         .baseSpDefense = 90,
-        .baseReaction  = 70,
-        .baseAwareness = 95,
         .types = MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -10761,7 +11621,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Metagross,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 9,
-        .frontAnimFrames = sAnims_Metagross,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Metagross,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 56),
@@ -10774,10 +11640,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, -2, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Metagross)
         OVERWORLD(
-            sPicTable_Metagross,
+            gObjectEventPic_Metagross,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Metagross,
             gShinyOverworldPalette_Metagross
         )
@@ -10796,8 +11663,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 110,
         .baseSpAttack  = 105,
         .baseSpDefense = 110,
-        .baseReaction  = 70,
-        .baseAwareness = 125,
         .types = MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 350 : 315,
@@ -10827,7 +11692,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_MetagrossMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_MetagrossMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 4,
         .backPic = gMonBackPic_MetagrossMega,
@@ -10840,6 +11705,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(1, 15, SHADOW_SIZE_L)
         FOOTPRINT(Metagross)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_MetagrossMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_MetagrossMega,
+            gShinyOverworldPalette_MetagrossMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sMetagrossLevelUpLearnset,
         .teachableLearnset = sMetagrossTeachableLearnset,
@@ -10858,8 +11734,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 50,
         .baseSpDefense = 100,
-        .baseReaction  = 60,
-        .baseAwareness = 140,
         .types = MON_TYPES(TYPE_ROCK),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -10896,7 +11770,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Regirock,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
-        .frontAnimFrames = sAnims_Regirock,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Regirock,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
@@ -10909,10 +11789,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Regirock)
         OVERWORLD(
-            sPicTable_Regirock,
+            gObjectEventPic_Regirock,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Regirock,
             gShinyOverworldPalette_Regirock
         )
@@ -10932,8 +11813,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 100,
         .baseSpDefense = 200,
-        .baseReaction  = 55,
-        .baseAwareness = 145,
         .types = MON_TYPES(TYPE_ICE),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -10969,7 +11848,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Regice,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Regice,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 20),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_FOUR_PETAL : ANIM_H_SLIDE_SLOW,
         .backPic = gMonBackPic_Regice,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(64, 48),
@@ -10982,10 +11867,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Regice)
         OVERWORLD(
-            sPicTable_Regice,
+            gObjectEventPic_Regice,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Regice,
             gShinyOverworldPalette_Regice
         )
@@ -11005,8 +11891,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 50,
         .baseSpAttack  = 75,
         .baseSpDefense = 150,
-        .baseReaction  = 50,
-        .baseAwareness = 150,
         .types = MON_TYPES(TYPE_STEEL),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11043,7 +11927,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Registeel,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 5,
-        .frontAnimFrames = sAnims_Registeel,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Registeel,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(64, 48),
@@ -11056,10 +11946,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(4, 8, SHADOW_SIZE_L)
         FOOTPRINT(Registeel)
         OVERWORLD(
-            sPicTable_Registeel,
+            gObjectEventPic_Registeel,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Registeel,
             gShinyOverworldPalette_Registeel
         )
@@ -11079,8 +11970,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 110,
         .baseSpAttack  = 110,
         .baseSpDefense = 130,
-        .baseReaction  = 120,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11095,7 +11984,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .eggCycles = 120,
         .friendship = 90,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_EON),
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Latias"),
@@ -11116,7 +12005,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Latias,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 8,
-        .frontAnimFrames = sAnims_Latias,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONCAVE_FAST_SHORT : ANIM_ZIGZAG_SLOW,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 6 : 12,
         .backPic = gMonBackPic_Latias,
@@ -11130,10 +12025,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(3, 15, SHADOW_SIZE_M)
         FOOTPRINT(Latias)
         OVERWORLD(
-            sPicTable_Latias,
+            gObjectEventPic_Latias,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Latias,
             gShinyOverworldPalette_Latias
         )
@@ -11154,8 +12050,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 110,
         .baseSpAttack  = 140,
         .baseSpDefense = 150,
-        .baseReaction  = 130,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 350 : 315,
@@ -11164,7 +12058,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .eggCycles = 120,
         .friendship = 90,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_EON),
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_LEVITATE, ABILITY_LEVITATE, ABILITY_LEVITATE },
         .bodyColor = BODY_COLOR_PURPLE,
         .speciesName = _("Latias"),
@@ -11185,7 +12079,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_LatiasMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_LatiasMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_LatiasMega,
@@ -11198,6 +12092,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 2,
         SHADOW(-1, 19, SHADOW_SIZE_L)
         FOOTPRINT(Latias)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_LatiasMega,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_LatiasMega,
+            gShinyOverworldPalette_LatiasMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isMegaEvolution = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
@@ -11218,8 +12123,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 110,
         .baseSpAttack  = 130,
         .baseSpDefense = 110,
-        .baseReaction  = 124,
-        .baseAwareness = 76,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11234,7 +12137,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .eggCycles = 120,
         .friendship = 90,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_EON),
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Latios"),
@@ -11255,7 +12158,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Latios,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 0,
-        .frontAnimFrames = sAnims_Latios,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SHAKE : ANIM_CIRCLE_C_CLOCKWISE_SLOW,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Latios,
@@ -11269,10 +12178,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(1, 17, SHADOW_SIZE_M)
         FOOTPRINT(Latios)
         OVERWORLD(
-            sPicTable_Latios,
+            gObjectEventPic_Latios,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Latios,
             gShinyOverworldPalette_Latios
         )
@@ -11293,8 +12203,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 110,
         .baseSpAttack  = 160,
         .baseSpDefense = 120,
-        .baseReaction  = 144,
-        .baseAwareness = 76,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 350 : 315,
@@ -11303,7 +12211,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .eggCycles = 120,
         .friendship = 90,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_EON),
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_LEVITATE, ABILITY_LEVITATE, ABILITY_LEVITATE },
         .bodyColor = BODY_COLOR_PURPLE,
         .speciesName = _("Latios"),
@@ -11324,7 +12232,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_LatiosMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_LatiosMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_LatiosMega,
@@ -11337,6 +12245,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 2,
         SHADOW(-1, 19, SHADOW_SIZE_L)
         FOOTPRINT(Latios)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_LatiosMega,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_LatiosMega,
+            gShinyOverworldPalette_LatiosMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isMegaEvolution = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
@@ -11357,8 +12276,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 150,
         .baseSpDefense = 140,
-        .baseReaction  = 90,
-        .baseAwareness = 110,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11394,7 +12311,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Kyogre,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 0,
-        .frontAnimFrames = sAnims_Kyogre,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_SWING_CONCAVE_FAST_SHORT,
         .frontAnimDelay = 60,
         .backPic = gMonBackPic_Kyogre,
@@ -11408,10 +12331,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(-1, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Kyogre)
         OVERWORLD(
-            sPicTable_Kyogre,
+            gObjectEventPic_Kyogre,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Kyogre,
             gShinyOverworldPalette_Kyogre
         )
@@ -11432,8 +12356,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 180,
         .baseSpDefense = 160,
-        .baseReaction  = 100,
-        .baseAwareness = 120,
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 385 : 347,
@@ -11463,7 +12385,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_KyogrePrimal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_KyogrePrimal,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_KyogrePrimal,
         .backPicSize = MON_COORDS_SIZE(64, 32),
@@ -11475,6 +12397,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(-1, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Kyogre)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_KyogrePrimal,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_KyogrePrimal,
+            gShinyOverworldPalette_KyogrePrimal
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
         .isFrontierBanned = TRUE,
@@ -11496,8 +12429,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 100,
         .baseSpDefense = 90,
-        .baseReaction  = 110,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_GROUND),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11533,7 +12464,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Groudon,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
-        .frontAnimFrames = sAnims_Groudon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Groudon,
         .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
@@ -11546,10 +12483,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(2, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Groudon)
         OVERWORLD(
-            sPicTable_Groudon,
+            gObjectEventPic_Groudon,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_Groudon,
             gShinyOverworldPalette_Groudon
         )
@@ -11571,8 +12509,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 150,
         .baseSpDefense = 90,
-        .baseReaction  = 120,
-        .baseAwareness = 100,
         .types = MON_TYPES(TYPE_GROUND, TYPE_FIRE),
         .catchRate = 3,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 385 : 347,
@@ -11602,7 +12538,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GroudonPrimal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_GroudonPrimal,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_GroudonPrimal,
         .backPicSize = MON_COORDS_SIZE(64, 48),
@@ -11614,6 +12550,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(2, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Groudon)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GroudonPrimal,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GroudonPrimal,
+            gShinyOverworldPalette_GroudonPrimal
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
         .isFrontierBanned = TRUE,
@@ -11635,8 +12582,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 95,
         .baseSpAttack  = 150,
         .baseSpDefense = 90,
-        .baseReaction  = 120,
-        .baseAwareness = 80,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11673,7 +12618,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Rayquaza,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Rayquaza,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .frontAnimDelay = 60,
         .enemyMonElevation = 6,
@@ -11688,10 +12639,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 17, SHADOW_SIZE_L)
         FOOTPRINT(Rayquaza)
         OVERWORLD(
-            sPicTable_Rayquaza,
+            gObjectEventPic_Rayquaza,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Rayquaza,
             gShinyOverworldPalette_Rayquaza
         )
@@ -11713,8 +12665,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 115,
         .baseSpAttack  = 180,
         .baseSpDefense = 100,
-        .baseReaction  = 140,
-        .baseAwareness = 100,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_FLYING),
         .catchRate = 45,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 390 : 351,
@@ -11745,7 +12695,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_RayquazaMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_RayquazaMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 4,
         .backPic = gMonBackPic_RayquazaMega,
@@ -11758,6 +12708,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 1,
         SHADOW(0, 15, SHADOW_SIZE_L)
         FOOTPRINT(Rayquaza)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_RayquazaMega,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_RayquazaMega,
+            gShinyOverworldPalette_RayquazaMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isMegaEvolution = TRUE,
         .isFrontierBanned = TRUE,
@@ -11779,8 +12740,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 100,
         .baseSpAttack  = 100,
         .baseSpDefense = 100,
-        .baseReaction  = 50,
-        .baseAwareness = 150,
         .types = MON_TYPES(TYPE_STEEL, TYPE_PSYCHIC),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
@@ -11818,7 +12777,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Jirachi,
         .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Jirachi,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONVEX : ANIM_RISING_WOBBLE,
         .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 14,
         .backPic = gMonBackPic_Jirachi,
@@ -11832,10 +12802,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 12, SHADOW_SIZE_S)
         FOOTPRINT(Jirachi)
         OVERWORLD(
-            sPicTable_Jirachi,
+            gObjectEventPic_Jirachi,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
+            sAnimTable_Following,
             gOverworldPalette_Jirachi,
             gShinyOverworldPalette_Jirachi
         )
@@ -11864,8 +12835,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 150,
         .baseSpAttack  = 150,
         .baseSpDefense = 50,
-        .baseReaction  = 110,
-        .baseAwareness = 90,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = DEOXYS_EXP_YIELD,
@@ -11893,7 +12862,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysNormal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_DeoxysNormal,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysNormal,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -11906,10 +12881,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 14, SHADOW_SIZE_M)
         FOOTPRINT(Deoxys)
         OVERWORLD(
-            sPicTable_DeoxysNormal,
+            gObjectEventPic_DeoxysNormal,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_DeoxysNormal,
             gShinyOverworldPalette_DeoxysNormal
         )
@@ -11930,8 +12906,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 150,
         .baseSpAttack  = 180,
         .baseSpDefense = 20,
-        .baseReaction  = 130,
-        .baseAwareness = 70,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = DEOXYS_EXP_YIELD,
@@ -11958,7 +12932,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysAttack,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_DeoxysAttack,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysAttack,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -11970,10 +12950,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .iconPalIndex = 0,
         SHADOW(0, 14, SHADOW_SIZE_M)
         OVERWORLD(
-            sPicTable_DeoxysAttack,
+            gObjectEventPic_DeoxysAttack,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_DeoxysAttack,
             gShinyOverworldPalette_DeoxysAttack
         )
@@ -11994,8 +12975,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 90,
         .baseSpAttack  = 70,
         .baseSpDefense = 160,
-        .baseReaction  = 40,
-        .baseAwareness = 160,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = DEOXYS_EXP_YIELD,
@@ -12022,7 +13001,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysDefense,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_DeoxysDefense,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysDefense,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -12035,10 +13020,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(0, 13, SHADOW_SIZE_M)
         FOOTPRINT(Deoxys)
         OVERWORLD(
-            sPicTable_DeoxysDefense,
+            gObjectEventPic_DeoxysDefense,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_DeoxysDefense,
             gShinyOverworldPalette_DeoxysDefense
         )
@@ -12059,8 +13045,6 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .baseSpeed     = 180,
         .baseSpAttack  = 95,
         .baseSpDefense = 90,
-        .baseReaction  = 160,
-        .baseAwareness = 40,
         .types = MON_TYPES(TYPE_PSYCHIC),
         .catchRate = 3,
         .expYield = DEOXYS_EXP_YIELD,
@@ -12087,7 +13071,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysSpeed,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_DeoxysSpeed,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysSpeed,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -12100,10 +13090,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         SHADOW(3, 13, SHADOW_SIZE_M)
         FOOTPRINT(Deoxys)
         OVERWORLD(
-            sPicTable_DeoxysSpeed,
+            gObjectEventPic_DeoxysSpeed,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
+            sAnimTable_Following,
             gOverworldPalette_DeoxysSpeed,
             gShinyOverworldPalette_DeoxysSpeed
         )

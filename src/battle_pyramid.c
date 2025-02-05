@@ -864,7 +864,7 @@ static void InitPyramidChallenge(void)
     }
 
     InitBattlePyramidBagCursorPosition();
-    gTrainerBattleOpponent_A = 0;
+    TRAINER_BATTLE_PARAM.opponentA = 0;
     gBattleOutcome = 0;
 }
 
@@ -1324,11 +1324,11 @@ bool8 GetBattlePyramidTrainerFlag(u8 eventId)
 
 void MarkApproachingPyramidTrainersAsBattled(void)
 {
-    MarkPyramidTrainerAsBattled(gTrainerBattleOpponent_A);
+    MarkPyramidTrainerAsBattled(TRAINER_BATTLE_PARAM.opponentA);
     if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
     {
         gSelectedObjectEvent = GetChosenApproachingTrainerObjectEventId(1);
-        MarkPyramidTrainerAsBattled(gTrainerBattleOpponent_B);
+        MarkPyramidTrainerAsBattled(TRAINER_BATTLE_PARAM.opponentB);
     }
 }
 
@@ -1364,8 +1364,7 @@ static bool32 CheckBattlePyramidEvoRequirement(u16 species, const u16 *evoItems,
             if (evolutions[j].targetSpecies == species
                 && (evolutions[j].method == EVO_ITEM
                  || evolutions[j].method == EVO_ITEM_MALE
-                 || evolutions[j].method == EVO_ITEM_FEMALE
-				 || evolutions[j].method == EVO_ITEM_COINS))
+                 || evolutions[j].method == EVO_ITEM_FEMALE))
             {
                 if (nItems == 0)
                 {
