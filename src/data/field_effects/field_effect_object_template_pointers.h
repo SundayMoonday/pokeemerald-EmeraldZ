@@ -35,6 +35,9 @@ extern const struct SpriteTemplate gFieldEffectObjectTemplate_AshLaunch;
 extern const struct SpriteTemplate gFieldEffectObjectTemplate_Bubbles;
 extern const struct SpriteTemplate gFieldEffectObjectTemplate_SmallSparkle;
 extern const struct SpriteTemplate gFieldEffectObjectTemplate_Rayquaza;
+extern const struct SpriteTemplate gFieldEffectObjectTemplate_SlitherTracks;
+extern const struct SpriteTemplate gFieldEffectObjectTemplate_BugTracks;
+extern const struct SpriteTemplate gFieldEffectObjectTemplate_SpotTracks;
 extern const struct SpriteTemplate gFieldEffectObjectTemplate_RockClimbBlob;
 extern const struct SpriteTemplate gFieldEffectObjectTemplate_RockClimbDust;
 extern const struct SpriteTemplate gFieldEffectObjectTemplate_CaveDust;
@@ -57,9 +60,9 @@ const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[] = {
     [FLDEFFOBJ_JUMP_SMALL_SPLASH]     = &gFieldEffectObjectTemplate_JumpSmallSplash,
     [FLDEFFOBJ_LONG_GRASS]            = &gFieldEffectObjectTemplate_LongGrass,
     [FLDEFFOBJ_JUMP_LONG_GRASS]       = &gFieldEffectObjectTemplate_JumpLongGrass,
-    [FLDEFFOBJ_UNUSED_GRASS]          = &gFieldEffectObjectTemplate_UnusedGrass,
-    [FLDEFFOBJ_UNUSED_GRASS_2]        = &gFieldEffectObjectTemplate_UnusedGrass2,
-    [FLDEFFOBJ_UNUSED_SAND]           = &gFieldEffectObjectTemplate_UnusedSand,
+    [FLDEFFOBJ_SHAKING_GRASS]         = &gFieldEffectObjectTemplate_UnusedGrass,
+    [FLDEFFOBJ_SHAKING_LONG_GRASS]    = &gFieldEffectObjectTemplate_UnusedGrass2,
+    [FLDEFFOBJ_SAND_HOLE]             = &gFieldEffectObjectTemplate_UnusedSand,
     [FLDEFFOBJ_WATER_SURFACING]       = &gFieldEffectObjectTemplate_WaterSurfacing,
     [FLDEFFOBJ_REFLECTION_DISTORTION] = &gFieldEffectObjectTemplate_ReflectionDistortion,
     [FLDEFFOBJ_SPARKLE]               = &gFieldEffectObjectTemplate_Sparkle,
@@ -77,6 +80,9 @@ const struct SpriteTemplate *const gFieldEffectObjectTemplatePointers[] = {
     [FLDEFFOBJ_BUBBLES]               = &gFieldEffectObjectTemplate_Bubbles,
     [FLDEFFOBJ_SMALL_SPARKLE]         = &gFieldEffectObjectTemplate_SmallSparkle,
     [FLDEFFOBJ_RAYQUAZA]              = &gFieldEffectObjectTemplate_Rayquaza,
+    [FLDEFFOBJ_TRACKS_SLITHER]        = &gFieldEffectObjectTemplate_SlitherTracks,
+    [FLDEFFOBJ_TRACKS_SPOT]           = &gFieldEffectObjectTemplate_SpotTracks,
+    [FLDEFFOBJ_TRACKS_BUG]            = &gFieldEffectObjectTemplate_BugTracks,
 	[FLDEFFOBJ_ROCK_CLIMB_BLOB]       = &gFieldEffectObjectTemplate_RockClimbBlob,
     [FLDEFFOBJ_ROCK_CLIMB_DUST]       = &gFieldEffectObjectTemplate_RockClimbDust,
 	[FLDEFFOBJ_CAVE_DUST]             = &gFieldEffectObjectTemplate_CaveDust,

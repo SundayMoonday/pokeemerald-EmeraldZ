@@ -28,7 +28,7 @@ enum {
     REQUEST_SPATK_EV_BATTLE,
     REQUEST_SPDEF_EV_BATTLE,
 	REQUEST_REACT_EV_BATTLE,
-    REQUEST_OBSER_EV_BATTLE,
+    REQUEST_AWARE_EV_BATTLE,
     REQUEST_FRIENDSHIP_BATTLE,
     REQUEST_POKERUS_BATTLE,
     REQUEST_MET_LOCATION_BATTLE,
@@ -43,7 +43,7 @@ enum {
     REQUEST_SPATK_IV_BATTLE,
     REQUEST_SPDEF_IV_BATTLE,
 	REQUEST_REACT_IV_BATTLE,
-    REQUEST_OBSER_IV_BATTLE,
+    REQUEST_AWARE_IV_BATTLE,
     REQUEST_PERSONALITY_BATTLE,
     REQUEST_CHECKSUM_BATTLE,
     REQUEST_STATUS_BATTLE,
@@ -56,7 +56,7 @@ enum {
     REQUEST_SPATK_BATTLE,
     REQUEST_SPDEF_BATTLE,
 	REQUEST_REACT_BATTLE,
-    REQUEST_OBSER_BATTLE,
+    REQUEST_AWARE_BATTLE,
     REQUEST_COOL_BATTLE,
     REQUEST_BEAUTY_BATTLE,
     REQUEST_CUTE_BATTLE,
@@ -104,9 +104,7 @@ enum {
 
 // Special return values in gBattleBufferB from Battle Controller functions.
 #define RET_VALUE_LEVELED_UP   11
-#define RET_MEGA_EVOLUTION (1 << 7)
-#define RET_ULTRA_BURST    (1 << 6)
-#define RET_DYNAMAX        (1 << 5)
+#define RET_GIMMICK            (1 << 7)
 
 struct UnusedControllerStruct
 {
@@ -133,11 +131,7 @@ struct ChooseMoveStruct
     u8 currentPp[MAX_MON_MOVES];
     u8 maxPp[MAX_MON_MOVES];
     u16 species;
-    u8 monType1;
-    u8 monType2;
-    u8 monType3;
-    struct MegaEvolutionData mega;
-    struct UltraBurstData burst;
+    u8 monTypes[3];
     struct ZMoveData zmove;
 };
 
@@ -222,7 +216,7 @@ void PrepareBufferDataTransferLink(u32 battler, u32 bufferId, u16 size, u8 *data
 void BtlController_EmitGetMonData(u32 battler, u32 bufferId, u8 requestId, u8 monToCheck);
 void BtlController_EmitSetMonData(u32 battler, u32 bufferId, u8 requestId, u8 monToCheck, u8 bytes, void *data);
 void BtlController_EmitLoadMonSprite(u32 battler, u32 bufferId);
-void BtlController_EmitSwitchInAnim(u32 battler, u32 bufferId, u8 partyId, bool8 dontClearSubstituteBit);
+void BtlController_EmitSwitchInAnim(u32 battler, u32 bufferId, u8 partyId, bool8 dontClearTransform, bool8 dontClearSubstituteBit);
 void BtlController_EmitReturnMonToBall(u32 battler, u32 bufferId, bool8 skipAnim);
 void BtlController_EmitDrawTrainerPic(u32 battler, u32 bufferId);
 void BtlController_EmitTrainerSlide(u32 battler, u32 bufferId);
@@ -267,7 +261,7 @@ void BattleControllerComplete(u32 battler); // Can be used for all the controlle
 void BtlController_Empty(u32 battler); // Empty command, does nothing, only completes the execution.
 void BtlController_TerminatorNop(u32 battler); // Dummy function at the end of the table.
 void BattleControllerDummy(u32 battler);
-void StartSendOutAnim(u32 battler, bool32 dontClearSubstituteBit);
+void StartSendOutAnim(u32 battler, bool32 dontClearTransform, bool32 dontClearSubstituteBit, bool32 doSlideIn);
 void Controller_WaitForString(u32 battler);
 void Controller_WaitForHealthBar(u32 battler);
 
@@ -322,6 +316,13 @@ void ActionSelectionDestroyCursorAt(u8 cursorPos);
 void InitMoveSelectionsVarsAndStrings(u32 battler);
 void MoveSelectionCreateCursorAt(u8 cursorPos, u8 arg1);
 void MoveSelectionDestroyCursorAt(u8 cursorPosition);
+void PlayerHandleChooseMove(u32 battler);
+void HandleInputChooseMove(u32 battler);
+void HandleInputChooseTarget(u32 battler);
+void HandleInputShowEntireFieldTargets(u32 battler);
+void HandleInputShowTargets(u32 battler);
+void HandleMoveSwitching(u32 battler);
+void HandleChooseMoveAfterDma3(u32 battler);
 
 // recorded player controller
 void SetControllerToRecordedPlayer(u32 battler);

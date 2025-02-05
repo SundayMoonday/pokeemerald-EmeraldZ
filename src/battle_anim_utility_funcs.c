@@ -40,11 +40,6 @@ static void AnimTask_WaitAndRestoreVisibility(u8);
 
 static const u16 sCurseLinesPalette[] = { RGB_WHITE };
 
-// These belong in battle_intro.c, but putting them there causes 2 bytes of alignment padding
-// between the two .rodata segments. Perhaps battle_intro.c actually belongs in this file, too.
-const u8 gBattleAnimBgCntSet[] = {REG_OFFSET_BG0CNT, REG_OFFSET_BG1CNT, REG_OFFSET_BG2CNT, REG_OFFSET_BG3CNT};
-const u8 gBattleAnimBgCntGet[] = {REG_OFFSET_BG0CNT, REG_OFFSET_BG1CNT, REG_OFFSET_BG2CNT, REG_OFFSET_BG3CNT};
-
 void AnimTask_BlendBattleAnimPal(u8 taskId)
 {
     u32 selectedPalettes = UnpackSelectedBattlePalettes(gBattleAnimArgs[0]);
@@ -523,10 +518,10 @@ static void StatsChangeAnimation_Step2(u8 taskId)
         LoadCompressedPalette(gStatAnim_SpDefense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
 	case STAT_ANIM_PAL_REACT:
-        LoadCompressedPalette(gStatAnim_SpAttack_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadCompressedPalette(gStatAnim_Speed_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
-    case STAT_ANIM_PAL_OBSER:
-        LoadCompressedPalette(gStatAnim_SpDefense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+    case STAT_ANIM_PAL_AWARE:
+        LoadCompressedPalette(gStatAnim_Speed_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     default:
  // case STAT_ANIM_PAL_MULTIPLE:

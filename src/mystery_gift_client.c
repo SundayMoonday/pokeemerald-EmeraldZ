@@ -211,9 +211,7 @@ static u32 Client_Run(struct MysteryGiftClient * client)
     case CLI_SAVE_NEWS:
         if (!IsWonderNewsSameAsSaved(client->recvBuffer))
         {
-			#ifndef FREE_MYSTERY_EVENT_BUFFERS
             SaveWonderNews(client->recvBuffer);
-			#endif
             MysteryGiftClient_InitSendWord(client, MG_LINKID_RESPONSE, FALSE);
         }
         else
@@ -234,10 +232,10 @@ static u32 Client_Run(struct MysteryGiftClient * client)
         InitRamScript_NoObjectEvent(client->recvBuffer, sizeof(struct RamScriptData));
         break;
     case CLI_RECV_EREADER_TRAINER:
-        #ifndef FREE_BATTLE_TOWER_E_READER
+    #if FREE_BATTLE_TOWER_E_READER == FALSE
         memcpy(&gSaveBlock2Ptr->frontier.ereaderTrainer, client->recvBuffer, sizeof(gSaveBlock2Ptr->frontier.ereaderTrainer));
         ValidateEReaderTrainer();
-        #endif
+    #endif //FREE_BATTLE_TOWER_E_READER
         break;
     case CLI_RUN_BUFFER_SCRIPT:
         memcpy(gDecompressionBuffer, client->recvBuffer, MG_LINK_BUFFER_SIZE);

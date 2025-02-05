@@ -74,7 +74,7 @@ u16 WonderNews_GetRewardInfo(void)
     u16 rewardType;
 
     // Checks if Mystery Event is enabled, not Mystery Gift?
-    if (!IsMysteryEventEnabled())
+    if (!IsMysteryEventEnabled() || !ValidateSavedWonderNews())
         return NEWS_REWARD_NONE;
 
     rewardType = GetRewardType(data);

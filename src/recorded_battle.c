@@ -30,12 +30,11 @@ struct PlayerInfo
     u16 language;
 };
 
-#ifndef FREE_TRAINER_HILL
 // Save data using TryWriteSpecialSaveSector is allowed to exceed SECTOR_DATA_SIZE (up to the counter field)
-STATIC_ASSERT(sizeof(struct RecordedBattleSave) <= SECTOR_COUNTER_OFFSET, RecordedBattleSaveFreeSpace);
-#endif
-EWRAM_DATA u32 gRecordedBattleRngSeed = 0;
-EWRAM_DATA u32 gBattlePalaceMoveSelectionRngValue = 0;
+//STATIC_ASSERT(sizeof(struct RecordedBattleSave) <= SECTOR_COUNTER_OFFSET, RecordedBattleSaveFreeSpace);
+
+EWRAM_DATA rng_value_t gRecordedBattleRngSeed = RNG_VALUE_EMPTY;
+EWRAM_DATA rng_value_t gBattlePalaceMoveSelectionRngValue = RNG_VALUE_EMPTY;
 EWRAM_DATA static u8 sBattleRecords[MAX_BATTLERS_COUNT][BATTLER_RECORD_SIZE] = {0};
 EWRAM_DATA static u16 sBattlerRecordSizes[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA static u16 sBattlerPrevRecordSizes[MAX_BATTLERS_COUNT] = {0};
@@ -54,7 +53,7 @@ EWRAM_DATA static u32 sAI_Scripts = 0;
 EWRAM_DATA static struct Pokemon sSavedPlayerParty[PARTY_SIZE] = {0};
 EWRAM_DATA static struct Pokemon sSavedOpponentParty[PARTY_SIZE] = {0};
 EWRAM_DATA static u16 sPlayerMonMoves[MAX_BATTLERS_COUNT / 2][MAX_MON_MOVES] = {0};
-EWRAM_DATA static struct PlayerInfo sPlayers[MAX_BATTLERS_COUNT] = {0};
+EWRAM_DATA static struct PlayerInfo sPlayers[MAX_LINK_PLAYERS] = {0};
 EWRAM_DATA static bool8 sIsPlaybackFinished = 0;
 EWRAM_DATA static u8 sRecordMixFriendName[PLAYER_NAME_LENGTH + 1] = {0};
 EWRAM_DATA static u8 sRecordMixFriendClass = 0;
@@ -88,7 +87,7 @@ void RecordedBattle_Init(u8 mode)
             for (j = 0; j < BATTLER_RECORD_SIZE; j++)
                 sBattleRecords[i][j] = 0xFF;
             sBattleFlags = gBattleTypeFlags;
-            sAI_Scripts = gBattleResources->ai->aiFlags;
+            sAI_Scripts = gBattleResources->ai->aiFlags[B_POSITION_OPPONENT_LEFT];
         }
     }
 }
@@ -117,7 +116,7 @@ void RecordedBattle_SetTrainerInfo(void)
         gRecordedBattleMultiplayerId = GetMultiplayerId();
         linkPlayersCount = GetLinkPlayerCount();
 
-        for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+        for (i = 0; i < MAX_LINK_PLAYERS; i++)
         {
             sPlayers[i].trainerId = gLinkPlayers[i].trainerId;
             sPlayers[i].gender = gLinkPlayers[i].gender;
@@ -279,18 +278,13 @@ static bool32 RecordedBattleToSave(struct RecordedBattleSave *battleSave, struct
 {
     memset(saveSector, 0, SECTOR_SIZE);
     memcpy(saveSector, battleSave, sizeof(*battleSave));
-	#ifndef FREE_TRAINER_HILL
 
     saveSector->checksum = CalcByteArraySum((void *)(saveSector), sizeof(*saveSector) - 4);
 
     if (TryWriteSpecialSaveSector(SECTOR_ID_RECORDED_BATTLE, (void *)(saveSector)) != SAVE_STATUS_OK)
-		#endif
-        return FALSE; 
-		
-		#ifndef FREE_TRAINER_HILL
-		else
+        return FALSE;
+    else
         return TRUE;
-	#endif
 }
 
 bool32 MoveRecordedBattleToSaveData(void)
@@ -310,7 +304,7 @@ bool32 MoveRecordedBattleToSaveData(void)
         battleSave->opponentParty[i] = sSavedOpponentParty[i];
     }
 
-    for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+    for (i = 0; i < MAX_LINK_PLAYERS; i++)
     {
         for (j = 0; j < PLAYER_NAME_LENGTH + 1; j++)
             battleSave->playersName[i][j] = sPlayers[i].name[j];
@@ -517,7 +511,7 @@ void SetVariablesForRecordedBattle(struct RecordedBattleSave *src)
     s32 i, j;
 
     SetPartiesFromRecordedSave(src);
-    for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+    for (i = 0; i < MAX_LINK_PLAYERS; i++)
     {
         for (var = FALSE, j = 0; j < PLAYER_NAME_LENGTH + 1; j++)
         {
@@ -747,7 +741,7 @@ void RecordedBattle_CheckMovesetChanges(u8 mode)
                         movePp.moves[j] = gBattleMons[battlerId].moves[moveSlots[j]];
                         movePp.currentPp[j] = gBattleMons[battlerId].pp[moveSlots[j]];
                         movePp.maxPp[j] = ppBonuses[moveSlots[j]];
-                        mimickedMoveSlots[j] = (gDisableStructs[battlerId].mimickedMoves & gBitTable[j]) >> j;
+                        mimickedMoveSlots[j] = (gDisableStructs[battlerId].mimickedMoves & (1u << j)) >> j;
                     }
                     for (j = 0; j < MAX_MON_MOVES; j++)
                     {

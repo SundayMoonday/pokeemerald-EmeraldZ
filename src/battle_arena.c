@@ -360,20 +360,20 @@ void BattleArena_AddMindPoints(u8 battler)
 // All moves with power != 0 give 1 point, with the following exceptions:
 //    - Counter, Mirror Coat, and Bide give 0 points
 //    - Fake Out subtracts 1 point
-// All moves with power == 0 give 0 points, with the following exceptions:
+// All status moves give 0 points, with the following exceptions:
 //    - Protect, Detect, and Endure subtract 1 point
 
-    if (gBattleMoves[gCurrentMove].effect == EFFECT_FAKE_OUT
-     || gBattleMoves[gCurrentMove].effect == EFFECT_PROTECT
-     || gBattleMoves[gCurrentMove].effect == EFFECT_ENDURE)
+    if (gMovesInfo[gCurrentMove].effect == EFFECT_FIRST_TURN_ONLY
+     || gMovesInfo[gCurrentMove].effect == EFFECT_PROTECT
+     || gMovesInfo[gCurrentMove].effect == EFFECT_ENDURE)
     {
         gBattleStruct->arenaMindPoints[battler]--;
     }
-    else if (gBattleMoves[gCurrentMove].power != 0
-          && gBattleMoves[gCurrentMove].effect != EFFECT_COUNTER
-          && gBattleMoves[gCurrentMove].effect != EFFECT_MIRROR_COAT
-          && gBattleMoves[gCurrentMove].effect != EFFECT_METAL_BURST
-          && gBattleMoves[gCurrentMove].effect != EFFECT_BIDE)
+    else if (!IS_MOVE_STATUS(gCurrentMove)
+          && gMovesInfo[gCurrentMove].effect != EFFECT_COUNTER
+          && gMovesInfo[gCurrentMove].effect != EFFECT_MIRROR_COAT
+          && gMovesInfo[gCurrentMove].effect != EFFECT_METAL_BURST
+          && gMovesInfo[gCurrentMove].effect != EFFECT_BIDE)
     {
         gBattleStruct->arenaMindPoints[battler]++;
     }
@@ -386,9 +386,9 @@ void BattleArena_AddSkillPoints(u8 battler)
     if (gHitMarker & HITMARKER_OBEYS)
     {
         u8 *failedMoveBits = &gBattleStruct->alreadyStatusedMoveAttempt;
-        if (*failedMoveBits & gBitTable[battler])
+        if (*failedMoveBits & (1u << battler))
         {
-            *failedMoveBits &= ~(gBitTable[battler]);
+            *failedMoveBits &= ~((1u << battler));
             skillPoints[battler] -= 2;
         }
         else if (gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
@@ -529,6 +529,7 @@ static void SetArenaData(void)
 
 static void SaveArenaChallenge(void)
 {
+    ClearEnemyPartyAfterChallenge();
     gSaveBlock2Ptr->frontier.challengeStatus = gSpecialVar_0x8005;
     VarSet(VAR_TEMP_CHALLENGE_STATUS, 0);
     gSaveBlock2Ptr->frontier.challengePaused = TRUE;

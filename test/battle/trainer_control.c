@@ -11,53 +11,28 @@
 #include "constants/trainers.h"
 #include "constants/battle.h"
 
-
-static const struct TrainerMon sTestParty1[] =
+static const struct Trainer sTestTrainers[] =
 {
-    {
-        .species = SPECIES_WOBBUFFET,
-        .ball = ITEM_MASTER_BALL,
-        .ability = ABILITY_TELEPATHY,
-        .friendship = 42,
-        .gender = TRAINER_MON_FEMALE,
-        .heldItem = ITEM_ASSAULT_VEST,
-        .isShiny = TRUE,
-        .iv = TRAINER_PARTY_IVS(12, 12, 12, 12, 12, 12, 12, 12),
-        .ev = TRAINER_PARTY_EVS(252, 0, 0, 252, 4, 0),
-        .lvl = 67,
-        .moves = {MOVE_AIR_SLASH, MOVE_BARRIER, MOVE_SOLAR_BEAM, MOVE_EXPLOSION},
-        .nature = TRAINER_PARTY_NATURE(NATURE_HASTY),
-        .nickname = COMPOUND_STRING("Bubbles")
-    },
-    {
-        .species = SPECIES_WOBBUFFET,
-        .ability = ABILITY_SHADOW_TAG,
-        .lvl = 5,
-    },
-};
-
-static const struct Trainer sTestTrainer1 =
-{
-    .trainerName = _("Test1"),
-    .party = TRAINER_PARTY(sTestParty1),
+#include "trainer_control.h"
 };
 
 TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
 {
     struct Pokemon *testParty = Alloc(6 * sizeof(struct Pokemon));
     u8 nickBuffer[20];
-    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainer1, TRUE, BATTLE_TYPE_TRAINER);
+    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainers[0], TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(IsMonShiny(&testParty[0]));
     EXPECT(!IsMonShiny(&testParty[1]));
 
-    EXPECT(GetMonData(&testParty[0], MON_DATA_POKEBALL, 0) == ITEM_MASTER_BALL);
-    EXPECT(GetMonData(&testParty[1], MON_DATA_POKEBALL, 0) == ITEM_POKE_BALL);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_POKEBALL, 0) == BALL_MASTER);
+    EXPECT(GetMonData(&testParty[1], MON_DATA_POKEBALL, 0) == BALL_POKE);
 
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPECIES, 0) == SPECIES_WOBBUFFET);
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPECIES, 0) == SPECIES_WOBBUFFET);
 
     EXPECT(GetMonAbility(&testParty[0]) == ABILITY_TELEPATHY);
     EXPECT(GetMonAbility(&testParty[1]) == ABILITY_SHADOW_TAG);
+    EXPECT(GetMonAbility(&testParty[2]) == ABILITY_SHADOW_TAG);
 
     EXPECT(GetMonData(&testParty[0], MON_DATA_FRIENDSHIP, 0) == 42);
     EXPECT(GetMonData(&testParty[1], MON_DATA_FRIENDSHIP, 0) == 0);
@@ -65,12 +40,14 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
     EXPECT(GetMonData(&testParty[0], MON_DATA_HELD_ITEM, 0) == ITEM_ASSAULT_VEST);
     EXPECT(GetMonData(&testParty[1], MON_DATA_HELD_ITEM, 0) == ITEM_NONE);
 
-    EXPECT(GetMonData(&testParty[0], MON_DATA_HP_IV, 0) == 25);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_ATK_IV, 0) == 26);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_DEF_IV, 0) == 27);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_SPEED_IV, 0) == 28);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_SPATK_IV, 0) == 29);
-    EXPECT(GetMonData(&testParty[0], MON_DATA_SPDEF_IV, 0) == 30);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_HP_IV, 0) == 5);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_ATK_IV, 0) == 6);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_DEF_IV, 0) == 7);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_SPEED_IV, 0) == 8);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_SPATK_IV, 0) == 9);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_SPDEF_IV, 0) == 10);
+	EXPECT(GetMonData(&testParty[0], MON_DATA_REACT_IV, 0) == 9);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_AWARE_IV, 0) == 10);
 
     EXPECT(GetMonData(&testParty[1], MON_DATA_HP_IV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_ATK_IV, 0) == 0);
@@ -78,6 +55,8 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPEED_IV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPATK_IV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPDEF_IV, 0) == 0);
+	EXPECT(GetMonData(&testParty[1], MON_DATA_REACT_IV, 0) == 0);
+    EXPECT(GetMonData(&testParty[1], MON_DATA_AWARE_IV, 0) == 0);
 
     EXPECT(GetMonData(&testParty[0], MON_DATA_HP_EV, 0) == 252);
     EXPECT(GetMonData(&testParty[0], MON_DATA_ATK_EV, 0) == 0);
@@ -85,6 +64,8 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPEED_EV, 0) == 252);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPATK_EV, 0) == 4);
     EXPECT(GetMonData(&testParty[0], MON_DATA_SPDEF_EV, 0) == 0);
+	EXPECT(GetMonData(&testParty[0], MON_DATA_REACT_EV, 0) == 0);
+    EXPECT(GetMonData(&testParty[0], MON_DATA_AWARE_EV, 0) == 0);
 
     EXPECT(GetMonData(&testParty[1], MON_DATA_HP_EV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_ATK_EV, 0) == 0);
@@ -92,6 +73,8 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPEED_EV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPATK_EV, 0) == 0);
     EXPECT(GetMonData(&testParty[1], MON_DATA_SPDEF_EV, 0) == 0);
+	EXPECT(GetMonData(&testParty[1], MON_DATA_REACT_EV, 0) == 0);
+    EXPECT(GetMonData(&testParty[1], MON_DATA_AWARE_EV, 0) == 0);
 
     EXPECT(GetMonData(&testParty[0], MON_DATA_LEVEL, 0) == 67);
     EXPECT(GetMonData(&testParty[1], MON_DATA_LEVEL, 0) == 5);
@@ -109,6 +92,10 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
 
     EXPECT(GetMonGender(&testParty[0]) == MON_FEMALE);
     EXPECT(GetNature(&testParty[0]) == NATURE_HASTY);
+    EXPECT(GetNature(&testParty[1]) == NATURE_HARDY);
+
+    EXPECT_EQ(GetMonData(&testParty[0], MON_DATA_DYNAMAX_LEVEL), 5);
+    EXPECT_EQ(GetMonData(&testParty[1], MON_DATA_DYNAMAX_LEVEL), 10);
 
     Free(testParty);
 }
@@ -116,7 +103,7 @@ TEST("CreateNPCTrainerPartyForTrainer generates customized Pokémon")
 TEST("CreateNPCTrainerPartyForTrainer generates different personalities for different mons")
 {
     struct Pokemon *testParty = Alloc(6 * sizeof(struct Pokemon));
-    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainer1, TRUE, BATTLE_TYPE_TRAINER);
+    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainers[0], TRUE, BATTLE_TYPE_TRAINER);
     EXPECT(testParty[0].box.personality != testParty[1].box.personality);
     Free(testParty);
 }
@@ -133,4 +120,51 @@ TEST("ModifyPersonalityForNature can set any nature")
     }
     ModifyPersonalityForNature(&personality, nature);
     EXPECT_EQ(GetNatureFromPersonality(personality), nature);
+}
+
+static const struct TrainerMon sTestParty2[] =
+{
+    {
+        .species = SPECIES_WYNAUT,
+        .lvl = 5,
+    },
+    {
+        .species = SPECIES_WYNAUT,
+        .lvl = 5,
+    },
+    {
+        .species = SPECIES_WYNAUT,
+        .lvl = 5,
+    },
+    {
+        .species = SPECIES_WYNAUT,
+        .lvl = 5,
+    },
+    {
+        .species = SPECIES_WYNAUT,
+        .lvl = 5,
+    },
+    {
+        .species = SPECIES_WYNAUT,
+        .lvl = 5,
+    },
+};
+
+static const struct Trainer sTestTrainer2 =
+{
+    .trainerName = _("Test2"),
+    .trainerClass = TRAINER_CLASS_BLACK_BELT,
+    .party = TRAINER_PARTY(sTestParty2),
+};
+
+TEST("Trainer Class Balls apply to the entire party")
+{
+    u32 j;
+    struct Pokemon *testParty = Alloc(6 * sizeof(struct Pokemon));
+    CreateNPCTrainerPartyFromTrainer(testParty, &sTestTrainer2, TRUE, BATTLE_TYPE_TRAINER);
+    for(j = 0; j < 6; j++)
+    {
+        EXPECT(GetMonData(&testParty[j], MON_DATA_POKEBALL, 0) == gTrainerClasses[sTestTrainer2.trainerClass].ball);
+    }
+    Free(testParty);
 }

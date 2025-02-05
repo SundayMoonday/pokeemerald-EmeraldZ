@@ -780,14 +780,10 @@ static s32 HandleGiftSelectMenu(u8 *textState, u16 * windowId, bool32 cannotToss
 
 static bool32 ValidateCardOrNews(bool32 isWonderNews)
 {
-	#ifndef FREE_MYSTERY_EVENT_BUFFERS
     if (!isWonderNews)
-	#endif
         return ValidateSavedWonderCard();
-	#ifndef FREE_MYSTERY_EVENT_BUFFERS
     else
         return ValidateSavedWonderNews();
-	#endif
 }
 
 static bool32 HandleLoadWonderCardOrNews(u8 *state, bool32 isWonderNews)
@@ -1154,11 +1150,9 @@ static void Task_MysteryGift(u8 taskId)
             break;
         case 1: // "Wonder News"
             data->isWonderNews = TRUE;
-			#ifndef FREE_MYSTERY_EVENT_BUFFERS
             if (ValidateSavedWonderNews() == TRUE)
                 data->state = MG_STATE_LOAD_GIFT;
             else
-			#endif
                 data->state = MG_STATE_DONT_HAVE_ANY;
             break;
         case LIST_CANCEL:

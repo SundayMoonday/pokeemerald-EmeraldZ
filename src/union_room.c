@@ -3184,12 +3184,12 @@ static void Task_RunUnionRoom(u8 taskId)
                     break;
                 case UR_TRADE_NOTYPE:
                     CopyAndTranslatePlayerName(gStringVar1, &uroom->playerList->players[input]);
-                    StringCopy(gStringVar2, gTypeNames[uroom->playerList->players[input].rfu.data.tradeType]);
+                    StringCopy(gStringVar2, gTypesInfo[uroom->playerList->players[input].rfu.data.tradeType].name);
                     ScheduleFieldMessageWithFollowupState(UR_STATE_TRADING_BOARD_LOAD, sText_DontHaveTypeTrainerWants);
                     break;
                 case UR_TRADE_NOEGG:
                     CopyAndTranslatePlayerName(gStringVar1, &uroom->playerList->players[input]);
-                    StringCopy(gStringVar2, gTypeNames[uroom->playerList->players[input].rfu.data.tradeType]);
+                    StringCopy(gStringVar2, gTypesInfo[uroom->playerList->players[input].rfu.data.tradeType].name);
                     ScheduleFieldMessageWithFollowupState(UR_STATE_TRADING_BOARD_LOAD, sText_DontHaveEggTrainerWants);
                     break;
                 }
@@ -3294,6 +3294,9 @@ void InitUnionRoom(void)
 {
     struct WirelessLink_URoom *data;
 
+    if (!ShouldCheckForUnionRoom())
+        return;
+
     sUnionRoomPlayerName[0] = EOS;
     CreateTask(Task_InitUnionRoom, 0);
     sWirelessLinkMain.uRoom = sWirelessLinkMain.uRoom; // Needed to match.
@@ -3377,6 +3380,9 @@ static void Task_InitUnionRoom(u8 taskId)
 
 bool16 BufferUnionRoomPlayerName(void)
 {
+    if (!ShouldCheckForUnionRoom())
+        return FALSE;
+
     if (sUnionRoomPlayerName[0] != EOS)
     {
         StringCopy(gStringVar1, sUnionRoomPlayerName);
@@ -4444,7 +4450,7 @@ static void ViewURoomPartnerTrainerCard(u8 *unused, struct WirelessLink_URoom *d
 
     DynamicPlaceholderTextUtil_Reset();
 
-    StringCopy(data->trainerCardStrBuffer[0], gTrainerClassNames[GetUnionRoomTrainerClass()]);
+    StringCopy(data->trainerCardStrBuffer[0], gTrainerClasses[GetUnionRoomTrainerClass()].name);
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, data->trainerCardStrBuffer[0]);
 
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, trainerCard->playerName);

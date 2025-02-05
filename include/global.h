@@ -3,9 +3,10 @@
 
 #include <string.h>
 #include <limits.h>
-#include "config.h" // we need to define config before gba headers as print stuff needs the functions nulled before defines.
+#include "config/general.h" // we need to define config before gba headers as print stuff needs the functions nulled before defines.
 #include "gba/gba.h"
 #include "fpmath.h"
+#include "metaprogram.h"
 #include "constants/global.h"
 #include "constants/flags.h"
 #include "constants/vars.h"
@@ -16,20 +17,10 @@
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
+#include "constants/items.h"
+#include "config/save.h"
 
-#define FREE_FIELD_3598                 //frees up unused saveblock data. 384 bytes
-#define FREE_TRAINER_HILL             //frees up trainer hill data. 28 bytes.                          WARNING THIS HAS BEEN SHOWN TO BREAK MULTI BATTLES
-#define FREE_MYSTERY_EVENT_BUFFERS    //frees up mystery event and ramScript. roughly 1880 bytes       Needed by FREE_BATTLE_TOWER_E_READER
-#define FREE_MATCH_CALL                 //frees up match call data. 104 bytes
-#define FREE_UNION_ROOM_CHAT            //frees up field unk3C88. 210 bytes
-#define FREE_ENIGMA_BERRY               //frees up enigma berry. 52 bytes
-#define FREE_LINK_BATTLE_RECORDS        //frees link battle record data. 88 bytes
-                                        // saveblock1 total: 1846 bytes
-//free saveblock 2 defines
-#define FREE_BATTLE_TOWER_E_READER    //frees up battle tower e reader trainer data. 188 bytes.        WARNING THIS HAS BEEN SHOWN TO BREAK THE POKÉ MARTS' QUESTIONNAIRE
-#define FREE_POKEMON_JUMP               //frees up pokemon jump data. 16 bytes
-#define FREE_RECORD_MIXING_HALL_RECORDS //frees up hall records for record mixing. 1032 bytes
-                                        // saveblock2 total: 1236 bytes
+#define FREE_FIELD_3598					TRUE //frees up unused saveblock data. 384 bytes
 
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
@@ -50,6 +41,7 @@
 #define INCBIN_S8   INCBIN
 #define INCBIN_S16  INCBIN
 #define INCBIN_S32  INCBIN
+#define INCBIN_COMP INCBIN
 #endif // IDE support
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
@@ -75,16 +67,18 @@
 // Used in cases where division by 0 can occur in the retail version.
 // Avoids invalid opcodes on some emulators, and the otherwise UB.
 #ifdef UBFIX
-#define SAFE_DIV(a, b) ((b) ? (a) / (b) : 0)
+#define SAFE_DIV(a, b) (((b) != 0) ? (a) / (b) : 0)
 #else
 #define SAFE_DIV(a, b) ((a) / (b))
 #endif
+
+#define IS_POW_OF_TWO(n) (((n) & ((n)-1)) == 0)
 
 // The below macro does a%n, but (to match) will switch to a&(n-1) if n is a power of 2.
 // There are cases where GF does a&(n-1) where we would really like to have a%n, because
 // if n is changed to a value that isn't a power of 2 then a&(n-1) is unlikely to work as
 // intended, and a%n for powers of 2 isn't always optimized to use &.
-#define MOD(a, n)(((n) & ((n)-1)) ? ((a) % (n)) : ((a) & ((n)-1)))
+#define MOD(a, n) (((n) & ((n)-1)) ? ((a) % (n)) : ((a) & ((n)-1)))
 
 // Extracts the upper 16 bits of a 32-bit number
 #define HIHALF(n) (((n) & 0xFFFF0000) >> 16)
@@ -125,7 +119,7 @@
     f;                       \
 })
 
-#define DIV_ROUND_UP(val, roundBy)(((val) / (roundBy)) + (((val) % (roundBy)) ? 1 : 0))
+#define DIV_ROUND_UP(val, roundBy) (((val) / (roundBy)) + (((val) % (roundBy)) ? 1 : 0))
 
 #define ROUND_BITS_TO_BYTES(numBits) DIV_ROUND_UP(numBits, 8)
 
@@ -133,27 +127,36 @@
 #define NUM_FLAG_BYTES ROUND_BITS_TO_BYTES(FLAGS_COUNT)
 #define NUM_TRENDY_SAYING_BYTES ROUND_BITS_TO_BYTES(NUM_TRENDY_SAYINGS)
 
-// Calls m0/m1/.../m8 depending on how many arguments are passed.
-#define VARARG_8(m, ...) CAT(m, NARG_8(__VA_ARGS__))(__VA_ARGS__)
-
-// This returns the number of arguments passed to it (up to 8).
-#define NARG_8(...) NARG_8_(_, ##__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-#define NARG_8_(_, a, b, c, d, e, f, g, h, N, ...) N
-
-#define CAT(a, b) CAT_(a, b)
-#define CAT_(a, b) a ## b
-
-#define STR(a) STR_(a)
-#define STR_(a) #a
-
-// Converts a string to a compound literal, essentially making it a pointer to const u8
-#define COMPOUND_STRING(str) (const u8[]) _(str)
-
 // This produces an error at compile-time if expr is zero.
 // It looks like file.c:line: size of array `id' is negative
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
 #define FEATURE_FLAG_ASSERT(flag, id) STATIC_ASSERT(flag > TEMP_FLAGS_END || flag == 0, id)
+
+#ifndef NDEBUG
+static inline void CycleCountStart()
+{
+    REG_TM2CNT_H = 0;
+    REG_TM3CNT_H = 0;
+
+    REG_TM2CNT_L = 0;
+    REG_TM3CNT_L = 0;
+
+    // init timers (tim3 count up mode, tim2 every clock cycle)
+    REG_TM3CNT_H = TIMER_ENABLE | TIMER_COUNTUP;
+    REG_TM2CNT_H = TIMER_1CLK | TIMER_ENABLE;
+}
+
+static inline u32 CycleCountEnd()
+{
+    // stop timers
+    REG_TM2CNT_H = 0;
+    REG_TM3CNT_H = 0;
+
+    // return result
+    return REG_TM2CNT_L | (REG_TM3CNT_L << 16u);
+}
+#endif
 
 struct Coords8
 {
@@ -199,6 +202,25 @@ struct Time
     /*0x04*/ s8 seconds;
 };
 
+#include "constants/items.h"
+#define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
+
+struct SaveBlock3
+{
+#if OW_USE_FAKE_RTC
+    struct Time fakeRTC;
+#endif
+#if OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_FIRST_TIME
+    u8 itemFlags[ITEM_FLAGS_COUNT];
+#endif
+#if USE_DEXNAV_SEARCH_LEVELS == TRUE
+    u8 dexNavSearchLevels[NUM_SPECIES];
+#endif
+    u8 dexNavChain;
+}; /* max size 1624 bytes */
+
+extern struct SaveBlock3 *gSaveBlock3Ptr;
+
 struct Pokedex
 {
     /*0x00*/ u8 order;
@@ -208,7 +230,9 @@ struct Pokedex
     /*0x04*/ u32 unownPersonality; // set when you first see Unown
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
     /*0x0C*/ u32 unknown3;
+#if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK2 == FALSE
     /*0x10*/ u8 filler[0x68]; // Previously Dex Flags, feel free to remove.
+#endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK2
 };
 
 struct PokemonJumpRecords
@@ -239,7 +263,11 @@ struct BerryPickingResults
 struct PyramidBag
 {
     u16 itemId[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
+#if MAX_PYRAMID_BAG_ITEM_CAPACITY > 255
+    u16 quantity[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
+#else
     u8 quantity[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
+#endif
 };
 
 struct BerryCrush
@@ -288,7 +316,7 @@ struct BattleTowerPokemon
     u8 spAttackEV;
     u8 spDefenseEV;
 	u8 reactionEV;
-    u8 observeEV;
+    u8 awarenessEV;
     u32 otId;
     u16 hpIV:4;
     u16 attackIV:4;
@@ -297,11 +325,11 @@ struct BattleTowerPokemon
     u16 spAttackIV:4;
     u16 spDefenseIV:4;
 	u16 reactionIV:4;
-    u16 observeIV:4;
+    u16 awarenessIV:4;
     u32 gap:1;
     u32 abilityNum:1;
     u32 personality;
-    u8 nickname[POKEMON_NAME_LENGTH + 1];
+    u8 nickname[VANILLA_POKEMON_NAME_LENGTH + 1];
     u8 friendship;
 };
 
@@ -326,7 +354,7 @@ struct BattleTowerInterview
     u16 playerSpecies;
     u16 opponentSpecies;
     u8 opponentName[PLAYER_NAME_LENGTH + 1];
-    u8 opponentMonNickname[POKEMON_NAME_LENGTH + 1];
+    u8 opponentMonNickname[VANILLA_POKEMON_NAME_LENGTH + 1];
     u8 opponentLanguage;
 };
 
@@ -379,9 +407,9 @@ struct BattleFrontier
     /*0x64C*/ struct EmeraldBattleTowerRecord towerPlayer;
     /*0x738*/ struct EmeraldBattleTowerRecord towerRecords[BATTLE_TOWER_RECORD_COUNT]; // From record mixing.
     /*0xBEB*/ struct BattleTowerInterview towerInterview;
-				#ifndef FREE_BATTLE_TOWER_E_READER
+#if FREE_BATTLE_TOWER_E_READER == FALSE
     /*0xBEC*/ struct BattleTowerEReaderTrainer ereaderTrainer;  //188 bytes
-				#endif
+#endif //FREE_BATTLE_TOWER_E_READER
     /*0xCA8*/ u8 challengeStatus;
     /*0xCA9*/ u8 lvlMode:2;
               u8 challengePaused:1;
@@ -529,19 +557,19 @@ struct SaveBlock2
     /*0x90*/ u8 filler_90[0x8];
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
-    /*0xA8*/ u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD
+    /*0xA8*/ u32 gcnLinkFlags; // Read by Pokémon Colosseum/XD
     /*0xAC*/ u32 encryptionKey;
     /*0xB0*/ struct PlayersApprentice playerApprentice;
     /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
     /*0x1EC*/ struct BerryCrush berryCrush;
-			#ifndef FREE_POKEMON_JUMP
-    /*0x1FC*/ struct PokemonJumpRecords pokeJump;   //16 bytes
-			#endif
+#if FREE_POKEMON_JUMP == FALSE
+    /*0x1FC*/ struct PokemonJumpRecords pokeJump;
+#endif //FREE_POKEMON_JUMP
     /*0x20C*/ struct BerryPickingResults berryPick;
-	#ifndef FREE_RECORD_MIXING_HALL_RECORDS
+#if FREE_RECORD_MIXING_HALL_RECORDS == FALSE
     /*0x21C*/ struct RankingHall1P hallRecords1P[HALL_FACILITIES_COUNT][FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
     /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-	#endif
+#endif //FREE_RECORD_MIXING_HALL_RECORDS
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
 }; // sizeof=0xF2C
@@ -616,14 +644,15 @@ struct Roamer
     /*0x08*/ u16 species;
     /*0x0A*/ u16 hp;
     /*0x0C*/ u8 level;
-    /*0x0D*/ u8 status;
+    /*0x0D*/ u8 statusA;
     /*0x0E*/ u8 cool;
     /*0x0F*/ u8 beauty;
     /*0x10*/ u8 cute;
     /*0x11*/ u8 smart;
     /*0x12*/ u8 tough;
     /*0x13*/ bool8 active;
-    /*0x14*/ u8 filler[0x8];
+    /*0x14*/ u8 statusB; // Stores frostbite
+    /*0x14*/ u8 filler[0x7];
 };
 
 struct RamScriptData
@@ -662,8 +691,8 @@ struct MauvilleManBard
 {
     /*0x00*/ u8 id;
     /*0x01*/ //u8 padding1;
-    /*0x02*/ u16 songLyrics[BARD_SONG_LENGTH];
-    /*0x0E*/ u16 temporaryLyrics[BARD_SONG_LENGTH];
+    /*0x02*/ u16 songLyrics[NUM_BARD_SONG_WORDS];
+    /*0x0E*/ u16 newSongLyrics[NUM_BARD_SONG_WORDS];
     /*0x1A*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
     /*0x22*/ u8 filler_2DB6[0x3];
     /*0x25*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
@@ -760,9 +789,10 @@ struct ContestWinner
     u32 trainerId;
     u16 species;
     u8 contestCategory;
-    u8 monName[POKEMON_NAME_LENGTH + 1];
+    u8 monName[VANILLA_POKEMON_NAME_LENGTH + 1];
     u8 trainerName[PLAYER_NAME_LENGTH + 1];
-    u8 contestRank;
+    u8 contestRank:7;
+    bool8 isShiny:1;
     //u8 padding;
 };
 
@@ -779,7 +809,7 @@ struct DaycareMail
 {
     struct Mail message;
     u8 otName[PLAYER_NAME_LENGTH + 1];
-    u8 monName[POKEMON_NAME_LENGTH + 1];
+    u8 monName[VANILLA_POKEMON_NAME_LENGTH + 1];
     u8 gameLanguage:4;
     u8 monLanguage:4;
 };
@@ -795,8 +825,7 @@ struct DayCare
 {
     struct DaycareMon mons[DAYCARE_MON_COUNT];
     u32 offspringPersonality;
-    u8 stepCounter;
-    //u8 padding[3];
+    u32 stepCounter;
 };
 
 struct LilycoveLadyQuiz
@@ -1014,13 +1043,15 @@ struct SaveBlock1
     /*0x690*/ struct ItemSlot bagPocket_TMHM[BAG_TMHM_COUNT];
     /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
-    /*0x988*/ //u8 filler1[0x34]; // Previously Dex Flags, feel free to remove.
+#if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1 == FALSE
+    /*0x988*/ //u8 filler1[0x34];  Previously Dex Flags, feel free to remove.
+#endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1
     /*0x9BC*/ u16 berryBlenderRecords[3];
-    /*0x9C2*/ //u8 unused_9C2[6];
-    #ifndef FREE_MATCH_CALL
-    /*0x9C8*/ u16 trainerRematchStepCounter;    //104 bytes
+    /*0x9C2*/ u8 unused_9C2[6];
+#if FREE_MATCH_CALL == FALSE
+    /*0x9C8*/ u16 trainerRematchStepCounter;
     /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];
-    #endif
+#endif //FREE_MATCH_CALL
     /*0xA2E*/ //u8 padding3[2];
     /*0xA30*/ struct ObjectEvent objectEvents[OBJECT_EVENTS_COUNT];
     /*0xC70*/ struct ObjectEventTemplate objectEventTemplates[OBJECT_EVENT_TEMPLATES_COUNT];
@@ -1039,8 +1070,8 @@ struct SaveBlock1
     /*0x278E*/ u8 decorationPosters[10];
     /*0x2798*/ u8 decorationDolls[40];
     /*0x27C0*/ u8 decorationCushions[10];
-    /*0x27CA*/ //u8 padding4[2];
     /*0x27CC*/ TVShow tvShows[TV_SHOWS_COUNT];
+    /*0x27CA*/ //u8 padding4[2];
     /*0x2B50*/ PokeNews pokeNews[POKE_NEWS_COUNT];
     /*0x2B90*/ u16 outbreakPokemonSpecies;
     /*0x2B92*/ u8 outbreakLocationMapNum;
@@ -1049,7 +1080,7 @@ struct SaveBlock1
     /*0x2B95*/ u8 dexNavSearchLevels[NUM_SPECIES];
     /*0x2B96*/ u8 dexNavChain;
     /*0x2B98*/ u16 outbreakPokemonMoves[MAX_MON_MOVES];
-    /*0x2BA0*/ u8 outbreakUnused1;
+	/*0x2BA0*/ u8 outbreakUnused1;
 	/*0x2BA0*/ u8 outbreakUnused2;
 	/*0x2BA0*/ u8 outbreakUnused3;
     /*0x2BA1*/ u8 outbreakPokemonProbability;
@@ -1066,39 +1097,36 @@ struct SaveBlock1
     /*0x2e64*/ struct DewfordTrend dewfordTrends[SAVED_TRENDS_COUNT];
     /*0x2e90*/ struct ContestWinner contestWinners[NUM_CONTEST_WINNERS]; // see CONTEST_WINNER_*
     /*0x3030*/ struct DayCare daycare;
-	#ifndef FREE_LINK_BATTLE_RECORDS
+#if FREE_LINK_BATTLE_RECORDS == FALSE
     /*0x3150*/ struct LinkBattleRecords linkBattleRecords;
-	#endif
+#endif //FREE_LINK_BATTLE_RECORDS
     /*0x31A8*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
     /*0x31B3*/ struct ExternalEventData externalEventData;
     /*0x31C7*/ struct ExternalEventFlags externalEventFlags;
-    /*0x31DC*/ struct Roamer roamer;
-	#ifndef FREE_ENIGMA_BERRY
-    /*0x31F8*/ struct EnigmaBerry enigmaBerry;  //52 bytes
-    #endif
-    #ifndef FREE_MYSTERY_EVENT_BUFFERS
-    /*0x322C*/ struct MysteryGiftSave mysteryGift;   //876 bytes
-    #endif
-    #ifndef FREE_FIELD_3598
-    /*0x3598*/ u8 unused_3598[0x180];    //384 bytes
-    #endif
-    #ifndef FREE_TRAINER_HILL
-    /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES]; //16 bytes
-    #endif
+    /*0x31DC*/ struct Roamer roamer[ROAMER_COUNT];
+#if FREE_ENIGMA_BERRY == FALSE
+    /*0x31F8*/ struct EnigmaBerry enigmaBerry;
+#endif //FREE_ENIGMA_BERRY
+#if FREE_MYSTERY_GIFT == FALSE
+    /*0x322C*/ struct MysteryGiftSave mysteryGift;
+#endif //FREE_MYSTERY_GIFT
     /*0x3???*/ u8 dexSeen[NUM_DEX_FLAG_BYTES];
     /*0x3???*/ u8 dexCaught[NUM_DEX_FLAG_BYTES];
-	#ifndef FREE_MYSTERY_EVENT_BUFFERS
+#if FREE_TRAINER_HILL == FALSE
+    /*0x3???*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
+#endif //FREE_TRAINER_HILL
+#if FREE_MYSTERY_EVENT_BUFFERS == FALSE
     /*0x3???*/ struct RamScript ramScript;
-	#endif
+#endif //FREE_MYSTERY_EVENT_BUFFERS
     /*0x3???*/ struct RecordMixingGift recordMixingGift;
     /*0x3???*/ LilycoveLady lilycoveLady;
     /*0x3???*/ struct TrainerNameRecord trainerNameRecords[20];
-    #ifndef FREE_UNION_ROOM_CHAT
-    /*0x3C88*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21]; //210 bytes
-    #endif
-    #ifndef FREE_TRAINER_HILL
-    /*0x3D64*/ struct TrainerHillSave trainerHill;  //12 bytes
-    #endif
+#if FREE_UNION_ROOM_CHAT == FALSE
+    /*0x3???*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
+#endif //FREE_UNION_ROOM_CHAT
+#if FREE_TRAINER_HILL == FALSE
+    /*0x3???*/ struct TrainerHillSave trainerHill;
+#endif //FREE_TRAINER_HILL
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
     // sizeof: 0x3???
 };

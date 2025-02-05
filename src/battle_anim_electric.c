@@ -29,6 +29,8 @@ static bool8 CreateShockWaveBoltSprite(struct Task *task, u8 taskId);
 static void AnimShockWaveProgressingBolt(struct Sprite *);
 static bool8 CreateShockWaveLightningSprite(struct Task *task, u8 taskId);
 static void AnimShockWaveLightning(struct Sprite *sprite);
+static void AnimIon(struct Sprite *);
+static void AnimIon_Step(struct Sprite *);
 
 static const union AnimCmd sAnim_Lightning[] =
 {
@@ -479,6 +481,17 @@ const struct SpriteTemplate gVoltTackleBoltSpriteTemplate =
     .callback = AnimVoltTackleBolt,
 };
 
+const struct SpriteTemplate gFairyLockChainsSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_FAIRY_LOCK_CHAINS,
+    .paletteTag = ANIM_TAG_FAIRY_LOCK_CHAINS,
+    .oam = &gOamData_AffineOff_ObjNormal_64x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimVoltTackleBolt,
+};
+
 const struct SpriteTemplate gGrowingShockWaveOrbSpriteTemplate =
 {
     .tileTag = ANIM_TAG_CIRCLE_OF_LIGHT,
@@ -514,17 +527,17 @@ const struct SpriteTemplate gFlashCannonGrayChargeTemplate =
 
 static const union AffineAnimCmd sSpriteAffineAnim_JudgmentBall[] =
 {
-	AFFINEANIMCMD_FRAME(16, 16, 0, 0),
-	AFFINEANIMCMD_FRAME(8, 8, 0, 15), //Half size
-	AFFINEANIMCMD_FRAME(0, 0, 0, 120), //Delay
-	AFFINEANIMCMD_FRAME(24, 24, 0, 5), //Normal size
-	AFFINEANIMCMD_FRAME(0, 0, 0, 10), //Delay
-	AFFINEANIMCMD_FRAME(-16, -16, 0, 15), //Revert to 1 px
-	AFFINEANIMCMD_END,
+    AFFINEANIMCMD_FRAME(16, 16, 0, 0),
+    AFFINEANIMCMD_FRAME(8, 8, 0, 15), //Half size
+    AFFINEANIMCMD_FRAME(0, 0, 0, 120), //Delay
+    AFFINEANIMCMD_FRAME(24, 24, 0, 5), //Normal size
+    AFFINEANIMCMD_FRAME(0, 0, 0, 10), //Delay
+    AFFINEANIMCMD_FRAME(-16, -16, 0, 15), //Revert to 1 px
+    AFFINEANIMCMD_END,
 };
 static const union AffineAnimCmd* const sSpriteAffineAnimTable_JudgmentBall[] =
 {
-	sSpriteAffineAnim_JudgmentBall,
+    sSpriteAffineAnim_JudgmentBall,
 };
 const struct SpriteTemplate gJudgmentBlackChargeTemplate =
 {
@@ -546,6 +559,34 @@ const struct SpriteTemplate gSeedFlareGreenChargeTemplate =
     .images = NULL,
     .affineAnims = gAffineAnims_GrowingElectricOrb,
     .callback = AnimGrowingChargeOrb
+};
+
+static const union AnimCmd sAnim_Ion[] =
+{
+    ANIMCMD_FRAME(0, 2),
+    ANIMCMD_FRAME(8, 2),
+    ANIMCMD_FRAME(16, 2),
+    ANIMCMD_FRAME(24, 6),
+    ANIMCMD_FRAME(32, 2),
+    ANIMCMD_FRAME(40, 2),
+    ANIMCMD_FRAME(48, 2),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd *const sAnims_Ion[] =
+{
+    sAnim_Ion,
+};
+
+const struct SpriteTemplate gIonSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_IONS,
+    .paletteTag = ANIM_TAG_IONS,
+    .oam = &gOamData_AffineOff_ObjNormal_16x32,
+    .anims = sAnims_Ion,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimIon,
 };
 
 // functions
@@ -605,6 +646,13 @@ static void AnimUnusedCirclingShock(struct Sprite *sprite)
     sprite->callback = TranslateSpriteInCircle;
 }
 
+// arg 0:
+// arg 1:
+// arg 2:
+// arg 3: duration
+// arg 4: target
+// arg 5:
+// arg 6:
 void AnimSparkElectricity(struct Sprite *sprite)
 {
     u8 battler;
@@ -690,7 +738,9 @@ static void AnimZapCannonSpark_Step(struct Sprite *sprite)
             sprite->invisible ^= 1;
     }
     else
+    {
         DestroyAnimSprite(sprite);
+    }
 }
 
 static void AnimThunderboltOrb_Step(struct Sprite *sprite)
@@ -972,7 +1022,9 @@ static void AnimTask_ElectricChargingParticles_Step(u8 taskId)
         }
     }
     else if(task->data[7] == 0)
+    {
         DestroyAnimVisualTask(taskId);
+    }
 }
 
 static void AnimElectricChargingParticles_Step(struct Sprite *sprite)
@@ -1093,7 +1145,9 @@ void AnimTask_VoltTackleAttackerReappear(u8 taskId)
                 gSprites[task->data[15]].x2 = task->data[14];
             }
             else
+            {
                 task->data[0]++;
+            }
 
         }
         break;
@@ -1190,11 +1244,20 @@ void AnimTask_VoltTackleBolt(u8 taskId)
 
 static bool8 CreateVoltTackleBolt(struct Task *task, u8 taskId)
 {
-    u8 spriteId = CreateSprite(&gVoltTackleBoltSpriteTemplate, task->data[3], task->data[5], 35);
+    u32 spriteId;
+    bool32 isFairyLock = (gAnimMoveIndex == MOVE_FAIRY_LOCK);
+
+    if (isFairyLock)
+        spriteId = CreateSprite(&gFairyLockChainsSpriteTemplate, task->data[3], task->data[5] + 10, 35);
+    else
+        spriteId = CreateSprite(&gVoltTackleBoltSpriteTemplate, task->data[3], task->data[5], 35);
+
     if (spriteId != MAX_SPRITES)
     {
         gSprites[spriteId].data[6] = taskId;
         gSprites[spriteId].data[7] = 7;
+        gSprites[spriteId].data[1] = isFairyLock ? 25 : 12; // How long the chains / bolts stay on screen.
+        gSprites[spriteId].data[2] = isFairyLock; // Whether to destroy the Oam Matrix.
         task->data[7]++;
     }
 
@@ -1220,10 +1283,11 @@ static bool8 CreateVoltTackleBolt(struct Task *task, u8 taskId)
 
 static void AnimVoltTackleBolt(struct Sprite *sprite)
 {
-    if (++sprite->data[0] > 12)
+    if (++sprite->data[0] > sprite->data[1])
     {
         gTasks[sprite->data[6]].data[sprite->data[7]]--;
-        FreeOamMatrix(sprite->oam.matrixNum);
+        if (!sprite->data[2])
+            FreeOamMatrix(sprite->oam.matrixNum);
         DestroySprite(sprite);
     }
 }
@@ -1430,4 +1494,45 @@ static void AnimShockWaveLightning(struct Sprite *sprite)
         gTasks[sprite->data[6]].data[sprite->data[7]]--;
         DestroySprite(sprite);
     }
+}
+
+// Copy of Rain Dance's function but displays the ion sprite instead
+// arg 0: initial step
+// arg 1: amount (?)
+// arg 2: duration
+void AnimTask_CreateIons(u8 taskId)
+{
+    u8 x, y;
+
+    if (gTasks[taskId].data[0] == 0)
+    {
+        gTasks[taskId].data[1] = gBattleAnimArgs[0];
+        gTasks[taskId].data[2] = gBattleAnimArgs[1];
+        gTasks[taskId].data[3] = gBattleAnimArgs[2];
+    }
+    gTasks[taskId].data[0]++;
+    if (gTasks[taskId].data[0] % gTasks[taskId].data[2] == 1)
+    {
+        x = Random2() % DISPLAY_WIDTH;
+        y = Random2() % (DISPLAY_HEIGHT / 2);
+        CreateSprite(&gIonSpriteTemplate, x, y, 4);
+    }
+    if (gTasks[taskId].data[0] == gTasks[taskId].data[3])
+        DestroyAnimVisualTask(taskId);
+}
+
+static void AnimIon(struct Sprite *sprite)
+{
+    sprite->callback = AnimIon_Step;
+}
+
+static void AnimIon_Step(struct Sprite *sprite)
+{
+    if (++sprite->data[0] <= 13)
+    {
+        sprite->x2++;
+        sprite->y2 += 4;
+    }
+    if (sprite->animEnded)
+        DestroySprite(sprite);
 }

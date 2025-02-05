@@ -35,7 +35,6 @@ static u32 HandleMainMenuInputTutorial(struct Pokenav_Menu *);
 static u32 HandleMainMenuInput(struct Pokenav_Menu *);
 static u32 (*GetMainMenuInputHandler(void))(struct Pokenav_Menu *);
 static void SetMenuInputHandler(struct Pokenav_Menu *);
-
 extern const u8 EventScript_PCMainMenu[];
 
 // Number of entries - 1 for that menu type
@@ -265,7 +264,7 @@ static u32 HandleMainMenuInput(struct Pokenav_Menu *menu)
     return POKENAV_MENU_FUNC_NONE;
 }
 
-// Force the player to select Match Call during the call Mr. Stone pokenav tutorial
+// Force the player to select Match Call during the call Mr. Stone PokéNav tutorial
 static u32 HandleMainMenuInputTutorial(struct Pokenav_Menu *menu)
 {
     if (UpdateMenuCursorPos(menu))
@@ -295,7 +294,7 @@ static u32 HandleMainMenuInputTutorial(struct Pokenav_Menu *menu)
     return POKENAV_MENU_FUNC_NONE;
 }
 
-// After calling Mr. Stone during the pokenav tutorial, force player to exit or use Match Call again
+// After calling Mr. Stone during the PokéNav tutorial, force player to exit or use Match Call again
 static u32 HandleMainMenuInputEndTutorial(struct Pokenav_Menu *menu)
 {
     if (UpdateMenuCursorPos(menu))
@@ -346,6 +345,14 @@ static u32 HandleCantOpenRibbonsInput(struct Pokenav_Menu *menu)
     return POKENAV_MENU_FUNC_NONE;
 }
 
+static void Task_WaitFadeAccessPC(u8 taskId)
+{
+    if (WaitForPokenavShutdownFade())
+    {
+        ScriptContext_SetupScript(EventScript_PCMainMenu);
+        DestroyTask(taskId);
+    }
+}
 static u32 HandleCantAccessPCInput(struct Pokenav_Menu *menu)
 {
     if (UpdateMenuCursorPos(menu))
@@ -361,16 +368,6 @@ static u32 HandleCantAccessPCInput(struct Pokenav_Menu *menu)
     }
 
     return POKENAV_MENU_FUNC_NONE;
-}
-
-
-static void Task_WaitFadeAccessPC(u8 taskId)
-{
-    if (WaitForPokenavShutdownFade())
-    {
-        ScriptContext_SetupScript(EventScript_PCMainMenu);
-        DestroyTask(taskId);
-    }
 }
 
 static u32 HandleConditionMenuInput(struct Pokenav_Menu *menu)

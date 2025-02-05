@@ -80,7 +80,7 @@ enum
 };
 
 // IWRAM common
-bool8 (*gMenuCallback)(void);
+COMMON_DATA bool8 (*gMenuCallback)(void) = NULL;
 
 // EWRAM
 EWRAM_DATA static u8 sSafariBallsWindowId = 0;
@@ -100,7 +100,6 @@ static bool8 StartMenuPokedexCallback(void);
 static bool8 StartMenuPokemonCallback(void);
 static bool8 StartMenuBagCallback(void);
 static bool8 StartMenuPokeNavCallback(void);
-static bool8 StartMenuDexNavCallback(void);
 static bool8 StartMenuPlayerNameCallback(void);
 static bool8 StartMenuSaveCallback(void);
 static bool8 StartMenuOptionCallback(void);
@@ -110,6 +109,7 @@ static bool8 StartMenuLinkModePlayerNameCallback(void);
 static bool8 StartMenuBattlePyramidRetireCallback(void);
 static bool8 StartMenuBattlePyramidBagCallback(void);
 static bool8 StartMenuDebugCallback(void);
+static bool8 StartMenuDexNavCallback(void);
 
 // Menu callbacks
 static bool8 SaveStartCallback(void);
@@ -329,25 +329,21 @@ static void AddStartMenuAction(u8 action)
 }
 
 static void BuildNormalStartMenu(void)
-{
+{ 
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
-    {
         AddStartMenuAction(MENU_ACTION_POKEDEX);
-    }
+    
     if (FlagGet(FLAG_SYS_POKEMON_GET) == TRUE)
-    {
         AddStartMenuAction(MENU_ACTION_POKEMON);
-    }
+	
+	if (DN_FLAG_DEXNAV_GET != 0 && FlagGet(FLAG_SYS_DEXNAV_GET))
+        AddStartMenuAction(MENU_ACTION_DEXNAV);
 
     AddStartMenuAction(MENU_ACTION_BAG);
 
     if (FlagGet(FLAG_SYS_POKENAV_GET) == TRUE)
-    {
         AddStartMenuAction(MENU_ACTION_POKENAV);
-    }
-	if (FlagGet(FLAG_SYS_DEXNAV_GET) == TRUE){
-        AddStartMenuAction(MENU_ACTION_DEXNAV);
-	}
+
     AddStartMenuAction(MENU_ACTION_PLAYER);
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
@@ -645,10 +641,10 @@ static bool8 HandleStartMenuInput(void)
             if (GetNationalPokedexCount(FLAG_GET_SEEN) == 0)
                 return FALSE;
         }
-		
-		if (sCurrentStartMenuActions[sStartMenuCursorPos] == MENU_ACTION_DEXNAV && MapHasNoEncounterData())
+        if (sCurrentStartMenuActions[sStartMenuCursorPos] == MENU_ACTION_DEXNAV
+          && MapHasNoEncounterData())
             return FALSE;
-		
+        
         gMenuCallback = sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void;
 
         if (gMenuCallback != StartMenuSaveCallback
@@ -726,7 +722,7 @@ static bool8 StartMenuPokeNavCallback(void)
         PlayRainStoppingSoundEffect();
         RemoveExtraStartMenuWindows();
         CleanupOverworldWindowsAndTilemaps();
-        SetMainCallback2(CB2_InitPokeNav);  // Display PokeNav
+        SetMainCallback2(CB2_InitPokeNav);  // Display PokéNav
 
         return TRUE;
     }
@@ -794,10 +790,11 @@ static bool8 StartMenuDebugCallback(void)
     RemoveExtraStartMenuWindows();
     HideStartMenuDebug(); // Hide start menu without enabling movement
 
-#if DEBUG_OVERWORLD_MENU == TRUE
-    FreezeObjectEvents();
-    Debug_ShowMainMenu();
-#endif
+    if (DEBUG_OVERWORLD_MENU)
+    {
+        FreezeObjectEvents();
+        Debug_ShowMainMenu();
+    }
 
 return TRUE;
 }
@@ -1431,7 +1428,7 @@ static void ShowSaveInfoWindow(void)
 
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
     {
-        // Print pokedex count
+        // Print Pokédex count
         yOffset += 16;
         AddTextPrinterParameterized(sSaveInfoWindowId, FONT_NORMAL, gText_SavingPokedex, 0, yOffset, TEXT_SKIP_DRAW, NULL);
         BufferSaveMenuText(SAVE_MENU_CAUGHT, gStringVar4, color);
@@ -1499,4 +1496,12 @@ static bool8 StartMenuDexNavCallback(void)
 {
     CreateTask(Task_OpenDexNavFromStartMenu, 0);
     return TRUE;
+}
+
+void Script_ForceSaveGame(struct ScriptContext *ctx)
+{
+    SaveGame();
+    ShowSaveInfoWindow();
+    gMenuCallback = SaveCallback;
+    sSaveDialogCallback = SaveSavingMessageCallback;
 }

@@ -186,7 +186,8 @@ static const struct ListMenuTemplate sMoveRelearnerMovesListTemplate =
     .itemVerticalPadding = 0,
     .scrollMultiple = LIST_NO_MULTIPLE_SCROLL,
     .fontId = FONT_NORMAL,
-    .cursorKind = CURSOR_BLACK_ARROW
+    .cursorKind = CURSOR_BLACK_ARROW,
+    .textNarrowWidth = 68,
 };
 
 //--------------
@@ -316,7 +317,7 @@ void MailboxMenu_Free(void)
 // filled with the graph color.
 //---------------------------------------
 
-#define SHIFT_RIGHT_ADJUSTED(n, s)(((n) >> (s)) + (((n) >> ((s) - 1)) & 1))
+#define SHIFT_RIGHT_ADJUSTED(n, s) (((n) >> (s)) + (((n) >> ((s) - 1)) & 1))
 
 void ConditionGraph_Init(struct ConditionGraph *graph)
 {
@@ -751,9 +752,12 @@ u8 LoadMoveRelearnerMovesList(const struct ListMenuItem *items, u16 numChoices)
 static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
 {
     s32 x;
-    const struct BattleMove *move;
+    const struct MoveInfo *move;
     u8 buffer[32];
     const u8 *str;
+
+    if (B_SHOW_CATEGORY_ICON == TRUE)
+        MoveRelearnerShowHideCategoryIcon(chosenMove);
 
     FillWindowPixelBuffer(RELEARNERWIN_DESC_BATTLE, PIXEL_FILL(1));
     str = gText_MoveRelearnerBattleMoves;
@@ -776,8 +780,8 @@ static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
         CopyWindowToVram(RELEARNERWIN_DESC_BATTLE, COPYWIN_GFX);
         return;
     }
-    move = &gBattleMoves[chosenMove];
-    str = gTypeNames[move->type];
+    move = &gMovesInfo[chosenMove];
+    str = gTypesInfo[move->type].name;
     AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NORMAL, str, 4, 25, TEXT_SKIP_DRAW, NULL);
 
     x = 4 + GetStringWidth(FONT_NORMAL, gText_MoveRelearnerPP, 0);
@@ -807,7 +811,7 @@ static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
     AddTextPrinterParameterized(RELEARNERWIN_DESC_BATTLE, FONT_NORMAL, str, 106, 41, TEXT_SKIP_DRAW, NULL);
 
     if (move->effect != EFFECT_PLACEHOLDER)
-        str = gMoveDescriptionPointers[chosenMove - 1];
+        str = gMovesInfo[chosenMove].description;
     else
         str = gNotDoneYetDescription;
 
@@ -818,7 +822,7 @@ static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
 {
     s32 x;
     const u8 *str;
-    const struct ContestMove *move;
+    const struct MoveInfo *move;
 
     MoveRelearnerShowHideHearts(chosenMove);
     FillWindowPixelBuffer(RELEARNERWIN_DESC_CONTEST, PIXEL_FILL(1));
@@ -840,11 +844,11 @@ static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
         return;
     }
 
-    move = &gContestMoves[chosenMove];
+    move = &gMovesInfo[chosenMove];
     str = gContestMoveTypeTextPointers[move->contestCategory];
     AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, 4, 25, TEXT_SKIP_DRAW, NULL);
 
-    str = gContestEffectDescriptionPointers[move->effect];
+    str = gContestEffectDescriptionPointers[move->contestEffect];
     AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NARROW, str, 0, 65, TEXT_SKIP_DRAW, NULL);
 
     CopyWindowToVram(RELEARNERWIN_DESC_CONTEST, COPYWIN_GFX);
@@ -1075,11 +1079,11 @@ void GetConditionMenuMonGfx(void *tilesDst, void *palDst, u16 boxId, u16 monId, 
     if (partyId != numMons)
     {
         u16 species = GetBoxOrPartyMonData(boxId, monId, MON_DATA_SPECIES_OR_EGG, NULL);
-        u32 trainerId = GetBoxOrPartyMonData(boxId, monId, MON_DATA_OT_ID, NULL);
+        bool8 isShiny = GetBoxOrPartyMonData(boxId, monId, MON_DATA_IS_SHINY, NULL);
         u32 personality = GetBoxOrPartyMonData(boxId, monId, MON_DATA_PERSONALITY, NULL);
 
         LoadSpecialPokePic(tilesDst, species, personality, TRUE);
-        LZ77UnCompWram(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality), palDst);
+        LZ77UnCompWram(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), palDst);
     }
 }
 
@@ -1510,9 +1514,9 @@ static const u8 *const sLvlUpStatStrings[NUM_STATS] =
     gText_Defense,
     gText_SpAtk,
     gText_SpDef,
-    gText_Speed,
 	gText_React,
-    gText_Obser
+    gText_Aware,
+    gText_Speed
 };
 
 void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bgClr, u8 fgClr, u8 shadowClr)
@@ -1529,9 +1533,9 @@ void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bg
     statsDiff[2] = statsAfter[STAT_DEF]   - statsBefore[STAT_DEF];
     statsDiff[3] = statsAfter[STAT_SPATK] - statsBefore[STAT_SPATK];
     statsDiff[4] = statsAfter[STAT_SPDEF] - statsBefore[STAT_SPDEF];
-    statsDiff[5] = statsAfter[STAT_SPEED] - statsBefore[STAT_SPEED];
-	statsDiff[6] = statsAfter[STAT_REACT] - statsBefore[STAT_REACT];
-    statsDiff[7] = statsAfter[STAT_OBSER] - statsBefore[STAT_OBSER];
+	statsDiff[5] = statsAfter[STAT_REACT] - statsBefore[STAT_REACT];
+    statsDiff[6] = statsAfter[STAT_AWARE] - statsBefore[STAT_AWARE];
+    statsDiff[7] = statsAfter[STAT_SPEED] - statsBefore[STAT_SPEED];
 
     color[0] = bgClr;
     color[1] = fgClr;
@@ -1586,9 +1590,9 @@ void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 s
     stats[2] = currStats[STAT_DEF];
     stats[3] = currStats[STAT_SPATK];
     stats[4] = currStats[STAT_SPDEF];
-    stats[5] = currStats[STAT_SPEED];
-	stats[6] = currStats[STAT_REACT];
-    stats[7] = currStats[STAT_OBSER];
+	stats[5] = currStats[STAT_REACT];
+    stats[6] = currStats[STAT_AWARE];
+    stats[7] = currStats[STAT_SPEED];
 
     color[0] = bgClr;
     color[1] = fgClr;
@@ -1633,5 +1637,5 @@ void GetMonLevelUpWindowStats(struct Pokemon *mon, u16 *currStats)
     currStats[STAT_SPATK] = GetMonData(mon, MON_DATA_SPATK);
     currStats[STAT_SPDEF] = GetMonData(mon, MON_DATA_SPDEF);
 	currStats[STAT_REACT] = GetMonData(mon, MON_DATA_REACT);
-    currStats[STAT_OBSER] = GetMonData(mon, MON_DATA_OBSER);
+    currStats[STAT_AWARE] = GetMonData(mon, MON_DATA_AWARE);
 }

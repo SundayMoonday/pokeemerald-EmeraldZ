@@ -1,0 +1,43 @@
+=== PARTNER_NONE ===
+Name:
+Class: Pkmn Trainer 1
+Pic: Brendan
+Gender: Male
+Music: Male
+
+=== PARTNER_STEVEN ===
+Name: STEVEN
+Class: Rival
+Pic: Steven
+Gender: Male
+Music: Male
+
+Metang
+Brave Nature
+Level: 42
+IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe / 15 Rea / 15 Awa
+EVs: 0 HP / 252 Atk / 252 Def / 6 SpA / 0 SpD / 0 Spe / 0 Rea / 0 Awa
+- Light Screen
+- Psychic
+- Reflect
+- Metal Claw
+
+Skarmory
+Impish Nature
+Level: 43
+IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe / 15 Rea / 15 Awa
+EVs: 0 HP / 252 Atk / 252 Def / 6 SpA / 0 SpD / 0 Spe / 0 Rea / 0 Awa
+- Toxic
+- Aerial Ace
+- Protect
+- Steel Wing
+
+Aggron
+Adamant Nature
+Level: 44
+IVs: 15 HP / 15 Atk / 15 Def / 15 SpA / 15 SpD / 15 Spe / 15 Rea / 15 Awa
+EVs: 0 HP / 252 Atk / 252 Def / 6 SpA / 0 SpD / 0 Spe / 0 Rea / 0 Awa
+- Thunder
+- Protect
+- Solar Beam
+- Dragon Claw

@@ -23,13 +23,14 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *landMonsInfo;
     const struct WildPokemonInfo *waterMonsInfo;
     const struct WildPokemonInfo *rockSmashMonsInfo;
-	const struct WildPokemonInfo *hiddenMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
+	const struct WildPokemonInfo *hiddenMonsInfo;
 };
 
 extern const struct WildPokemonHeader gWildMonHeaders[];
 extern bool8 gIsFishingEncounter;
 extern bool8 gIsSurfingEncounter;
+extern u8 gChainFishingDexNavStreak;
 
 void DisableWildEncounters(bool8 disabled);
 u8 PickWildMonNature(void);
@@ -48,5 +49,6 @@ u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
 bool32 MapHasNoEncounterData(void);
+u32 CalculateChainFishingShinyRolls(void);
 
 #endif // GUARD_WILD_ENCOUNTER_H

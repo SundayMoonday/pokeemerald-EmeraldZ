@@ -28,6 +28,7 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "recorded_battle.h"
+#include "random.h"
 
 static void LinkOpponentHandleLoadMonSprite(u32 battler);
 static void LinkOpponentHandleSwitchInAnim(u32 battler);
@@ -117,7 +118,7 @@ void SetControllerToLinkOpponent(u32 battler)
 
 static void LinkOpponentBufferRunCommand(u32 battler)
 {
-    if (gBattleControllerExecFlags & gBitTable[battler])
+    if (gBattleControllerExecFlags & (1u << battler))
     {
         if (gBattleResources->bufferA[battler][0] < ARRAY_COUNT(sLinkOpponentBufferCommands))
             sLinkOpponentBufferCommands[gBattleResources->bufferA[battler][0]](battler);
@@ -375,7 +376,7 @@ static void LinkOpponentBufferExecCompleted(u32 battler)
     }
     else
     {
-        gBattleControllerExecFlags &= ~gBitTable[battler];
+        gBattleControllerExecFlags &= ~(1u << battler);
     }
 }
 
@@ -461,9 +462,7 @@ static void LinkOpponentHandleDrawTrainerPic(u32 battler)
         }
     }
 
-    BtlController_HandleDrawTrainerPic(battler, trainerPicId, TRUE,
-                                       xPos, 40 + 4 * (8 - gTrainerFrontPicCoords[trainerPicId].size),
-                                       -1);
+    BtlController_HandleDrawTrainerPic(battler, trainerPicId, TRUE, xPos, 40, -1);
 }
 
 static void LinkOpponentHandleTrainerSlide(u32 battler)

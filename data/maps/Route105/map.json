@@ -58,8 +58,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F",
-      "x": 20,
-      "y": 42,
+      "x": 8,
+      "y": 45,
       "elevation": 1,
       "movement_type": "MOVEMENT_TYPE_WALK_UP_AND_DOWN",
       "movement_range_x": 0,
@@ -91,8 +91,8 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route105_EventScript_ItemIron",
+      "trainer_sight_or_berry_tree_id": "ITEM_IRON",
+      "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_ROUTE_105_IRON"
     },
     {
@@ -144,16 +144,14 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-
-  ],
+  "coord_events": [],
   "bg_events": [
     {
       "type": "hidden_item",
-      "x": 12,
-      "y": 39,
+      "x": 15,
+      "y": 68,
       "elevation": 3,
-      "item": "ITEM_ICE_STONE",
+      "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_105_HEART_SCALE"
     },
     {

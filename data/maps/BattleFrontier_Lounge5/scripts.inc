@@ -182,6 +182,151 @@ BattleFrontier_Lounge5_Text_NatureGirlCareful::
 	.string "This one says it looks after itself!\n"
 	.string "But if it gets enough ouchies,\l"
 	.string "it will turn sneaky!$"
+	
+BattleFrontier_Lounge5_Text_NatureGirlAustere::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will hit back!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlWild::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will worry about itself!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlWary::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "It will battle even if it has a lot\l"
+	.string "of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlStrict::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will hit back!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlPolite::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will worry about itself!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlSpacey::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "It will battle even if it has a lot\l"
+	.string "of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlWise::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will hit back!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlJealous::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will worry about itself!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlProud::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "It says it likes to be sneaky even\l"
+	.string "if it has a lot of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlValiant::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will turn sneaky!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlShy::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "It will battle even if it has a lot\l"
+	.string "of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlCurious::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "It says it likes to be sneaky even\l"
+	.string "if it has a lot of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlAlert::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will worry about itself!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlSilly::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "It will battle even if it has a lot\l"
+	.string "of ouchies!$"
+	
+BattleFrontier_Lounge5_Text_NatureGirlAnxious::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "It says it worries about itself whether\l"
+	.string "or not it has a lot of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlSuave::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will turn sneaky!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlPassive::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "It will battle even if it has a lot\l"
+	.string "of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlSkeptic::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "It says it worries about itself even\l"
+	.string "if it has a lot of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlDevoted::
+	.string "Hmhm…\p"
+	.string "This one says it likes to be sneaky!\n"
+	.string "It says it likes to be sneaky even\l"
+	.string "if it has a lot of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlPatient::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "It says it worries about itself even\l"
+	.string "if it has a lot of ouchies!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlAloof::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will hit back!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlErratic::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will turn sneaky!$"
+
+BattleFrontier_Lounge5_Text_NatureGirlFocused::
+	.string "Hmhm…\p"
+	.string "This one says it looks after itself!\n"
+	.string "But if it gets enough ouchies,\l"
+	.string "it will turn sneaky!$"
+	
+BattleFrontier_Lounge5_Text_NatureGirlZealous::
+	.string "Hmhm…\p"
+	.string "This one says it likes to battle!\n"
+	.string "It will battle even if it has a lot\l"
+	.string "of ouchies!$"
+
 
 BattleFrontier_Lounge5_Text_NatureGirlEgg::
 	.string "That's silly! An EGG is asleep!\n"

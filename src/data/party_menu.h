@@ -64,7 +64,7 @@ static const struct PartyMenuBoxInfoRects sPartyBoxInfoRects[] =
 
 // Each layout array has an array for each of the 6 party slots
 // The array for each slot has the sprite coords of its various sprites in the following order
-// Pokemon icon (x, y), held item (x, y), status condition (x, y), menu pokeball (x, y)
+// Pokémon icon (x, y), held item (x, y), status condition (x, y), menu Poké Ball (x, y)
 static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
 {
     [PARTY_LAYOUT_SINGLE] =
@@ -565,7 +565,7 @@ static const struct WindowTemplate sLevelUpStatsWindowTemplate =
     .tilemapLeft = 19,
     .tilemapTop = 1,
     .width = 10,
-    .height = 11,
+    .height = 15,
     .paletteNum = 14,
     .baseBlock = 0x2E9,
 };
@@ -690,10 +690,9 @@ struct
 {
     const u8 *text;
     TaskFunc func;
-} static const sCursorOptions[] =
+} static const sCursorOptions[MENU_FIELD_MOVES] =
 {
     [MENU_SUMMARY] = {gText_Summary5, CursorCb_Summary},
-	[MENU_MOVES] = {gText_Moves, CursorCb_Moves},
     [MENU_SWITCH] = {gText_Switch2, CursorCb_Switch},
     [MENU_CANCEL1] = {gText_Cancel2, CursorCb_Cancel1},
     [MENU_ITEM] = {gText_Item, CursorCb_Item},
@@ -720,21 +719,6 @@ struct
     [MENU_CATALOG_MOWER] = {gText_LawnMower, CursorCb_CatalogMower},
     [MENU_CHANGE_FORM] = {gText_ChangeForm, CursorCb_ChangeForm},
     [MENU_CHANGE_ABILITY] = {gText_ChangeAbility, CursorCb_ChangeAbility},
-    [MENU_FIELD_MOVES + FIELD_MOVE_CUT] = {gMoveNames[MOVE_CUT], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_FLASH] = {gMoveNames[MOVE_FLASH], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_ROCK_SMASH] = {gMoveNames[MOVE_ROCK_SMASH], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_STRENGTH] = {gMoveNames[MOVE_STRENGTH], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_SURF] = {gMoveNames[MOVE_SURF], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_FLY] = {gMoveNames[MOVE_FLY], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_DIVE] = {gMoveNames[MOVE_DIVE], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_WATERFALL] = {gMoveNames[MOVE_WATERFALL], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_TELEPORT] = {gMoveNames[MOVE_TELEPORT], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_DIG] = {gMoveNames[MOVE_DIG], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_SECRET_POWER] = {gMoveNames[MOVE_SECRET_POWER], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_MILK_DRINK] = {gMoveNames[MOVE_MILK_DRINK], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_SOFT_BOILED] = {gMoveNames[MOVE_SOFT_BOILED], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT] = {gMoveNames[MOVE_SWEET_SCENT], CursorCb_FieldMove},
-    [MENU_FIELD_MOVES + FIELD_MOVE_ROCK_CLIMB] = {gMoveNames[MOVE_ROCK_CLIMB], CursorCb_FieldMove},
 };
 
 static const u8 sPartyMenuAction_SummarySwitchCancel[] = {MENU_SUMMARY, MENU_SWITCH, MENU_CANCEL1};
@@ -854,7 +838,7 @@ static const u8 *const sUnionRoomTradeMessages[] =
 };
 
 static const u32 sHeldItemGfx[] = INCBIN_U32("graphics/party_menu/hold_icons.4bpp");
-const u16 gHeldItemPalette[] = INCBIN_U16("graphics/party_menu/hold_icons.gbapal");
+static const u16 sHeldItemPalette[] = INCBIN_U16("graphics/party_menu/hold_icons.gbapal");
 
 static const struct OamData sOamData_HeldItem =
 {
@@ -891,14 +875,14 @@ static const union AnimCmd *const sSpriteAnimTable_HeldItem[] =
     sSpriteAnim_HeldMail,
 };
 
-const struct SpriteSheet gSpriteSheet_HeldItem =
+const struct SpriteSheet sSpriteSheet_HeldItem =
 {
     .data = sHeldItemGfx, .size = sizeof(sHeldItemGfx), .tag = TAG_HELD_ITEM
 };
 
 const struct SpritePalette sSpritePalette_HeldItem =
 {
-    .data = gHeldItemPalette, .tag = TAG_HELD_ITEM
+    .data = sHeldItemPalette, .tag = TAG_HELD_ITEM
 };
 
 static const struct SpriteTemplate sSpriteTemplate_HeldItem =
@@ -911,6 +895,8 @@ static const struct SpriteTemplate sSpriteTemplate_HeldItem =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
+
+const u16 gHeldItemPalette[] = INCBIN_U16("graphics/party_menu/hold_icons.gbapal");
 
 static const struct OamData sOamData_MenuPokeball =
 {
@@ -957,7 +943,7 @@ static const struct CompressedSpritePalette sSpritePalette_MenuPokeball =
     gPartyMenuPokeball_Pal, TAG_POKEBALL
 };
 
-// Used for the pokeball sprite on each party slot / Cancel button
+// Used for the Poké Ball sprite on each party slot / Cancel button
 static const struct SpriteTemplate sSpriteTemplate_MenuPokeball =
 {
     .tileTag = TAG_POKEBALL,
@@ -1157,14 +1143,26 @@ static const u8 *const sUnused_StatStrings[] =
     gText_SpDef4,
     gText_Speed2,
 	gText_React,
-	gText_Obser
+	gText_Aware
 };
+
+const struct SpriteSheet gSpriteSheet_HeldItem =
+{
+    .data = sHeldItemGfx, .size = sizeof(sHeldItemGfx), .tag = TAG_HELD_ITEM
+};
+
+#define ROTOM_BASE_MOVE  MOVE_THUNDER_SHOCK
+#define ROTOM_HEAT_MOVE  MOVE_OVERHEAT
+#define ROTOM_WASH_MOVE  MOVE_HYDRO_PUMP
+#define ROTOM_FROST_MOVE MOVE_BLIZZARD
+#define ROTOM_FAN_MOVE   MOVE_AIR_SLASH
+#define ROTOM_MOW_MOVE   MOVE_LEAF_STORM
 
 static const u16 sRotomFormChangeMoves[5] =
 {
-    MOVE_HYDRO_PUMP,
-    MOVE_BLIZZARD,
-    MOVE_OVERHEAT,
-    MOVE_AIR_SLASH,
-    MOVE_LEAF_STORM,
+    ROTOM_HEAT_MOVE,
+    ROTOM_WASH_MOVE,
+    ROTOM_FROST_MOVE,
+    ROTOM_FAN_MOVE,
+    ROTOM_MOW_MOVE,
 };

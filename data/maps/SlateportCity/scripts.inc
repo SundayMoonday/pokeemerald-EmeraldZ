@@ -19,7 +19,7 @@
 .set LOCALID_GRUNT_11, 33
 .set LOCALID_SCOTT, 35
 
-@ Note: LOCALID_SLATEPORT_ENERGY_GURU is a local id for this map used elsewhere. Its defined in event_objects.h
+@ Note: LOCALID_SLATEPORT_ENERGY_GURU is a local id for this map used elsewhere. It's defined in event_objects.h
 
 SlateportCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SlateportCity_OnTransition
@@ -154,9 +154,7 @@ SlateportCity_Pokemart_EnergyGuru:
 	.2byte ITEM_ZINC
 	.2byte ITEM_CALCIUM
 	.2byte ITEM_HP_UP
-	.2byte ITEM_NONE
-	release
-	end
+	pokemartlistend
 	
 	SlateportCity_EventScript_BerryBeauty::
 	lock
@@ -536,9 +534,7 @@ SlateportCity_PokemartDecor_Dolls:
 	.2byte DECOR_AZURILL_DOLL
 	.2byte DECOR_MARILL_DOLL
 	.2byte DECOR_SKITTY_DOLL
-	.2byte DECOR_NONE
-	release
-	end
+	pokemartlistend
 
 SlateportCity_EventScript_ComeBackWithSecretPower::
 	msgbox gText_ComeBackWithSecretPower, MSGBOX_DEFAULT
@@ -572,9 +568,7 @@ SlateportCity_PokemartDecor:
 	.2byte DECOR_A_NOTE_MAT
 	.2byte DECOR_B_NOTE_MAT
 	.2byte DECOR_C_HIGH_NOTE_MAT
-	.2byte DECOR_NONE
-	release
-	end
+	pokemartlistend
 
 SlateportCity_EventScript_PowerTMClerk::
 	lock
@@ -590,9 +584,7 @@ SlateportCity_EventScript_PowerTMClerk::
 SlateportCity_Pokemart_PowerTMs:
 	.2byte ITEM_TM_HIDDEN_POWER
 	.2byte ITEM_TM_SECRET_POWER
-	.2byte ITEM_NONE
-	release
-	end
+	pokemartlistend
 
 @ Scene with Capt Sterns interview and Team Aqua announcing plans to steal Submarine
 SlateportCity_EventScript_CaptStern::
