@@ -112,9 +112,9 @@ enum
 #define GFXTAG_SYMBOLS_START (GFXTAG_7_RED)
 #define GFXTAG_NUMBERS_START (GFXTAG_NUM_0)
 
-#define REEL_NORMAL_SPEED  4
-#define REEL_HALF_SPEED    2
-#define REEL_QUARTER_SPEED 1
+#define REEL_NORMAL_SPEED  8
+#define REEL_HALF_SPEED    4
+#define REEL_QUARTER_SPEED 2
 
 enum {
     PALTAG_REEL,
@@ -2324,7 +2324,9 @@ static bool8 ReelTask_MoveToStop(struct Task *task)
     memcpy(reelStopShocks, sReelStopShocks, sizeof(sReelStopShocks));
     reelPixelPos = sSlotMachine->reelPixelOffsets[task->tReelId] % REEL_SYMBOL_HEIGHT;
     if (reelPixelPos != 0)
+    {
         reelPixelPos = AdvanceSlotReelToNextSymbol(task->tReelId, sSlotMachine->reelSpeed);
+    }
     else if (sSlotMachine->reelExtraTurns[task->tReelId])
     {
         sSlotMachine->reelExtraTurns[task->tReelId]--;
@@ -3324,7 +3326,8 @@ static void SpriteCB_FlashMatchingLines(struct Sprite *sprite)
                 if (sprite->sNumFullFlashes)
                     sprite->sNumFullFlashes--;
             }
-            else if (sprite->sColor >= maxColorChange) {
+            else if (sprite->sColor >= maxColorChange)
+            {
                 // Reached peak darkness, reverse
                 sprite->sColorIncr = -sprite->sColorIncr;
             }
@@ -5495,15 +5498,15 @@ static const u16 sSlotMatchFlags[] = {
 };
 
 static const u16 sSlotPayouts[] = {
-    [MATCH_CHERRY]        = 3,
-    [MATCH_TOPBOT_CHERRY] = 6,
+    [MATCH_CHERRY]        = 2,
+    [MATCH_TOPBOT_CHERRY] = 4,
     [MATCH_REPLAY]        = 0,
-    [MATCH_LOTAD]         = 12,
-    [MATCH_AZURILL]       = 24,
-    [MATCH_POWER]         = 30,
-    [MATCH_MIXED_7]       = 300,
-    [MATCH_RED_7]         = 500,
-    [MATCH_BLUE_7]        = 500
+    [MATCH_LOTAD]         = 6,
+    [MATCH_AZURILL]       = 12,
+    [MATCH_POWER]         = 3,
+    [MATCH_MIXED_7]       = 90,
+    [MATCH_RED_7]         = 300,
+    [MATCH_BLUE_7]        = 300
 };
 
 static const s16 sDigitalDisplay_SpriteCoords[][2] = {
@@ -6984,7 +6987,7 @@ static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Win[] =
     {ARRAY_COUNT(sSubsprites_DigitalDisplay_Win), sSubsprites_DigitalDisplay_Win}
 };
 
-static const struct Subsprite sSubsprites_DigitalDisplay_Smoke[] =
+static const struct Subsprite sSubsprites_DigitalDisplay_SmokeBig[] =
 {
     {
         .x = -16,
@@ -6996,7 +6999,7 @@ static const struct Subsprite sSubsprites_DigitalDisplay_Smoke[] =
     }
 };
 
-static const struct Subsprite sSubsprites_DigitalDisplay_Unused2[] =
+static const struct Subsprite sSubsprites_DigitalDisplay_SmokeSmall[] =
 {
     {
         .x = -8,
@@ -7010,12 +7013,8 @@ static const struct Subsprite sSubsprites_DigitalDisplay_Unused2[] =
 
 static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Smoke[] =
 {
-    {ARRAY_COUNT(sSubsprites_DigitalDisplay_Smoke), sSubsprites_DigitalDisplay_Smoke}
-};
-
-static const struct SubspriteTable sSubspriteTable_DigitalDisplay_Unused2[] =
-{
-    {ARRAY_COUNT(sSubsprites_DigitalDisplay_Unused2), sSubsprites_DigitalDisplay_Unused2}
+    {ARRAY_COUNT(sSubsprites_DigitalDisplay_SmokeBig),   sSubsprites_DigitalDisplay_SmokeBig},
+    {ARRAY_COUNT(sSubsprites_DigitalDisplay_SmokeSmall), sSubsprites_DigitalDisplay_SmokeSmall}
 };
 
 /*

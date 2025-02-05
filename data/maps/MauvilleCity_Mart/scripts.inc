@@ -24,10 +24,8 @@ MauvilleCity_Mart_Pokemart:
 	.2byte ITEM_X_DEFENSE
 	.2byte ITEM_GUARD_SPEC
 	.2byte ITEM_DIRE_HIT
-	.2byte ITEM_LURE
-	.2byte ITEM_NONE
-	release
-	end
+	.2byte ITEM_X_ACCURACY
+	pokemartlistend
 
 MauvilleCity_Mart_EventScript_ExpertM::
 	msgbox MauvilleCity_Mart_Text_ItemsToTemporarilyElevateStats, MSGBOX_NPC
