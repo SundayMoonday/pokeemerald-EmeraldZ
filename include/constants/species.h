@@ -1056,7 +1056,7 @@
 #define SPECIES_DARMANITAN_GALAR_STANDARD               991
 #define SPECIES_DARMANITAN_GALAR                        SPECIES_DARMANITAN_GALAR_STANDARD
 #define SPECIES_YAMASK_GALAR                            992
-#define SPECIES_STUNFISK_GALAR                          992
+#define SPECIES_STUNFISK_GALAR                          993
 
 //Hisuian Forms
 #define SPECIES_GROWLITHE_HISUI                         994
@@ -1215,15 +1215,15 @@
 #define SPECIES_FLORGES_ORANGE                          1144
 #define SPECIES_FLORGES_BLUE                            1145
 #define SPECIES_FLORGES_WHITE                           1146
-#define SPECIES_FURFROU_HEART_TRIM                      1147
-#define SPECIES_FURFROU_STAR_TRIM                       1148
-#define SPECIES_FURFROU_DIAMOND_TRIM                    1149
-#define SPECIES_FURFROU_DEBUTANTE_TRIM                  1150
-#define SPECIES_FURFROU_MATRON_TRIM                     1151
-#define SPECIES_FURFROU_DANDY_TRIM                      1152
-#define SPECIES_FURFROU_LA_REINE_TRIM                   1153
-#define SPECIES_FURFROU_KABUKI_TRIM                     1154
-#define SPECIES_FURFROU_PHARAOH_TRIM                    1155
+#define SPECIES_FURFROU_HEART		                    1147
+#define SPECIES_FURFROU_STAR	                        1148
+#define SPECIES_FURFROU_DIAMOND                         1149
+#define SPECIES_FURFROU_DEBUTANTE                       1150
+#define SPECIES_FURFROU_MATRON                          1151
+#define SPECIES_FURFROU_DANDY                           1152
+#define SPECIES_FURFROU_LA_REINE                        1153
+#define SPECIES_FURFROU_KABUKI                          1154
+#define SPECIES_FURFROU_PHARAOH                         1155
 #define SPECIES_MEOWSTIC_F                              1156
 #define SPECIES_AEGISLASH_BLADE                         1157
 #define SPECIES_PUMPKABOO_SMALL                         1158

@@ -2893,6 +2893,8 @@ extern const u32 gBattleAnimSpritePal_IvyCudgelRock[];
 extern const u32 gBattleAnimSpritePal_IvyCudgelWater[];
 extern const u32 gBattleAnimSpriteGfx_PinkVioletOrb[];
 extern const u32 gBattleAnimSpritePal_PinkVioletOrb[];
+extern const u32 gBattleAnimSpriteGfx_TeraStarstormBeam[];
+extern const u32 gBattleAnimSpritePal_TeraStarstormBeam[];
 
 extern const u32 gBattleAnimBgImage_Dark[];
 extern const u32 gBattleAnimBgImage_Ghost[];
@@ -3084,6 +3086,8 @@ extern const u32 gStatAnim_Multiple_Pal[];
 extern const u32 gStatAnim_Evasion_Pal[];
 extern const u32 gStatAnim_SpAttack_Pal[];
 extern const u32 gStatAnim_SpDefense_Pal[];
+extern const u32 gStatAnim_Reaction_Pal[];
+extern const u32 gStatAnim_Awareness_Pal[];
 
 extern const u32 gContestInterfaceGfx[];
 extern const u32 gContestAudienceGfx[];

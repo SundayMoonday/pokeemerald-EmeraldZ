@@ -366,10 +366,10 @@ PlayersHouse_1F_Text_RegisteredMom:
 	.string "in the POKéNAV.$"
 
 PlayersHouse_1F_Text_Vigoroth1:
-	.string "Goon! Go-Goon!$"
+	.string "Fugiiiiih!$"
 
 PlayersHouse_1F_Text_Vigoroth2:
-	.string "Gooon, Goh goh…$"
+	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
 	.string "INTERVIEWER: …We brought you this\n"

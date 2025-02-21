@@ -60,9 +60,7 @@ void CalcEmeraldBattleTowerChecksum(struct EmeraldBattleTowerRecord *record);
 void CalcRubyBattleTowerChecksum(struct RSBattleTowerRecord *record);
 u16 GetCurrentBattleTowerWinStreak(u8 lvlMode, u8 battleMode);
 u8 GetEreaderTrainerFrontSpriteId(void);
-#ifndef FREE_BATTLE_TOWER_E_READER
 u8 GetEreaderTrainerClassId(void);
-#endif
 void GetEreaderTrainerName(u8 *dst);
 void ValidateEReaderTrainer(void);
 void ClearEReaderTrainer(struct BattleTowerEReaderTrainer *ereaderTrainer);

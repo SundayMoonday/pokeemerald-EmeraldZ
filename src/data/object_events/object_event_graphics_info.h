@@ -1433,6 +1433,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Chest = {
     .paletteSlot = PALSLOT_NPC_3,
     .shadowSize = SHADOW_SIZE_S,
     .inanimate = TRUE,
+    .compressed = FALSE,
     .tracks = TRACKS_NONE,
     .oam = &gObjectEventBaseOam_16x16,
     .subspriteTables = sOamTables_16x16,
@@ -1441,21 +1442,22 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Chest = {
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Shroomish = {
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_UnusedMagnemiteDoll = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_SHROOMISH,
+    .paletteTag = OBJ_EVENT_PAL_TAG_NPC_3,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
     .size = 128,
     .width = 16,
     .height = 16,
-    .paletteSlot = PALSLOT_NPC_SPECIAL,
-    .shadowSize = SHADOW_SIZE_M,
-    .inanimate = FALSE,
-    .tracks = TRACKS_FOOT,
+    .paletteSlot = PALSLOT_NPC_3,
+    .shadowSize = SHADOW_SIZE_S,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
     .oam = &gObjectEventBaseOam_16x16,
     .subspriteTables = sOamTables_16x16,
-    .anims = sAnimTable_Standard,
-    .images = sPicTable_Shroomish,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_UnusedMagnemiteDoll,
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 

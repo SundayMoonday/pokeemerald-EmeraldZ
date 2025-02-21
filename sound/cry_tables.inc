@@ -3169,7 +3169,6 @@ gCryTable_Reverse::
 .if P_FAMILY_ZIGZAGOON == TRUE
 	cry_reverse Cry_Zigzagoon
 	cry_reverse Cry_Linoone
-	cry_reverse Cry_Gogogoon
 .if P_GALARIAN_FORMS == TRUE
 	cry_reverse Cry_Obstagoon
 .endif @ P_GALARIAN_FORMS

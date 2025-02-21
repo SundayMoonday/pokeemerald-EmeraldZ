@@ -397,8 +397,6 @@ static bool8 MapHasSpecies(const struct WildPokemonHeader *info, u16 species)
         return TRUE;
     if (MonListHasSpecies(info->rockSmashMonsInfo, species, ROCK_WILD_COUNT))
         return TRUE;
-	if (MonListHasSpecies(info->hiddenMonsInfo, species, HIDDEN_WILD_COUNT))
-        return TRUE;
     return FALSE;
 }
 
@@ -720,11 +718,11 @@ static void ResetPokedexAreaMapBg(void)
 static void CreateAreaMarkerSprites(void)
 {
     u8 spriteId;
-    static s16 x;
-    static s16 y;
-    static s16 i;
-    static s16 mapSecId;
-    static s16 numSprites;
+    s16 x;
+    s16 y;
+    s16 i;
+    s16 mapSecId;
+    s16 numSprites;
 
     LoadSpriteSheet(&sAreaMarkerSpriteSheet);
     LoadSpritePalette(&sAreaMarkerSpritePalette);

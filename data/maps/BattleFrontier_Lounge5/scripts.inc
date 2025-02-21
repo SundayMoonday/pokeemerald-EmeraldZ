@@ -327,7 +327,6 @@ BattleFrontier_Lounge5_Text_NatureGirlZealous::
 	.string "It will battle even if it has a lot\l"
 	.string "of ouchies!$"
 
-
 BattleFrontier_Lounge5_Text_NatureGirlEgg::
 	.string "That's silly! An EGG is asleep!\n"
 	.string "I can't talk to it!$"

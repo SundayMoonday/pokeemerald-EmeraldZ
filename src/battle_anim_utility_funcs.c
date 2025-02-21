@@ -518,10 +518,10 @@ static void StatsChangeAnimation_Step2(u8 taskId)
         LoadCompressedPalette(gStatAnim_SpDefense_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
 	case STAT_ANIM_PAL_REACT:
-        LoadCompressedPalette(gStatAnim_Speed_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadCompressedPalette(gStatAnim_Reaction_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     case STAT_ANIM_PAL_AWARE:
-        LoadCompressedPalette(gStatAnim_Speed_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
+        LoadCompressedPalette(gStatAnim_Awareness_Pal, BG_PLTT_ID(animBgData.paletteId), PLTT_SIZE_4BPP);
         break;
     default:
  // case STAT_ANIM_PAL_MULTIPLE:

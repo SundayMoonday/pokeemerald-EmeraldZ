@@ -224,6 +224,7 @@ static const s16 sMonPokeblockAnims[][NUM_ANIMDATA] =
     {   0,   4,  16,  12,  64,   0,   0,   0,   0,   FALSE},
     {   0,  -4,  16,  12,  64,   0,   0,   0,   0,   TRUE},
 	
+	
 	[ANIM_AUSTERE] =
     {   0,   4,   0,   8,  24,   0,   0,   0,  12,   FALSE},
     {   0,   4,   0,  16,  24,   0,   0,   0,  12,   FALSE},
@@ -277,7 +278,7 @@ static const s16 sMonPokeblockAnims[][NUM_ANIMDATA] =
 
     [ANIM_ALERT] =
 	{  64,  16, -16,   2,  48,   0,   0,   0,  32,   TRUE},
-    
+
     [ANIM_SILLY] =
     {   0,   0,   0,   0,  32,   0,   0,   0,   0,   TRUE},
 
@@ -306,10 +307,10 @@ static const s16 sMonPokeblockAnims[][NUM_ANIMDATA] =
 
     [ANIM_PATIENT] =
     {   0,   2,  16,   4,  64,   0,   0,   0,   0,   TRUE},
-	
+
     [ANIM_ALOOF] =
     {   0,   0,   0,   0,  32,   0,   0,   0,   0,   TRUE},
-	
+
 	[ANIM_ERRATIC] =
     {   0,   4,   0,   8,  24,   0,   0,   0,  12,   FALSE},
     {   0,   0,   0,   0,  12,   0,   0,   0,   0,   FALSE},

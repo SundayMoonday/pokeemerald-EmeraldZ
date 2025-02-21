@@ -58,7 +58,6 @@ static inline u16 Random(void)
 
 void SeedRng(u32 seed);
 void SeedRng2(u32 seed);
-u16 RandRange(u16 min, u16 max);
 rng_value_t LocalRandomSeed(u32 seed);
 
 static inline u16 Random2(void)
@@ -176,8 +175,10 @@ enum RandomTag
     RNG_AI_SWITCH_SE_DEFENSIVE,
     RNG_SHELL_SIDE_ARM,
     RNG_RANDOM_TARGET,
+    RNG_AI_PREDICT_ABILITY,
+    RNG_AI_PREDICT_SWITCH,
     RNG_HEALER,
-	RNG_DEXNAV_ENCOUNTER_LEVEL
+    RNG_DEXNAV_ENCOUNTER_LEVEL,
 };
 
 #define RandomWeighted(tag, ...) \

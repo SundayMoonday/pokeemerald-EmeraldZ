@@ -2109,10 +2109,6 @@ Cry_Zigzagoon::
 	.align 2
 Cry_Linoone::
 	.incbin "sound/direct_sound_samples/cries/linoone.bin"
-	
-	.align 2
-Cry_Gogogoon::
-	.incbin "sound/direct_sound_samples/cries/gogogoon.bin"
 
 .if P_GALARIAN_FORMS == TRUE
 	.align 2

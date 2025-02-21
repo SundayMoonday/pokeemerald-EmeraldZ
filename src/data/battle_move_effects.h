@@ -95,6 +95,20 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 1,
     },
 
+	[EFFECT_REACTION_UP] =
+    {
+        .battleScript = BattleScript_EffectReactionUp,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_AWARENESS_UP] =
+    {
+        .battleScript = BattleScript_EffectAwarenessUp,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
     [EFFECT_SPECIAL_ATTACK_UP_3] =
     {
         .battleScript = BattleScript_EffectSpecialAttackUp3,
@@ -140,6 +154,18 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_EVASION_DOWN] =
     {
         .battleScript = BattleScript_EffectEvasionDown,
+        .battleTvScore = 1,
+    },
+	
+	[EFFECT_REACTION_DOWN] =
+    {
+        .battleScript = BattleScript_EffectReactionDown,
+        .battleTvScore = 1,
+    },
+
+    [EFFECT_AWARENESS_DOWN] =
+    {
+        .battleScript = BattleScript_EffectAwarenessDown,
         .battleTvScore = 1,
     },
 
@@ -297,6 +323,20 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleTvScore = 1,
         .encourageEncore = TRUE,
     },
+	
+	[EFFECT_REACTION_UP_2] =
+    {
+        .battleScript = BattleScript_EffectReactionUp2,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_AWARENESS_UP_2] =
+    {
+        .battleScript = BattleScript_EffectAwarenessUp2,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
 
     [EFFECT_ACCURACY_UP_2] =
     {
@@ -344,6 +384,18 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_SPECIAL_DEFENSE_DOWN_2] =
     {
         .battleScript = BattleScript_EffectSpecialDefenseDown2,
+        .battleTvScore = 1,
+    },
+	
+	[EFFECT_REACTION_DOWN_2] =
+    {
+        .battleScript = BattleScript_EffectReactionDown2,
+        .battleTvScore = 1,
+    },
+
+    [EFFECT_AWARENESS_DOWN_2] =
+    {
+        .battleScript = BattleScript_EffectAwarenessDown2,
         .battleTvScore = 1,
     },
 
@@ -421,6 +473,27 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_DO_NOTHING] =
     {
         .battleScript = BattleScript_EffectDoNothing,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_HOLD_HANDS] =
+    {
+        .battleScript = BattleScript_EffectHoldHands,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_CELEBRATE] =
+    {
+        .battleScript = BattleScript_EffectCelebrate,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_HAPPY_HOUR] =
+    {
+        .battleScript = BattleScript_EffectHappyHour,
         .battleTvScore = 1,
         .encourageEncore = TRUE,
     },
@@ -1571,7 +1644,7 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
 
     [EFFECT_HIT_SWITCH_TARGET] =
     {
-        .battleScript = BattleScript_EffectHitSwitchTarget,
+        .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
 
@@ -2215,6 +2288,12 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
     },
 
     [EFFECT_ORDER_UP] =
+    {
+        .battleScript = BattleScript_EffectHit,
+        .battleTvScore = 0, // TODO: Assign points
+    },
+
+    [EFFECT_RAPID_SPIN] =
     {
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points

@@ -422,7 +422,6 @@ EventScript_FailSweetScent::
 
 Text_FailSweetScent:
 	.string "Looks like there's nothing here…$"
-	
 
 EventScript_UseRockClimb::
 	lockall
