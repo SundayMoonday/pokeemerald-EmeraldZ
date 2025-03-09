@@ -490,23 +490,29 @@ extern const u32 gItemIconPalette_Iron[];
 extern const u32 gItemIconPalette_Calcium[];
 extern const u32 gItemIconPalette_Zinc[];
 extern const u32 gItemIconPalette_Carbos[];
+extern const u32 gItemIconPalette_B12[];
+extern const u32 gItemIconPalette_Omega3[];
 extern const u32 gItemIcon_PPUp[];
 extern const u32 gItemIconPalette_PPUp[];
 extern const u32 gItemIcon_PPMax[];
 extern const u32 gItemIconPalette_PPMax[];
 // EV Feathers
 extern const u32 gItemIcon_HealthFeather[];
-extern const u32 gItemIconPalette_HealthFeather[];
+extern const u32 gItemIconPalette_HealthEV[];
 extern const u32 gItemIcon_MuscleFeather[];
-extern const u32 gItemIconPalette_MuscleFeather[];
+extern const u32 gItemIconPalette_AttackEV[];
 extern const u32 gItemIcon_ResistFeather[];
-extern const u32 gItemIconPalette_ResistFeather[];
+extern const u32 gItemIconPalette_DefenseEV[];
 extern const u32 gItemIcon_GeniusFeather[];
-extern const u32 gItemIconPalette_GeniusFeather[];
+extern const u32 gItemIconPalette_SpAttackEV[];
 extern const u32 gItemIcon_CleverFeather[];
-extern const u32 gItemIconPalette_CleverFeather[];
+extern const u32 gItemIconPalette_SpDefenseEV[];
 extern const u32 gItemIcon_SwiftFeather[];
-extern const u32 gItemIconPalette_SwiftFeather[];
+extern const u32 gItemIconPalette_SpeedEV[];
+extern const u32 gItemIcon_AlertFeather[];
+extern const u32 gItemIconPalette_ReactEV[];
+extern const u32 gItemIcon_KeenFeather[];
+extern const u32 gItemIconPalette_AwareEV[];
 // Ability Modifiers
 extern const u32 gItemIcon_AbilityCapsule[];
 extern const u32 gItemIconPalette_AbilityCapsule[];
@@ -520,6 +526,8 @@ extern const u32 gItemIconPalette_LightBlueMint[];
 extern const u32 gItemIconPalette_PinkMint[];
 extern const u32 gItemIconPalette_GreenMint[];
 extern const u32 gItemIconPalette_YellowMint[];
+extern const u32 gItemIconPalette_OrangeMint[];
+extern const u32 gItemIconPalette_PurpleMint[];
 // Candy
 extern const u32 gItemIcon_RareCandy[];
 extern const u32 gItemIconPalette_RareCandy[];
@@ -1702,12 +1710,6 @@ extern const u32 gItemIcon_FairyFeather[];
 extern const u32 gItemIconPalette_FairyFeather[];
 
 extern const u32 gItemIcon_Mochi[];
-extern const u32 gItemIconPalette_HealthMochi[];
-extern const u32 gItemIconPalette_MuscleMochi[];
-extern const u32 gItemIconPalette_ResistMochi[];
-extern const u32 gItemIconPalette_GeniusMochi[];
-extern const u32 gItemIconPalette_CleverMochi[];
-extern const u32 gItemIconPalette_SwiftMochi[];
 extern const u32 gItemIconPalette_FreshStartMochi[];
 
 extern const u32 gItemIcon_WellspringMask[];

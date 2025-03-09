@@ -425,7 +425,7 @@ static const u16 sFavorLadyAcceptedItems_Sticky[] =
     ITEM_FULL_RESTORE,
     ITEM_MAX_POTION,
     ITEM_DIRE_HIT,
-    ITEM_X_ACCURACY,
+    ITEM_X_AWARE,
     ITEM_GUARD_SPEC,
     ITEM_WATMEL_BERRY,
     ITEM_LEFTOVERS,

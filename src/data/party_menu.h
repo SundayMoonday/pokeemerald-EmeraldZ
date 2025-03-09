@@ -1143,8 +1143,8 @@ static const u8 *const sUnused_StatStrings[] =
     gText_SpAtk4,
     gText_SpDef4,
     gText_Speed2,
-	gText_React,
-	gText_Aware
+	gText_Reaction,
+	gText_Awareness
 };
 
 #define ROTOM_BASE_MOVE  MOVE_THUNDER_SHOCK

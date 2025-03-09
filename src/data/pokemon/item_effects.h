@@ -223,6 +223,22 @@ const u8 gItemEffect_Zinc[11] = {
     [10] = ITEM10_IS_VITAMIN,
 };
 
+const u8 gItemEffect_B12[11] = {
+    [0] = ITEM0_EV_REACT,
+    [5] = ITEM5_FRIENDSHIP_ALL,
+    [6] = ITEM6_ADD_EV,
+    VITAMIN_FRIENDSHIP_CHANGE(7),
+    [10] = ITEM10_IS_VITAMIN,
+};
+
+const u8 gItemEffect_Omega3[11] = {
+    [0] = ITEM0_EV_AWARE,
+    [5] = ITEM5_FRIENDSHIP_ALL,
+    [6] = ITEM6_ADD_EV,
+    VITAMIN_FRIENDSHIP_CHANGE(7),
+    [10] = ITEM10_IS_VITAMIN,
+};
+
 #define FEATHER_FRIENDSHIP_CHANGE(i)             \
     [(i) + 0] = 3, /* Friendship change, low */  \
     [(i) + 1] = 2, /* Friendship change, mid */  \
@@ -272,6 +288,22 @@ const u8 gItemEffect_SpdefFeather[11] = {
     [10] = 0,
 };
 
+const u8 gItemEffect_ReactFeather[11] = {
+    [0] = ITEM0_EV_REACT,
+    [5] = ITEM5_FRIENDSHIP_ALL,
+    [6] = ITEM6_ADD_ONE_EV,
+    FEATHER_FRIENDSHIP_CHANGE(7),
+    [10] = 0,
+};
+
+const u8 gItemEffect_AwareFeather[11] = {
+    [0] = ITEM0_EV_AWARE,
+    [5] = ITEM5_FRIENDSHIP_ALL,
+    [6] = ITEM6_ADD_ONE_EV,
+    FEATHER_FRIENDSHIP_CHANGE(7),
+    [10] = 0,
+};
+
 const u8 gItemEffect_HpMochi[11] = {
     [4] = ITEM4_EV_HP,
     [6] = ITEM6_ADD_EV,
@@ -308,8 +340,21 @@ const u8 gItemEffect_SpdefMochi[11] = {
     [10] = 0,
 };
 
+const u8 gItemEffect_ReactMochi[11] = {
+    [0] = ITEM0_EV_REACT,
+    [6] = ITEM6_ADD_EV,
+    [10] = 0,
+};
+
+const u8 gItemEffect_AwareMochi[11] = {
+    [0] = ITEM0_EV_AWARE,
+    [6] = ITEM6_ADD_EV,
+    [10] = 0,
+};
+
 const u8 gItemEffect_ResetMochi[11] = {
-    [4] = ITEM4_EV_HP | ITEM4_EV_ATK,
+    [0] = ITEM0_EV_REACT | ITEM0_EV_AWARE,
+	[4] = ITEM4_EV_HP | ITEM4_EV_ATK,
     [5] = ITEM5_EV_DEF | ITEM5_EV_SPEED | ITEM5_EV_SPATK | ITEM5_EV_SPDEF,
     [6] = ITEM6_RESET_EV,
     [10] = 0,
@@ -349,7 +394,7 @@ const u8 gItemEffect_GuardSpec[8] = {
 // The full constant is commented next to it
 
 const u8 gItemEffect_DireHit[8] = {
-    [0] = 1 << 5, // ITEM0_DIRE_HIT
+    [0] = ITEM0_DIRE_HIT,
     [5] = ITEM5_FRIENDSHIP_LOW | ITEM5_FRIENDSHIP_MID,
     STAT_BOOST_FRIENDSHIP_CHANGE,
 };
@@ -372,8 +417,8 @@ const u8 gItemEffect_XSpeed[8] = {
     STAT_BOOST_FRIENDSHIP_CHANGE,
 };
 
-const u8 gItemEffect_XAccuracy[8] = {
-    [1] = ITEM1_X_ACCURACY,
+const u8 gItemEffect_XAwareness[8] = {
+    [1] = ITEM1_X_AWARE,
     [5] = ITEM5_FRIENDSHIP_LOW | ITEM5_FRIENDSHIP_MID,
     STAT_BOOST_FRIENDSHIP_CHANGE,
 };

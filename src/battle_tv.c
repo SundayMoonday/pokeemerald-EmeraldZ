@@ -221,6 +221,8 @@ static const u16 sPoints_StatIncrease1[NUM_BATTLE_STATS - 1] =
     [STAT_SPEED - 1]   = 2,
     [STAT_SPATK - 1]   = 2,
     [STAT_SPDEF - 1]   = 2,
+	[STAT_REACT - 1]   = 2,
+    [STAT_AWARE - 1]   = 2,
     [STAT_ACC - 1]     = 2,
     [STAT_EVASION - 1] = 2
 };
@@ -231,6 +233,8 @@ static const u16 sPoints_StatIncrease2[NUM_BATTLE_STATS - 1] =
     [STAT_SPEED - 1]   = 4,
     [STAT_SPATK - 1]   = 4,
     [STAT_SPDEF - 1]   = 4,
+	[STAT_REACT - 1]   = 4,
+    [STAT_AWARE - 1]   = 4,
     [STAT_ACC - 1]     = 4,
     [STAT_EVASION - 1] = 4
 };
@@ -241,6 +245,8 @@ static const u16 sPoints_StatDecreaseSelf[NUM_BATTLE_STATS - 1] =
     [STAT_SPEED - 1]   = -1,
     [STAT_SPATK - 1]   = -1,
     [STAT_SPDEF - 1]   = -1,
+	[STAT_REACT - 1]   = -1,
+    [STAT_AWARE - 1]   = -1,
     [STAT_ACC - 1]     = -1,
     [STAT_EVASION - 1] = -1
 };
@@ -251,6 +257,8 @@ static const u16 sPoints_StatDecrease1[NUM_BATTLE_STATS - 1] =
     [STAT_SPEED - 1]   = 2,
     [STAT_SPATK - 1]   = 2,
     [STAT_SPDEF - 1]   = 2,
+	[STAT_REACT - 1]   = 2,
+    [STAT_AWARE - 1]   = 2,
     [STAT_ACC - 1]     = 2,
     [STAT_EVASION - 1] = 2
 };
@@ -261,6 +269,8 @@ static const u16 sPoints_StatDecrease2[NUM_BATTLE_STATS - 1] =
     [STAT_SPEED - 1]   = 4,
     [STAT_SPATK - 1]   = 4,
     [STAT_SPDEF - 1]   = 4,
+	[STAT_REACT - 1]   = 4,
+    [STAT_AWARE - 1]   = 4,
     [STAT_ACC - 1]     = 4,
     [STAT_EVASION - 1] = 4
 };
@@ -271,6 +281,8 @@ static const u16 sPoints_StatIncreaseNotSelf[NUM_BATTLE_STATS - 1] =
     [STAT_SPEED - 1]   = -2,
     [STAT_SPATK - 1]   = -2,
     [STAT_SPDEF - 1]   = -2,
+	[STAT_REACT - 1]   = -2,
+    [STAT_AWARE - 1]   = -2,
     [STAT_ACC - 1]     = -2,
     [STAT_EVASION - 1] = -2
 };

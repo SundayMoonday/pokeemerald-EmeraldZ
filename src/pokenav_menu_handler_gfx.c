@@ -59,7 +59,6 @@ static u32 LoopedTask_ReturnToMainMenu(s32);
 static u32 LoopedTask_OpenConditionSearchMenu(s32);
 static u32 LoopedTask_ReturnToConditionMenu(s32);
 static u32 LoopedTask_SelectRibbonsNoWinners(s32);
-static u32 LoopedTask_CannotAccessPC(s32);
 static u32 LoopedTask_ReShowDescription(s32);
 static u32 LoopedTask_OpenPokenavFeature(s32);
 static void LoadPokenavOptionPalettes(void);
@@ -84,7 +83,6 @@ static void DestroyRematchBlueLightSprite(void);
 static void AddOptionDescriptionWindow(void);
 static void PrintCurrentOptionDescription(void);
 static void PrintNoRibbonWinners(void);
-static void PrintCannotAccessPC(void);
 static bool32 IsDma3ManagerBusyWithBgCopy_(void);
 static void CreateMovingBgDotsTask(void);
 static void DestroyMovingDotsBgTask(void);
@@ -111,7 +109,6 @@ static const u16 sMatchCallBlueLightPal[] = INCBIN_U16("graphics/pokenav/blue_li
 static const u32 sMatchCallBlueLightTiles[] = INCBIN_U32("graphics/pokenav/blue_light.4bpp.lz");
 
 static const u8 gText_NoRibbonWinners[] = _("There are no RIBBON winners.");
-const u8 gText_Pokenav_Cannot_Access_PC[] = _("No signal, can't access PC.");
 
 static const struct BgTemplate sPokenavMainMenuBgTemplates[] = {
     {
@@ -151,8 +148,7 @@ static const LoopedTask sMenuHandlerLoopTaskFuncs[] =
     [POKENAV_MENU_FUNC_RETURN_TO_CONDITION]   = LoopedTask_ReturnToConditionMenu,
     [POKENAV_MENU_FUNC_NO_RIBBON_WINNERS]     = LoopedTask_SelectRibbonsNoWinners,
     [POKENAV_MENU_FUNC_RESHOW_DESCRIPTION]    = LoopedTask_ReShowDescription,
-    [POKENAV_MENU_FUNC_OPEN_FEATURE]          = LoopedTask_OpenPokenavFeature,
-	[POKENAV_MENU_FUNC_CANNOT_ACCESS_PC]      = LoopedTask_CannotAccessPC
+    [POKENAV_MENU_FUNC_OPEN_FEATURE]          = LoopedTask_OpenPokenavFeature
 };
 
 static const struct CompressedSpriteSheet sPokenavOptionsSpriteSheets[] =
@@ -799,22 +795,6 @@ static u32 LoopedTask_OpenPokenavFeature(s32 state)
     return LT_FINISH;
 }
 
-static u32 LoopedTask_CannotAccessPC(s32 state)
-{
-    switch (state)
-    {
-    case 0:
-        PlaySE(SE_FAILURE);
-        PrintCannotAccessPC();
-        return LT_INC_AND_PAUSE;
-    case 1:
-        if (IsDma3ManagerBusyWithBgCopy())
-            return LT_PAUSE;
-        break;
-    }
-    return LT_FINISH;
-}
-
 static void LoadPokenavOptionPalettes(void)
 {
     s32 i;
@@ -1263,15 +1243,6 @@ static void PrintNoRibbonWinners(void)
     u32 width = GetStringWidth(FONT_NORMAL, s, -1);
     FillWindowPixelBuffer(gfx->optionDescWindowId, PIXEL_FILL(6));
     AddTextPrinterParameterized3(gfx->optionDescWindowId, FONT_NORMAL, (192 - width) / 2, 1, sOptionDescTextColors2, 0, s);
-}
-
-static void PrintCannotAccessPC(void)
-{
-     struct Pokenav_MenuGfx * gfx = GetSubstructPtr(POKENAV_SUBSTRUCT_MENU_GFX);
-     const u8 * s = gText_Pokenav_Cannot_Access_PC;
-     u32 width = GetStringWidth(FONT_NORMAL, s, -1);
-     FillWindowPixelBuffer(gfx->optionDescWindowId, PIXEL_FILL(6));
-     AddTextPrinterParameterized3(gfx->optionDescWindowId, FONT_NORMAL, (192 - width) / 2, 1, sOptionDescTextColors2, 0, s);
 }
 
 static bool32 IsDma3ManagerBusyWithBgCopy_(void)

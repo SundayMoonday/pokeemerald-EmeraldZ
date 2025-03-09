@@ -4189,8 +4189,10 @@ static inline bool32 HadMoreThanHalfHpNowDoesnt(u32 battler)
 #define ANIM_STAT_SPATK   3
 #define ANIM_STAT_SPDEF   4
 #define ANIM_STAT_SPEED   5
-#define ANIM_STAT_ACC     6
-#define ANIM_STAT_EVASION 7
+#define ANIM_STAT_REACT   6
+#define ANIM_STAT_AWARE   7
+#define ANIM_STAT_ACC     8
+#define ANIM_STAT_EVASION 9
 static void ChooseStatBoostAnimation(u32 battler)
 {
     u32 stat;
@@ -4203,6 +4205,8 @@ static void ChooseStatBoostAnimation(u32 battler)
         [ANIM_STAT_SPATK]   = STAT_SPATK,
         [ANIM_STAT_SPDEF]   = STAT_SPDEF,
         [ANIM_STAT_SPEED]   = STAT_SPEED,
+		[ANIM_STAT_REACT]   = STAT_REACT,
+        [ANIM_STAT_AWARE]   = STAT_AWARE,
         [ANIM_STAT_ACC]     = STAT_ACC,
         [ANIM_STAT_EVASION] = STAT_EVASION,
     };
@@ -4228,6 +4232,8 @@ static void ChooseStatBoostAnimation(u32 battler)
 #undef ANIM_STAT_SPATK
 #undef ANIM_STAT_SPDEF
 #undef ANIM_STAT_SPEED
+#undef ANIM_STAT_REACT
+#undef ANIM_STAT_AWARE
 #undef ANIM_STAT_ACC
 #undef ANIM_STAT_EVASION
 
@@ -6036,7 +6042,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_ILLUSION:
-            if (gBattleStruct->illusion[gBattlerTarget].on && !gBattleStruct->illusion[gBattlerTarget].broken && IsBattlerTurnDamaged(gBattlerTarget))
+            if (gBattleStruct->illusion[gBattlerTarget].on && !gBattleStruct->illusion[gBattlerTarget].broken && IsBattlerTurnDamaged(gBattlerTarget) && !gSpecialStatuses[gBattlerTarget].closeCall)
             {
                 BattleScriptPushCursor();
                 gBattlescriptCurrInstr = BattleScript_IllusionOff;

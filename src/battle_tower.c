@@ -1622,6 +1622,8 @@ void CreateFacilityMon(const struct TrainerMon *fmon, u16 level, u8 fixedIV, u32
         SetMonData(dst, MON_DATA_SPATK_EV, &(fmon->ev[3]));
         SetMonData(dst, MON_DATA_SPDEF_EV, &(fmon->ev[4]));
         SetMonData(dst, MON_DATA_SPEED_EV, &(fmon->ev[5]));
+		SetMonData(dst, MON_DATA_REACT_EV, &(fmon->ev[6]));
+        SetMonData(dst, MON_DATA_AWARE_EV, &(fmon->ev[7]));
     }
 
     if (fmon->iv)
@@ -3024,6 +3026,8 @@ static void FillPartnerParty(u16 trainerId)
                 SetMonData(&gPlayerParty[i + 3], MON_DATA_SPATK_EV, &(partyData[i].ev[3]));
                 SetMonData(&gPlayerParty[i + 3], MON_DATA_SPDEF_EV, &(partyData[i].ev[4]));
                 SetMonData(&gPlayerParty[i + 3], MON_DATA_SPEED_EV, &(partyData[i].ev[5]));
+				SetMonData(&gPlayerParty[i + 3], MON_DATA_REACT_EV, &(partyData[i].ev[6]));
+                SetMonData(&gPlayerParty[i + 3], MON_DATA_AWARE_EV, &(partyData[i].ev[7]));
             }
             if (partyData[i].ability != ABILITY_NONE)
             {
@@ -3335,19 +3339,19 @@ static u8 GetFrontierTrainerFixedIvs(u16 trainerId)
     u8 fixedIv;
 
     if (trainerId <= FRONTIER_TRAINER_JILL)         // 0 - 99
-        fixedIv = 3;
+        fixedIv = 1;
     else if (trainerId <= FRONTIER_TRAINER_CHLOE)   // 100 - 119
-        fixedIv = 6;
+        fixedIv = 3;
     else if (trainerId <= FRONTIER_TRAINER_SOFIA)   // 120 - 139
-        fixedIv = 9;
+        fixedIv = 5;
     else if (trainerId <= FRONTIER_TRAINER_JAZLYN)  // 140 - 159
-        fixedIv = 12;
+        fixedIv = 7;
     else if (trainerId <= FRONTIER_TRAINER_ALISON)  // 160 - 179
-        fixedIv = 15;
+        fixedIv = 9;
     else if (trainerId <= FRONTIER_TRAINER_LAMAR)   // 180 - 199
-        fixedIv = 18;
+        fixedIv = 12;
     else if (trainerId <= FRONTIER_TRAINER_TESS)    // 200 - 219
-        fixedIv = 21;
+        fixedIv = 14;
     else                                            // 220+ (- 299)
         fixedIv = MAX_PER_STAT_IVS;
 

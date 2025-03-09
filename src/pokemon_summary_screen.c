@@ -155,6 +155,8 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         u16 def; // 0x26
         u16 spatk; // 0x28
         u16 spdef; // 0x2A
+		u16 react; // 0x28
+        u16 aware; // 0x2A
         u16 speed; // 0x2C
         u16 item; // 0x2E
         u16 friendship; // 0x30
@@ -500,7 +502,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .tilemapLeft = 10,
         .tilemapTop = 7,
         .width = 6,
-        .height = 6,
+        .height = 8,
         .paletteNum = 6,
         .baseBlock = 209,
     },
@@ -509,18 +511,18 @@ static const struct WindowTemplate sSummaryTemplate[] =
         .tilemapLeft = 22,
         .tilemapTop = 7,
         .width = 5,
-        .height = 6,
+        .height = 8,
         .paletteNum = 6,
-        .baseBlock = 245,
+        .baseBlock = 257,
     },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP] = {
         .bg = 0,
         .tilemapLeft = 10,
-        .tilemapTop = 14,
+        .tilemapTop = 16,
         .width = 11,
-        .height = 4,
+        .height = 2,
         .paletteNum = 6,
-        .baseBlock = 275,
+        .baseBlock = 297,
     },
     [PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS] = {
         .bg = 0,
@@ -651,7 +653,7 @@ static const struct WindowTemplate sPageSkillsTemplate[] =
         .tilemapLeft = 16,
         .tilemapTop = 7,
         .width = 6,
-        .height = 6,
+        .height = 8,
         .paletteNum = 6,
         .baseBlock = 507,
     },
@@ -660,18 +662,18 @@ static const struct WindowTemplate sPageSkillsTemplate[] =
         .tilemapLeft = 27,
         .tilemapTop = 7,
         .width = 3,
-        .height = 6,
+        .height = 8,
         .paletteNum = 6,
-        .baseBlock = 543,
+        .baseBlock = 555,
     },
     [PSS_DATA_WINDOW_EXP] = {
         .bg = 0,
         .tilemapLeft = 24,
-        .tilemapTop = 14,
+        .tilemapTop = 16,
         .width = 6,
-        .height = 4,
+        .height = 2,
         .paletteNum = 6,
-        .baseBlock = 561,
+        .baseBlock = 579,
     },
 };
 static const struct WindowTemplate sPageMovesTemplate[] = // This is used for both battle and contest moves
@@ -744,9 +746,9 @@ static void (*const sTextPrinterTasks[])(u8 taskId) =
 
 static const u8 sMemoNatureTextColor[] = _("{COLOR LIGHT_RED}{SHADOW GREEN}");
 static const u8 sMemoMiscTextColor[] = _("{COLOR WHITE}{SHADOW DARK_GRAY}"); // This is also affected by palettes, apparently
-static const u8 sStatsLeftColumnLayout[] = _("{DYNAMIC 0}/{DYNAMIC 1}\n{DYNAMIC 2}\n{DYNAMIC 3}");
-static const u8 sStatsLeftIVEVColumnLayout[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}");
-static const u8 sStatsRightColumnLayout[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}");
+static const u8 sStatsLeftColumnLayout[] = _("{DYNAMIC 0}/{DYNAMIC 1}\n{DYNAMIC 2}\n{DYNAMIC 3}\n{DYNAMIC 4}");
+static const u8 sStatsLeftIVEVColumnLayout[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}\n{DYNAMIC 3}");
+static const u8 sStatsRightColumnLayout[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}\n{DYNAMIC 3}");
 static const u8 sMovesPPLayout[] = _("{PP}{DYNAMIC 0}/{DYNAMIC 1}");
 
 #define TAG_MOVE_SELECTOR 30000
@@ -1844,9 +1846,11 @@ void ExtractMonSkillStatsData(struct Pokemon *mon, struct PokeSummary *sum)
         sum->maxHP = GetMonData(mon, MON_DATA_MAX_HP);
         sum->atk = GetMonData(mon, MON_DATA_ATK);
         sum->def = GetMonData(mon, MON_DATA_DEF);
+		sum->speed = GetMonData(mon, MON_DATA_SPEED);
         sum->spatk = GetMonData(mon, MON_DATA_SPATK);
         sum->spdef = GetMonData(mon, MON_DATA_SPDEF);
-        sum->speed = GetMonData(mon, MON_DATA_SPEED);
+		sum->react = GetMonData(mon, MON_DATA_REACT);
+        sum->aware = GetMonData(mon, MON_DATA_AWARE);
     }
     else
     {
@@ -1856,9 +1860,11 @@ void ExtractMonSkillStatsData(struct Pokemon *mon, struct PokeSummary *sum)
         sum->maxHP = GetMonData(mon, MON_DATA_MAX_HP);
         sum->atk = GetMonData(mon, MON_DATA_ATK2);
         sum->def = GetMonData(mon, MON_DATA_DEF2);
+		sum->speed = GetMonData(mon, MON_DATA_SPEED2);
         sum->spatk = GetMonData(mon, MON_DATA_SPATK2);
         sum->spdef = GetMonData(mon, MON_DATA_SPDEF2);
-        sum->speed = GetMonData(mon, MON_DATA_SPEED2);
+        sum->react = GetMonData(mon, MON_DATA_REACT2);
+        sum->aware = GetMonData(mon, MON_DATA_AWARE2);
     }
 }
 
@@ -1867,9 +1873,11 @@ void ExtractMonSkillIvData(struct Pokemon *mon, struct PokeSummary *sum)
     sum->currentHP = GetMonData(mon, MON_DATA_HP_IV);
     sum->atk = GetMonData(mon, MON_DATA_ATK_IV);
     sum->def = GetMonData(mon, MON_DATA_DEF_IV);
+	sum->speed = GetMonData(mon, MON_DATA_SPEED_IV);
     sum->spatk = GetMonData(mon, MON_DATA_SPATK_IV);
     sum->spdef = GetMonData(mon, MON_DATA_SPDEF_IV);
-    sum->speed = GetMonData(mon, MON_DATA_SPEED_IV);
+	sum->react = GetMonData(mon, MON_DATA_REACT_IV);
+    sum->aware = GetMonData(mon, MON_DATA_AWARE_IV);
 }
 
 void ExtractMonSkillEvData(struct Pokemon *mon, struct PokeSummary *sum)
@@ -1877,9 +1885,11 @@ void ExtractMonSkillEvData(struct Pokemon *mon, struct PokeSummary *sum)
     sum->currentHP = GetMonData(mon, MON_DATA_HP_EV);
     sum->atk = GetMonData(mon, MON_DATA_ATK_EV);
     sum->def = GetMonData(mon, MON_DATA_DEF_EV);
+	sum->speed = GetMonData(mon, MON_DATA_SPEED_EV);
     sum->spatk = GetMonData(mon, MON_DATA_SPATK_EV);
     sum->spdef = GetMonData(mon, MON_DATA_SPDEF_EV);
-    sum->speed = GetMonData(mon, MON_DATA_SPEED_EV);
+	sum->react = GetMonData(mon, MON_DATA_REACT_EV);
+    sum->aware = GetMonData(mon, MON_DATA_AWARE_EV);
 }
 
 static void ChangeSummaryPokemon(u8 taskId, s8 delta)
@@ -3218,14 +3228,18 @@ static void PrintPageNamesAndStats(void)
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Attack3, statsXPos, 17, 0, 1);
     statsXPos = 6 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Defense3, 42);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Defense3, statsXPos, 33, 0, 1);
+	statsXPos = 6 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Speed2, 42);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_LEFT, gText_Speed2, statsXPos, 49, 0, 1);
     statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_SpAtk4, 36);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpAtk4, statsXPos, 1, 0, 1);
     statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_SpDef4, 36);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_SpDef4, statsXPos, 17, 0, 1);
-    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Speed2, 36);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Speed2, statsXPos, 33, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_ExpPoints, 6, 1, 0, 1);
-    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_NextLv, 6, 17, 0, 1);
+    statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Reaction, 36);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Reaction, statsXPos, 33, 0, 1);
+	statsXPos = 2 + GetStringCenterAlignXOffset(FONT_NORMAL, gText_Awareness, 36);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATS_RIGHT, gText_Awareness, statsXPos, 49, 0, 1);
+    //PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_ExpPoints, 6, 1, 0, 1);
+    PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_EXP, gText_NextLv, 6, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_POKEMON_SKILLS_STATUS, gText_Status, 2, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Power, 0, 1, 0, 1);
     PrintTextOnWindow(PSS_LABEL_WINDOW_MOVES_POWER_ACC, gText_Accuracy2, 0, 17, 0, 1);
@@ -3785,22 +3799,28 @@ static void BufferStat(u8 *dst, u8 statIndex, u32 stat, u32 strId, u32 n)
 
 static const u8 *GetLetterGrade(u32 stat)
 {
-    static const u8 gText_GradeF[] = _("F");
-    static const u8 gText_GradeD[] = _("D");
-    static const u8 gText_GradeC[] = _("C");
-    static const u8 gText_GradeB[] = _("B");
-    static const u8 gText_GradeA[] = _("A");
-    static const u8 gText_GradeS[] = _("S");
+    static const u8 gText_GradeF[] = _("F ");
+    static const u8 gText_GradeD[] = _("D ");
+    static const u8 gText_GradeC[] = _("C ");
+    static const u8 gText_GradeB[] = _("B ");
+	static const u8 gText_GradeBP[] = _("B+");
+    static const u8 gText_GradeA[] = _("A ");
+	static const u8 gText_GradeAP[] = _("A+");
+    static const u8 gText_GradeS[] = _("S ");
     
-    if (stat > 0 && stat <= 15)
+    if (stat > 0 && stat <= 4)
         return gText_GradeD;
-    else if (stat > 15 && stat <= 25)
+    else if (stat > 4 && stat <= 8)
         return gText_GradeC;
-    else if (stat > 26 && stat <= 29)
+    else if (stat > 8 && stat <= 10)
         return gText_GradeB;
-    else if (stat == 30)
+	else if (stat > 10 && stat <= 12)
+        return gText_GradeBP;
+	else if (stat == 13)
         return gText_GradeA;
-    else if (stat == 31)
+    else if (stat == 14)
+        return gText_GradeAP;
+    else if (stat == 15)
         return gText_GradeS;
     else
         return gText_GradeF;
@@ -3812,6 +3832,7 @@ static void BufferLeftColumnStats(void)
     u8 *maxHPString = Alloc(20);
     u8 *attackString = Alloc(20);
     u8 *defenseString = Alloc(20);
+	u8 *speedString = Alloc(20);
 
     DynamicPlaceholderTextUtil_Reset();
 
@@ -3819,6 +3840,7 @@ static void BufferLeftColumnStats(void)
     BufferStat(maxHPString, STAT_HP, sMonSummaryScreen->summary.maxHP, 1, 3);
     BufferStat(attackString, STAT_ATK, sMonSummaryScreen->summary.atk, 2, 7);
     BufferStat(defenseString, STAT_DEF, sMonSummaryScreen->summary.def, 3, 7);
+	BufferStat(speedString, STAT_SPEED, sMonSummaryScreen->summary.speed, 4, 7);
 
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
 
@@ -3826,6 +3848,7 @@ static void BufferLeftColumnStats(void)
     Free(maxHPString);
     Free(attackString);
     Free(defenseString);
+	Free(speedString);
 }
 
 static void BufferLeftColumnIvEvStats(void)
@@ -3833,18 +3856,21 @@ static void BufferLeftColumnIvEvStats(void)
     u8 *hpIvEvString = Alloc(20);
     u8 *attackIvEvString = Alloc(20);
     u8 *defenseIvEvString = Alloc(20);
+	u8 *speedIvEvString = Alloc(20);
     
     DynamicPlaceholderTextUtil_Reset();
 
     BufferStat(hpIvEvString, STAT_HP, sMonSummaryScreen->summary.currentHP, 0, 7);
     BufferStat(attackIvEvString, STAT_ATK, sMonSummaryScreen->summary.atk, 1, 7);
     BufferStat(defenseIvEvString, STAT_DEF, sMonSummaryScreen->summary.def, 2, 7);
+	BufferStat(speedIvEvString, STAT_SPEED, sMonSummaryScreen->summary.speed, 3, 7);
 
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftIVEVColumnLayout);
 
     Free(hpIvEvString);
     Free(attackIvEvString);
     Free(defenseIvEvString);
+	Free(speedIvEvString);
 }
 
 static void PrintLeftColumnStats(void)
@@ -3863,9 +3889,10 @@ static void BufferRightColumnStats(void)
 {
     DynamicPlaceholderTextUtil_Reset();
 
-    BufferStat(gStringVar1, STAT_SPATK, sMonSummaryScreen->summary.spatk, 0, 3);
-    BufferStat(gStringVar2, STAT_SPDEF, sMonSummaryScreen->summary.spdef, 1, 3);
-    BufferStat(gStringVar3, STAT_SPEED, sMonSummaryScreen->summary.speed, 2, 3);
+    BufferStat(gStringVar0, STAT_SPATK, sMonSummaryScreen->summary.spatk, 0, 3);
+    BufferStat(gStringVar1, STAT_SPDEF, sMonSummaryScreen->summary.spdef, 1, 3);
+    BufferStat(gStringVar2, STAT_REACT, sMonSummaryScreen->summary.react, 2, 3);
+	BufferStat(gStringVar3, STAT_AWARE, sMonSummaryScreen->summary.aware, 3, 3);
 
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
 }
@@ -3889,9 +3916,9 @@ static void PrintExpPointsNextLevel(void)
     int x;
     u32 expToNextLevel;
 
-    ConvertIntToDecimalStringN(gStringVar1, sum->exp, STR_CONV_MODE_RIGHT_ALIGN, 7);
-    x = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar1, 42) + 2;
-    PrintTextOnWindow(windowId, gStringVar1, x, 1, 0, 0);
+    //ConvertIntToDecimalStringN(gStringVar1, sum->exp, STR_CONV_MODE_RIGHT_ALIGN, 7);
+    //x = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar1, 42) + 2;
+    //PrintTextOnWindow(windowId, gStringVar1, x, 1, 0, 0);
 
     if (sum->level < MAX_LEVEL)
         expToNextLevel = gExperienceTables[gSpeciesInfo[sum->species].growthRate][sum->level + 1] - sum->exp;
@@ -3900,7 +3927,7 @@ static void PrintExpPointsNextLevel(void)
 
     ConvertIntToDecimalStringN(gStringVar1, expToNextLevel, STR_CONV_MODE_RIGHT_ALIGN, 6);
     x = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar1, 42) + 2;
-    PrintTextOnWindow(windowId, gStringVar1, x, 17, 0, 0);
+    PrintTextOnWindow(windowId, gStringVar1, x, 1, 0, 0);
 }
 
 static void PrintBattleMoves(void)

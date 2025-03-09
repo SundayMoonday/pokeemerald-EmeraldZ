@@ -2,7 +2,12 @@
 #define GUARD_CONSTANTS_ITEM_EFFECTS_H
 
 // field 0 masks
-#define ITEM0_DIRE_HIT          0x30 // Works the same way as the move Focus Energy.
+#define ITEM0_EV_REACT          0x1
+#define ITEM0_EV_AWARE          0x2
+#define ITEM0_UNUSED1           0x4
+#define ITEM0_UNUSED2           0x8
+#define ITEM0_UNUSED3           0x10
+#define ITEM0_DIRE_HIT          0x20 // Works the same way as the move Focus Energy.
 #define ITEM0_SACRED_ASH        0x40
 #define ITEM0_INFATUATION       0x80
 
@@ -12,7 +17,8 @@
 #define ITEM1_X_SPEED           STAT_SPEED
 #define ITEM1_X_SPATK           STAT_SPATK
 #define ITEM1_X_SPDEF           STAT_SPDEF
-#define ITEM1_X_ACCURACY        STAT_ACC
+#define ITEM1_X_REACT        	STAT_REACT
+#define ITEM1_X_AWARE        	STAT_AWARE
 
 // field 3 masks
 #define ITEM3_CONFUSION         0x1

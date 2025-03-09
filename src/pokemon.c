@@ -1506,6 +1506,17 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         u32 ivRandom = Random32();
         value = (u16)ivRandom;
 
+		iv = value & MAX_IV_MASK;
+        SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
+        iv = (value & (MAX_IV_MASK << 4)) >> 4;
+        SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+        iv = (value & (MAX_IV_MASK << 8)) >> 8;
+        SetBoxMonData(boxMon, MON_DATA_REACT_IV, &iv);
+		iv = (value & (MAX_IV_MASK << 12)) >> 12;
+        SetBoxMonData(boxMon, MON_DATA_AWARE_IV, &iv);
+
+        value = (u16)(ivRandom >> 16);
+
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
         iv = (value & (MAX_IV_MASK << 4)) >> 4;
@@ -1514,17 +1525,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
 		iv = (value & (MAX_IV_MASK << 12)) >> 12;
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
-
-        value = (u16)(ivRandom >> 16);
-
-        iv = value & MAX_IV_MASK;
-        SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 4)) >> 4;
-        SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 8)) >> 8;
-        SetBoxMonData(boxMon, MON_DATA_REACT_IV, &iv);
-		iv = (value & (MAX_IV_MASK << 12)) >> 12;
-        SetBoxMonData(boxMon, MON_DATA_AWARE_IV, &iv);
 
         if (gSpeciesInfo[species].perfectIVCount != 0)
         {
@@ -1564,7 +1564,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
                 case STAT_SPDEF:
                     SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
                     break;
-				break;
 				case STAT_REACT:
                     SetBoxMonData(boxMon, MON_DATA_REACT_IV, &iv);
                     break;
@@ -1659,8 +1658,8 @@ void CreateMonWithIVsOTID(struct Pokemon *mon, u16 species, u8 level, u8 *ivs, u
     SetMonData(mon, MON_DATA_SPEED_IV, &ivs[STAT_SPEED]);
     SetMonData(mon, MON_DATA_SPATK_IV, &ivs[STAT_SPATK]);
     SetMonData(mon, MON_DATA_SPDEF_IV, &ivs[STAT_SPDEF]);
-	SetMonData(mon, MON_DATA_SPATK_IV, &ivs[STAT_REACT]);
-    SetMonData(mon, MON_DATA_SPDEF_IV, &ivs[STAT_AWARE]);
+	SetMonData(mon, MON_DATA_REACT_IV, &ivs[STAT_REACT]);
+    SetMonData(mon, MON_DATA_AWARE_IV, &ivs[STAT_AWARE]);
     CalculateMonStats(mon);
 }
 
@@ -2959,6 +2958,7 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             break;
         case MON_DATA_AWARE_IV:
             retVal = substruct3->awarenessIV;
+			break;
         case MON_DATA_IS_EGG:
             retVal = substruct3->isEgg;
             break;
@@ -4187,6 +4187,84 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
         // Handle ITEM0 effects (infatuation, Dire Hit, X Attack). ITEM0_SACRED_ASH is handled in party_menu.c
         // Now handled in item battle scripts.
         case 0:
+		effectFlags = itemEffect[i];
+		temp1 = 0;
+		while (effectFlags != 0)
+            {
+                if (effectFlags & 1)
+                {
+                    switch (temp1)
+                    {
+                    case 0: // ITEM0_EV_REACT
+                    case 1: // ITEM0_EV_AWARE
+                        evCount = GetMonEVCount(mon);
+                        temp2 = itemEffect[itemEffectParam];
+                        dataSigned = GetMonData(mon, sGetMonDataEVConstants[temp1 + 6], NULL);
+                        evChange = temp2;
+
+                        if (evChange > 0) // Increasing EV (HP or Atk)
+                        {
+                            // Check if the total EV limit is reached
+                            if (evCount >= maxAllowedEVs)
+                                return TRUE;
+
+                            // Ensure the increase does not exceed the max EV per stat (252)
+                            evCap = (itemEffect[10] & ITEM10_IS_VITAMIN) ? EV_ITEM_RAISE_LIMIT : MAX_PER_STAT_EVS;
+
+                            // Check if the per-stat limit is reached
+                            if (dataSigned >= evCap)
+                                return TRUE;  // Prevents item use if the per-stat cap is already reached
+
+                            if (dataSigned + evChange > evCap)
+                                temp2 = evCap - dataSigned;
+                            else
+                                temp2 = evChange;
+
+                            // Ensure the total EVs do not exceed the maximum allowed (510)
+                            if (evCount + temp2 > maxAllowedEVs)
+                                temp2 = maxAllowedEVs - evCount;
+
+                            // Prevent item use if no EVs can be increased
+                            if (temp2 == 0)
+                                return TRUE;
+
+                            // Apply the EV increase
+                            dataSigned += temp2;
+                        }
+                        else if (evChange < 0) // Decreasing EV (HP or Atk)
+                        {
+                            if (dataSigned == 0)
+                            {
+                                // No EVs to lose, but make sure friendship updates anyway
+                                friendshipOnly = TRUE;
+                                itemEffectParam++;
+                                break;
+                            }
+                            dataSigned += evChange;
+                            if (I_BERRY_EV_JUMP == GEN_4 && dataSigned > 100)
+                                dataSigned = 100;
+                            if (dataSigned < 0)
+                                dataSigned = 0;
+                        }
+                        else // Reset EV (HP or Atk)
+                        {
+                            if (dataSigned == 0)
+                                break;
+
+                            dataSigned = 0;
+                        }
+
+                        // Update EVs and stats
+                        SetMonData(mon, sGetMonDataEVConstants[temp1 + 6], &dataSigned);
+                        CalculateMonStats(mon);
+                        itemEffectParam++;
+                        retVal = FALSE;
+                        break;
+						}
+                }
+                temp1++;
+                effectFlags >>= 1;
+            }
             break;
 
         // Handle ITEM1 effects (in-battle stat boosting effects)
@@ -4786,8 +4864,8 @@ u8 *UseStatIncreaseItem(u16 itemId)
         case ITEM1_X_SPDEF:
             BufferStatRoseMessage(STAT_SPDEF);
             break;
-        case ITEM1_X_ACCURACY:
-            BufferStatRoseMessage(STAT_ACC);
+        case ITEM1_X_AWARE:
+            BufferStatRoseMessage(STAT_AWARE);
             break;
     }
 
@@ -5724,6 +5802,18 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
                 evIncrease = (gSpeciesInfo[defeatedSpecies].evYield_SpDefense + bonus) * multiplier;
             else
                 evIncrease = gSpeciesInfo[defeatedSpecies].evYield_SpDefense * multiplier;
+            break;
+		case STAT_REACT:
+            if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_REACT)
+                evIncrease = (gSpeciesInfo[defeatedSpecies].evYield_Reaction + bonus) * multiplier;
+            else
+                evIncrease = gSpeciesInfo[defeatedSpecies].evYield_Reaction * multiplier;
+            break;
+		case STAT_AWARE:
+            if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_AWARE)
+                evIncrease = (gSpeciesInfo[defeatedSpecies].evYield_Awareness + bonus) * multiplier;
+            else
+                evIncrease = gSpeciesInfo[defeatedSpecies].evYield_Awareness * multiplier;
             break;
         }
 

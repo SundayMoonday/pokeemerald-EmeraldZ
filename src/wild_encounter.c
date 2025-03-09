@@ -306,12 +306,12 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
-/* LAND_WILD_COUNT
+// HIDDEN_WILD_COUNT
 u8 ChooseWildMonIndex_Hidden(void)
 {
     u8 wildMonIndex = 0;
     bool8 swap = FALSE;
-    u8 rand = Random() % ENCOUNTER_CHANCE_LAND_MONS_TOTAL;
+    u8 rand = Random() % ENCOUNTER_CHANCE_HIDDEN_MONS_TOTAL;
 
     if (rand < ENCOUNTER_CHANCE_LAND_MONS_SLOT_0)
         wildMonIndex = 0;
@@ -320,15 +320,9 @@ u8 ChooseWildMonIndex_Hidden(void)
     else
         wildMonIndex = 2;
 
-    if (LURE_STEP_COUNT != 0 && (Random() % 10 < 2))
-        swap = TRUE;
-
-    if (swap)
-        wildMonIndex = 2 - wildMonIndex;
-
     return wildMonIndex;
 }
-*/
+//
 
 static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIndex, u8 area)
 {
@@ -524,6 +518,9 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, u8 ar
         wildMonIndex = ChooseWildMonIndex_WaterRock();
         break;
     case WILD_AREA_ROCKS:
+        wildMonIndex = ChooseWildMonIndex_WaterRock();
+        break;
+	case WILD_AREA_HIDDEN:
         wildMonIndex = ChooseWildMonIndex_WaterRock();
         break;
     }
@@ -853,10 +850,18 @@ bool8 SweetScentWildEncounter(void)
                 return TRUE;
             }
 
-            if (DoMassOutbreakEncounterTest() == TRUE)
+            if (DoMassOutbreakEncounterTest() == TRUE){
                 SetUpMassOutbreakEncounter(0);
-            else
+			}
+            else{
+				
+				if (gWildMonHeaders[headerId].hiddenMonsInfo == NULL || !(Random() % 100 < 33)){
                 TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, 0);
+				}
+				else{
+				TryGenerateWildMon(gWildMonHeaders[headerId].hiddenMonsInfo, WILD_AREA_HIDDEN, 0);
+				}
+			}
 
             BattleSetup_StartWildBattle();
             return TRUE;

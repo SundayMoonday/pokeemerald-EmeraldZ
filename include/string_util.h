@@ -1,6 +1,7 @@
 #ifndef GUARD_STRING_UTIL_H
 #define GUARD_STRING_UTIL_H
 
+extern u8 gStringVar0[0x100];
 extern u8 gStringVar1[0x100];
 extern u8 gStringVar2[0x100];
 extern u8 gStringVar3[0x100];

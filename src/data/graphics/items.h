@@ -208,6 +208,10 @@ const u32 gItemIconPalette_Zinc[] = INCBIN_U32("graphics/items/icon_palettes/zin
 
 const u32 gItemIconPalette_Carbos[] = INCBIN_U32("graphics/items/icon_palettes/carbos.gbapal.lz");
 
+const u32 gItemIconPalette_B12[] = INCBIN_U32("graphics/items/icon_palettes/b12.gbapal.lz");
+
+const u32 gItemIconPalette_Omega3[] = INCBIN_U32("graphics/items/icon_palettes/omega3.gbapal.lz");
+
 const u32 gItemIcon_PPUp[] = INCBIN_U32("graphics/items/icons/pp_up.4bpp.lz");
 const u32 gItemIconPalette_PPUp[] = INCBIN_U32("graphics/items/icon_palettes/pp_up.gbapal.lz");
 
@@ -216,23 +220,29 @@ const u32 gItemIconPalette_PPMax[] = INCBIN_U32("graphics/items/icon_palettes/pp
 
 // EV Feathers
 
-const u32 gItemIcon_HealthFeather[] = INCBIN_U32("graphics/items/icons/health_feather.4bpp.lz");
-const u32 gItemIconPalette_HealthFeather[] = INCBIN_U32("graphics/items/icon_palettes/health_feather.gbapal.lz");
+const u32 gItemIcon_HealthFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_HealthEV[] = INCBIN_U32("graphics/items/icon_palettes/health_ev.gbapal.lz");
 
-const u32 gItemIcon_MuscleFeather[] = INCBIN_U32("graphics/items/icons/muscle_feather.4bpp.lz");
-const u32 gItemIconPalette_MuscleFeather[] = INCBIN_U32("graphics/items/icon_palettes/muscle_feather.gbapal.lz");
+const u32 gItemIcon_MuscleFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_AttackEV[] = INCBIN_U32("graphics/items/icon_palettes/attack_ev.gbapal.lz");
 
-const u32 gItemIcon_ResistFeather[] = INCBIN_U32("graphics/items/icons/resist_feather.4bpp.lz");
-const u32 gItemIconPalette_ResistFeather[] = INCBIN_U32("graphics/items/icon_palettes/resist_feather.gbapal.lz");
+const u32 gItemIcon_ResistFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_DefenseEV[] = INCBIN_U32("graphics/items/icon_palettes/defense_ev.gbapal.lz");
 
-const u32 gItemIcon_GeniusFeather[] = INCBIN_U32("graphics/items/icons/genius_feather.4bpp.lz");
-const u32 gItemIconPalette_GeniusFeather[] = INCBIN_U32("graphics/items/icon_palettes/genius_feather.gbapal.lz");
+const u32 gItemIcon_GeniusFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_SpAttackEV[] = INCBIN_U32("graphics/items/icon_palettes/spattack_ev.gbapal.lz");
 
-const u32 gItemIcon_CleverFeather[] = INCBIN_U32("graphics/items/icons/clever_feather.4bpp.lz");
-const u32 gItemIconPalette_CleverFeather[] = INCBIN_U32("graphics/items/icon_palettes/clever_feather.gbapal.lz");
+const u32 gItemIcon_CleverFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_SpDefenseEV[] = INCBIN_U32("graphics/items/icon_palettes/spdefense_ev.gbapal.lz");
 
-const u32 gItemIcon_SwiftFeather[] = INCBIN_U32("graphics/items/icons/swift_feather.4bpp.lz");
-const u32 gItemIconPalette_SwiftFeather[] = INCBIN_U32("graphics/items/icon_palettes/swift_feather.gbapal.lz");
+const u32 gItemIcon_SwiftFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_SpeedEV[] = INCBIN_U32("graphics/items/icon_palettes/speed_ev.gbapal.lz");
+
+const u32 gItemIcon_AlertFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_ReactEV[] = INCBIN_U32("graphics/items/icon_palettes/react_ev.gbapal.lz");
+
+const u32 gItemIcon_KeenFeather[] = INCBIN_U32("graphics/items/icons/ev_feather.4bpp.lz");
+const u32 gItemIconPalette_AwareEV[] = INCBIN_U32("graphics/items/icon_palettes/aware_ev.gbapal.lz");
 
 // Ability Modifiers
 
@@ -251,6 +261,8 @@ const u32 gItemIconPalette_LightBlueMint[] = INCBIN_U32("graphics/items/icon_pal
 const u32 gItemIconPalette_PinkMint[] = INCBIN_U32("graphics/items/icon_palettes/pink_mint.gbapal.lz");
 const u32 gItemIconPalette_GreenMint[] = INCBIN_U32("graphics/items/icon_palettes/green_mint.gbapal.lz");
 const u32 gItemIconPalette_YellowMint[] = INCBIN_U32("graphics/items/icon_palettes/yellow_mint.gbapal.lz");
+const u32 gItemIconPalette_OrangeMint[] = INCBIN_U32("graphics/items/icon_palettes/orange_mint.gbapal.lz");
+const u32 gItemIconPalette_PurpleMint[] = INCBIN_U32("graphics/items/icon_palettes/purple_mint.gbapal.lz");
 
 // Candy
 
@@ -2034,13 +2046,7 @@ const u32 gItemIconPalette_StellarTeraShard[] = INCBIN_U32("graphics/items/icon_
 // Mochi
 
 const u32 gItemIcon_Mochi[] = INCBIN_U32("graphics/items/icons/mochi.4bpp.lz");
-const u32 gItemIconPalette_HealthMochi[] = INCBIN_U32("graphics/items/icon_palettes/health_mochi.gbapal.lz");
-const u32 gItemIconPalette_MuscleMochi[] = INCBIN_U32("graphics/items/icon_palettes/muscle_mochi.gbapal.lz");
-const u32 gItemIconPalette_ResistMochi[] = INCBIN_U32("graphics/items/icon_palettes/resist_mochi.gbapal.lz");
-const u32 gItemIconPalette_GeniusMochi[] = INCBIN_U32("graphics/items/icon_palettes/genius_mochi.gbapal.lz");
-const u32 gItemIconPalette_CleverMochi[] = INCBIN_U32("graphics/items/icon_palettes/clever_mochi.gbapal.lz");
-const u32 gItemIconPalette_SwiftMochi[] = INCBIN_U32("graphics/items/icon_palettes/swift_mochi.gbapal.lz");
-const u32 gItemIconPalette_FreshStartMochi[] = INCBIN_U32("graphics/items/icon_palettes/fresh_start_mochi.gbapal.lz");
+const u32 gItemIconPalette_FreshStartMochi[] = INCBIN_U32("graphics/items/icon_palettes/void_ev.gbapal.lz");
 
 // Ogerpon masks
 

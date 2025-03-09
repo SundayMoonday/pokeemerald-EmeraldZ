@@ -813,7 +813,7 @@ static u8 GetSearchLevel(u16 dexNum)
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
     searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[dexNum];
 #else
-    searchLevel = 0;
+    searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[dexNum];
 #endif
     return searchLevel;
 }
@@ -1217,7 +1217,7 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
     struct Pokemon* mon = &gEnemyParty[0];
     u8 iv[3] = {NUM_STATS};
     u8 i;
-    u8 perfectIv = 31;
+    u8 perfectIv = 15;
 
     CreateWildMon(species, level);  // shiny rate bonus handled in CreateBoxMon
 
@@ -2018,12 +2018,12 @@ static void DrawSpeciesIcons(void)
         species = sDexNavUiDataPtr->hiddenSpecies[i];
         x = ROW_HIDDEN_ICON_X + 24 * i;
         y = ROW_HIDDEN_ICON_Y;
-        if (FlagGet(DN_FLAG_DETECTOR_MODE))
+        //if (FlagGet(DN_FLAG_DETECTOR_MODE))
             TryDrawIconInSlot(species, x, y);
-       else if (species == SPECIES_NONE || species > NUM_SPECIES)
-            CreateNoDataIcon(x, y);
-        else
-            CreateMonIcon(SPECIES_NONE, SpriteCB_MonIcon, x, y, 0, 0xFFFFFFFF); //question mark if detector mode inactive
+       //if (species == SPECIES_NONE || species > NUM_SPECIES)
+       //     CreateNoDataIcon(x, y);
+       // else
+            //CreateMonIcon(SPECIES_NONE, SpriteCB_MonIcon, x, y, 0, 0xFFFFFFFF); //question mark if detector mode inactive
     }
 }
 
@@ -2043,9 +2043,9 @@ static u16 DexNavGetSpecies(void)
         species = sDexNavUiDataPtr->landSpecies[sDexNavUiDataPtr->cursorCol + COL_LAND_COUNT];
         break;
     case ROW_HIDDEN:
-        if (!FlagGet(DN_FLAG_DETECTOR_MODE))
-            species = SPECIES_NONE;
-        else
+        //if (!FlagGet(DN_FLAG_DETECTOR_MODE))
+        //    species = SPECIES_NONE;
+        //else
             species = sDexNavUiDataPtr->hiddenSpecies[sDexNavUiDataPtr->cursorCol];
         break;
     default:
@@ -2519,8 +2519,8 @@ bool8 TryFindHiddenPokemon(void)
 
         // while you can still technically find hidden pokemon if there are not hidden-only pokemon on a map,
         // this prevents any potential lagging on maps you dont want hidden pokemon to appear on
-        //if (hiddenMonsInfo == NULL)
-        //    return FALSE;
+        if (hiddenMonsInfo == NULL)
+            return FALSE;
 
         // encounter rate signifies surfing (1) or land mons (0)!
         // again, for simplicity

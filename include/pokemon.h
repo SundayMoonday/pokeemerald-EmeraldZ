@@ -222,7 +222,7 @@ struct PokemonSubstruct3
     u32 earthRibbon:1;    // Given to teams that have beaten Mt. Battle's 100-battle challenge in Colosseum/XD.
     u32 worldRibbon:1;    // Distributed during Pokémon Festa '04 and '05 to tournament winners.
     u32 isShadow:1;
-    u32 unused_0B:1;
+    //u32 unused_0B:1;
     u32 abilityNum:2;
 
     // The functionality of this bit changed in FRLG:
@@ -264,14 +264,14 @@ struct BoxPokemon
     u8 isEgg:1;
     // u8 blockBoxRS:1; Unused, but Pokémon Box Ruby & Sapphire will refuse to deposit a Pokémon with this flag set.
     u8 daysSinceFormChange:3; // 7 days.
-    u8 unused_13:1;
+    //u8 unused_13:1;
     u8 otName[PLAYER_NAME_LENGTH];
     u8 markings:4;
     u8 compressedStatus:4;
     u16 checksum;
     u16 hpLost:14; // 16383 HP.
     u16 shinyModifier:1;
-    u16 unused_1E:1;
+    //u16 unused_1E:1;
 
     union
     {
@@ -471,11 +471,11 @@ struct SpeciesInfo /*0xC4*/
     u32 isHisuianForm:1;
     u32 isPaldeanForm:1;
     u32 cannotBeTraded:1;
-    u32 perfectIVCount:3;   // This species will always generate with the specified amount of perfect IVs.
+    u32 perfectIVCount:4;   // This species will always generate with the specified amount of perfect IVs.
     u32 dexForceRequired:1; // This species will be taken into account for Pokédex ratings even if they have the "isMythical" flag set.
     u32 tmIlliterate:1;     // This species will be unable to learn the universal moves.
     u32 isFrontierBanned:1; // This species is not allowed to participate in Battle Frontier facilities.
-    u32 padding4:11;
+    u32 padding4:10;
     // Shadow settings
     s8 enemyShadowXOffset; // This determines the X-offset for an enemy Pokémon's shadow during battle; negative values point left, positive values point right.
     s8 enemyShadowYOffset; // This determines the Y-offset for an enemy Pokémon's shadow during battle; negative values point up, positive values point down.

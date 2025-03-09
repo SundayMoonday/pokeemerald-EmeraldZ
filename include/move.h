@@ -78,6 +78,8 @@ struct MoveInfo
     bool32 windMove:1;
     bool32 slicingMove:1;
 	bool32 fieldMove:1;
+	bool32 powerMove:1;
+	bool32 forceEffect:1;
     bool32 healingMove:1;
     bool32 minimizeDoubleDamage:1;
     bool32 ignoresTargetAbility:1;
@@ -105,7 +107,7 @@ struct MoveInfo
     bool32 parentalBondBanned:1;
     bool32 skyBattleBanned:1;
     bool32 sketchBanned:1;
-    u32 padding:18;
+    u32 padding:16;
     // end of word
 
     union {
@@ -310,6 +312,16 @@ static inline bool32 IsSlicingMove(u32 moveId)
 static inline bool32 IsFieldMove(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].fieldMove;
+}
+
+static inline bool32 IsPowerMove(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].powerMove;
+}
+
+static inline bool32 IsForceEffect(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].forceEffect;
 }
 
 static inline bool32 IsHealingMove(u32 moveId)

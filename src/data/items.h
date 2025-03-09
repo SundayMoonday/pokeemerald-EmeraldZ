@@ -51,6 +51,14 @@ static const u8 sCleverFeatherDesc[]  = _("An item that raises\n"
 static const u8 sSwiftFeatherDesc[]   = _("An item that raises\n"
                                           "the base Speed of\n"
                                           "a Pokémon.");
+										  
+static const u8 sAlertFeatherDesc[]  = _("An item that raises\n"
+                                          "the base React.\n"
+                                          "of a Pokémon.");
+
+static const u8 sKeenFeatherDesc[]   = _("An item that raises\n"
+                                          "the base Aware of\n"
+                                          "a Pokémon.");
 
 static const u8 sBigMushroomDesc[]    = _("A rare mushroom\n"
                                           "that would sell at a\n"
@@ -1297,7 +1305,7 @@ const struct Item gItemsInfo[] =
     [ITEM_HP_UP] =
     {
         .name = _("HP Up"),
-        .price = (I_PRICE >= GEN_7) ? 10000 : 9800,
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
         .description = COMPOUND_STRING(
             "Raises the base HP\n"
             "of one Pokémon."),
@@ -1306,14 +1314,14 @@ const struct Item gItemsInfo[] =
         .fieldUseFunc = ItemUseOutOfBattle_Medicine,
         .effect = gItemEffect_HPUp,
         .flingPower = 30,
-        .iconPic = gItemIcon_HPUp,
+        .iconPic = gItemIcon_Vitamin,
         .iconPalette = gItemIconPalette_HPUp,
     },
 
     [ITEM_PROTEIN] =
     {
         .name = _("Protein"),
-        .price = (I_PRICE >= GEN_7) ? 10000 : 9800,
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
         .description = COMPOUND_STRING(
             "Raises the base\n"
             "Attack stat of one\n"
@@ -1330,7 +1338,7 @@ const struct Item gItemsInfo[] =
     [ITEM_IRON] =
     {
         .name = _("Iron"),
-        .price = (I_PRICE >= GEN_7) ? 10000 : 9800,
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
         .description = COMPOUND_STRING(
             "Raises the base\n"
             "Defense stat of\n"
@@ -1347,7 +1355,7 @@ const struct Item gItemsInfo[] =
     [ITEM_CALCIUM] =
     {
         .name = _("Calcium"),
-        .price = (I_PRICE >= GEN_7) ? 10000 : 9800,
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
         .description = COMPOUND_STRING(
             "Raises the base\n"
             "Sp. Atk stat of one\n"
@@ -1364,7 +1372,7 @@ const struct Item gItemsInfo[] =
     [ITEM_ZINC] =
     {
         .name = _("Zinc"),
-        .price = (I_PRICE >= GEN_7) ? 10000 : 9800,
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
         .description = COMPOUND_STRING(
             "Raises the base\n"
             "Sp. Def stat of one\n"
@@ -1382,7 +1390,7 @@ const struct Item gItemsInfo[] =
     {
         .name = _("Carbos"),
         .pluralName = _("Carbos"),
-        .price = (I_PRICE >= GEN_7) ? 10000 : 9800,
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
         .description = COMPOUND_STRING(
             "Raises the base\n"
             "Speed stat of one\n"
@@ -1394,6 +1402,42 @@ const struct Item gItemsInfo[] =
         .flingPower = 30,
         .iconPic = gItemIcon_Vitamin,
         .iconPalette = gItemIconPalette_Carbos,
+    },
+	
+	[ITEM_B12] =
+    {
+        .name = _("B-12"),
+		.pluralName = _("B-12"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
+        .description = COMPOUND_STRING(
+            "Raises the base\n"
+            "React stat of one\n"
+            "Pokémon."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .effect = gItemEffect_B12,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_B12,
+    },
+
+    [ITEM_OMEGA3] =
+    {
+        .name = _("Omega-3"),
+        .pluralName = _("Omega-3"),
+        .price = (I_PRICE >= GEN_7) ? 1000 : 980,
+        .description = COMPOUND_STRING(
+            "Raises the base\n"
+            "Aware stat of one\n"
+            "Pokémon."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .effect = gItemEffect_Omega3,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Vitamin,
+        .iconPalette = gItemIconPalette_Omega3,
     },
 
     [ITEM_PP_UP] =
@@ -1444,7 +1488,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_HpFeather,
         .flingPower = 20,
         .iconPic = gItemIcon_HealthFeather,
-        .iconPalette = gItemIconPalette_HealthFeather,
+        .iconPalette = gItemIconPalette_HealthEV,
     },
 
     [ITEM_MUSCLE_FEATHER] =
@@ -1458,7 +1502,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_AtkFeather,
         .flingPower = 20,
         .iconPic = gItemIcon_MuscleFeather,
-        .iconPalette = gItemIconPalette_MuscleFeather,
+        .iconPalette = gItemIconPalette_AttackEV,
     },
 
     [ITEM_RESIST_FEATHER] =
@@ -1472,7 +1516,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_DefFeather,
         .flingPower = 20,
         .iconPic = gItemIcon_ResistFeather,
-        .iconPalette = gItemIconPalette_ResistFeather,
+        .iconPalette = gItemIconPalette_DefenseEV,
     },
 
     [ITEM_GENIUS_FEATHER] =
@@ -1486,7 +1530,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_SpatkFeather,
         .flingPower = 20,
         .iconPic = gItemIcon_GeniusFeather,
-        .iconPalette = gItemIconPalette_GeniusFeather,
+        .iconPalette = gItemIconPalette_SpAttackEV,
     },
 
     [ITEM_CLEVER_FEATHER] =
@@ -1500,7 +1544,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_SpdefFeather,
         .flingPower = 20,
         .iconPic = gItemIcon_CleverFeather,
-        .iconPalette = gItemIconPalette_CleverFeather,
+        .iconPalette = gItemIconPalette_SpDefenseEV,
     },
 
     [ITEM_SWIFT_FEATHER] =
@@ -1514,7 +1558,35 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_SpeedFeather,
         .flingPower = 20,
         .iconPic = gItemIcon_SwiftFeather,
-        .iconPalette = gItemIconPalette_SwiftFeather,
+        .iconPalette = gItemIconPalette_SpeedEV,
+    },
+	
+	[ITEM_ALERT_FEATHER] =
+    {
+        .name = _("Alert Feather"),
+        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .description = sAlertFeatherDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .effect = gItemEffect_ReactFeather,
+        .flingPower = 20,
+        .iconPic = gItemIcon_AlertFeather,
+        .iconPalette = gItemIconPalette_ReactEV,
+    },
+
+    [ITEM_KEEN_FEATHER] =
+    {
+        .name = _("Keen Feather"),
+        .price = (I_PRICE >= GEN_7) ? 300 : 3000,
+        .description = sKeenFeatherDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .effect = gItemEffect_AwareFeather,
+        .flingPower = 20,
+        .iconPic = gItemIcon_KeenFeather,
+        .iconPalette = gItemIconPalette_AwareEV,
     },
 
 // Ability Modifiers
@@ -1620,6 +1692,40 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_Mint,
         .iconPalette = gItemIconPalette_RedMint,
     },
+	
+	[ITEM_AUSTERE_MINT] =
+    {
+        .name = _("Austere Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Attack, but\n"
+            "reduces React."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_AUSTERE,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_RedMint,
+    },
+	
+	[ITEM_WILD_MINT] =
+    {
+        .name = _("Wild Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Attack, but\n"
+            "reduces Aware."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_WILD,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_RedMint,
+    },
 
     [ITEM_BOLD_MINT] =
     {
@@ -1635,7 +1741,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_BOLD,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_BlueMint,
+        .iconPalette = gItemIconPalette_YellowMint,
     },
 
     [ITEM_IMPISH_MINT] =
@@ -1652,7 +1758,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_IMPISH,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_BlueMint,
+        .iconPalette = gItemIconPalette_YellowMint,
     },
 
     [ITEM_LAX_MINT] =
@@ -1669,7 +1775,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_LAX,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_BlueMint,
+        .iconPalette = gItemIconPalette_YellowMint,
     },
 
     [ITEM_RELAXED_MINT] =
@@ -1686,7 +1792,41 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_RELAXED,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_BlueMint,
+        .iconPalette = gItemIconPalette_YellowMint,
+    },
+	
+	[ITEM_WARY_MINT] =
+    {
+        .name = _("Wary Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Defense, but\n"
+            "reduces React."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_WARY,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_YellowMint,
+    },
+	
+	[ITEM_STRICT_MINT] =
+    {
+        .name = _("Strict Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Defense, but\n"
+            "reduces Aware."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_STRICT,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_YellowMint,
     },
 
     [ITEM_MODEST_MINT] =
@@ -1703,7 +1843,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_MODEST,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_LightBlueMint,
+        .iconPalette = gItemIconPalette_BlueMint,
     },
 
     [ITEM_MILD_MINT] =
@@ -1720,7 +1860,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_MILD,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_LightBlueMint,
+        .iconPalette = gItemIconPalette_BlueMint,
     },
 
     [ITEM_RASH_MINT] =
@@ -1737,7 +1877,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_RASH,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_LightBlueMint,
+        .iconPalette = gItemIconPalette_BlueMint,
     },
 
     [ITEM_QUIET_MINT] =
@@ -1754,7 +1894,41 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_QUIET,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_LightBlueMint,
+        .iconPalette = gItemIconPalette_BlueMint,
+    },
+	
+	[ITEM_POLITE_MINT] =
+    {
+        .name = _("Polite Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Sp. Atk, but\n"
+            "reduces React."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_POLITE,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_BlueMint,
+    },
+	
+	[ITEM_SPACEY_MINT] =
+    {
+        .name = _("Spacey Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Sp. Atk, but\n"
+            "reduces Aware."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_SPACEY,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_BlueMint,
     },
 
     [ITEM_CALM_MINT] =
@@ -1771,7 +1945,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_CALM,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_PinkMint,
+        .iconPalette = gItemIconPalette_GreenMint,
     },
 
     [ITEM_GENTLE_MINT] =
@@ -1788,7 +1962,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_GENTLE,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_PinkMint,
+        .iconPalette = gItemIconPalette_GreenMint,
     },
 
     [ITEM_CAREFUL_MINT] =
@@ -1805,7 +1979,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_CAREFUL,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_PinkMint,
+        .iconPalette = gItemIconPalette_GreenMint,
     },
 
     [ITEM_SASSY_MINT] =
@@ -1822,7 +1996,41 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_SASSY,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_PinkMint,
+        .iconPalette = gItemIconPalette_GreenMint,
+    },
+	
+	[ITEM_WISE_MINT] =
+    {
+        .name = _("Wise Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Sp. Def, but\n"
+            "reduces React."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_WISE,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_GreenMint,
+    },
+	
+	[ITEM_JEALOUS_MINT] =
+    {
+        .name = _("Jealous Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Sp. Def, but\n"
+            "reduces Aware."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_JEALOUS,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_GreenMint,
     },
 
     [ITEM_TIMID_MINT] =
@@ -1839,7 +2047,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_TIMID,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_GreenMint,
+        .iconPalette = gItemIconPalette_PinkMint,
     },
 
     [ITEM_HASTY_MINT] =
@@ -1856,7 +2064,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_HASTY,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_GreenMint,
+        .iconPalette = gItemIconPalette_PinkMint,
     },
 
     [ITEM_JOLLY_MINT] =
@@ -1873,7 +2081,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_JOLLY,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_GreenMint,
+        .iconPalette = gItemIconPalette_PinkMint,
     },
 
     [ITEM_NAIVE_MINT] =
@@ -1890,9 +2098,247 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_NAIVE,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_GreenMint,
+        .iconPalette = gItemIconPalette_PinkMint,
     },
-
+	
+	[ITEM_PROUD_MINT] =
+    {
+        .name = _("Proud Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Speed, but\n"
+            "reduces React."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_PROUD,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PinkMint,
+    },
+	
+	[ITEM_VALIANT_MINT] =
+    {
+        .name = _("Valiant Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Speed, but\n"
+            "reduces Aware."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_VALIANT,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PinkMint,
+    },
+	
+	[ITEM_SHY_MINT] =
+    {
+        .name = _("Shy Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups React, but\n"
+            "reduces Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_SHY,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_OrangeMint,
+    },
+	
+	[ITEM_CURIOUS_MINT] =
+    {
+        .name = _("Curious Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups React, but\n"
+            "reduces Defense."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_CURIOUS,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_OrangeMint,
+    },
+	
+	[ITEM_ALERT_MINT] =
+    {
+        .name = _("Alert Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups React, but\n"
+            "reduces Sp. Atk."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_ALERT,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_OrangeMint,
+    },
+	
+	[ITEM_SILLY_MINT] =
+    {
+        .name = _("Silly Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups React, but\n"
+            "reduces Sp. Def."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_SILLY,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_OrangeMint,
+    },
+	
+	[ITEM_ANXIOUS_MINT] =
+    {
+        .name = _("Anxious Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups React, but\n"
+            "reduces Speed."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_ANXIOUS,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_OrangeMint,
+    },
+	
+	[ITEM_ERRATIC_MINT] =
+    {
+        .name = _("Erratic Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups React, but\n"
+            "reduces Aware."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_ERRATIC,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_OrangeMint,
+    },
+	
+	[ITEM_SUAVE_MINT] =
+    {
+        .name = _("Suave Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Aware, but\n"
+            "reduces Attack."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_SUAVE,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PurpleMint,
+    },
+	
+	[ITEM_PASSIVE_MINT] =
+    {
+        .name = _("Passive Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Aware, but\n"
+            "reduces Defense."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_PASSIVE,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PurpleMint,
+    },
+	
+	[ITEM_SKEPTIC_MINT] =
+    {
+        .name = _("Skeptic Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Aware, but\n"
+            "reduces Sp. Atk."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_SKEPTIC,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PurpleMint,
+    },
+	
+	[ITEM_DEVOTED_MINT] =
+    {
+        .name = _("Devoted Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Aware, but\n"
+            "reduces Sp. Def."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_DEVOTED,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PurpleMint,
+    },
+	
+	[ITEM_PATIENT_MINT] =
+    {
+        .name = _("Patient Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Aware, but\n"
+            "reduces Speed."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_PATIENT,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PurpleMint,
+    },
+	
+	[ITEM_FOCUSED_MINT] =
+    {
+        .name = _("Focused Mint"),
+        .price = (I_PRICE >= GEN_9) ? 20000 : 20,
+        .description = COMPOUND_STRING(
+            "Can be smelled. It\n"
+            "ups Aware, but\n"
+            "reduces React."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Mint,
+        .secondaryId = NATURE_FOCUSED,
+        .flingPower = 10,
+        .iconPic = gItemIcon_Mint,
+        .iconPalette = gItemIconPalette_PurpleMint,
+    },
+	
     [ITEM_SERIOUS_MINT] =
     {
         .name = _("Serious Mint"),
@@ -1907,8 +2353,10 @@ const struct Item gItemsInfo[] =
         .secondaryId = NATURE_SERIOUS,
         .flingPower = 10,
         .iconPic = gItemIcon_Mint,
-        .iconPalette = gItemIconPalette_YellowMint,
+        .iconPalette = gItemIconPalette_LightBlueMint,
     },
+	
+	
 
 // Candy
 
@@ -2394,27 +2842,26 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_XSpeed,
     },
 
-    [ITEM_X_ACCURACY] =
+    [ITEM_X_AWARE] =
     {
-        .name = _("X Accuracy"),
-        .pluralName = _("X Accuracies"),
+        .name = _("X Aware"),
+        .pluralName = _("X Awares"),
         .price = (I_PRICE >= GEN_7) ? 1000 : 950,
         .holdEffectParam = X_ITEM_STAGES,
             .description = COMPOUND_STRING(
         #if B_X_ITEMS_BUFF >= GEN_7
-            "Sharply raises move\n"
-            "accuracy during\n"
+            "Sharply raises\n"
+            "awareness during\n"
             "one battle."),
         #else
-            "Raises accuracy\n"
-            "of attack moves\n"
+            "Raises awareness\n"
             "during one battle."),
         #endif
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .battleUsage = EFFECT_ITEM_INCREASE_STAT,
-        .effect = gItemEffect_XAccuracy,
+        .effect = gItemEffect_XAwareness,
         .flingPower = 30,
         .iconPic = gItemIcon_BattleStatItem,
         .iconPalette = gItemIconPalette_XAccuracy,
@@ -13735,7 +14182,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_HpMochi,
         .flingPower = 30,
         .iconPic = gItemIcon_Mochi,
-        .iconPalette = gItemIconPalette_HealthMochi,
+        .iconPalette = gItemIconPalette_HealthEV,
     },
 
     [ITEM_MUSCLE_MOCHI] =
@@ -13750,7 +14197,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_AtkMochi,
         .flingPower = 30,
         .iconPic = gItemIcon_Mochi,
-        .iconPalette = gItemIconPalette_MuscleMochi,
+        .iconPalette = gItemIconPalette_AttackEV,
     },
 
     [ITEM_RESIST_MOCHI] =
@@ -13765,7 +14212,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_DefMochi,
         .flingPower = 30,
         .iconPic = gItemIcon_Mochi,
-        .iconPalette = gItemIconPalette_ResistMochi,
+        .iconPalette = gItemIconPalette_DefenseEV,
     },
 
     [ITEM_GENIUS_MOCHI] =
@@ -13780,7 +14227,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_SpatkMochi,
         .flingPower = 30,
         .iconPic = gItemIcon_Mochi,
-        .iconPalette = gItemIconPalette_GeniusMochi,
+        .iconPalette = gItemIconPalette_SpAttackEV,
     },
 
     [ITEM_CLEVER_MOCHI] =
@@ -13795,7 +14242,7 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_SpdefMochi,
         .flingPower = 30,
         .iconPic = gItemIcon_Mochi,
-        .iconPalette = gItemIconPalette_CleverMochi,
+        .iconPalette = gItemIconPalette_SpDefenseEV,
     },
 
     [ITEM_SWIFT_MOCHI] =
@@ -13810,7 +14257,37 @@ const struct Item gItemsInfo[] =
         .effect = gItemEffect_SpeedMochi,
         .flingPower = 30,
         .iconPic = gItemIcon_Mochi,
-        .iconPalette = gItemIconPalette_SwiftMochi,
+        .iconPalette = gItemIconPalette_SpeedEV,
+    },
+	
+	[ITEM_ALERT_MOCHI] =
+    {
+        .name = _("Alert Mochi"),
+        .pluralName = _("Alert Mochi"),
+        .price = 500,
+        .description = sAlertFeatherDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .effect = gItemEffect_ReactMochi,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Mochi,
+        .iconPalette = gItemIconPalette_ReactEV,
+    },
+	
+	[ITEM_KEEN_MOCHI] =
+    {
+        .name = _("Keen Mochi"),
+        .pluralName = _("Keen Mochi"),
+        .price = 500,
+        .description = sKeenFeatherDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .effect = gItemEffect_AwareMochi,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Mochi,
+        .iconPalette = gItemIconPalette_AwareEV,
     },
 
     [ITEM_FRESH_START_MOCHI] =

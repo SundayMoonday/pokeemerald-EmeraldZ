@@ -1114,7 +1114,7 @@ BattleScript_EffectAllySwitch::
 	allyswitchfailchance BattleScript_ButItFailed
 	attackanimation
 	waitanimation
-	@ The actual data/gfx swap happens in the move animation. Here it's just the gBattlerAttacker / scripting battler change
+	@ The actual data/gfx swap happens in the move animation. Here its just the gBattlerAttacker / scripting battler change
 	allyswitchswapbattlers
 	printstring STRINGID_ALLYSWITCHPOSITION
 	waitmessage B_WAIT_TIME_LONG
@@ -2081,7 +2081,7 @@ BattleScript_EffectCoil::
 	ppreduce
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, MAX_STAT_STAGE, BattleScript_CoilDoMoveAnim
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, MAX_STAT_STAGE, BattleScript_CoilDoMoveAnim
-	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_ACC, MAX_STAT_STAGE, BattleScript_CantRaiseMultipleStats
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_REACT, MAX_STAT_STAGE, BattleScript_CantRaiseMultipleStats
 BattleScript_CoilDoMoveAnim:
 	attackanimation
 	waitanimation
@@ -2099,7 +2099,7 @@ BattleScript_CoilTryDef:
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_CoilTryAcc:
-	setstatchanger STAT_ACC, 1, FALSE
+	setstatchanger STAT_REACT, 1, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CoilEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_CoilEnd
 	printfromtable gStatUpStringIds
@@ -2211,19 +2211,19 @@ BattleScript_EffectAttackAccUp::
 	attackstring
 	ppreduce
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, MAX_STAT_STAGE, BattleScript_AttackAccUpDoMoveAnim
-	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_ACC, MAX_STAT_STAGE, BattleScript_CantRaiseMultipleStats
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_REACT, MAX_STAT_STAGE, BattleScript_CantRaiseMultipleStats
 BattleScript_AttackAccUpDoMoveAnim::
 	attackanimation
 	waitanimation
 	setbyte sSTAT_ANIM_PLAYED, FALSE
-	playstatchangeanimation BS_ATTACKER, BIT_SPATK | BIT_SPDEF, 0
+	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_REACT, 0
 	setstatchanger STAT_ATK, 1, FALSE
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AttackAccUpTrySpDef
-	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_AttackAccUpTrySpDef
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AttackAccUpTryReact
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_AttackAccUpTryReact
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_AttackAccUpTrySpDef::
-	setstatchanger STAT_ACC, 1, FALSE
+BattleScript_AttackAccUpTryReact::
+	setstatchanger STAT_REACT, 1, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AttackAccUpEnd
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_AttackAccUpEnd
 	printfromtable gStatUpStringIds
@@ -2480,6 +2480,8 @@ BattleScript_EffectHeartSwap::
 	swapstatstages STAT_SPEED
 	swapstatstages STAT_SPATK
 	swapstatstages STAT_SPDEF
+	swapstatstages STAT_REACT
+	swapstatstages STAT_AWARE
 	swapstatstages STAT_EVASION
 	swapstatstages STAT_ACC
 	attackanimation
@@ -4163,16 +4165,33 @@ BattleScript_NightmareWorked::
 	printstring STRINGID_PKMNFELLINTONIGHTMARE
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
-
+	
 BattleScript_EffectMinimize::
 	attackcanceler
+	attackstring
 	setminimize
-.if B_MINIMIZE_EVASION >= GEN_5
-	setstatchanger STAT_EVASION, 2, FALSE
-.else
-	setstatchanger STAT_EVASION, 1, FALSE
-.endif
-	goto BattleScript_EffectStatUpAfterAtkCanceler
+	ppreduce
+BattleScript_EffectMinimizeFromStatUp::
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_REACT, MAX_STAT_STAGE, BattleScript_MinimizeDoMoveAnim
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_AWARE, MAX_STAT_STAGE, BattleScript_CantRaiseMultipleStats
+BattleScript_MinimizeDoMoveAnim::
+	attackanimation
+	waitanimation
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_REACT | BIT_AWARE, 0
+	setstatchanger STAT_REACT, 1, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MinimizeTryAware
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_MinimizeTryAware
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_MinimizeTryAware::
+	setstatchanger STAT_AWARE, 1, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MinimizeEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_MinimizeEnd
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_MinimizeEnd::
+	goto BattleScript_MoveEnd
 
 BattleScript_EffectCurse::
 	jumpiftype BS_ATTACKER, TYPE_GHOST, BattleScript_GhostCurse
@@ -4264,6 +4283,12 @@ BattleScript_IdentifiedFoe:
 	attackanimation
 	waitanimation
 	printstring STRINGID_PKMNIDENTIFIED
+	waitmessage B_WAIT_TIME_LONG
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_AWARE, MAX_STAT_STAGE, BattleScript_MoveEnd
+	setstatchanger STAT_AWARE, 2, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_AWARE, STAT_CHANGE_BY_TWO
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MoveEnd
+	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 
@@ -5322,6 +5347,34 @@ BattleScript_TickleTryLowerDef::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_TickleEnd::
+	goto BattleScript_MoveEnd
+	
+BattleScript_EffectFlash::
+	attackcanceler
+	attackstring
+	ppreduce
+	jumpifstat BS_TARGET, CMP_GREATER_THAN, STAT_REACT, MIN_STAT_STAGE, BattleScript_FlashDoMoveAnim
+	jumpifstat BS_TARGET, CMP_EQUAL, STAT_AWARE, MIN_STAT_STAGE, BattleScript_CantLowerMultipleStats
+BattleScript_FlashDoMoveAnim::
+	accuracycheck BattleScript_ButItFailed, ACC_CURR_MOVE
+	attackanimation
+	waitanimation
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_TARGET, BIT_REACT | BIT_AWARE, STAT_CHANGE_NEGATIVE | STAT_CHANGE_MULTIPLE_STATS
+	playstatchangeanimation BS_TARGET, BIT_REACT, STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_REACT, 1, TRUE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_FlashTryLowerAware
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_FlashTryLowerAware
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_FlashTryLowerAware::
+	playstatchangeanimation BS_TARGET, BIT_AWARE, STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_AWARE, 1, TRUE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_FlashEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_FlashEnd
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_FlashEnd::
 	goto BattleScript_MoveEnd
 
 BattleScript_CantLowerMultipleStats::
@@ -6451,12 +6504,14 @@ BattleScript_AllStatsUpZMove::
 BattleScript_AllStatsUp::
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_ATK, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_DEF, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
-	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPEED, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
 	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPATK, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
-	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, MAX_STAT_STAGE, BattleScript_AllStatsUpRet
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPDEF, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPEED, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_REACT, MAX_STAT_STAGE, BattleScript_AllStatsUpAtk
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_AWARE, MAX_STAT_STAGE, BattleScript_AllStatsUpRet
 BattleScript_AllStatsUpAtk::
 	setbyte sSTAT_ANIM_PLAYED, FALSE
-	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPEED | BIT_SPATK | BIT_SPDEF, 0
+	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPEED | BIT_SPATK | BIT_SPDEF | BIT_REACT | BIT_AWARE, 0
 	setstatchanger STAT_ATK, 1, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpDef
 	printfromtable gStatUpStringIds
@@ -6466,11 +6521,6 @@ BattleScript_AllStatsUpDef::
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpeed
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG
-BattleScript_AllStatsUpSpeed::
-	setstatchanger STAT_SPEED, 1, FALSE
-	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpAtk
-	printfromtable gStatUpStringIds
-	waitmessage B_WAIT_TIME_LONG
 BattleScript_AllStatsUpSpAtk::
 	setstatchanger STAT_SPATK, 1, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpDef
@@ -6478,6 +6528,21 @@ BattleScript_AllStatsUpSpAtk::
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_AllStatsUpSpDef::
 	setstatchanger STAT_SPDEF, 1, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpSpeed
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpSpeed::
+	setstatchanger STAT_SPEED, 1, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpReact
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpReact::
+	setstatchanger STAT_REACT, 1, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpAware
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_AllStatsUpAware::
+	setstatchanger STAT_AWARE, 1, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_AllStatsUpRet
 	printfromtable gStatUpStringIds
 	waitmessage B_WAIT_TIME_LONG

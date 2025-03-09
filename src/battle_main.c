@@ -5939,7 +5939,9 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, u8 *ateBoost)
                         | ((gBattleMons[battler].defenseIV & 1) << 2)
                         | ((gBattleMons[battler].speedIV & 1) << 3)
                         | ((gBattleMons[battler].spAttackIV & 1) << 4)
-                        | ((gBattleMons[battler].spDefenseIV & 1) << 5);
+                        | ((gBattleMons[battler].spDefenseIV & 1) << 5)
+						| ((gBattleMons[battler].reactionIV & 1) << 6)
+                        | ((gBattleMons[battler].awarenessIV & 1) << 7);
             }
             else
             {
@@ -5948,7 +5950,9 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, u8 *ateBoost)
                         | ((GetMonData(mon, MON_DATA_DEF_IV) & 1) << 2)
                         | ((GetMonData(mon, MON_DATA_SPEED_IV) & 1) << 3)
                         | ((GetMonData(mon, MON_DATA_SPATK_IV) & 1) << 4)
-                        | ((GetMonData(mon, MON_DATA_SPDEF_IV) & 1) << 5);
+                        | ((GetMonData(mon, MON_DATA_SPDEF_IV) & 1) << 5)
+						| ((GetMonData(mon, MON_DATA_REACT_IV) & 1) << 6)
+                        | ((GetMonData(mon, MON_DATA_AWARE_IV) & 1) << 7);
             }
 
             u32 hpTypes[NUMBER_OF_MON_TYPES] = {0};

@@ -523,6 +523,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
 	setvar VAR_BIRCH_LAB_STATE, 5
 	setflag FLAG_ADVENTURE_STARTED
 	setflag FLAG_SYS_NATIONAL_DEX
+	setflag FLAG_DEXNAV_UNLOCK
 	special EnableNationalPokedex
 	setvar VAR_OLDALE_TOWN_STATE, 1
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 4

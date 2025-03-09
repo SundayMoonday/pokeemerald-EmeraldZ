@@ -7,8 +7,8 @@ SINGLE_BATTLE_TEST("Mirror Armor lowers a stat of the attacking pokemon")
 
     PARAMETRIZE { move = MOVE_LEER; statId = STAT_DEF; }
     PARAMETRIZE { move = MOVE_GROWL; statId = STAT_ATK; }
-    PARAMETRIZE { move = MOVE_SWEET_SCENT; statId = STAT_EVASION; }
-    PARAMETRIZE { move = MOVE_SAND_ATTACK; statId = STAT_ACC; }
+    PARAMETRIZE { move = MOVE_SWEET_SCENT; statId = STAT_REACT; }
+    PARAMETRIZE { move = MOVE_SAND_ATTACK; statId = STAT_AWARE; }
     PARAMETRIZE { move = MOVE_CONFIDE; statId = STAT_SPATK; }
     PARAMETRIZE { move = MOVE_FAKE_TEARS; statId = STAT_SPDEF; }
 
@@ -28,11 +28,11 @@ SINGLE_BATTLE_TEST("Mirror Armor lowers a stat of the attacking pokemon")
         case STAT_ATK:
             MESSAGE("The opposing Wynaut's Attack fell!");
             break;
-        case STAT_EVASION:
-            MESSAGE("The opposing Wynaut's evasiveness harshly fell!");
+        case STAT_REACT:
+            MESSAGE("The opposing Wynaut's Reaction harshly fell!");
             break;
-        case STAT_ACC:
-            MESSAGE("The opposing Wynaut's accuracy fell!");
+        case STAT_AWARE:
+            MESSAGE("The opposing Wynaut's Awareness fell!");
             break;
         case STAT_SPATK:
             MESSAGE("The opposing Wynaut's Sp. Atk fell!");

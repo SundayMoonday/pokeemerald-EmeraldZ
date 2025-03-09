@@ -1341,6 +1341,8 @@ void ItemUseOutOfBattle_EnigmaBerry(u8 taskId)
     case ITEM_EFFECT_SPATK_EV:
     case ITEM_EFFECT_SPDEF_EV:
     case ITEM_EFFECT_SPEED_EV:
+	case ITEM_EFFECT_REACT_EV:
+    case ITEM_EFFECT_AWARE_EV:
     case ITEM_EFFECT_DEF_EV:
         gTasks[taskId].tEnigmaBerryType = ITEM_USE_PARTY_MENU;
         ItemUseOutOfBattle_Medicine(taskId);

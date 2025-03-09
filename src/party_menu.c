@@ -4567,6 +4567,14 @@ static void GetMedicineItemEffectMessage(u16 item, u32 statusCured)
         StringCopy(gStringVar2, gText_SpDef3);
         StringExpandPlaceholders(gStringVar4, gText_PkmnBaseVar2StatIncreased);
         break;
+	case ITEM_EFFECT_REACT_EV:
+        StringCopy(gStringVar2, gText_React);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnBaseVar2StatIncreased);
+        break;
+    case ITEM_EFFECT_AWARE_EV:
+        StringCopy(gStringVar2, gText_Aware);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnBaseVar2StatIncreased);
+        break;
     case ITEM_EFFECT_PP_UP:
     case ITEM_EFFECT_PP_MAX:
         StringExpandPlaceholders(gStringVar4, gText_MovesPPIncreased);
@@ -5099,6 +5107,10 @@ static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
         return GetMonData(mon, MON_DATA_SPATK_EV);
     case ITEM_EFFECT_SPDEF_EV:
         return GetMonData(mon, MON_DATA_SPDEF_EV);
+	case ITEM_EFFECT_REACT_EV:
+        return GetMonData(mon, MON_DATA_REACT_EV);
+    case ITEM_EFFECT_AWARE_EV:
+        return GetMonData(mon, MON_DATA_AWARE_EV);
     }
     return 0;
 }
@@ -5124,6 +5136,12 @@ static void ItemEffectToStatString(u8 effectType, u8 *dest)
         break;
     case ITEM_EFFECT_SPDEF_EV:
         StringCopy(dest, gText_SpDef3);
+        break;
+	case ITEM_EFFECT_REACT_EV:
+        StringCopy(dest, gText_React);
+        break;
+    case ITEM_EFFECT_AWARE_EV:
+        StringCopy(dest, gText_Aware);
         break;
     }
 }
@@ -6680,6 +6698,10 @@ u8 GetItemEffectType(u16 item)
         return ITEM_EFFECT_SPEED_EV;
     else if (itemEffect[5] & ITEM5_EV_DEF)
         return ITEM_EFFECT_DEF_EV;
+	else if (itemEffect[0] & ITEM0_EV_REACT)
+        return ITEM_EFFECT_REACT_EV;
+    else if (itemEffect[0] & ITEM0_EV_AWARE)
+        return ITEM_EFFECT_AWARE_EV;
     else if (itemEffect[4] & ITEM4_EVO_STONE)
         return ITEM_EFFECT_EVO_STONE;
     else if (itemEffect[4] & ITEM4_PP_UP)

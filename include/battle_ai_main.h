@@ -21,15 +21,19 @@ typedef s32 (*AiScoreFunc)(u32, u32, u32, s32);
 #define STAT_CHANGE_SPEED      2
 #define STAT_CHANGE_SPATK      3
 #define STAT_CHANGE_SPDEF      4
+#define STAT_CHANGE_REACT      5
+#define STAT_CHANGE_AWARE      6
 
-#define STAT_CHANGE_ATK_2      5
-#define STAT_CHANGE_DEF_2      6
-#define STAT_CHANGE_SPEED_2    7
-#define STAT_CHANGE_SPATK_2    8
-#define STAT_CHANGE_SPDEF_2    9
+#define STAT_CHANGE_ATK_2      7
+#define STAT_CHANGE_DEF_2      8
+#define STAT_CHANGE_SPEED_2    9
+#define STAT_CHANGE_SPATK_2    10
+#define STAT_CHANGE_SPDEF_2    11
+#define STAT_CHANGE_REACT_2    12
+#define STAT_CHANGE_AWARE_2    13
 
-#define STAT_CHANGE_ACC        10
-#define STAT_CHANGE_EVASION    11
+#define STAT_CHANGE_ACC        14
+#define STAT_CHANGE_EVASION    15
 
 #define BEST_DAMAGE_MOVE         1  // Move with the most amount of hits with the best accuracy/effect
 #define POWERFUL_STATUS_MOVE     10 // Moves with this score will be chosen over a move that faints target

@@ -39,7 +39,7 @@ LilycoveCity_DepartmentStore_3F_Pokemart_StatBoosters:
 	.2byte ITEM_X_DEFENSE
 	.2byte ITEM_DIRE_HIT
 	.2byte ITEM_GUARD_SPEC
-	.2byte ITEM_X_ACCURACY
+	.2byte ITEM_X_AWARE
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::

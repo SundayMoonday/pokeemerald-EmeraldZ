@@ -7,7 +7,7 @@
 // Flag/var defines
 #define DN_FLAG_SEARCHING             1 // Searching for mon
 #define DN_FLAG_DEXNAV_GET            1 // DexNav shows in start menu
-#define DN_FLAG_DETECTOR_MODE         1 // Allow player to find hidden mons
+#define DN_FLAG_DETECTOR_MODE         TRUE // Allow player to find hidden mons
 #define DN_VAR_SPECIES                0 // Registered DexNav species
 #define DN_VAR_STEP_COUNTER           20 // Steps for finding hidden pokemon
 
@@ -15,13 +15,13 @@
 #define DEXNAV_TIMEOUT                  30  // 15 seconds is the time out. Max of 1092 seconds allowed
 #define SNEAKING_PROXIMITY              4   // Tile amount
 #define CREEPING_PROXIMITY              2
-#define MAX_PROXIMITY                   20
+#define MAX_PROXIMITY                   15
 
 #define DEXNAV_CHAIN_MAX                100 // maximum chain value
 
 // hidden pokemon options - an approximation of values to due to lack of available data
-#define HIDDEN_MON_STEP_COUNT       100  // Look for hidden pokemon every x steps
-#define HIDDEN_MON_SEARCH_RATE      25   // x% chance of finding hidden pokemon every x steps
+#define HIDDEN_MON_STEP_COUNT       50  // Look for hidden pokemon every x steps
+#define HIDDEN_MON_SEARCH_RATE      50   // x% chance of finding hidden pokemon every x steps
 #define HIDDEN_MON_PROBABILTY       15   // x% chance of finding hidden mon compared to regular encounter data
 
 //// SEARCH PROBABILITIES

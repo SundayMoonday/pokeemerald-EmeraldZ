@@ -765,7 +765,9 @@ static u8 GetAverageEVs(struct Pokemon *pokemon)
     evTotal += GetMonData(pokemon, MON_DATA_SPEED_EV);
     evTotal += GetMonData(pokemon, MON_DATA_SPATK_EV);
     evTotal += GetMonData(pokemon, MON_DATA_SPDEF_EV);
-    return evTotal / 6;
+	evTotal += GetMonData(pokemon, MON_DATA_REACT_EV);
+    evTotal += GetMonData(pokemon, MON_DATA_AWARE_EV);
+    return evTotal / 8;
 }
 
 void SetPlayerSecretBaseParty(void)

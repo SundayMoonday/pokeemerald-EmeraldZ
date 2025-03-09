@@ -1077,8 +1077,8 @@ static void PCTurnOnEffect(struct Task *task)
 static void PCTurnOnEffect_SetMetatile(s16 isScreenOn, s8 dx, s8 dy)
 {
     u16 metatileId = 0;
-	if(gSysPcFromPokenav)
-        return;
+	//if(gSysPcFromPokenav)
+    //    return;
     if (isScreenOn)
     {
         // Screen is on, set it off
@@ -1117,10 +1117,11 @@ static void PCTurnOffEffect(void)
     // Get where the PC should be, depending on where the player is looking.
     u8 playerDirection = GetPlayerFacingDirection();
 	
+	/*
 	if(gSysPcFromPokenav){
         gSysPcFromPokenav = FALSE;
         return;
-    }
+    }*/
 
     if (IsPlayerInFrontOfPC() == FALSE)
         return;
@@ -2018,6 +2019,8 @@ void BufferVarsForIVRater(void)
     ivStorage[STAT_SPEED] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV);
     ivStorage[STAT_SPATK] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV);
     ivStorage[STAT_SPDEF] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV);
+	ivStorage[STAT_REACT] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_REACT_IV);
+    ivStorage[STAT_AWARE] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_AWARE_IV);
 
     gSpecialVar_0x8005 = 0;
 

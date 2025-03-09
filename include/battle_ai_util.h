@@ -94,6 +94,8 @@ bool32 ShouldLowerDefense(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 ShouldLowerSpeed(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 ShouldLowerSpAtk(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 ShouldLowerSpDef(u32 battlerAtk, u32 battlerDef, u32 defAbility);
+bool32 ShouldLowerReact(u32 battlerAtk, u32 battlerDef, u32 defAbility);
+bool32 ShouldLowerAware(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 ShouldLowerAccuracy(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 bool32 ShouldLowerEvasion(u32 battlerAtk, u32 battlerDef, u32 defAbility);
 

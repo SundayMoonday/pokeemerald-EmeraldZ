@@ -24616,7 +24616,7 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //P_FAMILY_CALYREX
 
 #if P_FAMILY_SPRIGATITO
-    const u32 gMonFrontPic_Sprigatito[] = INCBIN_U32("graphics/pokemon/sprigatito/front.4bpp.lz");
+    const u32 gMonFrontPic_Sprigatito[] = INCBIN_U32("graphics/pokemon/sprigatito/anim_front.4bpp.lz");
     const u32 gMonPalette_Sprigatito[] = INCBIN_U32("graphics/pokemon/sprigatito/normal.gbapal.lz");
     const u32 gMonBackPic_Sprigatito[] = INCBIN_U32("graphics/pokemon/sprigatito/back.4bpp.lz");
     const u32 gMonShinyPalette_Sprigatito[] = INCBIN_U32("graphics/pokemon/sprigatito/shiny.gbapal.lz");
@@ -24632,7 +24632,7 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 
-    const u32 gMonFrontPic_Floragato[] = INCBIN_U32("graphics/pokemon/floragato/front.4bpp.lz");
+    const u32 gMonFrontPic_Floragato[] = INCBIN_U32("graphics/pokemon/floragato/anim_front.4bpp.lz");
     const u32 gMonPalette_Floragato[] = INCBIN_U32("graphics/pokemon/floragato/normal.gbapal.lz");
     const u32 gMonBackPic_Floragato[] = INCBIN_U32("graphics/pokemon/floragato/back.4bpp.lz");
     const u32 gMonShinyPalette_Floragato[] = INCBIN_U32("graphics/pokemon/floragato/shiny.gbapal.lz");
@@ -24648,7 +24648,7 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 
-    const u32 gMonFrontPic_Meowscarada[] = INCBIN_U32("graphics/pokemon/meowscarada/front.4bpp.lz");
+    const u32 gMonFrontPic_Meowscarada[] = INCBIN_U32("graphics/pokemon/meowscarada/anim_front.4bpp.lz");
     const u32 gMonPalette_Meowscarada[] = INCBIN_U32("graphics/pokemon/meowscarada/normal.gbapal.lz");
     const u32 gMonBackPic_Meowscarada[] = INCBIN_U32("graphics/pokemon/meowscarada/back.4bpp.lz");
     const u32 gMonShinyPalette_Meowscarada[] = INCBIN_U32("graphics/pokemon/meowscarada/shiny.gbapal.lz");

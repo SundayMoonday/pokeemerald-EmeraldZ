@@ -250,8 +250,10 @@ enum CmdVarious
 #define BIT_SPEED                   (1 << 3)
 #define BIT_SPATK                   (1 << 4)
 #define BIT_SPDEF                   (1 << 5)
-#define BIT_ACC                     (1 << 6)
-#define BIT_EVASION                 (1 << 7)
+#define BIT_REACT                   (1 << 6)
+#define BIT_AWARE                   (1 << 7)
+#define BIT_ACC                     (1 << 8)
+#define BIT_EVASION                 (1 << 9)
 
 #define PARTY_SCREEN_OPTIONAL (1 << 7) // Flag for first argument to openpartyscreen
 

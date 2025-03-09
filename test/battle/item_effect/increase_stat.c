@@ -140,11 +140,11 @@ SINGLE_BATTLE_TEST("X Accuracy sharply raises battler's Accuracy stat")
     else
         PASSES_RANDOMLY(GetMoveAccuracy(MOVE_SING) * 4 / 3, 100, RNG_ACCURACY);
     GIVEN {
-        ASSUME(gItemsInfo[ITEM_X_ACCURACY].battleUsage == EFFECT_ITEM_INCREASE_STAT);
+        ASSUME(gItemsInfo[ITEM_X_AWARE].battleUsage == EFFECT_ITEM_INCREASE_STAT);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { USE_ITEM(player, ITEM_X_ACCURACY); }
+        TURN { USE_ITEM(player, ITEM_X_AWARE); }
         TURN { MOVE(player, MOVE_SING); }
     } SCENE {
         MESSAGE("Wobbuffet used Sing!");

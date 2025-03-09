@@ -986,9 +986,9 @@ static const struct InGameTrade sIngameTrades[] =
 {
     [INGAME_TRADE_SEEDOT] =
     {
-        .nickname = _("DOTS"),
-        .species = SPECIES_SEEDOT,
-        .ivs = {5, 4, 5, 4, 4, 4},
+        .nickname = _("Ziggy"),
+        .species = SPECIES_ZIGZAGOON_GALAR,
+        .ivs = {5, 4, 5, 4, 4, 4, 15, 15},
         .abilityNum = 1,
         .otId = 38726,
         .conditions = {30, 5, 5, 5, 5},
@@ -998,13 +998,13 @@ static const struct InGameTrade sIngameTrades[] =
         .otName = _("KOBE"),
         .otGender = MALE,
         .sheen = 10,
-        .requestedSpecies = SPECIES_RALTS
+        .requestedSpecies = SPECIES_ZIGZAGOON
     },
     [INGAME_TRADE_PLUSLE] =
     {
         .nickname = _("PLUSES"),
         .species = SPECIES_PLUSLE,
-        .ivs = {4, 4, 4, 5, 5, 4},
+        .ivs = {4, 4, 4, 5, 5, 4, 15, 15},
         .abilityNum = 0,
         .otId = 73996,
         .conditions = {5, 5, 30, 5, 5},
@@ -1020,7 +1020,7 @@ static const struct InGameTrade sIngameTrades[] =
     {
         .nickname = _("SEASOR"),
         .species = SPECIES_HORSEA,
-        .ivs = {5, 4, 4, 4, 5, 4},
+        .ivs = {5, 4, 4, 4, 5, 4, 15, 15},
         .abilityNum = 0,
         .otId = 46285,
         .conditions = {5, 5, 5, 5, 30},
@@ -1036,7 +1036,7 @@ static const struct InGameTrade sIngameTrades[] =
     {
         .nickname = _("MEOWOW"),
         .species = SPECIES_MEOWTH,
-        .ivs = {4, 5, 4, 5, 4, 4},
+        .ivs = {4, 5, 4, 5, 4, 4, 15, 15},
         .abilityNum = 0,
         .otId = 91481,
         .conditions = {5, 5, 5, 30, 5},

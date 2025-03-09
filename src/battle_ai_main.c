@@ -969,6 +969,10 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 if (moveEffect == EFFECT_ACCURACY_DOWN || moveEffect == EFFECT_ACCURACY_DOWN_2)
                     RETURN_SCORE_MINUS(10);
                 break;
+			case ABILITY_STEADFAST:
+                if (moveEffect == EFFECT_REACTION_DOWN || moveEffect == EFFECT_REACTION_DOWN_2)
+                    RETURN_SCORE_MINUS(10);
+                break;
             case ABILITY_BIG_PECKS:
                 if (moveEffect == EFFECT_DEFENSE_DOWN || moveEffect == EFFECT_DEFENSE_DOWN_2)
                     RETURN_SCORE_MINUS(10);
@@ -1174,9 +1178,14 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             break;
         case EFFECT_EVASION_UP:
         case EFFECT_EVASION_UP_2:
-        case EFFECT_MINIMIZE:
-            if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_EVASION))
+			if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_EVASION))
                 ADJUST_SCORE(-10);
+            break;
+        case EFFECT_MINIMIZE:
+            if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_REACT))
+                ADJUST_SCORE(-10);
+            else if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_AWARE))
+                ADJUST_SCORE(-8);
             break;
         case EFFECT_COSMIC_POWER:
             if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_DEF))
@@ -1214,7 +1223,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             if (aiData->abilities[battlerAtk] != ABILITY_CONTRARY)
             {
                 if (gBattleMons[battlerAtk].statStages[STAT_ATK] >= MAX_STAT_STAGE
-                  && (gBattleMons[battlerAtk].statStages[STAT_ACC] >= MAX_STAT_STAGE || !HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_PHYSICAL)))
+                  && (gBattleMons[battlerAtk].statStages[STAT_REACT] >= MAX_STAT_STAGE || !HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_PHYSICAL)))
                     ADJUST_SCORE(-10);
                 break;
             }
@@ -1394,13 +1403,18 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             break;
 		case EFFECT_REACTION_DOWN:
         case EFFECT_REACTION_DOWN_2:
-            if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_SPDEF))
+            if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_REACT))
                 ADJUST_SCORE(-10);
+			else if (aiData->abilities[battlerDef] == ABILITY_STEADFAST)
+                ADJUST_SCORE(-8);
             break;
         case EFFECT_AWARENESS_DOWN:
         case EFFECT_AWARENESS_DOWN_2:
             if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_SPDEF))
                 ADJUST_SCORE(-10);
+			else if (aiData->abilities[battlerDef] == ABILITY_KEEN_EYE || aiData->abilities[battlerDef] == ABILITY_MINDS_EYE
+                        || (B_ILLUMINATE_EFFECT >= GEN_9 && aiData->abilities[battlerDef] == ABILITY_ILLUMINATE))
+                ADJUST_SCORE(-8);
             break;
         case EFFECT_ACCURACY_DOWN:
         case EFFECT_ACCURACY_DOWN_2:
@@ -1416,6 +1430,12 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_ATK))
                 ADJUST_SCORE(-10);
             else if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_DEF))
+                ADJUST_SCORE(-8);
+            break;
+		case EFFECT_FLASH:
+            if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_REACT))
+                ADJUST_SCORE(-10);
+            else if (!ShouldLowerStat(battlerAtk, battlerDef, aiData->abilities[battlerDef], STAT_AWARE))
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_VENOM_DRENCH:
@@ -1677,6 +1697,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10); // only one mon needs to set up Sticky Web
             break;
         case EFFECT_FORESIGHT:
+			if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_AWARE))
+                ADJUST_SCORE(-10);
             if (gBattleMons[battlerDef].status2 & STATUS2_FORESIGHT)
                 ADJUST_SCORE(-10);
             else if (gBattleMons[battlerDef].statStages[STAT_EVASION] <= 4
@@ -3473,6 +3495,29 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         if (aiData->hpPercents[battlerDef] <= 70)
             ADJUST_SCORE(-2);
         break;
+	case EFFECT_REACTION_DOWN:
+    case EFFECT_REACTION_DOWN_2:
+        if (!ShouldLowerReact(battlerAtk, battlerDef, aiData->abilities[battlerDef]))
+            ADJUST_SCORE(-2);
+        if (gBattleMons[battlerDef].statStages[STAT_REACT] < DEFAULT_STAT_STAGE)
+            ADJUST_SCORE(-1);
+        else if (aiData->hpPercents[battlerAtk] <= 90)
+            ADJUST_SCORE(-1);
+        if (gBattleMons[battlerDef].statStages[STAT_REACT] > 3 && !AI_RandLessThan(50))
+            ADJUST_SCORE(-2);
+        else if (aiData->hpPercents[battlerDef] < 70)
+            ADJUST_SCORE(-2);
+        break;
+    case EFFECT_AWARENESS_DOWN:
+    case EFFECT_AWARENESS_DOWN_2:
+        if (!ShouldLowerAware(battlerAtk, battlerDef, aiData->abilities[battlerDef]))
+            ADJUST_SCORE(-2);
+        if ((aiData->hpPercents[battlerAtk] < 70 && !AI_RandLessThan(50))
+          || (gBattleMons[battlerDef].statStages[STAT_AWARE] <= 3 && !AI_RandLessThan(50)))
+            ADJUST_SCORE(-2);
+        if (aiData->hpPercents[battlerDef] <= 70)
+            ADJUST_SCORE(-2);
+        break;
     case EFFECT_ACCURACY_DOWN:
     case EFFECT_ACCURACY_DOWN_2:
         if (ShouldLowerAccuracy(battlerAtk, battlerDef, aiData->abilities[battlerDef]))
@@ -3517,7 +3562,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         break;
     case EFFECT_ATTACK_ACCURACY_UP: // hone claws
         ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ATK));
-        ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ACC));
+        ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_REACT));
         break;
     case EFFECT_GROWTH:
     case EFFECT_ATTACK_SPATK_UP:    // work up
@@ -4269,6 +4314,12 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         else if (ShouldLowerAttack(battlerAtk, battlerDef, aiData->abilities[battlerDef]))
             ADJUST_SCORE(DECENT_EFFECT);
         break;
+	case EFFECT_FLASH:
+        if (gBattleMons[battlerDef].statStages[STAT_REACT] > 4 && aiData->abilities[battlerDef] != ABILITY_CONTRARY)
+            ADJUST_SCORE(DECENT_EFFECT);
+        else if (gBattleMons[battlerDef].statStages[STAT_AWARE] > 4 && aiData->abilities[battlerDef] != ABILITY_CONTRARY)
+            ADJUST_SCORE(DECENT_EFFECT);
+        break;
     case EFFECT_COSMIC_POWER:
         ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_DEF));
         ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPDEF));
@@ -4963,6 +5014,7 @@ static s32 AI_ForceSetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 
     case EFFECT_CHILLY_RECEPTION:
     case EFFECT_GEOMANCY:
     case EFFECT_VICTORY_DANCE:
+	case EFFECT_FLASH:
         ADJUST_SCORE(DECENT_EFFECT);
         break;
     case EFFECT_HIT:
@@ -5234,6 +5286,7 @@ static s32 AI_HPAware(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_PSYCH_UP:
             case EFFECT_MIRROR_COAT:
             case EFFECT_TICKLE:
+			case EFFECT_FLASH:
             case EFFECT_SUNNY_DAY:
             case EFFECT_SANDSTORM:
             case EFFECT_HAIL:
@@ -5313,6 +5366,7 @@ static s32 AI_HPAware(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_BULK_UP:
             case EFFECT_CALM_MIND:
             case EFFECT_DRAGON_DANCE:
+			case EFFECT_FLASH:
             case EFFECT_DEFENSE_UP_3:
             case EFFECT_SPECIAL_ATTACK_UP_3:
                 ADJUST_SCORE(-2);

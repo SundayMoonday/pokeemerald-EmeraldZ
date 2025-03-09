@@ -6694,6 +6694,7 @@ static const struct LevelUpMove sEnteiLevelUpLearnset[] = {
 static const struct LevelUpMove sSuicuneLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_EXTREME_SPEED),
     LEVEL_UP_MOVE( 1, MOVE_SHEER_COLD),
+	LEVEL_UP_MOVE( 1, MOVE_PURIFY),
     LEVEL_UP_MOVE( 1, MOVE_GUST),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 1, MOVE_MIST),

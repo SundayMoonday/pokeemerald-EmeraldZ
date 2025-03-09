@@ -143,13 +143,13 @@ const u8 *const gStatNamesTable[NUM_BATTLE_STATS] =
     [STAT_HP]      = sText_HP,
     [STAT_ATK]     = sText_Attack,
     [STAT_DEF]     = sText_Defense,
-    [STAT_SPEED]   = sText_Speed,
     [STAT_SPATK]   = sText_SpAttack,
     [STAT_SPDEF]   = sText_SpDefense,
-	[STAT_ACC]     = sText_Accuracy,
-    [STAT_EVASION] = sText_Evasiveness,
+	[STAT_SPEED]   = sText_Speed,
 	[STAT_REACT]   = sText_Reaction,
     [STAT_AWARE]   = sText_Awareness,
+	[STAT_ACC]     = sText_Accuracy,
+    [STAT_EVASION] = sText_Evasiveness,
 };
 const u8 *const gPokeblockWasTooXStringTable[FLAVOR_COUNT] =
 {

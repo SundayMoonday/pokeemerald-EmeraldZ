@@ -101,19 +101,29 @@ Debug_EventScript_CheckEVs::
 	special ChoosePartyMon
 	waitstate
 	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_CheckEVs_End
-	callnative Script_GetChosenMonOffensiveEVs
-	msgbox Debug_EventScript_Text_OffensiveEVs, MSGBOX_DEFAULT
-	callnative Script_GetChosenMonDefensiveEVs
-	msgbox Debug_EventScript_Text_DefensiveEVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonHPSpeedEVs
+	msgbox Debug_EventScript_Text_HPSpeedEVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonAtkDefEVs
+	msgbox Debug_EventScript_Text_AtkDefEVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonSpAtkSpDefEVs
+	msgbox Debug_EventScript_Text_SpAtkSpDefEVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonReactAwareEVs
+	msgbox Debug_EventScript_Text_ReactAwareEVs, MSGBOX_DEFAULT
 Debug_EventScript_CheckEVs_End::
 	releaseall
 	end
 
-Debug_EventScript_Text_OffensiveEVs:
-	.string "ATK EVs: {STR_VAR_1}, SPATK EVs: {STR_VAR_2}, SPEED EVs: {STR_VAR_3}$"
+Debug_EventScript_Text_HPSpeedEVs:
+	.string "HP EVs: {STR_VAR_1}, SPEED EVs: {STR_VAR_2}$"
 
-Debug_EventScript_Text_DefensiveEVs:
-	.string "HP EVs: {STR_VAR_1}, DEF EVs: {STR_VAR_2}, SPDEF EVs: {STR_VAR_3}$"
+Debug_EventScript_Text_AtkDefEVs:
+	.string "ATK EVs: {STR_VAR_1}, DEF EVs: {STR_VAR_2}$"
+
+Debug_EventScript_Text_SpAtkSpDefEVs:
+	.string "SPATK EVs: {STR_VAR_1}, SPDEF EVs: {STR_VAR_2}$"
+	
+Debug_EventScript_Text_ReactAwareEVs:
+	.string "REACT EVs: {STR_VAR_1}, AWARE EVs: {STR_VAR_2}$"
 
 Debug_EventScript_CheckIVs::
 	lockall
@@ -122,19 +132,29 @@ Debug_EventScript_CheckIVs::
 	special ChoosePartyMon
 	waitstate
 	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_CheckIVs_End
-	callnative Script_GetChosenMonOffensiveIVs
-	msgbox Debug_EventScript_Text_OffensiveIVs, MSGBOX_DEFAULT
-	callnative Script_GetChosenMonDefensiveIVs
-	msgbox Debug_EventScript_Text_DefensiveIVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonHPSpeedIVs
+	msgbox Debug_EventScript_Text_HPSpeedIVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonAtkDefIVs
+	msgbox Debug_EventScript_Text_AtkDefIVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonSpAtkSpDefIVs
+	msgbox Debug_EventScript_Text_SpAtkSpDefIVs, MSGBOX_DEFAULT
+	callnative Script_GetChosenMonReactAwareIVs
+	msgbox Debug_EventScript_Text_ReactAwareIVs, MSGBOX_DEFAULT
 Debug_EventScript_CheckIVs_End::
 	releaseall
 	end
 
-Debug_EventScript_Text_OffensiveIVs:
-	.string "ATK IVs: {STR_VAR_1}, SPATK IVs: {STR_VAR_2}, SPEED IVs: {STR_VAR_3}$"
+Debug_EventScript_Text_HPSpeedIVs:
+	.string "HP IVs: {STR_VAR_1}, SPEED IVs: {STR_VAR_2}$"
 
-Debug_EventScript_Text_DefensiveIVs:
-	.string "HP IVs: {STR_VAR_1}, DEF IVs: {STR_VAR_2}, SPDEF IVs: {STR_VAR_3}$"
+Debug_EventScript_Text_AtkDefIVs:
+	.string "ATK IVs: {STR_VAR_1}, DEF IVs: {STR_VAR_2}$"
+
+Debug_EventScript_Text_SpAtkSpDefIVs:
+	.string "SPATK IVs: {STR_VAR_1}, SPDEF IVs: {STR_VAR_2}$"
+	
+Debug_EventScript_Text_ReactAwareIVs:
+	.string "REACT IVs: {STR_VAR_1}, AWARE IVs: {STR_VAR_2}$"
 
 Debug_EventScript_Script_1::
 	release

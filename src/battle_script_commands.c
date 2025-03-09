@@ -1051,7 +1051,7 @@ static const struct PickupItem sPickupTable[4][30] =
     { ITEM_FRESH_WATER,     {   1,   1,   3,   4,   4,   5,   5,   5,  20,   _, } },
     { ITEM_REVIVAL_HERB,    {   _,   3,   8,   4,   4,   9,   8,   6,   4,   _, } },
     { ITEM_LEAF_STONE,      {   _,   3,   3,   3,   4,   4,   4,   5,   5,   _, } },
-    { ITEM_RARE_CANDY,      {   _,   3,   3,   3,   4,   4,   4,   5,   9,  10, } },
+    { RANDOM_NATURE_MINT,   {   _,   3,   3,   3,   4,   4,   4,   5,   9,  10, } },
     { ITEM_GRASSY_SEED,     {   _,   1,   3,   3,   3,   4,   4,   5,   9,  10, } },
     { ITEM_PSYCHIC_SEED,    {   _,   _,   4,   4,   4,   4,   4,   5,   4,  10, } },
     { ITEM_MISTY_SEED,      {   _,   _,   4,   4,   4,   4,   6,   6,   9,  10, } },
@@ -1082,7 +1082,7 @@ static const struct PickupItem sPickupTable[4][30] =
     { ITEM_STARDUST,        {   _,   3,   8,   4,   4,   9,   8,   8,   _,   _, } },
     { ITEM_MOON_STONE,      {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
     { ITEM_SUN_STONE,       {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
-    { ITEM_RARE_CANDY,      {   _,   1,   3,   3,   3,   4,   4,   5,   9,  25, } },
+    { RANDOM_TYPE_GEM,      {   _,   1,   3,   3,   3,   4,   4,   5,   9,  25, } },
     { ITEM_NUGGET,          {   _,   _,   4,   4,   4,   4,   4,   5,   4,   5, } },
     { ITEM_ICE_STONE,       {   _,   _,   4,   4,   4,   4,   6,   8,   9,  10, } },
     { ITEM_STAR_PIECE,      {   _,   _,   1,   1,   4,   4,   4,   _,   _,   _, } },
@@ -1144,7 +1144,7 @@ static const struct PickupItem sPickupTable[4][30] =
     { ITEM_EXP_CANDY_M,     {   _,   3,   8,   4,   4,   9,   8,   8,   _,   _, } },
     { ITEM_MOON_STONE,      {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
     { ITEM_SUN_STONE,       {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
-    { ITEM_RARE_CANDY,      {   _,   1,   3,   3,   3,   4,   4,   5,   9,  25, } },
+    { RANDOM_STAT_FEATHER,  {   _,   1,   3,   3,   3,   4,   4,   5,   9,  25, } },
     { ITEM_NUGGET,          {   _,   _,   4,   4,   4,   4,   4,   5,   4,   5, } },
     { ITEM_SOOTHE_BELL,     {   _,   _,   4,   4,   4,   4,   6,   8,   9,  10, } },
     { ITEM_EXP_CANDY_L,     {   _,   _,   1,   1,   4,   4,   4,   _,   _,   _, } },
@@ -1576,8 +1576,8 @@ u32 GetBattlerTotalAwareStatArgs(u32 battler, u32 ability, u32 holdEffect)
 
 
     // other abilities
-    if (ability == ABILITY_INNER_FOCUS || ability == ABILITY_KEEN_EYE || ability == ABILITY_ANTICIPATION || ability == ABILITY_ANALYTIC || ability == ABILITY_MINDS_EYE){
-        aware = (aware * 150) / 100;
+    if (ability == ABILITY_INNER_FOCUS || ability == ABILITY_KEEN_EYE || ability == ABILITY_ANTICIPATION || ability == ABILITY_ANALYTIC || ability == ABILITY_MINDS_EYE || ability == ABILITY_ILLUMINATE){
+        aware = (aware * 125) / 100;
 	}
 	else if (ability == ABILITY_UNAWARE || ability == ABILITY_OBLIVIOUS){
         aware = (aware * 75) / 100;
@@ -1591,6 +1591,10 @@ u32 GetBattlerTotalAwareStatArgs(u32 battler, u32 ability, u32 holdEffect)
 
 	if (gBattleMons[battler].status2 & STATUS2_CONFUSION){
 		aware = (aware * 50) / 100;
+	}
+	
+	if (gBattleMons[battler].status1 & STATUS1_SLEEP){
+		aware = (aware * 25) / 100;
 	}
 
     // stat stages
@@ -1752,7 +1756,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
             calc = (calc * 50) / 100; // 1.5 tangled feet loss
         break;
 	case ABILITY_ILLUSION:
-		if (gBattleStruct->illusion[battlerDef].on)
+		if (gBattleStruct->illusion[battlerDef].broken != 1 && (atkAbility != ABILITY_KEEN_EYE || atkAbility != ABILITY_TELEPATHY || atkAbility != ABILITY_MINDS_EYE || atkAbility != ABILITY_ILLUMINATE))
             battlerAtkAware = (battlerAtkAware * 50) / 100;
         break;
     }
@@ -2099,12 +2103,13 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
 u32 CalcCritAware(u32 battlerAtk, u32 battlerDef)
 {
 	u32 abilityAtk = GetBattlerAbility(battlerAtk);
+	u32 abilityDef = GetBattlerAbility(battlerDef);
     u32 battlerAtkAware = GetBattlerTotalAwareStat(battlerAtk);
 	u32 battlerDefAware = GetBattlerTotalAwareStat(battlerDef);
 	u32 critBonusRoll = 1;
 
-	if (abilityAtk == ABILITY_ILLUSION){
-	if (gBattleStruct->illusion[battlerAtk].on)
+	if (abilityAtk == ABILITY_ILLUSION && (abilityDef != ABILITY_KEEN_EYE || abilityDef != ABILITY_TELEPATHY || abilityDef != ABILITY_MINDS_EYE || abilityDef != ABILITY_ILLUMINATE)){
+	if (gBattleStruct->illusion[battlerAtk].broken != 1)
 		battlerDefAware = (battlerDefAware * 50) / 100;
 	}
 
@@ -2124,8 +2129,8 @@ u32 CalcCloseAware(u32 battlerAtk, u32 battlerDef)
 	u32 battlerDefReact = GetBattlerTotalReactStat2(battlerDef);
 	u32 critBonusRoll = 1;
 	
-	if (abilityDef == ABILITY_ILLUSION){
-		if (gBattleStruct->illusion[battlerDef].on)
+	if (abilityDef == ABILITY_ILLUSION && (abilityAtk != ABILITY_KEEN_EYE || abilityAtk != ABILITY_TELEPATHY || abilityAtk != ABILITY_MINDS_EYE || abilityAtk != ABILITY_ILLUMINATE)){
+		if (gBattleStruct->illusion[battlerDef].broken != 1)
 		battlerAtkAware = (battlerAtkAware * 50) / 100;
 	}
 	
@@ -4621,6 +4626,9 @@ void SetMoveEffect(bool32 primary, bool32 certain)
 
 static bool32 CanApplyAdditionalEffect(const struct AdditionalEffect *additionalEffect)
 {
+	//if (IsForceEffect(gCurrentMove))
+	//	return TRUE;
+	
     // Self-targeting move effects only apply after the last mon has been hit
     if (additionalEffect->self
      && NumAffectedSpreadMoveTargets() > 1
@@ -6067,7 +6075,10 @@ static void Cmd_playstatchangeanimation(void)
                         && ability != ABILITY_CLEAR_BODY
                         && ability != ABILITY_FULL_METAL_BODY
                         && ability != ABILITY_WHITE_SMOKE
-                        && !((ability == ABILITY_KEEN_EYE || ability == ABILITY_MINDS_EYE) && currStat == STAT_ACC)
+                        && !(ability == ABILITY_STEADFAST && currStat == STAT_REACT)
+						&& !((ability == ABILITY_KEEN_EYE || ability == ABILITY_MINDS_EYE) && currStat == STAT_AWARE)
+                        && !(B_ILLUMINATE_EFFECT >= GEN_9 && ability == ABILITY_ILLUMINATE && currStat == STAT_AWARE)
+						&& !((ability == ABILITY_KEEN_EYE || ability == ABILITY_MINDS_EYE) && currStat == STAT_ACC)
                         && !(B_ILLUMINATE_EFFECT >= GEN_9 && ability == ABILITY_ILLUMINATE && currStat == STAT_ACC)
                         && !(ability == ABILITY_HYPER_CUTTER && currStat == STAT_ATK)
                         && !(ability == ABILITY_BIG_PECKS && currStat == STAT_DEF))
@@ -12457,8 +12468,9 @@ static u32 ChangeStatBuffs(s8 statValue, u32 statId, u32 flags, const u8 *BS_ptr
             return STAT_CHANGE_DIDNT_WORK;
         }
         else if (!certain
-                && (((battlerAbility == ABILITY_KEEN_EYE || battlerAbility == ABILITY_MINDS_EYE) && statId == STAT_ACC)
-                || (B_ILLUMINATE_EFFECT >= GEN_9 && battlerAbility == ABILITY_ILLUMINATE && statId == STAT_ACC)
+                && ((battlerAbility == ABILITY_STEADFAST && statId == STAT_REACT) 
+				|| ((battlerAbility == ABILITY_KEEN_EYE || battlerAbility == ABILITY_MINDS_EYE) && (statId == STAT_ACC || statId == STAT_AWARE))
+                || (B_ILLUMINATE_EFFECT >= GEN_9 && battlerAbility == ABILITY_ILLUMINATE && (statId == STAT_ACC || statId == STAT_AWARE))
                 || (battlerAbility == ABILITY_HYPER_CUTTER && statId == STAT_ATK)
                 || (battlerAbility == ABILITY_BIG_PECKS && statId == STAT_DEF)))
         {
@@ -15544,13 +15556,24 @@ static void Cmd_pickup(void)
 					
                     u32 rand = Random() % 100;
                     u32 percentTotal = 0;
+					u32 randMint = (Random() % NUM_NATURE_MINTS) + FIRST_NATURE_MINT;
+					u32 randGem = (Random() % NUM_TYPE_GEM) + FIRST_TYPE_GEM;
+					u32 randFeather = (Random() % NUM_STAT_FEATHER) + FIRST_STAT_FEATHER;
 
                     for (j = 0; j < ARRAY_COUNT(sPickupTable[k]); j++)
                     {
                         percentTotal += sPickupTable[k][j].percentage[lvlDivBy10];
                         if (rand < percentTotal)
                         {
-                            SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupTable[k][j].itemId);
+							if (sPickupTable[k][j].itemId == RANDOM_NATURE_MINT){
+								SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &randMint);
+							} else if (sPickupTable[k][j].itemId == RANDOM_TYPE_GEM){
+								SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &randGem);
+							} else if (sPickupTable[k][j].itemId == RANDOM_STAT_FEATHER){
+								SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &randFeather);
+							} else {
+								SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupTable[k][j].itemId);
+							}
                             break;
                         }
                     }

@@ -148,12 +148,14 @@ SlateportCity_EventScript_EnergyGuru::
 
 	.align 2
 SlateportCity_Pokemart_EnergyGuru:
+	.2byte ITEM_HP_UP	
 	.2byte ITEM_PROTEIN
 	.2byte ITEM_IRON
-	.2byte ITEM_CARBOS
-	.2byte ITEM_ZINC
 	.2byte ITEM_CALCIUM
-	.2byte ITEM_HP_UP
+	.2byte ITEM_ZINC
+	.2byte ITEM_CARBOS
+	.2byte ITEM_B12
+	.2byte ITEM_OMEGA3
 	pokemartlistend
 
 SlateportCity_EventScript_EffortRibbonWoman::

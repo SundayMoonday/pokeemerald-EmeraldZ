@@ -3912,7 +3912,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
             gShinyOverworldPalette_Pikachu
         )
         .cannotBeTraded = TRUE,
-        //.perfectIVCount = NUM_STATS,
+        .perfectIVCount = NUM_STATS,
         .levelUpLearnset = sPikachuLevelUpLearnset,
         .teachableLearnset = sPikachuTeachableLearnset,
         .formSpeciesIdTable = sPikachuFormSpeciesIdTable,

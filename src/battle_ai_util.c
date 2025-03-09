@@ -825,7 +825,17 @@ static bool32 AI_IsMoveEffectInPlus(u32 battlerAtk, u32 battlerDef, u32 move, s3
                     if (BattlerStatCanRise(battlerAtk, abilityAtk, STAT_SPATK))
                         return TRUE;
                     break;
-                case MOVE_EFFECT_EVS_PLUS_1:
+                case MOVE_EFFECT_REACT_PLUS_1:
+                case MOVE_EFFECT_REACT_PLUS_2:
+                    if (BattlerStatCanRise(battlerAtk, abilityAtk, STAT_REACT))
+                        return TRUE;
+                    break;
+                case MOVE_EFFECT_AWARE_PLUS_1:
+                case MOVE_EFFECT_AWARE_PLUS_2:
+                    if (BattlerStatCanRise(battlerAtk, abilityAtk, STAT_AWARE))
+                        return TRUE;
+                    break;
+				case MOVE_EFFECT_EVS_PLUS_1:
                 case MOVE_EFFECT_EVS_PLUS_2:
                     if (BattlerStatCanRise(battlerAtk, abilityAtk, STAT_EVASION))
                         return TRUE;
@@ -1739,6 +1749,10 @@ bool32 ShouldLowerStat(u32 battlerAtk, u32 battlerDef, u32 battlerAbility, u32 s
                 return !(AI_IsFaster(battlerAtk, battlerDef, AI_THINKING_STRUCT->moveConsidered)
                     && CountUsablePartyMons(battlerAtk) == 0
                     && !HasMoveEffect(battlerAtk, EFFECT_ELECTRO_BALL));
+			case STAT_REACT:
+                return !(battlerAbility == ABILITY_STEADFAST);
+			case STAT_AWARE:
+                return !(battlerAbility == ABILITY_KEEN_EYE || (B_ILLUMINATE_EFFECT >= GEN_9 && battlerAbility == ABILITY_ILLUMINATE));
             case STAT_ACC:
                 return !(battlerAbility == ABILITY_KEEN_EYE || (B_ILLUMINATE_EFFECT >= GEN_9 && battlerAbility == ABILITY_ILLUMINATE));
         }
@@ -1884,6 +1898,46 @@ bool32 ShouldLowerSpDef(u32 battlerAtk, u32 battlerDef, u32 defAbility)
       && defAbility != ABILITY_CLEAR_BODY
       && defAbility != ABILITY_FULL_METAL_BODY
       && defAbility != ABILITY_WHITE_SMOKE
+      && AI_DATA->holdEffects[battlerDef] != HOLD_EFFECT_CLEAR_AMULET)
+        return TRUE;
+    return FALSE;
+}
+
+bool32 ShouldLowerReact(u32 battlerAtk, u32 battlerDef, u32 defAbility)
+{
+    if (AI_IsFaster(battlerAtk, battlerDef, AI_THINKING_STRUCT->moveConsidered)
+            && (AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT)
+            && CanAIFaintTarget(battlerAtk, battlerDef, 0))
+        return FALSE; // Don't bother lowering stats if can kill enemy.
+
+    if (gBattleMons[battlerDef].statStages[STAT_SPATK] > 4
+      && HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL)
+      && defAbility != ABILITY_CONTRARY
+      && defAbility != ABILITY_CLEAR_BODY
+      && defAbility != ABILITY_FULL_METAL_BODY
+      && defAbility != ABILITY_WHITE_SMOKE
+	  && defAbility != ABILITY_STEADFAST
+      && AI_DATA->holdEffects[battlerDef] != HOLD_EFFECT_CLEAR_AMULET)
+        return TRUE;
+    return FALSE;
+}
+
+bool32 ShouldLowerAware(u32 battlerAtk, u32 battlerDef, u32 defAbility)
+{
+    if (AI_IsFaster(battlerAtk, battlerDef, AI_THINKING_STRUCT->moveConsidered)
+            && (AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_TRY_TO_FAINT)
+            && CanAIFaintTarget(battlerAtk, battlerDef, 0))
+        return FALSE; // Don't bother lowering stats if can kill enemy.
+
+    if (gBattleMons[battlerDef].statStages[STAT_SPDEF] > 4
+      && HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_SPECIAL)
+      && defAbility != ABILITY_CONTRARY
+      && defAbility != ABILITY_CLEAR_BODY
+      && defAbility != ABILITY_FULL_METAL_BODY
+      && defAbility != ABILITY_WHITE_SMOKE
+	  && defAbility != ABILITY_KEEN_EYE
+      && defAbility != ABILITY_MINDS_EYE
+      && (B_ILLUMINATE_EFFECT >= GEN_9 && defAbility != ABILITY_ILLUMINATE)
       && AI_DATA->holdEffects[battlerDef] != HOLD_EFFECT_CLEAR_AMULET)
         return TRUE;
     return FALSE;
@@ -2323,6 +2377,7 @@ bool32 IsStatLoweringEffect(u32 effect)
     case EFFECT_ACCURACY_DOWN_2:
     case EFFECT_EVASION_DOWN_2:
     case EFFECT_TICKLE:
+	case EFFECT_FLASH:
     case EFFECT_CAPTIVATE:
     case EFFECT_NOBLE_ROAR:
     case EFFECT_MEMENTO:
