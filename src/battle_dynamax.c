@@ -246,6 +246,7 @@ bool32 IsMoveBlockedByDynamax(u32 move)
     {
         case EFFECT_HEAT_CRASH:
         case EFFECT_LOW_KICK:
+		case EFFECT_DEATH_SLAM:
             return TRUE;
     }
     return FALSE;
@@ -400,6 +401,7 @@ static u8 GetMaxPowerTier(u32 move)
         case EFFECT_ELECTRO_BALL:
         case EFFECT_METAL_BURST:
         case EFFECT_TERRAIN_PULSE:
+		case EFFECT_MIND_POWER:
         case EFFECT_PUNISHMENT:
         case EFFECT_TRUMP_CARD:
         case EFFECT_FIXED_DAMAGE_ARG:
@@ -420,6 +422,7 @@ static u8 GetMaxPowerTier(u32 move)
             return MAX_POWER_TIER_6;
         case EFFECT_FLAIL:
         case EFFECT_LOW_KICK:
+		case EFFECT_DEATH_SLAM:
             return MAX_POWER_TIER_7;
         case EFFECT_MULTI_HIT:
             switch(GetMovePower(move))

@@ -2457,7 +2457,7 @@ static void Task_DexNavMain(u8 taskId)
         if (species != SPECIES_NONE)
         {
             PrintSearchableSpecies(species);
-            //PlaySE(SE_DEX_SEARCH);
+            PlaySE(SE_DEX_SEARCH);
             PlayCry_Script(species, 0);
 
             // create value to store in a var

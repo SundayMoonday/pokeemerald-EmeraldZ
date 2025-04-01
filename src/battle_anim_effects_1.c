@@ -280,8 +280,8 @@ static const union AnimCmd * const sTrumpCardParticleAnims[] =
 
 static const union AffineAnimCmd sAccupressureTurn[] =
 {
-    AFFINEANIMCMD_FRAME(0, 0, 1, 20),
-    AFFINEANIMCMD_FRAME(0, 0, -1, 40),
+    AFFINEANIMCMD_FRAME(0, 0, 1, 10),
+    AFFINEANIMCMD_FRAME(0, 0, -1, 20),
     AFFINEANIMCMD_END,
 };
 

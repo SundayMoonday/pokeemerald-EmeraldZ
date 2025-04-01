@@ -246,6 +246,12 @@ const union AffineAnimCmd *const gAffineAnims_BasicRock[] =
     sAffineAnim_BasicRock_1,
 };
 
+const union AffineAnimCmd *const gAffineAnims_ReverseRock[] =
+{
+    sAffineAnim_BasicRock_1,
+    sAffineAnim_BasicRock_0,
+};
+
 const struct SpriteTemplate gRockBlastRockSpriteTemplate =
 {
     .tileTag = ANIM_TAG_ROCKS,

@@ -1176,9 +1176,9 @@ const struct CompressedSpriteSheet gBattleAnimPicTable[] =
     {gBattleAnimSpriteGfx_IceCrystals, 0x01c0, ANIM_TAG_ICE_CRYSTALS},
     {gBattleAnimSpriteGfx_IceSpikes, 0x0100, ANIM_TAG_ICE_SPIKES},
 #if B_NEW_HANDS_FEET_PARTICLE
-    {gBattleAnimSpriteGfx_NewHandsAndFeet, 0x0800, ANIM_TAG_HANDS_AND_FEET},
+    {gBattleAnimSpriteGfx_NewHandsAndFeet, 0x0c00, ANIM_TAG_HANDS_AND_FEET},
 #else
-    {gBattleAnimSpriteGfx_HandsAndFeet, 0x0800, ANIM_TAG_HANDS_AND_FEET},
+    {gBattleAnimSpriteGfx_HandsAndFeet, 0x0c00, ANIM_TAG_HANDS_AND_FEET},
 #endif
     {gBattleAnimSpriteGfx_MistCloud, 0x0200, ANIM_TAG_MIST_CLOUD},
     {gBattleAnimSpriteGfx_Clamp, 0x0800, ANIM_TAG_CLAMP},
@@ -1467,6 +1467,8 @@ const struct CompressedSpriteSheet gBattleAnimPicTable[] =
     {gBattleAnimSpriteGfx_PurpleChain, 0x1000, ANIM_TAG_PURPLE_CHAIN},
     {gBattleAnimSpriteGfx_PinkVioletOrb, 0x0080, ANIM_TAG_PINKVIO_ORB},
     {gBattleAnimSpriteGfx_TeraStarstormBeam, 0x200, ANIM_TAG_STARSTORM},
+	{gBattleAnimSpriteGfx_DragonScale, 0x0200, ANIM_TAG_DRAGON_SCALE},
+	{gBattleAnimSpriteGfx_TeethCircle, 0x1000, ANIM_TAG_TEETH_CIRCLE},
 };
 
 const struct CompressedSpritePalette gBattleAnimPaletteTable[] =
@@ -1935,6 +1937,8 @@ const struct CompressedSpritePalette gBattleAnimPaletteTable[] =
     {gBattleAnimSpritePal_PurpleChain, ANIM_TAG_PURPLE_CHAIN},
     {gBattleAnimSpritePal_PinkVioletOrb, ANIM_TAG_PINKVIO_ORB},
     {gBattleAnimSpritePal_TeraStarstormBeam, ANIM_TAG_STARSTORM},
+	{gBattleAnimSpritePal_DragonScale, ANIM_TAG_DRAGON_SCALE},
+	{gBattleAnimSpritePal_TeethCircle, ANIM_TAG_TEETH_CIRCLE},
 };
 
 const struct BattleAnimBackground gBattleAnimBackgroundTable[] =
@@ -2023,4 +2027,7 @@ const struct BattleAnimBackground gBattleAnimBackgroundTable[] =
     [BG_CHLOROBLAST]               = {gBattleAnimBgImage_HydroCannon,             gBattleAnimBgPalette_Chloroblast,             gBattleAnimBgTilemap_HydroCannon},
     [BG_RAINBOW]                   = {gBattleAnimBgImage_Rainbow,                 gBattleAnimBGPalette_Rainbow,                 gBattleAnimBgTilemap_Rainbow},
     [BG_SWAMP]                     = {gBattleAnimBgImage_Swamp,                   gBattleAnimBGPalette_Swamp,                   gBattleAnimBgTilemap_Swamp},
+	[BG_ROCK_FIELD_DAY]            = {gBattleAnimBgImage_RockField,               gBattleAnimBgPalette_RockDay,                 gBattleAnimBgTilemap_RockField},
+    [BG_ROCK_FIELD_AFTERNOON]      = {gBattleAnimBgImage_RockField,               gBattleAnimBgPalette_RockAfternoon,           gBattleAnimBgTilemap_RockField},
+    [BG_ROCK_FIELD_NIGHT]          = {gBattleAnimBgImage_RockField,               gBattleAnimBgPalette_RockNight,               gBattleAnimBgTilemap_RockField},
 };

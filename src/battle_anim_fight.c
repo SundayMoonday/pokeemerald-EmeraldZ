@@ -73,6 +73,24 @@ static const union AnimCmd sAnim_HandRight[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_FinLeft[] =
+{
+    ANIMCMD_FRAME(64, 1),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_FinRight[] =
+{
+    ANIMCMD_FRAME(64, 1, .hFlip = TRUE),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_HandGrab[] =
+{
+    ANIMCMD_FRAME(80, 1),
+    ANIMCMD_END,
+};
+
 const union AnimCmd *const gAnims_HandsAndFeet[] =
 {
     sAnim_Fist,
@@ -80,6 +98,9 @@ const union AnimCmd *const gAnims_HandsAndFeet[] =
     sAnim_FootTall,
     sAnim_HandLeft,
     sAnim_HandRight,
+	sAnim_FinLeft,
+	sAnim_FinRight,
+	sAnim_HandGrab,
 };
 
 const struct SpriteTemplate gKarateChopSpriteTemplate =
@@ -201,6 +222,17 @@ const struct SpriteTemplate gStompFootSpriteTemplate =
     .paletteTag = ANIM_TAG_HANDS_AND_FEET,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
     .anims = &gAnims_HandsAndFeet[1],
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimStompFoot,
+};
+
+const struct SpriteTemplate gStompHandSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_HANDS_AND_FEET,
+    .paletteTag = ANIM_TAG_HANDS_AND_FEET,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = &gAnims_HandsAndFeet[7],
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimStompFoot,

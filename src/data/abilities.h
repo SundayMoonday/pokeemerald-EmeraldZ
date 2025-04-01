@@ -1745,6 +1745,20 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_STRING("Field becomes grassy."),
         .aiRating = 8,
     },
+	
+	[ABILITY_TIME_DOMAIN] =
+    {
+        .name = _("Time Domain"),
+        .description = COMPOUND_STRING("Speed order reverses."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_SPACE_DOMAIN] =
+    {
+        .name = _("Space Domain"),
+        .description = COMPOUND_STRING("Gravity intensifies."),
+        .aiRating = 8,
+    },
 
     [ABILITY_FULL_METAL_BODY] =
     {
@@ -1852,6 +1866,14 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
     {
         .name = _("Punk Rock"),
         .description = COMPOUND_STRING("Ups and resists sound."),
+        .aiRating = 2,
+        .breakable = TRUE,
+    },
+	
+	[ABILITY_SYMPHONY] =
+    {
+        .name = _("Symphony"),
+        .description = COMPOUND_STRING("Ups sound for you and ally."),
         .aiRating = 2,
         .breakable = TRUE,
     },
@@ -2408,10 +2430,18 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
+	
 	[ABILITY_FIELD_EXPERT] =
     {
         .name = _("Field Expert"),
         .description = COMPOUND_STRING("Strengthens field moves."),
+        .aiRating = 7,
+    },
+	
+	[ABILITY_ALPHA_POWER] =
+    {
+        .name = _("Alpha Power"),
+        .description = COMPOUND_STRING("Strengthens “power” moves."),
         .aiRating = 7,
     },
 };

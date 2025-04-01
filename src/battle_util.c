@@ -306,7 +306,11 @@ void HandleAction_UseMove(void)
     }
 
     // Set dynamic move type.
+	//if (gChosenMove == MOVE_MIND_POWER){
+		
+	//} else {
     SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker);
+	//}
     moveType = GetBattleMoveType(gCurrentMove);
 
     // check Z-Move used
@@ -1614,6 +1618,7 @@ void TryToRevertMimicryAndFlags(void)
         gDisableStructs[i].terrainAbilityDone = FALSE;
         if (GetBattlerAbility(i) == ABILITY_MIMICRY)
             RESTORE_BATTLER_TYPE(i);
+			RESTORE_SUPER_TYPE(i);
     }
 }
 
@@ -3682,7 +3687,7 @@ static void CancellerExplodingDamp(u32 *effect)
 
 static void CancellerMultihitMoves(u32 *effect)
 {
-    if (GetMoveEffect(gCurrentMove) == EFFECT_MULTI_HIT)
+    if (GetMoveEffect(gCurrentMove) == EFFECT_MULTI_HIT || GetMoveEffect(gCurrentMove) == EFFECT_DEATH_SLAM)
     {
         u32 ability = GetBattlerAbility(gBattlerAttacker);
 
@@ -4022,6 +4027,22 @@ bool32 HasNoMonsToSwitch(u32 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2
     }
 }
 
+/*
+static void HandleDomainMove(u32 statusFlag, u16 *timer, u8 stringId)
+{
+    if (gFieldStatuses & statusFlag)
+    {
+        gFieldStatuses &= ~statusFlag;
+        gBattleCommunication[MULTISTRING_CHOOSER] = stringId + 1;
+    }
+    else
+    {
+        gFieldStatuses |= statusFlag;
+        *timer = gBattleTurnCounter + 5;
+        gBattleCommunication[MULTISTRING_CHOOSER] = stringId;
+    }
+}*/
+
 bool32 TryChangeBattleWeather(u32 battler, u32 battleWeatherId, bool32 viaAbility)
 {
     u16 battlerAbility = GetBattlerAbility(battler);
@@ -4072,6 +4093,58 @@ static bool32 TryChangeBattleTerrain(u32 battler, u32 statusFlag, u16 *timer)
             *timer = gBattleTurnCounter + 5;
 
         gBattleScripting.battler = battler;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+static inline void SetStartingDomainStatus(u32 flag, u32 message, u32 anim, u16 *timer)
+{
+    //if (!(gFieldStatuses & flag))
+    //{
+        gBattleCommunication[MULTISTRING_CHOOSER] = message;
+        gFieldStatuses |= flag;
+        gBattleScripting.animArg1 = anim;
+        //if (gBattleStruct->startingStatusTimer)
+            *timer = gBattleTurnCounter + 5;
+        //else
+        //    *timer = 0; // Infinite
+
+        //return 1;
+    //}
+
+    //return 0;
+}
+
+static bool32 TryChangeTimeDomain(u32 battler)
+{
+	if (!(gFieldStatuses & STATUS_FIELD_TRICK_ROOM))
+    {
+		gFieldStatuses |= STATUS_FIELD_TRICK_ROOM;
+		gFieldTimers.trickRoomTimer = gBattleTurnCounter + 5;
+		BattleScriptPush(gBattlescriptCurrInstr + 1);
+		//BattleScriptExecute(BattleScript_TrickRoomStarts);
+		//SetStartingDomainStatus(STATUS_FIELD_TRICK_ROOM, B_MSG_SET_TRICK_ROOM, B_ANIM_TRICK_ROOM, &gFieldTimers.trickRoomTimer);
+	 return TRUE;
+    } else {
+	gFieldStatuses &= ~STATUS_FIELD_TRICK_ROOM;
+	BattleScriptPush(gBattlescriptCurrInstr + 1);
+    //BattleScriptExecute(BattleScript_TrickRoomEnds);
+	//effect++;
+    return FALSE;
+	}
+}
+
+static bool32 TryChangeSpaceDomain(u32 battler, u32 statusFlag)
+{
+    if (!(gFieldStatuses & STATUS_FIELD_GRAVITY))
+    {
+        gFieldStatuses |= STATUS_FIELD_GRAVITY;
+        gFieldTimers.gravityTimer = gBattleTurnCounter + 5;
+        BattleScriptPush(gBattlescriptCurrInstr + 1);
+        //gBattlescriptCurrInstr = BattleScript_EffectGravitySuccess;
+        //effect++;
         return TRUE;
     }
 
@@ -4981,6 +5054,30 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 BattleScriptPushCursorAndCallback(BattleScript_PsychicSurgeActivates);
                 effect++;
             }
+            break;
+		case ABILITY_TIME_DOMAIN:
+			if (!gSpecialStatuses[battler].switchInAbilityDone)
+            {
+				if (TryChangeTimeDomain(battler))
+				{
+					BattleScriptPushCursorAndCallback(BattleScript_TimeDomainActivates);
+				} else {
+					BattleScriptPushCursorAndCallback(BattleScript_TimeDomainDeactivates);
+				}
+				effect++;
+				gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+			}
+            break;
+        case ABILITY_SPACE_DOMAIN:
+			if (!gSpecialStatuses[battler].switchInAbilityDone)
+			{
+				if (TryChangeSpaceDomain(battler, STATUS_FIELD_GRAVITY))
+				{
+					BattleScriptPushCursorAndCallback(BattleScript_SpaceDomainActivates);
+				}
+				effect++;
+				gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+			}
             break;
         case ABILITY_INTIMIDATE:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
@@ -8984,6 +9081,16 @@ static const u16 sWeightToDamageTable[] =
     0xFFFF, 0xFFFF
 };
 
+static const u16 sWeightToDeathTable[] =
+{
+    100, 15,
+    250, 20,
+    500, 25,
+    1000, 30,
+    2000, 35,
+    0xFFFF, 0xFFFF
+};
+
 static const u8 sSpeedDiffPowerTable[] = {40, 60, 80, 120, 150};
 static const u8 sHeatCrashPowerTable[] = {40, 40, 60, 80, 100, 120};
 static const u8 sTrumpCardPowerTable[] = {200, 80, 60, 50, 40};
@@ -9198,6 +9305,18 @@ static inline u32 CalcMoveBasePower(struct DamageCalculationData *damageCalcData
             basePower = sWeightToDamageTable[i + 1];
         else
             basePower = 120;
+        break;
+	case EFFECT_DEATH_SLAM:
+        weight = GetBattlerWeight(battlerDef);
+        for (i = 0; sWeightToDeathTable[i] != 0xFFFF; i += 2)
+        {
+            if (sWeightToDeathTable[i] > weight)
+                break;
+        }
+        if (sWeightToDeathTable[i] != 0xFFFF)
+            basePower = sWeightToDeathTable[i + 1];
+        else
+            basePower = 40;
         break;
     case EFFECT_HEAT_CRASH:
         weight = GetBattlerWeight(battlerAtk) / GetBattlerWeight(battlerDef);
@@ -9505,6 +9624,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
         if (IsSoundMove(move))
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
         break;
+	case ABILITY_SYMPHONY:
+        if (IsSoundMove(move))
+            modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+        break;
     case ABILITY_STEELY_SPIRIT:
         if (moveType == TYPE_STEEL)
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
@@ -9515,6 +9638,10 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
         break;
 	case ABILITY_FIELD_EXPERT:
         if (IsFieldMove(move))
+           modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+        break;
+	case ABILITY_ALPHA_POWER:
+        if (IsPowerMove(move) || move == MOVE_JUDGMENT)
            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
         break;
     case ABILITY_SUPREME_OVERLORD:
@@ -9548,6 +9675,14 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
             if (moveType == TYPE_STEEL)
                 modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
             break;
+		case ABILITY_ALPHA_POWER:
+			if (IsPowerMove(move) || move == MOVE_JUDGMENT)
+				modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
+			break;
+		case ABILITY_SYMPHONY:
+			if (IsSoundMove(move))
+				modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+			break;
         }
     }
 
@@ -9674,6 +9809,7 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageCalculationData *
         && moveEffect != EFFECT_POWER_BASED_ON_USER_HP
         && moveEffect != EFFECT_POWER_BASED_ON_TARGET_HP
         && moveEffect != EFFECT_MULTI_HIT
+		&& moveEffect != EFFECT_DEATH_SLAM
         && GetMovePriority(move) == 0)
     {
         return 60;

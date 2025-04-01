@@ -1236,8 +1236,9 @@
 	.byte 0xe5
 	.endm
 
-	.macro unused_0xE6
+	.macro settypetorandomsupereffective failInstr:req
 	.byte 0xe6
+	.4byte \failInstr
 	.endm
 
 	.macro unused_0xE7

@@ -3782,12 +3782,13 @@ static const struct OamData sFishiousRendTeethOam =
     .size = SPRITE_SIZE(64x64),
     .priority = 1, //Above sprites
 };
+
 const struct SpriteTemplate gFishiousRendTeethTemplate =
 {
-    .tileTag = ANIM_TAG_SHARP_TEETH,
-    .paletteTag = ANIM_TAG_SHARP_TEETH,
+    .tileTag = ANIM_TAG_TEETH_CIRCLE,
+    .paletteTag = ANIM_TAG_TEETH_CIRCLE,
     .oam = &sFishiousRendTeethOam,
-    .anims = gDummySpriteAnimTable,
+    .anims = gKnockOffStrikeAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_LeftRightSlice
@@ -4298,9 +4299,20 @@ const struct SpriteTemplate gSpriteTemplate_SteelRoller = {
 
 // scale shot
 const struct SpriteTemplate gSpriteTemplate_ScaleShotScale = {
-    .tileTag = ANIM_TAG_SHELL_RIGHT,
-    .paletteTag = ANIM_TAG_SHELL_RIGHT,
-    .oam = &gOamData_AffineNormal_ObjNormal_64x64,
+    .tileTag = ANIM_TAG_DRAGON_SCALE,
+    .paletteTag = ANIM_TAG_DRAGON_SCALE,
+    .oam = &gOamData_AffineNormal_ObjNormal_32x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gAffineAnims_BasicRock,
+    .callback = AnimRockBlastRock
+};
+
+// scrap shot
+const struct SpriteTemplate gSpriteTemplate_ScrapShotScale = {
+    .tileTag = ANIM_TAG_SPIKES,
+    .paletteTag = ANIM_TAG_SPIKES,
+    .oam = &gOamData_AffineDouble_ObjNormal_16x16,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gAffineAnims_BasicRock,
@@ -4827,6 +4839,17 @@ const struct SpriteTemplate gAxeKickSpriteTemplate =
     .paletteTag = ANIM_TAG_HANDS_AND_FEET,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
     .anims = &gAnims_HandsAndFeet[2],
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimBounceBallLand,
+};
+
+const struct SpriteTemplate gCudgelSlamSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_HANDS_AND_FEET,
+    .paletteTag = ANIM_TAG_HANDS_AND_FEET,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = &gAnims_HandsAndFeet[7],
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimBounceBallLand,
@@ -8574,12 +8597,15 @@ void AnimTask_GetTimeOfDay(u8 taskId)
 
 void AnimTask_GetLycanrocForm(u8 taskId)
 {
-    if (GetMonData(GetIllusionMonPtr(gBattleAnimAttacker), MON_DATA_SPECIES) == SPECIES_LYCANROC_MIDNIGHT)
+	
+	gBattleAnimArgs[0] = 0;
+    if (gBattleMons[gBattleAnimAttacker].species == SPECIES_LYCANROC_MIDNIGHT)
         gBattleAnimArgs[0] = 1;
-    else
-        gBattleAnimArgs[0] = 0;
+    else if (gBattleMons[gBattleAnimAttacker].species == SPECIES_LYCANROC_DUSK)
+        gBattleAnimArgs[0] = 2;
+        
 
-    gBattleAnimArgs[0] = 0;
+    //gBattleAnimArgs[0] = 0;
     DestroyAnimVisualTask(taskId);
 }
 

@@ -222,7 +222,11 @@ static const u8 sText_EVO_LEVEL_SILCOON[] = _("{LV}{UP_ARROW} to {STR_VAR_2}, Si
 static const u8 sText_EVO_LEVEL_CASCOON[] = _("{LV}{UP_ARROW} to {STR_VAR_2}, Cascoon persona");
 static const u8 sText_EVO_LEVEL_NINJASK[] = _("{LV}{UP_ARROW} to {STR_VAR_2}");
 static const u8 sText_EVO_LEVEL_SHEDINJA[] = _("{LV}{UP_ARROW} to {STR_VAR_2}, party<6, 1x POKéBALL");
+static const u8 sText_EVO_COOL[] = _("{LV}{UP_ARROW}, high cool");
+static const u8 sText_EVO_TOUGH[] = _("{LV}{UP_ARROW}, high tough");
 static const u8 sText_EVO_BEAUTY[] = _("{LV}{UP_ARROW}, high beauty");
+static const u8 sText_EVO_CLEVER[] = _("{LV}{UP_ARROW}, high smart");
+static const u8 sText_EVO_CUTE[] = _("{LV}{UP_ARROW}, high cute");
 static const u8 sText_EVO_LEVEL_FEMALE[] = _("{LV}{UP_ARROW} to {STR_VAR_2}, is female");
 static const u8 sText_EVO_LEVEL_MALE[] = _("{LV}{UP_ARROW} to {STR_VAR_2}, is male");
 static const u8 sText_EVO_LEVEL_NIGHT[] = _("{LV}{UP_ARROW} to {STR_VAR_2}, night");
@@ -6593,9 +6597,25 @@ static void PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 dept
             ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); //level
             StringExpandPlaceholders(gStringVar4, sText_EVO_LEVEL_SHEDINJA );
             break;
-        case EVO_BEAUTY:
+        case EVO_COOL:
+            ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 3); //beauty
+            StringExpandPlaceholders(gStringVar4, sText_EVO_COOL );
+            break;
+		case EVO_TOUGH:
+            ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 3); //beauty
+            StringExpandPlaceholders(gStringVar4, sText_EVO_TOUGH );
+            break;
+		case EVO_BEAUTY:
             ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 3); //beauty
             StringExpandPlaceholders(gStringVar4, sText_EVO_BEAUTY );
+            break;
+		case EVO_CLEVER:
+            ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 3); //beauty
+            StringExpandPlaceholders(gStringVar4, sText_EVO_CLEVER );
+            break;
+		case EVO_CUTE:
+            ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, 3); //beauty
+            StringExpandPlaceholders(gStringVar4, sText_EVO_CUTE );
             break;
         case EVO_LEVEL_FEMALE:
             ConvertIntToDecimalStringN(gStringVar2, evolutions[i].param, STR_CONV_MODE_LEADING_ZEROS, EVO_SCREEN_LVL_DIGITS); //level

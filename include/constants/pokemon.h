@@ -289,7 +289,11 @@ enum EvolutionMethods {
     EVO_LEVEL_CASCOON,                   // Pokémon reaches the specified level with a Cascoon personality value
     EVO_LEVEL_NINJASK,                   // Pokémon reaches the specified level (special value for Ninjask)
     EVO_LEVEL_SHEDINJA,                  // Pokémon reaches the specified level (special value for Shedinja)
-    EVO_BEAUTY,                          // Pokémon levels up with beauty ≥ specified value
+    EVO_COOL,                            // Pokémon levels up with cool ≥ specified value
+	EVO_TOUGH,                           // Pokémon levels up with tough ≥ specified value
+	EVO_BEAUTY,                          // Pokémon levels up with beauty ≥ specified value
+	EVO_CLEVER,                          // Pokémon levels up with clever ≥ specified value
+	EVO_CUTE,                            // Pokémon levels up with cute ≥ specified value
     EVO_LEVEL_FEMALE,                    // Pokémon reaches the specified level, is female
     EVO_LEVEL_MALE,                      // Pokémon reaches the specified level, is male
     EVO_LEVEL_NIGHT,                     // Pokémon reaches the specified level, is night

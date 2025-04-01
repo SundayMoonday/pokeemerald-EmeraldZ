@@ -352,7 +352,7 @@ static void DebugTask_HandleMenuInput_BerryFunctions(u8 taskId);
 static void DebugAction_Util_Fly(u8 taskId);
 static void DebugAction_Util_Warp_Warp(u8 taskId);
 static void DebugAction_Util_Warp_SelectMapGroup(u8 taskId);
-static void DebugAction_Util_Warp_SelectMap(u8 taskId);
+//static void DebugAction_Util_Warp_SelectMap(u8 taskId);
 static void DebugAction_Util_Warp_SelectWarp(u8 taskId);
 static void DebugAction_Util_CheckSaveBlock(u8 taskId);
 static void DebugAction_Util_CheckROMSpace(u8 taskId);
@@ -619,8 +619,8 @@ static const struct ListMenuItem sDebugMenu_Items_Party[] =
 
 static const struct ListMenuItem sDebugMenu_Items_Scripts[] =
 {
-    [DEBUG_UTIL_MENU_ITEM_SCRIPT_1] = {COMPOUND_STRING("Script 1"), DEBUG_UTIL_MENU_ITEM_SCRIPT_1},
-    [DEBUG_UTIL_MENU_ITEM_SCRIPT_2] = {COMPOUND_STRING("Script 2"), DEBUG_UTIL_MENU_ITEM_SCRIPT_2},
+    [DEBUG_UTIL_MENU_ITEM_SCRIPT_1] = {COMPOUND_STRING("Vitamins & Mints"), DEBUG_UTIL_MENU_ITEM_SCRIPT_1},
+    [DEBUG_UTIL_MENU_ITEM_SCRIPT_2] = {COMPOUND_STRING("Z crystals"), DEBUG_UTIL_MENU_ITEM_SCRIPT_2},
     [DEBUG_UTIL_MENU_ITEM_SCRIPT_3] = {COMPOUND_STRING("Script 3"), DEBUG_UTIL_MENU_ITEM_SCRIPT_3},
     [DEBUG_UTIL_MENU_ITEM_SCRIPT_4] = {COMPOUND_STRING("Script 4"), DEBUG_UTIL_MENU_ITEM_SCRIPT_4},
     [DEBUG_UTIL_MENU_ITEM_SCRIPT_5] = {COMPOUND_STRING("Script 5"), DEBUG_UTIL_MENU_ITEM_SCRIPT_5},
@@ -1827,6 +1827,7 @@ static void DebugAction_Util_Warp_SelectMap(u8 taskId)
 }
 */
 
+/*
 static void DebugAction_Util_Warp_SelectWarp(u8 taskId)
 {
     if (JOY_NEW(DPAD_ANY))
@@ -1866,6 +1867,7 @@ static void DebugAction_Util_Warp_SelectWarp(u8 taskId)
         DebugAction_DestroyExtraWindow(taskId);
     }
 }
+*/
 
 #undef tMapGroup
 #undef tMapNum
@@ -2136,12 +2138,31 @@ void BufferExpansionVersion(struct ScriptContext *ctx)
 // Actions Scripts
 static void DebugAction_Util_Script_1(u8 taskId)
 {
-    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_Script_1);
+    u16 itemId;
+
+    for (itemId = ITEM_PROTEIN; itemId < ITEM_PP_UP; itemId++)
+    {
+        if (!CheckPCHasItem(itemId, MAX_PC_ITEM_CAPACITY))
+            AddPCItem(itemId, MAX_PC_ITEM_CAPACITY);
+    }
+	
+	for (itemId = ITEM_LONELY_MINT; itemId < ITEM_RARE_CANDY; itemId++)
+    {
+        if (!CheckPCHasItem(itemId, MAX_PC_ITEM_CAPACITY))
+            AddPCItem(itemId, MAX_PC_ITEM_CAPACITY);
+    }
 }
 
 static void DebugAction_Util_Script_2(u8 taskId)
 {
-    Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_Script_2);
+    u16 itemId;
+
+    for (itemId = ITEM_NORMALIUM_Z; itemId < ITEM_SNORLIUM_Z; itemId++)
+    {
+        if (!CheckPCHasItem(itemId, MAX_PC_ITEM_CAPACITY))
+            AddPCItem(itemId, 1);
+    }
+	
 }
 
 static void DebugAction_Util_Script_3(u8 taskId)

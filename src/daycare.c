@@ -1062,6 +1062,10 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
         eggSpecies = SPECIES_MEWTWO;
     else if (eggSpecies == SPECIES_MANAPHY)
         eggSpecies = SPECIES_PHIONE;
+	else if (eggSpecies == SPECIES_KELDEO_RESOLUTE)
+        eggSpecies = SPECIES_KELDEO;
+	else if (eggSpecies == SPECIES_ZARUDE_DADA)
+        eggSpecies = SPECIES_ZARUDE;
     else if (GET_BASE_SPECIES_ID(eggSpecies) == SPECIES_ROTOM)
         eggSpecies = SPECIES_ROTOM;
     else if (GET_BASE_SPECIES_ID(eggSpecies) == SPECIES_SCATTERBUG)

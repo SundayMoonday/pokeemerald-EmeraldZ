@@ -87,6 +87,7 @@ static void AnimBlockX_Step(struct Sprite *);
 static void AnimUnusedItemBagSteal(struct Sprite *);
 static void AnimKnockOffStrike(struct Sprite *);
 static void AnimRecycle(struct Sprite *);
+static void AnimDeathSpiral(struct Sprite *);
 static void AnimRecycle_Step(struct Sprite *);
 static void SetPsychicBackground_Step(u8);
 static void FadeScreenToWhite_Step(u8);
@@ -1156,9 +1157,20 @@ const union AffineAnimCmd gRecycleSpriteAffineAnimCmds[] =
     AFFINEANIMCMD_JUMP(0),
 };
 
+const union AffineAnimCmd gDeathRollSpriteAffineAnimCmds[] =
+{
+    AFFINEANIMCMD_FRAME(0, 0, -8, 64),
+    AFFINEANIMCMD_JUMP(0),
+};
+
 const union AffineAnimCmd *const gRecycleSpriteAffineAnimTable[] =
 {
     gRecycleSpriteAffineAnimCmds,
+};
+
+const union AffineAnimCmd *const gDeathRollAffineAnimTable[] =
+{
+    gDeathRollSpriteAffineAnimCmds,
 };
 
 const struct SpriteTemplate gRecycleSpriteTemplate =
@@ -1191,6 +1203,17 @@ const struct SpriteTemplate gMegaStoneSpriteTemplate =
     .images = NULL,
     .affineAnims = gAffineAnims_LusterPurgeCircle,
     .callback = AnimSpriteOnMonPos,
+};
+
+const struct SpriteTemplate gDeathRollSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_TEETH_CIRCLE,
+    .paletteTag = ANIM_TAG_TEETH_CIRCLE,
+    .oam = &gOamData_AffineNormal_ObjNormal_64x64,
+    .anims = gKnockOffStrikeAnimTable,
+    .images = NULL,
+    .affineAnims = gDeathRollAffineAnimTable,
+    .callback = AnimDeathSpiral,
 };
 
 const struct SpriteTemplate gMegaParticlesSpriteTemplate =
@@ -5556,6 +5579,20 @@ void AnimTask_TeeterDanceMovement(u8 taskId)
     task->func = AnimTask_TeeterDanceMovement_Step;
 }
 
+void AnimTask_FairyDanceMovement(u8 taskId)
+{
+    struct Task *task = &gTasks[taskId];
+    task->data[3] = GetAnimBattlerSpriteId(ANIM_TARGET);
+    task->data[4] = GetBattlerSide(gBattleAnimTarget) == B_SIDE_PLAYER ? 1 : -1;
+    task->data[6] = gSprites[task->data[3]].y;
+    task->data[5] = gSprites[task->data[3]].x;
+    task->data[9] = 0;
+    task->data[11] = 0;
+    task->data[10] = 1;
+    task->data[12] = 0;
+    task->func = AnimTask_TeeterDanceMovement_Step;
+}
+
 static void AnimTask_TeeterDanceMovement_Step(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
@@ -5651,6 +5688,17 @@ static void AnimRecycle(struct Sprite *sprite)
     SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(sprite->data[6], sprite->data[7]));
 }
 
+static void AnimDeathSpiral(struct Sprite *sprite)
+{
+    sprite->x = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2);
+    sprite->y = GetBattlerSpriteCoordAttr(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET) - 18;
+
+    sprite->data[6] = 0;
+    sprite->data[7] = 8;
+    sprite->callback = AnimRecycle_Step;
+    SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(sprite->data[6], sprite->data[7]));
+}
+
 static void AnimRecycle_Step(struct Sprite *sprite)
 {
     switch (sprite->data[2])
@@ -5677,7 +5725,7 @@ static void AnimRecycle_Step(struct Sprite *sprite)
         }
         break;
     case 1:
-        if (++sprite->data[0] == 10)
+        if (++sprite->data[0] == 8)
         {
             sprite->data[0] = 0;
             sprite->data[1] = 0;
@@ -5695,13 +5743,13 @@ static void AnimRecycle_Step(struct Sprite *sprite)
             }
             else
             {
-                if (sprite->data[7] < 16)
+                if (sprite->data[7] < 8)
                     sprite->data[7]++;
             }
 
             sprite->data[1]++;
             SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(sprite->data[6], sprite->data[7]));
-            if (sprite->data[7] == 16)
+            if (sprite->data[7] == 8)
                 sprite->data[2]++;
         }
         break;

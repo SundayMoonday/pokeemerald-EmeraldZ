@@ -723,6 +723,7 @@ TEST("Battle strings fit on the battle message window")
         break;
     // Buffer Type name to B_BUFF1
     case STRINGID_PKMNCHANGEDTYPE:
+	case STRINGID_MOVECHANGEDTYPE:
     case STRINGID_PKMNCHANGEDTYPEWITH:
     case STRINGID_TARGETCHANGEDTYPE:
     case STRINGID_PROTEANTYPECHANGE:

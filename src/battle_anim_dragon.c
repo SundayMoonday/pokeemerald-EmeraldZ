@@ -206,6 +206,28 @@ const struct SpriteTemplate gDragonDanceOrbSpriteTemplate =
     .callback = AnimDragonDanceOrb,
 };
 
+const struct SpriteTemplate gDragonSongFireSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_SMALL_EMBER,
+    .paletteTag = ANIM_TAG_SMALL_EMBER,
+    .oam = &gOamData_AffineOff_ObjNormal_32x32,
+    .anims = sAnims_OutrageOverheatFire,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimDragonDanceOrb,
+};
+
+const struct SpriteTemplate gDragonSongNoteSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_MUSIC_NOTES,
+    .paletteTag = ANIM_TAG_MUSIC_NOTES,
+    .oam = &gOamData_AffineDouble_ObjNormal_16x16,
+    .anims = gMusicNotesAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimDragonDanceOrb,
+};
+
 const struct SpriteTemplate gOverheatFlameSpriteTemplate =
 {
     .tileTag = ANIM_TAG_SMALL_EMBER,
@@ -461,6 +483,26 @@ void AnimDragonDanceOrb(struct Sprite *sprite)
     sprite->data[6] = gBattleAnimArgs[0];
     r5 = GetBattlerSpriteCoordAttr(gBattlerAttacker, BATTLER_COORD_ATTR_HEIGHT);
     r0 = GetBattlerSpriteCoordAttr(gBattlerAttacker, BATTLER_COORD_ATTR_WIDTH);
+    if (r5 > r0)
+        sprite->data[7] = r5 / 2;
+    else
+        sprite->data[7] = r0 / 2;
+    sprite->x2 = Cos(sprite->data[6], sprite->data[7]);
+    sprite->y2 = Sin(sprite->data[6], sprite->data[7]);
+    sprite->callback = AnimDragonDanceOrb_Step;
+}
+
+void AnimDeathRollOrb(struct Sprite *sprite)
+{
+    u16 r5;
+    u16 r0;
+    sprite->x = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2);
+    sprite->y = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET);
+    sprite->data[4] = 0;
+    sprite->data[5] = 1;
+    sprite->data[6] = gBattleAnimArgs[0];
+    r5 = GetBattlerSpriteCoordAttr(gBattlerTarget, BATTLER_COORD_ATTR_HEIGHT);
+    r0 = GetBattlerSpriteCoordAttr(gBattlerTarget, BATTLER_COORD_ATTR_WIDTH);
     if (r5 > r0)
         sprite->data[7] = r5 / 2;
     else

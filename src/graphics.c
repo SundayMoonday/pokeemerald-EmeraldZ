@@ -293,6 +293,9 @@ const u32 gBattleAnimSpritePal_NewSword[] = INCBIN_U32("graphics/battle_anims/sp
 const u32 gBattleAnimSpriteGfx_NewTeeth[] = INCBIN_U32("graphics/battle_anims/sprites/teeth_new.4bpp.lz");
 const u32 gBattleAnimSpritePal_NewTeeth[] = INCBIN_U32("graphics/battle_anims/sprites/teeth_new.gbapal.lz");
 
+const u32 gBattleAnimSpriteGfx_TeethCircle[] = INCBIN_U32("graphics/battle_anims/sprites/teeth_circle.4bpp.lz");
+const u32 gBattleAnimSpritePal_TeethCircle[] = INCBIN_U32("graphics/battle_anims/sprites/teeth_circle.gbapal.lz");
+
 const u32 gBattleAnimSpriteGfx_NewHandsAndFeet[] = INCBIN_U32("graphics/battle_anims/sprites/hands_and_feet_new.4bpp.lz");
 const u32 gBattleAnimSpritePal_NewHandsAndFeet[] = INCBIN_U32("graphics/battle_anims/sprites/hands_and_feet_new.gbapal.lz");
 
@@ -1356,6 +1359,9 @@ const u32 gBattleAnimBgTilemap_Ice[] = INCBIN_U32("graphics/battle_anims/backgro
 const u32 gBattleAnimSpriteGfx_IcicleSpear[] = INCBIN_U32("graphics/battle_anims/sprites/icicle_spear.4bpp.lz");
 const u32 gBattleAnimSpritePal_IcicleSpear[] = INCBIN_U32("graphics/battle_anims/sprites/icicle_spear.gbapal.lz");
 
+const u32 gBattleAnimSpriteGfx_DragonScale[] = INCBIN_U32("graphics/battle_anims/sprites/dragon_scale.4bpp.lz");
+const u32 gBattleAnimSpritePal_DragonScale[] = INCBIN_U32("graphics/battle_anims/sprites/dragon_scale.gbapal.lz");
+
 const u32 gContestNextTurnGfx[] = INCBIN_U32("graphics/contest/nextturn.4bpp.lz");
 const u8 gContestNextTurnNumbersGfx[] = INCBIN_U8("graphics/contest/nextturn_numbers.4bpp");
 const u8 gContestNextTurnRandomGfx[] = INCBIN_U8("graphics/contest/nextturn_random.4bpp");
@@ -1542,6 +1548,14 @@ const u32 gBattleAnimBgTilemap_Nightmare[] = INCBIN_U32("graphics/battle_anims/b
 const u32 gBattleAnimBgPalette_PoisonFalls[] = INCBIN_U32("graphics/battle_anims/backgrounds/poison_falls.gbapal.lz");
 
 const u32 gBattleAnimBgPalette_PsychicNew[] = INCBIN_U32("graphics/battle_anims/backgrounds/psychic_new.gbapal.lz");
+
+const u32 gBattleAnimBgImage_RockField[] = INCBIN_U32("graphics/battle_anims/backgrounds/rock_field.4bpp.lz");
+const u32 gBattleAnimBgPalette_RockDay[] = INCBIN_U32("graphics/battle_anims/backgrounds/rock_day.gbapal.lz");
+const u32 gBattleAnimBgTilemap_RockField[] = INCBIN_U32("graphics/battle_anims/backgrounds/rock_field.bin.lz");
+
+const u32 gBattleAnimBgPalette_RockAfternoon[] = INCBIN_U32("graphics/battle_anims/backgrounds/rock_afternoon.gbapal.lz");
+
+const u32 gBattleAnimBgPalette_RockNight[] = INCBIN_U32("graphics/battle_anims/backgrounds/rock_night.gbapal.lz");
 
 const u32 gBattleAnimBgImage_ShatteredPsyche[] = INCBIN_U32("graphics/battle_anims/backgrounds/shattered_psyche.4bpp.lz");
 const u32 gBattleAnimBgPalette_ShatteredPsyche[] = INCBIN_U32("graphics/battle_anims/backgrounds/shattered_psyche.gbapal.lz");

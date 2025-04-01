@@ -207,7 +207,7 @@
               {
                 "min_level": 4,
                 "max_level": 4,
-                "species": "SPECIES_LECHONK"
+                "species": "SPECIES_GLAMEOW"
               },
               {
                 "min_level": 3,
@@ -3819,17 +3819,17 @@
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_GROOKEY"
+                "species": "SPECIES_GOOMY"
               },
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_SCORBUNNY"
+                "species": "SPECIES_ARIADOS"
               },
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_SOBBLE"
+                "species": "SPECIES_LEDIAN"
               }
             ]
           },
@@ -3915,6 +3915,26 @@
                 "min_level": 40,
                 "max_level": 45,
                 "species": "SPECIES_BARBOACH"
+              }
+            ]
+          },
+          "hidden_mons": {
+            "encounter_rate": 0,
+            "mons": [
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_GROOKEY"
+              },
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_SCORBUNNY"
+              },
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_SOBBLE"
               }
             ]
           }
@@ -4216,17 +4236,17 @@
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_TURTWIG"
+                "species": "SPECIES_BOUNSWEET"
               },
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_CHIMCHAR"
+                "species": "SPECIES_CHERUBI"
               },
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_PIPLUP"
+                "species": "SPECIES_SHUCKLE"
               }
             ]
           },
@@ -4312,6 +4332,26 @@
                 "min_level": 40,
                 "max_level": 45,
                 "species": "SPECIES_WAILMER"
+              }
+            ]
+          },
+          "hidden_mons": {
+            "encounter_rate": 0,
+            "mons": [
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_TURTWIG"
+              },
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_CHIMCHAR"
+              },
+              {
+                "min_level": 25,
+                "max_level": 25,
+                "species": "SPECIES_PIPLUP"
               }
             ]
           }
@@ -11701,75 +11741,6 @@
                 "min_level": 40,
                 "max_level": 40,
                 "species": "SPECIES_GLIMMORA"
-              }
-            ]
-          }
-        },
-        {
-          "map": "MAP_OLDALE_TOWN",
-          "base_label": "gOldaleTown0",
-          "land_mons": {
-            "encounter_rate": 10,
-            "mons": [
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_PIKACHU_STARTER"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_EEVEE"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_DITTO"
-              },
-              {
-                "min_level": 5,
-                "max_level": 5,
-                "species": "SPECIES_SNOM"
               }
             ]
           }

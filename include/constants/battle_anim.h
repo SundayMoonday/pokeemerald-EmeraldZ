@@ -418,6 +418,8 @@
 #define ANIM_TAG_PURPLE_CHAIN               (ANIM_SPRITES_START + 404)
 #define ANIM_TAG_PINKVIO_ORB                (ANIM_SPRITES_START + 405)
 #define ANIM_TAG_STARSTORM                  (ANIM_SPRITES_START + 406)
+#define ANIM_TAG_DRAGON_SCALE               (ANIM_SPRITES_START + 407)
+#define ANIM_TAG_TEETH_CIRCLE               (ANIM_SPRITES_START + 408)
 
 // battlers
 #define ANIM_ATTACKER         0
@@ -530,6 +532,9 @@
 #define BG_CHLOROBLAST 80
 #define BG_RAINBOW 81
 #define BG_SWAMP 82
+#define BG_ROCK_FIELD_DAY 83
+#define BG_ROCK_FIELD_AFTERNOON 84
+#define BG_ROCK_FIELD_NIGHT 85
 
 // table ids for general animations (sBattleAnims_General)
 #define B_ANIM_STATS_CHANGE             0
@@ -585,8 +590,9 @@
 #define B_ANIM_TERA_CHARGE              50
 #define B_ANIM_TERA_ACTIVATE            51
 #define B_ANIM_SIMPLE_HEAL              52
+#define B_ANIM_GRAVITY	                53
 
-#define NUM_B_ANIMS_GENERAL             53
+#define NUM_B_ANIMS_GENERAL             54
 
 // special animations table (sBattleAnims_Special)
 #define B_ANIM_LVL_UP                   0

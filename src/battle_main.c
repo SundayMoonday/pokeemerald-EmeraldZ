@@ -3347,6 +3347,7 @@ const u8* FaintClearSetData(u32 battler)
     gBattleMons[battler].types[0] = gSpeciesInfo[gBattleMons[battler].species].types[0];
     gBattleMons[battler].types[1] = gSpeciesInfo[gBattleMons[battler].species].types[1];
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
+	gBattleMons[battler].supertype = gSpeciesInfo[gBattleMons[battler].species].types[0];
 
     Ai_UpdateFaintData(battler);
     TryBattleFormChange(battler, FORM_CHANGE_FAINT);
@@ -3446,6 +3447,7 @@ static void DoBattleIntro(void)
                 gBattleMons[battler].types[0] = gSpeciesInfo[gBattleMons[battler].species].types[0];
                 gBattleMons[battler].types[1] = gSpeciesInfo[gBattleMons[battler].species].types[1];
                 gBattleMons[battler].types[2] = TYPE_MYSTERY;
+				gBattleMons[battler].supertype = gSpeciesInfo[gBattleMons[battler].species].types[0];
                 gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum);
                 gBattleStruct->hpOnSwitchout[GetBattlerSide(battler)] = gBattleMons[battler].hp;
                 gBattleMons[battler].status2 = 0;
@@ -5823,6 +5825,7 @@ bool32 TrySetAteType(u32 move, u32 battlerAtk, u32 attackerAbility)
     case EFFECT_CHANGE_TYPE_ON_ITEM:
     case EFFECT_REVELATION_DANCE:
     case EFFECT_TERRAIN_PULSE:
+	case EFFECT_MIND_POWER:
         return FALSE;
     }
 
@@ -5876,6 +5879,7 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, u8 *ateBoost)
         type1 = gBattleMons[battler].types[0];
         type2 = gBattleMons[battler].types[1];
         type3 = gBattleMons[battler].types[2];
+		//superType = gBattleMons[battler].supertype;
     }
     else
     {
@@ -5886,6 +5890,7 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, u8 *ateBoost)
         type1 = gSpeciesInfo[species].types[0];
         type2 = gSpeciesInfo[species].types[1];
         type3 = TYPE_MYSTERY;
+		//superType = gSpeciesInfo[species].types[0];
     }
 
     switch (moveEffect)
@@ -6014,6 +6019,13 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, u8 *ateBoost)
             return gNaturalGiftTable[ITEM_TO_BERRY(heldItem)].type;
         else
             return moveType;
+	case EFFECT_MIND_POWER:
+	if (monInBattle)
+    {
+        return TYPE_MYSTERY;
+	} else {
+		return TYPE_PSYCHIC;
+	}
     case EFFECT_TERRAIN_PULSE:
         if (monInBattle)
         {
@@ -6087,6 +6099,32 @@ u32 GetDynamicMoveType(struct Pokemon *mon, u32 move, u32 battler, u8 *ateBoost)
     return TYPE_NONE;
 }
 
+/*
+u32 GetDynamicMindPowerType(struct Pokemon *mon, u32 move, u32 battlerAtk, u32 battlerDef)
+{
+	
+    u32 moveType = GetMoveType(move);
+    u32 moveEffect = GetMoveEffect(move);
+    u32 ability, type1, type2, type3, superType;
+    \\bool32 monInBattle = gMain.inBattle && gPartyMenu.menuType != PARTY_MENU_TYPE_IN_BATTLE;
+
+    if (move == MOVE_STRUGGLE)
+        return TYPE_NORMAL;
+	
+        ability = GetbattlerAtkAbility(battlerAtk);
+        type1 = gBattleMons[battlerAtk].types[0];
+        type2 = gBattleMons[battlerAtk].types[1];
+        type3 = gBattleMons[battlerAtk].types[2];
+		superType = gBattleMons[battlerAtk].supertype;
+    
+
+    
+        return moveType;
+    
+    return TYPE_NONE;
+}
+*/
+
 void SetTypeBeforeUsingMove(u32 move, u32 battler)
 {
     u32 moveType;
@@ -6101,7 +6139,7 @@ void SetTypeBeforeUsingMove(u32 move, u32 battler)
                                   move,
                                   battler,
                                   &gBattleStruct->ateBoost[battler]);
-    if (moveType != TYPE_NONE)
+    if (moveType != TYPE_NONE && move != MOVE_MIND_POWER)
         gBattleStruct->dynamicMoveType = moveType | F_DYNAMIC_TYPE_SET;
 
     moveType = GetBattleMoveType(move);
@@ -6116,6 +6154,38 @@ void SetTypeBeforeUsingMove(u32 move, u32 battler)
         gSpecialStatuses[battler].gemBoost = TRUE;
     }
 }
+
+/*
+void SetTypeBeforeMindPower(u32 move, u32 battlerAtk, u32 battlerDef)
+{
+    u32 moveType;
+    u32 heldItem = gBattleMons[battlerAtk].item;
+    u32 holdEffect = GetBattlerHoldEffect(battlerAtk, TRUE);
+
+    gBattleStruct->dynamicMoveType = 0;
+    gBattleStruct->ateBoost[battlerAtk] = FALSE;
+    gSpecialStatuses[battlerAtk].gemBoost = FALSE;
+
+    moveType = GetDynamicMoveType(&GetBattlerParty(battlerAtk)[gBattlerPartyIndexes[battlerAtk]],
+                                  move,
+                                  battlerAtk,
+                                  &gBattleStruct->ateBoost[battlerAtk]);
+    if (moveType != TYPE_NONE && move != MOVE_MIND_POWER)
+        gBattleStruct->dynamicMoveType = moveType | F_DYNAMIC_TYPE_SET;
+
+    moveType = GetBattleMoveType(move);
+    if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)
+        || gStatuses4[battlerAtk] & STATUS4_ELECTRIFIED)
+        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC | F_DYNAMIC_TYPE_SET;
+
+    // Check if a gem should activate.
+    if (holdEffect == HOLD_EFFECT_GEMS && GetBattleMoveType(move) == ItemId_GetSecondaryId(heldItem))
+    {
+        gSpecialStatuses[battlerAtk].gemParam = GetBattlerHoldEffectParam(battlerAtk);
+        gSpecialStatuses[battlerAtk].gemBoost = TRUE;
+    }
+}
+*/
 
 // Queues stat boosts for a given battler for totem battles
 void ScriptSetTotemBoost(struct ScriptContext *ctx)

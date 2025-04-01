@@ -470,6 +470,7 @@ bool32 IsDamageMoveUnusable(u32 battlerAtk, u32 battlerDef, u32 move, u32 moveTy
         break;
     case EFFECT_LOW_KICK:
     case EFFECT_HEAT_CRASH:
+	case EFFECT_DEATH_SLAM:
         if (GetActiveGimmick(battlerDef) == GIMMICK_DYNAMAX)
             return TRUE;
         break;
@@ -563,6 +564,7 @@ static inline void CalcDynamicMoveDamage(struct DamageCalculationData *damageCal
     case EFFECT_FIXED_DAMAGE_ARG:
         expected = minimum = GetMoveFixedDamage(move) * (abilityAtk == ABILITY_PARENTAL_BOND ? 2 : 1);
         break;
+	case EFFECT_DEATH_SLAM:
     case EFFECT_MULTI_HIT:
         if (move == MOVE_WATER_SHURIKEN && gBattleMons[damageCalcData->battlerAtk].species == SPECIES_GRENINJA_ASH)
         {
@@ -1128,7 +1130,7 @@ s32 AI_WhoStrikesFirst(u32 battlerAI, u32 battler, u32 moveConsidered)
 static bool32 CanEndureHit(u32 battler, u32 battlerTarget, u32 move)
 {
     u32 effect = GetMoveEffect(move);
-    if (!AI_BattlerAtMaxHp(battlerTarget) || effect == EFFECT_MULTI_HIT)
+    if (!AI_BattlerAtMaxHp(battlerTarget) || (effect == EFFECT_MULTI_HIT  || effect == EFFECT_DEATH_SLAM))
         return FALSE;
     if (GetMoveStrikeCount(move) > 1 && !(effect == EFFECT_DRAGON_DARTS && IsValidDoubleBattle(battlerTarget)))
         return FALSE;

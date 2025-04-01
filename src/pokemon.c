@@ -4076,6 +4076,7 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->types[1] = gSpeciesInfo[dst->species].types[1];
     dst->types[2] = TYPE_MYSTERY;
     dst->isShiny = IsMonShiny(src);
+	dst->supertype = gSpeciesInfo[dst->species].types[0];
     dst->ability = GetAbilityBySpecies(dst->species, dst->abilityNum);
     GetMonData(src, MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(dst->nickname, nickname);
@@ -4909,7 +4910,11 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, enum EvolutionMode mode, u16 
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     u8 level;
     u16 friendship;
-    u8 beauty = GetMonData(mon, MON_DATA_BEAUTY, 0);
+    u8 cool = GetMonData(mon, MON_DATA_COOL, 0);
+	u8 tough = GetMonData(mon, MON_DATA_TOUGH, 0);
+	u8 beauty = GetMonData(mon, MON_DATA_BEAUTY, 0);
+	u8 clever = GetMonData(mon, MON_DATA_SMART, 0);
+	u8 cute = GetMonData(mon, MON_DATA_CUTE, 0);
     u16 upperPersonality = personality >> 16;
     u32 holdEffect, currentMap, partnerSpecies, partnerHeldItem, partnerHoldEffect;
     bool32 consumeItem = FALSE;
@@ -5054,8 +5059,24 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, enum EvolutionMode mode, u16 
                 if (mode == EVO_MODE_BATTLE_ONLY && evolutions[i].param <= level && (personality % 100) == 0)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
-            case EVO_BEAUTY:
+			case EVO_COOL:
+                if (evolutions[i].param <= cool)
+                    targetSpecies = evolutions[i].targetSpecies;
+                break;
+			case EVO_TOUGH:
+                if (evolutions[i].param <= tough)
+                    targetSpecies = evolutions[i].targetSpecies;
+                break;
+			case EVO_BEAUTY:
                 if (evolutions[i].param <= beauty)
+                    targetSpecies = evolutions[i].targetSpecies;
+                break;
+            case EVO_CLEVER:
+                if (evolutions[i].param <= clever)
+                    targetSpecies = evolutions[i].targetSpecies;
+                break;
+			case EVO_CUTE:
+                if (evolutions[i].param <= cute)
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
             case EVO_MOVE:

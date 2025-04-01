@@ -20828,6 +20828,351 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         }),
         .battleAnimScript = gBattleAnimMove_MalignantChain,
     },
+	
+	[MOVE_FIN_SLAP] =
+    {
+        .name = COMPOUND_STRING("Fin Slap"),
+        .description = COMPOUND_STRING(
+            "Shoots 2 to 5 seeds in a row\n"
+            "to strike the foe."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_WATER,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        .contestCategory = CONTEST_CATEGORY_CUTE,
+		.contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_FinSlap,
+    },
+	
+	[MOVE_CUDGEL_SLAM] =
+    {
+        .name = COMPOUND_STRING("Cudgel Slam"),
+        .description = COMPOUND_STRING(
+            "Grabs and tosses foe around\n"
+            "2 to 5 times."),
+        .effect = EFFECT_DEATH_SLAM,
+        .power = 1,
+        .type = TYPE_FIGHTING,
+        .accuracy = 90,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_CudgelSlam,
+    },
+	
+	[MOVE_DEATH_ROLL] =
+    {
+        .name = COMPOUND_STRING("Death Roll"),
+        .description = COMPOUND_STRING(
+            "Bites down on foe and rolls\n"
+            "2 to 5 times."),
+        .effect = EFFECT_DEATH_SLAM,
+        .power = 1,
+        .type = TYPE_DARK,
+        .accuracy = 90,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+		.bitingMove = TRUE,
+        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_MONS_WITH_GOOD_APPEALS,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_DeathRoll,
+    },
+	
+	[MOVE_SCRAP_SHOT] =
+    {
+        .name = COMPOUND_STRING("Scrap Shot"),
+        .description = COMPOUND_STRING(
+            "Shoots scrap 2 to 5 times.\n"
+            "Ups Speed, lowers defense."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 25,
+        .type = TYPE_STEEL,
+        .accuracy = 90,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .argument = { .moveProperty = MOVE_EFFECT_SCALE_SHOT },
+        .contestEffect = CONTEST_EFFECT_NEXT_APPEAL_EARLIER,
+        .contestCategory = CONTEST_CATEGORY_COOL,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_ScrapShot,
+    },
+	
+	[MOVE_FIRE_CLAW] =
+    {
+        .name = COMPOUND_STRING("Fire Claw"),
+        .description = COMPOUND_STRING(
+            "Rakes the foe with firery\n"
+            "claws, etc., 2 to 5 times."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_FIRE,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+		.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_FireClaw,
+    },
+	
+	[MOVE_THUNDER_CLAW] =
+    {
+        .name = COMPOUND_STRING("Thunder Claw"),
+        .description = COMPOUND_STRING(
+            "Rakes the foe with sparking\n"
+            "claws, etc., 2 to 5 times."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+		.additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        .contestCategory = CONTEST_CATEGORY_COOL,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_ThunderClaw,
+    },
+	
+	[MOVE_ICE_CLAW] =
+    {
+        .name = COMPOUND_STRING("Ice Claw"),
+        .description = COMPOUND_STRING(
+            "Rakes the foe with icy\n"
+            "claws, etc., 2 to 5 times."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_ICE,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        .contestCategory = CONTEST_CATEGORY_BEAUTY,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_IceClaw,
+    },
+	
+	[MOVE_POISON_CLAW] =
+    {
+        .name = COMPOUND_STRING("Poison Claw"),
+        .description = COMPOUND_STRING(
+            "Rakes the foe with toxic\n"
+            "claws, etc., 2 to 5 times."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_POISON,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TOXIC,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_MON_WITH_JUDGES_ATTENTION,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_PoisonClaw,
+    },
+	
+	[MOVE_MIND_POKE] =
+    {
+        .name = COMPOUND_STRING("Mind Poke"),
+        .description = COMPOUND_STRING(
+            "Pokes foe's mind 2-5 times.\n"
+            "May lower foe's SpDef."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 18,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_MindPoke,
+    },
+	
+	[MOVE_KNAW] =
+    {
+        .name = COMPOUND_STRING("Knaw"),
+        .description = COMPOUND_STRING(
+            "Bites and tears 2-5 times.\n"
+            "May lower foe's Def."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 18,
+        .type = TYPE_BUG,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+		.bitingMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Knaw,
+    },
+	
+	[MOVE_BURY] =
+    {
+        .name = COMPOUND_STRING("Bury"),
+        .description = COMPOUND_STRING(
+            "Buries foe 2-5 times.\n"
+            "May lower foe's Speed."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_GROUND,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_Bury,
+    },
+	
+	[MOVE_DRAGON_SONG] =
+    {
+        .name = COMPOUND_STRING("Dragon Song"),
+        .description = COMPOUND_STRING(
+            "Sings 2 to 5 strange\n"
+            "lyrics. May lower Aware."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 30,
+        .type = TYPE_DRAGON,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+		.soundMove = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_AWARE_MINUS_1,
+			.self = TRUE,
+            .chance = 16,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_BEAUTY,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_DragonSong,
+    },
+	
+	[MOVE_MIND_POWER] =
+    {
+        .name = COMPOUND_STRING("Mind Power"),
+        .description = COMPOUND_STRING(
+            "It's imagination makes\n"
+            "the move super effective."),
+        .effect = EFFECT_MIND_POWER,
+        .power = 80,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 95,
+        .pp = 15,
+		.powerMove = TRUE,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .contestEffect = CONTEST_EFFECT_AVOID_STARTLE,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_MindPower,
+    },
+	
+	[MOVE_FAIRY_DANCE] =
+    {
+        .name = COMPOUND_STRING("Fairy Dance"),
+        .description = COMPOUND_STRING(
+            "Dances with foe 2-5 times.\n"
+            "May confuse foe."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 20,
+        .type = TYPE_FAIRY,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_CUTE,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_FairyDance,
+    },
 
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =

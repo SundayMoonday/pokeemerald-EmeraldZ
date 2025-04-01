@@ -4032,6 +4032,18 @@ BattleScript_EffectConversion2::
 	printstring STRINGID_PKMNCHANGEDTYPE
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
+	
+BattleScript_EffectMindPower::
+	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	settypetorandomsupereffective BattleScript_ButItFailed
+	printstring STRINGID_MOVECHANGEDTYPE
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_EffectHit_RetFromCritCalc
+	tryfaintmon BS_TARGET
+	goto BattleScript_MoveEnd
 
 BattleScript_EffectLockOn::
 	attackcanceler
@@ -5984,6 +5996,11 @@ BattleScript_LuckyChantEnds::
 
 BattleScript_TailwindEnds::
 	printstring STRINGID_TAILWINDENDS
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_TrickRoomStarts::
+	printstring STRINGID_DIMENSIONSWERETWISTED
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
@@ -8060,7 +8077,7 @@ BattleScript_CommanderActivates::
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_CommanderAtkIncrease:
 	setbyte sSTAT_ANIM_PLAYED, FALSE
-	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPATK | BIT_SPDEF | BIT_SPEED, STAT_CHANGE_BY_TWO
+	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_DEF | BIT_SPATK | BIT_SPDEF | BIT_SPEED | BIT_REACT | BIT_AWARE, STAT_CHANGE_BY_TWO
 	setstatchanger STAT_ATK, 2, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CommanderDefIncrease
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_CommanderDefIncrease
@@ -8080,6 +8097,18 @@ BattleScript_CommanderSpAtkIncrease:
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_CommanderSpDefIncrease:
 	setstatchanger STAT_SPDEF, 2, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CommanderReactIncrease
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_CommanderReactIncrease
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CommanderReactIncrease:
+	setstatchanger STAT_REACT, 2, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CommanderAwareIncrease
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_CommanderAwareIncrease
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_CommanderAwareIncrease:
+	setstatchanger STAT_AWARE, 2, FALSE
 	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_CommanderSpeedIncrease
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_CommanderSpeedIncrease
 	printfromtable gStatUpStringIds
@@ -8183,6 +8212,31 @@ BattleScript_PsychicSurgeActivates::
 	waitmessage B_WAIT_TIME_LONG
 	playanimation BS_SCRIPTING, B_ANIM_RESTORE_BG
 	call BattleScript_ActivateTerrainEffects
+	end3
+	
+BattleScript_TimeDomainActivates::
+	pause B_WAIT_TIME_SHORT
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_DIMENSIONSWERETWISTED
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_TRICK_ROOM
+	call BattleScript_TryRoomServiceLoop
+	end3
+	
+	
+BattleScript_TimeDomainDeactivates::
+	pause B_WAIT_TIME_SHORT
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_TRICKROOMENDS
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
+BattleScript_SpaceDomainActivates::
+pause B_WAIT_TIME_SHORT
+	call BattleScript_AbilityPopUp
+	printstring STRINGID_GRAVITYINTENSIFIED
+	waitstate
+	playanimation BS_BATTLER_0, B_ANIM_GRAVITY
 	end3
 
 BattleScript_BadDreamsActivates::
@@ -8532,7 +8586,7 @@ BattleScript_WeakArmorActivates::
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_FELL_EMPTY, BattleScript_WeakArmorActivatesSpeed
 	pause B_WAIT_TIME_SHORTEST
 	printfromtable gStatDownStringIds
-	clearmoveresultflags MOVE_RESULT_MISSED @ Set by statbuffchange when stat can't be decreased
+	clearmoveresultflags MOVE_RESULT_MISSED @ Set by statbuffchange when stat cant be decreased
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_WeakArmorActivatesSpeed
 BattleScript_WeakArmorDefAnim:
@@ -8663,7 +8717,7 @@ BattleScript_RoughSkinActivates::
 	return
 
 BattleScript_RockyHelmetActivates::
-	@ don't play the animation for a fainted mon
+	@ dont play the animation for a fainted mon
 	jumpifabsent BS_TARGET, BattleScript_RockyHelmetActivatesDmg
 	playanimation BS_TARGET, B_ANIM_HELD_ITEM_EFFECT
 	waitanimation

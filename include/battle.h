@@ -121,6 +121,7 @@ struct DisableStruct
     u8 stealthRockDone:1;
     u8 weatherAbilityDone:1;
     u8 terrainAbilityDone:1;
+	//u8 domainAbilityDone:1;
     u8 syrupBombIsShiny:1;
     u8 steelSurgeDone:1;
     u8 usedProteanLibero:1;
@@ -706,7 +707,7 @@ struct BattleStruct
     u8 anyMonHasTransformed:1; // Only used in battle_tv.c
     u8 multipleSwitchInState:2;
     u8 multipleSwitchInCursor:3;
-    u8 padding1:2;
+    u8 pickType:5;
     u8 multipleSwitchInSortedBattlers[MAX_BATTLERS_COUNT];
     void (*savedCallback)(void);
     u16 usedHeldItems[PARTY_SIZE][NUM_BATTLE_SIDES]; // For each party member and side. For harvest, recycle
@@ -815,7 +816,7 @@ struct BattleStruct
     u8 monCausingSleepClause[NUM_BATTLE_SIDES]; // Stores which pokemon on a given side is causing Sleep Clause to be active as the mon's index in the party
     u8 additionalEffectsCounter:4; // A counter for the additionalEffects applied by the current move in Cmd_setadditionaleffects
     u8 redCardActivates:1;
-    u8 padding2:2; // padding in the middle so pursuit fields are together
+    u8 padding2:1; // padding in the middle so pursuit fields are together
     u8 pursuitSwitchByMove:1;
     u8 pursuitStoredSwitch; // Stored id for the Pursuit target's switch
     s32 battlerExpReward;
@@ -831,7 +832,7 @@ struct BattleStruct
     u8 calculatedSpreadMoveAccuracy:1;
     u8 printedStrongWindsWeakenedAttack:1;
     u8 numSpreadTargets:2;
-    u8 padding3:2;
+    //u8 padding3:2;
     struct MessageStatus slideMessageStatus;
     u8 trainerSlideSpriteIds[MAX_BATTLERS_COUNT];
 };
@@ -896,11 +897,21 @@ static inline bool32 IsBattleMoveRecoil(u32 move)
     gBattleMons[battlerId].types[2] = TYPE_MYSTERY;    \
 }
 
+#define SET_SUPER_TYPE(battlerId, type)              \
+{                                                    \
+    gBattleMons[battlerId].supertype = type;         \
+}
+
 #define RESTORE_BATTLER_TYPE(battlerId)                                                        \
 {                                                                                              \
     gBattleMons[battlerId].types[0] = gSpeciesInfo[gBattleMons[battlerId].species].types[0];   \
     gBattleMons[battlerId].types[1] = gSpeciesInfo[gBattleMons[battlerId].species].types[1];   \
     gBattleMons[battlerId].types[2] = TYPE_MYSTERY;                                            \
+}
+
+#define RESTORE_SUPER_TYPE(battlerId)                                                          \
+{                                                                                              \
+    gBattleMons[battlerId].supertype = gSpeciesInfo[gBattleMons[battlerId].species].types[0];  \
 }
 
 #define IS_BATTLER_PROTECTED(battlerId)(gProtectStructs[battlerId].protected                                           \

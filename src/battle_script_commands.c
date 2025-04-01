@@ -567,7 +567,7 @@ static void Cmd_switchoutabilities(void);
 static void Cmd_jumpifhasnohp(void);
 static void Cmd_jumpifnotcurrentmoveargtype(void);
 static void Cmd_pickup(void);
-static void Cmd_unused_0xE6(void);
+static void Cmd_settypetorandomsupereffective(void);
 static void Cmd_unused_0xE7(void);
 static void Cmd_settypebasedhalvers(void);
 static void Cmd_jumpifsubstituteblocks(void);
@@ -826,7 +826,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_jumpifhasnohp,                           //0xE3
     Cmd_jumpifnotcurrentmoveargtype,             //0xE4
     Cmd_pickup,                                  //0xE5
-    Cmd_unused_0xE6,                     //0xE6
+    Cmd_settypetorandomsupereffective,           //0xE6
     Cmd_unused_0xE7,                    //0xE7
     Cmd_settypebasedhalvers,                     //0xE8
     Cmd_jumpifsubstituteblocks,                  //0xE9
@@ -1108,8 +1108,8 @@ static const struct PickupItem sPickupTable[4][30] =
     { ITEM_SUPER_REPEL,     {   3,  10,   9,   9,  10,   _,   _,   _,   _,   _, } },
     { ITEM_LUM_BERRY,       {   3,   3,   9,   8,   9,  25,   _,   _,   _,   _, } },
     { ITEM_SHINY_STONE,     {   3,   3,   3,   8,   8,   9,  25,   _,   _,   _, } },
-    { ITEM_DAWN_STONE,      {   3,   3,   3,   4,   6,   6,   8,  25,   _,   _, } },
-    { ITEM_DUSK_STONE,      {   1,   1,   3,   4,   4,   5,   5,   5,  25,   _, } },
+    { ITEM_TM10,            {   3,   3,   3,   4,   6,   6,   8,  25,   _,   _, } },
+    { ITEM_LINKING_CORD,    {   1,   1,   3,   4,   4,   5,   5,   5,  25,   _, } },
     { ITEM_EXP_CANDY_M,     {   _,   3,   8,   4,   4,   9,   8,   8,   _,   _, } },
     { ITEM_MOON_STONE,      {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
     { ITEM_SUN_STONE,       {   _,   3,   3,   3,   4,   4,   4,   5,   9,   _, } },
@@ -13737,6 +13737,123 @@ static void Cmd_settypetorandomresistance(void)
     }
 }
 
+// Mind Power
+static void Cmd_settypetorandomsupereffective(void)
+{
+    CMD_ARGS(const u8 *failInstr);
+
+    int defType1, defType2, attType, heldItem, holdEffect, defAbility;
+	
+	attType = gBattleMons[gBattlerAttacker].types[0];
+	heldItem = gBattleMons[gBattlerAttacker].item;
+	defType1 = gBattleMons[gBattlerTarget].types[0];
+    defType2 = gBattleMons[gBattlerTarget].types[1];
+	holdEffect = GetBattlerHoldEffect(gBattlerAttacker, TRUE);
+    defAbility = gBattleMons[gBattlerTarget].ability;
+    
+    
+        // Find all super effective types against first type
+            u32 i, superType1, superType2, resistType1, resistType2, resistAbility, x4effective, x2effective = 0;
+			superType1 = 0;
+			superType2 = 0;
+			resistType1 = 0;
+			resistType2 = 0;
+			resistAbility = 0;
+		
+		// Find all super effective types against second type
+            for (i = 0; i < NUMBER_OF_MON_TYPES; i++) 
+            {
+                switch (GetTypeModifier(i, defType1))
+                {
+                case UQ_4_12(2):
+                    superType1 |= 1u << i;
+                    break;
+				case UQ_4_12(0):
+                case UQ_4_12(0.5):
+                    resistType1 |= 1u << i;
+                    break;
+                }
+            }
+			
+		// Find all super effective types against second type
+			for (i = 0; i < NUMBER_OF_MON_TYPES; i++) 
+            {
+                switch (GetTypeModifier(i, defType2))
+                {
+                case UQ_4_12(2):
+                    superType2 |= 1u << i;
+                    break;
+                case UQ_4_12(0):
+                case UQ_4_12(0.5):
+                    resistType2 |= 1u << i;
+                    break;
+                }
+            }
+			
+		// Find all ability immunities (I'm not going to bother with what ability the partner has, someone else can code that in but this needs a nerf lmao)
+			for (i = 0; i < NUMBER_OF_MON_TYPES; i++) 
+            {
+                if (CanAbilityAbsorbMove(gBattlerAttacker, gBattlerTarget, defAbility, MOVE_MIND_POWER, i))
+                    resistAbility |= 1u << i;
+            }
+			
+		// Now combine the two for x4 and x2 effective
+		x4effective = superType1 & superType2;
+		x2effective = superType1 | superType2;
+
+		if (x4effective != 0){
+            while (x4effective != 0)
+            {
+                i = Random() % NUMBER_OF_MON_TYPES;
+                if (x4effective & 1u << i && !(resistAbility & 1u << i)) //checks for anything quad weak who's ability doesn't absorb it (say, water/ground with Sap Sipper)
+                {
+                    //SET_SUPER_TYPE(gBattlerAttacker, i);
+					if (holdEffect == HOLD_EFFECT_GEMS && i == ItemId_GetSecondaryId(heldItem))
+						{
+							gSpecialStatuses[gBattlerAttacker].gemParam = GetBattlerHoldEffectParam(gBattlerAttacker);
+							gSpecialStatuses[gBattlerAttacker].gemBoost = TRUE;
+						}
+					gBattleStruct->dynamicMoveType = i | F_DYNAMIC_TYPE_SET;
+                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                    gBattlescriptCurrInstr = cmd->nextInstr;
+                    return;
+                }
+            }
+        } else if (x2effective != 0){
+            while (x2effective != 0)
+            {
+                i = Random() % NUMBER_OF_MON_TYPES;
+                if (x2effective & 1u << i && !(resistType1 & 1u << i || resistType2 & 1u << i || resistAbility & 1u << i)) //checks for a type being super effective by either type and not immune/resisted by the other type
+                {
+                    //SET_SUPER_TYPE(gBattlerAttacker, i);
+					if (holdEffect == HOLD_EFFECT_GEMS && i == ItemId_GetSecondaryId(heldItem))
+						{
+							gSpecialStatuses[gBattlerAttacker].gemParam = GetBattlerHoldEffectParam(gBattlerAttacker);
+							gSpecialStatuses[gBattlerAttacker].gemBoost = TRUE;
+						}
+					gBattleStruct->dynamicMoveType = i | F_DYNAMIC_TYPE_SET;
+                    PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
+                    gBattlescriptCurrInstr = cmd->nextInstr;
+                    return;
+                }
+            }
+        } else { // if no super effective options, just use STAB. I'm not giving this to a ton of pokemon so I'm not worrying about ground type attacker fighting Eelektross
+			//RESTORE_SUPER_TYPE(gBattlerAttacker);
+			if (holdEffect == HOLD_EFFECT_GEMS && i == ItemId_GetSecondaryId(heldItem))
+							{
+								gSpecialStatuses[gBattlerAttacker].gemParam = GetBattlerHoldEffectParam(gBattlerAttacker);
+								gSpecialStatuses[gBattlerAttacker].gemBoost = TRUE;
+							}
+			gBattleStruct->dynamicMoveType = attType | F_DYNAMIC_TYPE_SET;
+            PREPARE_TYPE_BUFFER(gBattleTextBuff1, attType);
+            gBattlescriptCurrInstr = cmd->nextInstr;
+            return;
+		}
+		
+		gBattlescriptCurrInstr = cmd->failInstr;
+        
+}
+
 static void Cmd_setalwayshitflag(void)
 {
     CMD_ARGS();
@@ -15604,9 +15721,11 @@ static void Cmd_pickup(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+/*
 static void Cmd_unused_0xE6(void)
 {
 }
+*/
 
 static void Cmd_unused_0xE7(void)
 {
@@ -16790,7 +16909,8 @@ bool32 IsMoveAffectedByParentalBond(u32 move, u32 battler)
         && !IsMoveParentalBondBanned(move)
         && GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS
         && GetMoveStrikeCount(move) < 2
-        && GetMoveEffect(move) != EFFECT_MULTI_HIT)
+        && GetMoveEffect(move) != EFFECT_MULTI_HIT
+		&& GetMoveEffect(move) != EFFECT_DEATH_SLAM)
     {
         if (IsDoubleBattle())
         {

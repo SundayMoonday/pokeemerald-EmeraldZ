@@ -10119,6 +10119,7 @@ static const struct LevelUpMove sCarnivineLevelUpLearnset[] = {
     LEVEL_UP_MOVE(31, MOVE_SPIT_UP),
     LEVEL_UP_MOVE(37, MOVE_CRUNCH),
     LEVEL_UP_MOVE(41, MOVE_WRING_OUT),
+	LEVEL_UP_MOVE(44, MOVE_JAW_LOCK),
     LEVEL_UP_MOVE(47, MOVE_POWER_WHIP),
     LEVEL_UP_END
 };
