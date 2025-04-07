@@ -20836,7 +20836,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Shoots 2 to 5 seeds in a row\n"
             "to strike the foe."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_WATER,
         .accuracy = 95,
         .pp = 30,
@@ -20925,7 +20925,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Rakes the foe with firery\n"
             "claws, etc., 2 to 5 times."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_FIRE,
         .accuracy = 95,
         .pp = 30,
@@ -20951,7 +20951,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Rakes the foe with sparking\n"
             "claws, etc., 2 to 5 times."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_ELECTRIC,
         .accuracy = 95,
         .pp = 30,
@@ -20977,7 +20977,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Rakes the foe with icy\n"
             "claws, etc., 2 to 5 times."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_ICE,
         .accuracy = 95,
         .pp = 30,
@@ -21003,7 +21003,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Rakes the foe with toxic\n"
             "claws, etc., 2 to 5 times."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_POISON,
         .accuracy = 95,
         .pp = 30,
@@ -21082,7 +21082,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Buries foe 2-5 times.\n"
             "May lower foe's Speed."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_GROUND,
         .accuracy = 95,
         .pp = 30,
@@ -21156,7 +21156,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
             "Dances with foe 2-5 times.\n"
             "May confuse foe."),
         .effect = EFFECT_MULTI_HIT,
-        .power = 20,
+        .power = 18,
         .type = TYPE_FAIRY,
         .accuracy = 95,
         .pp = 30,

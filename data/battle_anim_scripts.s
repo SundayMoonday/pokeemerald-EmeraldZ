@@ -22061,7 +22061,7 @@ gBattleAnimMove_FairyDance::
 	delay 12
 	createvisualtask AnimTask_FairyDanceMovement, 1
 	createvisualtask AnimTask_BlendColorCycle, 2, F_PAL_TARGET, -31, 2, 0, 6, RGB(31, 8, 20)
-	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0, -16, -2
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0, -16, -2
 	playsewithpan SE_M_MINIMIZE, SOUND_PAN_TARGET
 	delay 24
 	end
