@@ -123,9 +123,9 @@ SootopolisCity_Gym_1F_EventScript_GiveWaterPulse::
 	return
 
 SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2::
-	giveitem ITEM_TM_WATER_PULSE
+	giveitem ITEM_TR_SCALD
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	msgbox SootopolisCity_Gym_1F_Text_ExplainWaterPulse, MSGBOX_DEFAULT
+	msgbox SootopolisCity_Gym_1F_Text_ExplainScald, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_WATER_PULSE
 	release
 	end
@@ -247,10 +247,18 @@ SootopolisCity_Gym_1F_Text_ExplainRainBadgeTakeThis:
 	.string "battle we shared, take this…$"
 
 SootopolisCity_Gym_1F_Text_ExplainWaterPulse:
-	.string "The TECHNICAL MACHINE I handed you\n"
-	.string "contains WATER PULSE.\p"
+	.string "The Technical Machine I handed you\n"
+	.string "contains Water Pulse.\p"
 	.string "In use, it will occasionally confuse\n"
 	.string "the target with ultrasonic waves.\p"
+	.string "… … … … … …$"
+	
+SootopolisCity_Gym_1F_Text_ExplainScald:
+	.string "The Technical Record I handed you\n"
+	.string "contains Scald.\p"
+	.string "The beauty of a Water type move\n"
+	.string "that can burn the foe with the\l"
+	.string "passion of a Fire type move.\p"
 	.string "… … … … … …$"
 
 SootopolisCity_Gym_1F_Text_RegisteredJuan:

@@ -201,7 +201,7 @@ SlateportCity_BattleTentLobby_EventScript_TormentGiver::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_TM_TORMENT, SlateportCity_BattleTentLobby_EventScript_ReceivedTorment
 	msgbox SlateportCity_BattleTentLobby_Text_CouldntFindMonForMe, MSGBOX_DEFAULT
-	giveitem ITEM_TM_TORMENT
+	giveitem ITEM_TM_THROAT_CHOP
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_TM_TORMENT
 	msgbox SlateportCity_BattleTentLobby_Text_ExplainTorment, MSGBOX_DEFAULT
@@ -281,16 +281,14 @@ SlateportCity_BattleTentLobby_Text_CouldntFindMonForMe:
 	.string "a complaint to the guy there?\p"
 	.string "And he wouldn't hear me out, like, hey!\n"
 	.string "So, like, total bummer, man!\p"
-	.string "Hey, like, you! Zip it, you know?\n"
-	.string "Just, you know, take this!$"
+	.string "I don't know why but he gave me this\n"
+	.string "this as a gift? Here, you take it!$"
 
 SlateportCity_BattleTentLobby_Text_ExplainTorment:
-	.string "That's, like, TM41, you know?\n"
-	.string "Hey, it's TORMENT, you hearing me?\p"
-	.string "Like, it won't let the other guy\n"
-	.string "use the same move twice in a row, see?\p"
-	.string "Hey, now, you listen here, like,\n"
-	.string "I'm not laying a torment on you!$"
+	.string "That's, like, TM39, you know?\n"
+	.string "Hey, it's Throat Chop, you hear?\p"
+	.string "Like, talkin's my thing, so it's\n"
+	.string "no use for me, see?$"
 
 SlateportCity_BattleTentLobby_Text_IllTryUsingBugMons:
 	.string "I don't really like BUG POKéMON,\n"

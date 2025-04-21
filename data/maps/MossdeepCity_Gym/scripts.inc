@@ -95,7 +95,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
 	end
 
 MossdeepCity_Gym_EventScript_GiveCalmMind2::
-	giveitem ITEM_TM_CALM_MIND
+	giveitem ITEM_TR_CALM_MIND
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_CALM_MIND
@@ -103,9 +103,10 @@ MossdeepCity_Gym_EventScript_GiveCalmMind2::
 	end
 
 MossdeepCity_Gym_EventScript_GiveCalmMind::
-	giveitem ITEM_TM_CALM_MIND
+	giveitem ITEM_TM_PSYBEAM
+	giveitem ITEM_TM_PSYSHOCK
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
-	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
+	msgbox MossdeepCity_Gym_Text_ExplainPsybeam, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_CALM_MIND
 	return
 
@@ -582,12 +583,21 @@ MossdeepCity_Gym_Text_ExplainMindBadgeTakeThis:
 	.string "TATE: You should also take this, too.$"
 
 MossdeepCity_Gym_Text_ExplainCalmMind:
-	.string "TATE: That TM04 contains…\n"
-	.string "LIZA: CALM MIND!\p"
-	.string "TATE: It raises SP. ATK and…\n"
-	.string "LIZA: It raises SP. DEF!\p"
+	.string "TATE: That TR26 contains…\n"
+	.string "LIZA: Calm Mind!\p"
+	.string "TATE: It raises Sp. Atk and…\n"
+	.string "LIZA: It raises Sp. Def!\p"
 	.string "TATE: It's a move that's perfect…\n"
 	.string "LIZA: For PSYCHIC POKéMON!\p"
+	.string "… … … … … …$"
+	
+MossdeepCity_Gym_Text_ExplainPsybeam:
+	.string "TATE: That TM04 contains…\n"
+	.string "LIZA: Psybeam!\p"
+	.string "TATE: a great move on it's own!\n"
+	.string "LIZA: And this TM05 that holds…\p"
+	.string "TATE: Psyshock!\n"
+	.string "LIZA: Special move, physical damage!\p"
 	.string "… … … … … …$"
 
 MossdeepCity_Gym_Text_RegisteredTateAndLiza:

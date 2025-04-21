@@ -1484,6 +1484,7 @@ extern const u32 gItemIcon_MarangaBerry[];
 extern const u32 gItemIconPalette_MarangaBerry[];
 // TMs/HMs
 extern const u32 gItemIcon_TM[];
+extern const u32 gItemIcon_TR[];
 extern const u32 gItemIcon_HM[];
 extern const u32 gItemIconPalette_NormalTMHM[];
 extern const u32 gItemIconPalette_FireTMHM[];

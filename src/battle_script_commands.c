@@ -8646,7 +8646,10 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
         else
             moneyReward = 4 * lastMonLevel * gBattleStruct->moneyMultiplier * trainerMoney;
     }
-
+	
+	//420 joke, comment out when not April the 20th
+	//moneyReward = 420;
+	
     return moneyReward;
 }
 

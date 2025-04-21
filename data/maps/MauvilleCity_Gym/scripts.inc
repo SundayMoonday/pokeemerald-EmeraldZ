@@ -112,17 +112,17 @@ MauvilleCity_Gym_EventScript_WattsonDefeated::
 	end
 
 MauvilleCity_Gym_EventScript_GiveShockWave2::
-	giveitem ITEM_TM_SHOCK_WAVE
+	giveitem ITEM_TR_VOLT_SWITCH
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	msgbox MauvilleCity_Gym_Text_ExplainShockWave, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Gym_Text_ExplainVoltSwitch, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_SHOCK_WAVE
 	release
 	end
 
 MauvilleCity_Gym_EventScript_GiveShockWave::
-	giveitem ITEM_TM_SHOCK_WAVE
+	giveitem ITEM_TM_CHARGE_BEAM
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
-	msgbox MauvilleCity_Gym_Text_ExplainShockWave, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Gym_Text_ExplainChargeBeam, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_SHOCK_WAVE
 	return
 
@@ -363,10 +363,16 @@ MauvilleCity_Gym_Text_ExplainDynamoBadgeTakeThis:
 	.string "Hmm…\n"
 	.string "You should take this, too!$"
 
-MauvilleCity_Gym_Text_ExplainShockWave:
-	.string "That TM34 there contains SHOCK WAVE.\p"
-	.string "It's a trustworthy move that never\n"
-	.string "misses! You can count on it!\p"
+MauvilleCity_Gym_Text_ExplainChargeBeam:
+	.string "That TM41 there contains Charge Beam.\p"
+	.string "It does damamge and can boost\n"
+	.string "Sp. Attack! A win-win!\p"
+	.string "… … … … … …$"
+	
+MauvilleCity_Gym_Text_ExplainVoltSwitch:
+	.string "That TR41 there contains Volt Switch.\p"
+	.string "Sometimes the best offense is a\n"
+	.string "a good pivot!\p"
 	.string "… … … … … …$"
 
 MauvilleCity_Gym_Text_RegisteredWattson:

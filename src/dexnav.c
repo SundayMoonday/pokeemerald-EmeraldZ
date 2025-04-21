@@ -143,10 +143,10 @@ static void Task_DexNavMain(u8 taskId);
 static void PrintCurrentSpeciesInfo(void);
 // SEARCH
 static bool8 TryStartHiddenMonFieldEffect(u8 environment, u8 xSize, u8 ySize, bool8 smallScan);
-static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16* moveDst);
-static u16 DexNavGenerateHeldItem(u16 species, u8 searchLevel);
-static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel);
-static u8 DexNavGeneratePotential(u8 searchLevel);
+static void DexNavGenerateMoveset(u16 species, u8 chain, u8 encounterLevel, u16* moveDst);
+static u16 DexNavGenerateHeldItem(u16 species, u8 chain);
+static u8 DexNavGetAbilityNum(u16 species, u8 chain);
+static u8 DexNavGeneratePotential(u8 chain);
 static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment);
 static u8 GetEncounterLevelFromMapData(u16 species, u8 environment);
 static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityNum, u16 item, u16* moves);
@@ -830,6 +830,7 @@ static void Task_SetUpDexNavSearch(u8 taskId)
 
     u16 species = sDexNavSearchDataPtr->species;
     u8 searchLevel = GetSearchLevel(SpeciesToNationalPokedexNum(species));
+	u8 chain = gSaveBlock3Ptr->dexNavChain;
 
     // init sprites
     sDexNavSearchDataPtr->iconSpriteId = MAX_SPRITES;
@@ -842,10 +843,10 @@ static void Task_SetUpDexNavSearch(u8 taskId)
     sDexNavSearchDataPtr->exclamationSpriteId = MAX_SPRITES;
     sDexNavSearchDataPtr->searchLevel = searchLevel;
 
-    DexNavGenerateMoveset(species, searchLevel, sDexNavSearchDataPtr->monLevel, &sDexNavSearchDataPtr->moves[0]);
-    sDexNavSearchDataPtr->heldItem = DexNavGenerateHeldItem(species, searchLevel);
-    sDexNavSearchDataPtr->abilityNum = DexNavGetAbilityNum(species, searchLevel);
-    sDexNavSearchDataPtr->potential = DexNavGeneratePotential(searchLevel);
+    DexNavGenerateMoveset(species, chain, sDexNavSearchDataPtr->monLevel, &sDexNavSearchDataPtr->moves[0]);
+    sDexNavSearchDataPtr->heldItem = DexNavGenerateHeldItem(species, chain);
+    sDexNavSearchDataPtr->abilityNum = DexNavGetAbilityNum(species, chain);
+    sDexNavSearchDataPtr->potential = DexNavGeneratePotential(chain);
     DexNavProximityUpdate();
 
     LoadSearchIconData();
@@ -1269,7 +1270,7 @@ static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
         return levelBase + levelBonus;
 }
 
-static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16* moveDst)
+static void DexNavGenerateMoveset(u16 species, u8 chain, u8 encounterLevel, u16* moveDst)
 {
     bool8 genMove = FALSE;
     u16 randVal = Random() % 100;
@@ -1277,27 +1278,27 @@ static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel
     u16 eggMoveBuffer[EGG_MOVES_ARRAY_COUNT];
 
     // see if first move slot should be an egg move
-    if (searchLevel < 5)
+    if (chain < 5)
     {
         if (SEARCHLEVEL0_MOVECHANCE != 0 && randVal < SEARCHLEVEL0_MOVECHANCE)
             genMove = TRUE;
     }
-    else if (searchLevel < 10)
+    else if (chain < 10)
     {
         if (SEARCHLEVEL5_MOVECHANCE != 0 && randVal < SEARCHLEVEL5_MOVECHANCE)
             genMove = TRUE;
     }
-    else if (searchLevel < 25)
+    else if (chain < 25)
     {
         if (SEARCHLEVEL10_MOVECHANCE != 0 && randVal < SEARCHLEVEL10_MOVECHANCE)
             genMove = TRUE;
     }
-    else if (searchLevel < 50)
+    else if (chain < 50)
     {
         if (SEARCHLEVEL25_MOVECHANCE != 0 && randVal < SEARCHLEVEL25_MOVECHANCE)
             genMove = TRUE;
     }
-    else if (searchLevel < 100)
+    else if (chain < 80)
     {
         if (SEARCHLEVEL50_MOVECHANCE != 0 && randVal < SEARCHLEVEL50_MOVECHANCE)
             genMove = TRUE;
@@ -1324,10 +1325,10 @@ static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel
     }
 }
 
-static u16 DexNavGenerateHeldItem(u16 species, u8 searchLevel)
+static u16 DexNavGenerateHeldItem(u16 species, u8 chain)
 {
     u16 randVal = Random() % 100;
-    u8 searchLevelInfluence = searchLevel >> 1;
+    u8 searchLevelInfluence = chain >> 1;
     u16 item1 = gSpeciesInfo[species].itemCommon;
     u16 item2 = gSpeciesInfo[species].itemRare;
 
@@ -1344,7 +1345,7 @@ static u16 DexNavGenerateHeldItem(u16 species, u8 searchLevel)
         return (randVal < 50) ? item1 : ITEM_NONE;
 
     // if both are distinct item1 = 50% + srclvl/2; item2 = 5% + srchlvl/2
-    if (randVal < (50 + searchLevelInfluence + 5 + searchLevel))
+    if (randVal < (50 + searchLevelInfluence + 5 + chain))
         return (randVal > 5 + searchLevelInfluence) ? item1 : item2;
     else
         return ITEM_NONE;
@@ -1352,41 +1353,41 @@ static u16 DexNavGenerateHeldItem(u16 species, u8 searchLevel)
     return ITEM_NONE;
 }
 
-static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
+static u8 DexNavGetAbilityNum(u16 species, u8 chain)
 {
     bool8 genAbility = FALSE;
     u16 randVal = Random() % 100;
     u8 abilityNum = 0;
 
-    if (searchLevel < 5)
+    if (chain < 5)
     {
         #if (SEARCHLEVEL0_ABILITYCHANCE != 0)
         if (randVal < SEARCHLEVEL0_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
-    else if (searchLevel < 10)
+    else if (chain < 10)
     {
         #if (SEARCHLEVEL5_ABILITYCHANCE != 0)
         if (randVal < SEARCHLEVEL5_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
-    else if (searchLevel < 25)
+    else if (chain < 25)
     {
         #if (SEARCHLEVEL10_ABILITYCHANCE != 0)
         if (randVal < SEARCHLEVEL10_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
-    else if (searchLevel < 50)
+    else if (chain < 50)
     {
         #if (SEARCHLEVEL25_ABILITYCHANCE != 0)
         if (randVal < SEARCHLEVEL25_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
-    else if (searchLevel < 100)
+    else if (chain < 100)
     {
         #if (SEARCHLEVEL50_ABILITYCHANCE != 0)
         if (randVal < SEARCHLEVEL50_ABILITYCHANCE)
@@ -1420,12 +1421,12 @@ static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
     return abilityNum;
 }
 
-static u8 DexNavGeneratePotential(u8 searchLevel)
+static u8 DexNavGeneratePotential(u8 chain)
 {
     u8 genChance = 0;
     int randVal = Random() % 100;
 
-    if (searchLevel < 5)
+    if (chain < 5)
     {
         genChance = SEARCHLEVEL0_ONESTAR + SEARCHLEVEL0_TWOSTAR + SEARCHLEVEL0_THREESTAR;
         if (randVal < genChance)
@@ -1439,7 +1440,7 @@ static u8 DexNavGeneratePotential(u8 searchLevel)
                 return 3;
         }
     }
-    else if (searchLevel < 10)
+    else if (chain < 10)
     {
         genChance = SEARCHLEVEL5_ONESTAR + SEARCHLEVEL5_TWOSTAR + SEARCHLEVEL5_THREESTAR;
         if (randVal < genChance)
@@ -1453,7 +1454,7 @@ static u8 DexNavGeneratePotential(u8 searchLevel)
                 return 3;
         }
     }
-    else if (searchLevel < 25)
+    else if (chain < 25)
     {
         genChance = SEARCHLEVEL10_ONESTAR + SEARCHLEVEL10_TWOSTAR + SEARCHLEVEL10_THREESTAR;
         if (randVal < genChance)
@@ -1467,7 +1468,7 @@ static u8 DexNavGeneratePotential(u8 searchLevel)
                 return 3;
         }
     }
-    else if (searchLevel < 50)
+    else if (chain < 50)
     {
         genChance = SEARCHLEVEL25_ONESTAR + SEARCHLEVEL25_TWOSTAR + SEARCHLEVEL25_THREESTAR;
         if (randVal < genChance)
@@ -1481,7 +1482,7 @@ static u8 DexNavGeneratePotential(u8 searchLevel)
                 return 3;
         }
     }
-    else if (searchLevel < 100)
+    else if (chain < 100)
     {
         genChance = SEARCHLEVEL50_ONESTAR + SEARCHLEVEL50_TWOSTAR + SEARCHLEVEL50_THREESTAR;
         if (randVal < genChance)

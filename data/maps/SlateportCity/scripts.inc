@@ -562,8 +562,10 @@ SlateportCity_EventScript_PowerTMClerk::
 
 	.align 2
 SlateportCity_Pokemart_PowerTMs:
-	.2byte ITEM_TM_HIDDEN_POWER
-	.2byte ITEM_TM_SECRET_POWER
+	.2byte ITEM_TR_SUNNY_DAY
+	.2byte ITEM_TR_RAIN_DANCE
+	.2byte ITEM_TR_SANDSTORM
+	.2byte ITEM_TR_SNOWSCAPE
 	pokemartlistend
 
 @ Scene with Capt Sterns interview and Team Aqua announcing plans to steal Submarine

@@ -289,6 +289,7 @@ static const u16 sVulpixEggMoveLearnset[] = {
     MOVE_HEX,
     MOVE_TAIL_SLAP,
     MOVE_CAPTIVATE,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #if P_ALOLAN_FORMS
@@ -937,6 +938,7 @@ static const u16 sDrowzeeEggMoveLearnset[] = {
     MOVE_SKILL_SWAP,
     MOVE_POWER_SPLIT,
     MOVE_PSYCHIC_TERRAIN,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_DROWZEE
@@ -1628,6 +1630,7 @@ static const u16 sSpinarakEggMoveLearnset[] = {
     MOVE_MEGAHORN,
     MOVE_LUNGE,
 	MOVE_NIGHT_DAZE,
+	MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_SPINARAK
@@ -1684,6 +1687,7 @@ static const u16 sNatuEggMoveLearnset[] = {
     MOVE_SKILL_SWAP,
     MOVE_SIMPLE_BEAM,
     MOVE_ALLY_SWITCH,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_NATU
@@ -2273,8 +2277,6 @@ static const u16 sSkarmoryEggMoveLearnset[] = {
 
 #if P_FAMILY_HOUNDOUR
 static const u16 sHoundourEggMoveLearnset[] = {
-    MOVE_FIRE_SPIN,
-    MOVE_RAGE,
     MOVE_PURSUIT,
     MOVE_COUNTER,
     MOVE_SPITE,
@@ -2288,6 +2290,7 @@ static const u16 sHoundourEggMoveLearnset[] = {
 	MOVE_KNAW,
     MOVE_SUCKER_PUNCH,
     MOVE_DESTINY_BOND,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_HOUNDOUR
@@ -3307,6 +3310,7 @@ static const u16 sChinglingEggMoveLearnset[] = {
     MOVE_SKILL_SWAP,
     MOVE_COSMIC_POWER,
 	MOVE_FAIRY_DANCE,
+	MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_GEN_4_CROSS_EVOS
@@ -3322,6 +3326,8 @@ static const u16 sChimechoEggMoveLearnset[] = {
     MOVE_COSMIC_POWER,
     MOVE_CRAFTY_SHIELD,
     MOVE_PERISH_SONG,
+	MOVE_FAIRY_DANCE,
+	MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_CHIMECHO
@@ -3446,6 +3452,7 @@ static const u16 sBagonEggMoveLearnset[] = {
     MOVE_DRAGON_PULSE,
     MOVE_ENDURE,
     MOVE_DEFENSE_CURL,
+    MOVE_DEATH_ROLL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_BAGON
@@ -4451,6 +4458,8 @@ static const u16 sSigilyphEggMoveLearnset[] = {
     MOVE_ROOST,
     MOVE_SKILL_SWAP,
     MOVE_FUTURE_SIGHT,
+    MOVE_MIND_POKE,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_SIGILYPH
@@ -4537,9 +4546,25 @@ static const u16 sZoruaEggMoveLearnset[] = {
     MOVE_EXTRASENSORY,
     MOVE_COUNTER,
     MOVE_COPYCAT,
-	MOVE_ICE_CLAW,
 	MOVE_FIRE_CLAW,
 	MOVE_THUNDER_CLAW,
+	MOVE_POISON_CLAW,
+	MOVE_MIND_POKE,
+    MOVE_UNAVAILABLE,
+};
+
+static const u16 sZoruaHisuiEggMoveLearnset[] = {
+    MOVE_DETECT,
+    MOVE_CAPTIVATE,
+    MOVE_DARK_PULSE,
+    MOVE_SNATCH,
+    MOVE_MEMENTO,
+    MOVE_SUCKER_PUNCH,
+    MOVE_EXTRASENSORY,
+    MOVE_COUNTER,
+    MOVE_COPYCAT,
+	MOVE_SPIRIT_CALL,
+	MOVE_ICE_CLAW,
 	MOVE_POISON_CLAW,
 	MOVE_MIND_POKE,
     MOVE_UNAVAILABLE,
@@ -4570,6 +4595,7 @@ static const u16 sGothitaEggMoveLearnset[] = {
     MOVE_MEAN_LOOK,
     MOVE_DARK_PULSE,
     MOVE_HEAL_PULSE,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_GOTHITA
@@ -4585,6 +4611,7 @@ static const u16 sSolosisEggMoveLearnset[] = {
     MOVE_SECRET_POWER,
     MOVE_ASTONISH,
     MOVE_HELPING_HAND,
+    MOVE_CUDGEL_SLAM,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_SOLOSIS
@@ -5008,6 +5035,7 @@ static const u16 sFennekinEggMoveLearnset[] = {
     MOVE_PSYCHIC_TERRAIN,
     MOVE_FAIRY_DANCE,
     MOVE_FIRE_CLAW,
+    MOVE_SPIRIT_CALL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_FENNEKIN
@@ -6237,6 +6265,7 @@ static const u16 sKlawfEggMoveLearnset[] = {
     MOVE_CRABHAMMER,
     MOVE_ENDEAVOR,
     MOVE_KNOCK_OFF,
+    MOVE_SCRAP_SHOT,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_KLAWF
@@ -6266,6 +6295,7 @@ static const u16 sRellorEggMoveLearnset[] = {
 static const u16 sFlittleEggMoveLearnset[] = {
     MOVE_ALLY_SWITCH,
     MOVE_HYPNOSIS,
+    MOVE_MIND_POKE,
     MOVE_ROOST,
     MOVE_UNAVAILABLE,
 };
@@ -6327,6 +6357,8 @@ static const u16 sCyclizarEggMoveLearnset[] = {
     MOVE_IRON_TAIL,
     MOVE_KNOCK_OFF,
     MOVE_POWER_WHIP,
+    MOVE_SCRAP_SHOT,
+    MOVE_SCALE_SHOT,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_CYCLIZAR
@@ -6336,6 +6368,7 @@ static const u16 sOrthwormEggMoveLearnset[] = {
     MOVE_COIL,
     MOVE_CURSE,
     MOVE_METAL_BURST,
+	MOVE_TAKE_DOWN,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_ORTHWORM
@@ -6345,6 +6378,7 @@ static const u16 sGlimmetEggMoveLearnset[] = {
     MOVE_EXPLOSION,
     MOVE_MEMENTO,
     MOVE_TOXIC,
+    MOVE_SCRAP_SHOT,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_GLIMMET
@@ -6358,6 +6392,8 @@ static const u16 sGreavardEggMoveLearnset[] = {
     MOVE_MEMENTO,
     MOVE_SHADOW_SNEAK,
     MOVE_YAWN,
+    MOVE_KNAW,
+    MOVE_CHARM,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_GREAVARD
@@ -6386,6 +6422,7 @@ static const u16 sCetoddleEggMoveLearnset[] = {
 static const u16 sVeluzaEggMoveLearnset[] = {
     MOVE_RECOVER,
     MOVE_THRASH,
+    MOVE_DEATH_ROLL,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_VELUZA
@@ -6396,6 +6433,7 @@ static const u16 sDondozoEggMoveLearnset[] = {
     MOVE_FISSURE,
     MOVE_THRASH,
     MOVE_YAWN,
+    MOVE_DRAGON_SONG,
     MOVE_UNAVAILABLE,
 };
 #endif //P_FAMILY_DONDOZO

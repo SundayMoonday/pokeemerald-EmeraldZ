@@ -750,7 +750,7 @@
       "x": 37,
       "y": 67,
       "elevation": 3,
-      "item": "ITEM_FULL_HEAL",
+      "item": "ITEM_TM_NUZZLE",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_110_FULL_HEAL"
     },
     {

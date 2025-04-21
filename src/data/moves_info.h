@@ -203,7 +203,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .effect = EFFECT_MULTI_HIT,
         .power = 18,
         .type = TYPE_FAIRY,
-        .accuracy = 85,
+        .accuracy = 95,
         .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
@@ -9105,7 +9105,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .name = COMPOUND_STRING("Wake-Up Slap"),
         .description = COMPOUND_STRING(
             "Powerful against sleeping\n"
-            "foes, but also heals them."),
+            "foes, but also wakes them."),
         .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
         .power = B_UPDATED_MOVE_DATA >= GEN_6 ? 70 : 60,
         .type = TYPE_FIGHTING,
@@ -20901,7 +20901,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .name = COMPOUND_STRING("Scrap Shot"),
         .description = COMPOUND_STRING(
             "Shoots scrap 2 to 5 times.\n"
-            "Ups Speed, lowers defense."),
+            "Ups Speed, lowers Defense."),
         .effect = EFFECT_MULTI_HIT,
         .power = 25,
         .type = TYPE_STEEL,
@@ -21172,6 +21172,59 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
         .battleAnimScript = gBattleAnimMove_FairyDance,
+    },
+	
+	[MOVE_SPIRIT_CALL] =
+    {
+        .name = COMPOUND_STRING("Spirit Call"),
+        .description = COMPOUND_STRING(
+            "Summons 2-5 spirits, may\n"
+            "paralyze, poison or sleep/"),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 18,
+        .type = TYPE_GHOST,
+        .accuracy = 95,
+        .pp = 30,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DIRE_CLAW,
+            .chance = 8,
+        }),
+        .contestEffect = CONTEST_EFFECT_STARTLE_PREV_MONS,
+        .contestCategory = CONTEST_CATEGORY_SMART,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {0},
+        .battleAnimScript = gBattleAnimMove_SpiritCall,
+    },
+	
+	[MOVE_FALSE_TACKLE] =
+    {
+        .name = COMPOUND_STRING("Tackle"),
+        .description = COMPOUND_STRING(
+            "Charges the foe with a full-\n"
+            "body tackle."),
+        #if B_UPDATED_MOVE_DATA >= GEN_7
+            .power = 40,
+        #elif B_UPDATED_MOVE_DATA >= GEN_5
+            .power = 50,
+        #else
+            .power = 35,
+        #endif
+        .effect = EFFECT_FALSE_SWIPE,
+        .type = TYPE_NORMAL,
+        .accuracy = B_UPDATED_MOVE_DATA >= GEN_5 ? 100 : 95,
+        .pp = 35,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .contestEffect = CONTEST_EFFECT_HIGHLY_APPEALING,
+        .contestCategory = CONTEST_CATEGORY_TOUGH,
+        .contestComboStarterId = 0,
+        .contestComboMoves = {COMBO_STARTER_DEFENSE_CURL, COMBO_STARTER_HARDEN, COMBO_STARTER_LEER},
+        .battleAnimScript = gBattleAnimMove_Tackle,
     },
 
     // Z-Moves

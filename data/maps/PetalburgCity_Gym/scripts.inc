@@ -339,7 +339,10 @@ PetalburgCity_Gym_EventScript_NormanPostBattle::
 	end
 
 PetalburgCity_Gym_EventScript_GiveFacade2::
-	call PetalburgCity_Gym_EventScript_GiveFacade
+	giveitem ITEM_TR_FAKE_OUT
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_FACADE
+	msgbox PetalburgCity_Gym_Text_ExplainFakeOut, MSGBOX_DEFAULT
 	release
 	end
 
@@ -1291,12 +1294,20 @@ PetalburgCity_Gym_Text_ExplainBalanceBadgeTakeThis:
 	.string "sure you can use it correctly.$"
 
 PetalburgCity_Gym_Text_ExplainFacade:
-	.string "DAD: TM42 contains FACADE.\p"
+	.string "DAD: TM12 contains Facade.\p"
 	.string "It doubles the power of moves if\n"
 	.string "the POKéMON is poisoned, paralyzed,\l"
 	.string "or burned.\p"
 	.string "It might be able to turn a bad\n"
 	.string "situation into an advantage.$"
+	
+PetalburgCity_Gym_Text_ExplainFakeOut:
+	.string "DAD: TR37 contains Fake Out.\p"
+	.string "It will strike first and flinch\n"
+	.string "flinch the foe.\p"
+	.string "But remember, Fake Out is a\n"
+	.string "trick that will only work the\l"
+	.string "first turn the POKéMON is out.$"
 
 PetalburgCity_Gym_Text_DadHappyAndSad:
 	.string "DAD: As the GYM LEADER, I can't\n"

@@ -935,6 +935,10 @@ void AnimTask_SwitchOutBallEffect(u8 taskId)
 void AnimTask_LoadBallGfx(u8 taskId)
 {
     enum PokeBall ballId = ItemIdToBallId(gLastUsedItem);
+	if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
+    {
+		ballId = BALL_PREMIER;
+    }
     LoadBallGfx(ballId);
     DestroyAnimVisualTask(taskId);
 }
@@ -991,11 +995,13 @@ void AnimTask_ThrowBall_StandingTrainer(u8 taskId)
     enum PokeBall ballId;
     u8 subpriority;
     u8 spriteId;
-
+	
+	ballId = ItemIdToBallId(gLastUsedItem);
     if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
     {
         x = 32;
         y = 11;
+		ballId = BALL_PREMIER;
     }
     else
     {
@@ -1003,7 +1009,7 @@ void AnimTask_ThrowBall_StandingTrainer(u8 taskId)
         y = 5;
     }
 
-    ballId = ItemIdToBallId(gLastUsedItem);
+    
     subpriority = GetBattlerSpriteSubpriority(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)) + 1;
     spriteId = CreateSprite(&gBallSpriteTemplates[ballId], x + 32, y | 80, subpriority);
     gSprites[spriteId].sDuration = 34;

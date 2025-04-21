@@ -41,12 +41,12 @@
 #define SEARCHLEVEL50_ABILITYCHANCE     35
 #define SEARCHLEVEL100_ABILITYCHANCE    40
 // Chance of encountering held item
-#define SEARCHLEVEL0_ITEM               5
-#define SEARCHLEVEL5_ITEM               0
-#define SEARCHLEVEL10_ITEM              1
-#define SEARCHLEVEL25_ITEM              7
-#define SEARCHLEVEL50_ITEM              6
-#define SEARCHLEVEL100_ITEM             12
+#define SEARCHLEVEL0_ITEM               0
+#define SEARCHLEVEL5_ITEM               1
+#define SEARCHLEVEL10_ITEM              7
+#define SEARCHLEVEL25_ITEM              15
+#define SEARCHLEVEL50_ITEM              30
+#define SEARCHLEVEL100_ITEM             50
 // Chance of encountering one star potential
 #define SEARCHLEVEL0_ONESTAR            0
 #define SEARCHLEVEL5_ONESTAR            14

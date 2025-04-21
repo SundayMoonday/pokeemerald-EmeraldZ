@@ -1721,6 +1721,8 @@ const u32 gItemIconPalette_MarangaBerry[] = INCBIN_U32("graphics/items/icon_pale
 
 const u32 gItemIcon_TM[] = INCBIN_U32("graphics/items/icons/tm.4bpp.lz");
 
+const u32 gItemIcon_TR[] = INCBIN_U32("graphics/items/icons/tr.4bpp.lz");
+
 const u32 gItemIcon_HM[] = INCBIN_U32("graphics/items/icons/hm.4bpp.lz");
 
 const u32 gItemIconPalette_NormalTMHM[] = INCBIN_U32("graphics/items/icon_palettes/normal_tm_hm.gbapal.lz");

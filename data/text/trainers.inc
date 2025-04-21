@@ -237,7 +237,7 @@ Route103_Text_MarcosIntro:
 	.string "Did my guitar's wailing draw you in?$"
 
 Route103_Text_MarcosDefeated:
-	.string "My one-man show is ruined…$"
+	.string "Dude, where's my vape…$"
 
 Route103_Text_MarcosPostBattle:
 	.string "I was playing my guitar where few\n"

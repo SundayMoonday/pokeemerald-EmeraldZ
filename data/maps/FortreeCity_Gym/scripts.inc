@@ -50,9 +50,9 @@ FortreeCity_Gym_EventScript_WinonaDefeated::
 	end
 
 FortreeCity_Gym_EventScript_GiveAerialAce2::
-	giveitem ITEM_TM_AERIAL_ACE
+	giveitem ITEM_TR_TAILWIND
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	msgbox FortreeCity_Gym_Text_ExplainAerialAce, MSGBOX_DEFAULT
+	msgbox FortreeCity_Gym_Text_ExplainTailWind, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM_AERIAL_ACE
 	release
 	end
@@ -263,9 +263,15 @@ FortreeCity_Gym_Text_ExplainFeatherBadgeTakeThis:
 	.string "This is a gift from me.$"
 
 FortreeCity_Gym_Text_ExplainAerialAce:
-	.string "TM40 contains AERIAL ACE.\p"
+	.string "TM49 contains Aerial Ace.\p"
 	.string "Its speed…\n"
 	.string "No POKéMON should be able to avoid it.\p"
+	.string "… … … … … …$"
+	
+FortreeCity_Gym_Text_ExplainTailWind:
+	.string "TR50 contains Tailwind.\p"
+	.string "Its summons a tailwind behind\n"
+	.string "behind your team to boost Speed…\p"
 	.string "… … … … … …$"
 
 FortreeCity_Gym_Text_RegisteredWinona:
